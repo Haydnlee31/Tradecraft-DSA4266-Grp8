@@ -1,4 +1,4 @@
-# Edge Sentinel — Project Context for Claude Code
+# Tradecraft — Project Context for Claude Code
 
 This file gives Claude Code the working context for this repository. Read it before
 making architectural suggestions, adding dependencies, or re-opening scope decisions

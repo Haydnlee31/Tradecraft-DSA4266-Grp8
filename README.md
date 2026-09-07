@@ -1,4 +1,4 @@
-# Edge Sentinel
+# Tradecraft
 
 IoT network intrusion classification on CICIoT2023, comparing centralized-heavy,
 centralized-light, and federated-light training/deployment settings, with SHAP-based
