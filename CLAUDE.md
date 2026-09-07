@@ -71,9 +71,14 @@ reference for feature selection but not binding — this project uses the fuller
   slices. Never report bare accuracy as the headline metric — macro-F1 and per-class
   recall are the real metrics. A model that ignores rare classes and still scores
   95%+ accuracy is a failure, not a result.
-- The Kaggle mirror (`himadri07/ciciot2023`) may be a partial/merged version of the
-  original UNB release — verify its file listing and column set against the official
-  CIC page before finalizing the preprocessing pipeline.
+- The Kaggle mirror (`himadri07/ciciot2023`) **is confirmed partial/merged**: it ships
+  pre-split into `train.csv`/`validation.csv`/`test.csv` (~7.84M rows total, not the
+  original 169-file layout), roughly 17% of the official ~46M-row release. All 34 raw
+  labels are present in every split and match `src/data/label_map.py` exactly (47
+  columns, same names assumed there). Because the split boundary is already fixed
+  upstream, the pipeline respects it (`src/data/sample_dataset.py` samples within each
+  given split rather than re-splitting) instead of building its own train/val/test
+  split from a pooled sample.
 
 ## Repository structure (target)
 

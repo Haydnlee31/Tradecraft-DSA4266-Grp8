@@ -35,3 +35,6 @@ reports/figures/*.tmp
 # Secrets
 .env
 kaggle.json
+
+# Claude Code session/harness state
+.claude/
