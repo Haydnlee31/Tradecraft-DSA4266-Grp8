@@ -1,0 +1,37 @@
+# Data — never commit raw or intermediate data
+data/raw/*
+!data/raw/.gitkeep
+data/sampled/*
+!data/sampled/.gitkeep
+data/splits/*
+!data/splits/.gitkeep
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+*.egg-info/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Training artifacts
+*.pt
+*.pth
+*.ckpt
+runs/
+wandb/
+mlruns/
+
+# Reports (keep the write-up itself and figures, ignore scratch outputs)
+reports/figures/*.tmp
+
+# OS / editor
+.DS_Store
+.vscode/
+.idea/
+
+# Secrets
+.env
+kaggle.json

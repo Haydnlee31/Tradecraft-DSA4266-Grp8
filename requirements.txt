@@ -1,0 +1,12 @@
+polars>=1.0
+dask[dataframe]>=2024.1
+pyarrow>=15.0
+torch>=2.2
+flwr>=1.8
+scikit-learn>=1.4
+shap>=0.45
+numpy>=1.26
+pandas>=2.2
+matplotlib>=3.8
+kaggle>=1.6
+tqdm>=4.66
