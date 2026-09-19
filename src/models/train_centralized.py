@@ -24,28 +24,65 @@ from src.data.label_map import CLASSES
 from src.eval.metrics import compute_metrics
 from src.models.architectures import HEAVY_CONFIG, LIGHT_CONFIG, MLPClassifier
 from src.models.dataset import build_dataloaders
-from src.models.losses import FocalLoss, class_weights_from_counts
+from src.models.losses import (
+    FocalLoss,
+    class_weights_from_counts,
+    sqrt_class_weights_from_counts,
+)
 from src.models.train import Trainer
 
 ROOT = Path(__file__).resolve().parents[2]
 REPORTS_DIR = ROOT / "reports"
 
 
-def build_criterion(loss_name: str, class_counts: dict[str, int]) -> torch.nn.Module:
-    weights = class_weights_from_counts(class_counts, CLASSES)
+def build_criterion(
+    loss_name: str,
+    class_counts: dict[str, int],
+) -> torch.nn.Module:
+
     if loss_name == "ce":
         return torch.nn.CrossEntropyLoss()
+
     if loss_name == "weighted_ce":
+        weights = class_weights_from_counts(
+            class_counts,
+            CLASSES,
+        )
         return torch.nn.CrossEntropyLoss(weight=weights)
+
+    if loss_name == "sqrt_weighted_ce":
+        weights = sqrt_class_weights_from_counts(
+            class_counts,
+            CLASSES,
+        )
+        return torch.nn.CrossEntropyLoss(weight=weights)
+
     if loss_name == "focal":
-        return FocalLoss(alpha=weights, gamma=2.0)
+        weights = class_weights_from_counts(
+            class_counts,
+            CLASSES,
+        )
+        return FocalLoss(
+            alpha=weights,
+            gamma=2.0,
+        )
+
     raise ValueError(f"unknown loss: {loss_name}")
 
 
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument("--variant", choices=["heavy", "light"], required=True)
-    parser.add_argument("--loss", choices=["ce", "weighted_ce", "focal"], default="weighted_ce")
+    parser.add_argument(
+        "--loss",
+        choices=[
+            "ce",
+            "weighted_ce",
+            "sqrt_weighted_ce",
+            "focal",
+    ],
+    default="weighted_ce",
+)
     parser.add_argument("--epochs", type=int, default=30)
     parser.add_argument(
         "--batch-size", type=int, default=512,
@@ -75,6 +112,33 @@ def main() -> None:
 
     trainer = Trainer(model, criterion, lr=args.lr, l1_lambda=args.l1_lambda, patience=args.patience)
     history = trainer.fit(data["loaders"]["train"], data["loaders"]["val"], epochs=args.epochs)
+    
+    # save best restored model
+    CHECKPOINT_DIR = ROOT / "models" / "checkpoints"
+    CHECKPOINT_DIR.mkdir(parents=True, exist_ok=True)
+
+    checkpoint_path = CHECKPOINT_DIR / (
+        f"{config.name}_{args.loss}_seed{args.seed}.pt"
+    )
+
+    torch.save(
+        {
+            "model_state_dict": model.state_dict(),
+            "config": {
+                "hidden_dims": config.hidden_dims,
+                "dropout": config.dropout,
+            },
+            "num_features": data["num_features"],
+            "num_classes": data["num_classes"],
+            "feature_columns": data["feature_columns"],
+            "classes": CLASSES,
+            "loss": args.loss,
+            "seed": args.seed,
+        },
+        checkpoint_path,
+    )
+
+    print(f"Saved checkpoint to {checkpoint_path}")
 
     test_logits, y_true = trainer.predict(data["loaders"]["test"])
     y_pred = test_logits.argmax(axis=1)

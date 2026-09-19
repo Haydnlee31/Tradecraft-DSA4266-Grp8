@@ -44,6 +44,21 @@ def class_weights_from_counts(counts: dict[str, int], classes: list[str]) -> tor
     weights = weights * (len(classes) / weights.sum())
     return weights
 
+def sqrt_class_weights_from_counts(
+    counts: dict[str, int],
+    classes: list[str],
+) -> torch.Tensor:
+    """Softer inverse-frequency weighting using 1 / sqrt(class frequency)."""
+    freqs = torch.tensor(
+        [counts[c] for c in classes],
+        dtype=torch.float32,
+    )
+
+    weights = 1.0 / torch.sqrt(freqs)
+    weights = weights * (len(classes) / weights.sum())
+
+    return weights
+
 
 class FocalLoss(nn.Module):
     """Multi-class focal loss (Lin et al., 2017), operating on raw logits."""
