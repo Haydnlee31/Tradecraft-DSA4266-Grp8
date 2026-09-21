@@ -1,109 +1,158 @@
-"""pytorchexample: A Flower / PyTorch app."""
+"""fed_ciciot: CICIoT2023 data loading, centralized-light MLP, and train/test for Flower."""
 
+from __future__ import annotations
+
+import os
+from pathlib import Path
+
+import joblib
+import numpy as np
+import polars as pl
 import torch
-import torch.nn as nn
-import torch.nn.functional as F
-from datasets import load_dataset
-from flwr_datasets import FederatedDataset
-from flwr_datasets.partitioner import IidPartitioner
-from torch.utils.data import DataLoader
-from torchvision.transforms import Compose, Normalize, ToTensor
+from sklearn.preprocessing import StandardScaler
+from torch.utils.data import DataLoader, TensorDataset
+
+from src.data.label_map import CLASSES
+from src.models.architectures import LIGHT_CONFIG, MLPClassifier
+
+ROOT = Path(__file__).resolve().parents[2]
+# Flower runs a packaged copy of the app, so data/ (gitignored) isn't next to this file.
+SPLITS_DIR = Path(os.environ.get("CICIOT_SPLITS_DIR", ROOT / "data" / "splits"))
+TRAIN_PATH = SPLITS_DIR / "train.parquet"
+VAL_PATH = SPLITS_DIR / "val.parquet"
+TEST_PATH = SPLITS_DIR / "test.parquet"
+SCALER_PATH = SPLITS_DIR / "feature_scaler.joblib"
+
+META_COLS = frozenset(("label", "class", "source_file"))
+CLASS_TO_IDX = {c: i for i, c in enumerate(CLASSES)}
+NUM_FEATURES = 46
+NUM_CLASSES = len(CLASSES)
+
+_scaler: StandardScaler | None = None  # Cache per process
+_feat_cols: list[str] | None = None
 
 
-class Net(nn.Module):
-    """Model (simple CNN adapted from 'PyTorch: A 60 Minute Blitz')"""
-
-    def __init__(self):
-        super(Net, self).__init__()
-        self.conv1 = nn.Conv2d(3, 6, 5)
-        self.pool = nn.MaxPool2d(2, 2)
-        self.conv2 = nn.Conv2d(6, 16, 5)
-        self.fc1 = nn.Linear(16 * 5 * 5, 120)
-        self.fc2 = nn.Linear(120, 84)
-        self.fc3 = nn.Linear(84, 10)
-
-    def forward(self, x):
-        x = self.pool(F.relu(self.conv1(x)))
-        x = self.pool(F.relu(self.conv2(x)))
-        x = x.view(-1, 16 * 5 * 5)
-        x = F.relu(self.fc1(x))
-        x = F.relu(self.fc2(x))
-        return self.fc3(x)
+def configure(run_config) -> None:
+    """Point the data paths at run_config["splits-dir"] (empty = keep the default)."""
+    global SPLITS_DIR, TRAIN_PATH, VAL_PATH, TEST_PATH, SCALER_PATH, _scaler, _feat_cols
+    splits_dir = str(run_config.get("splits-dir", "") or "")
+    if not splits_dir or Path(splits_dir) == SPLITS_DIR:
+        return
+    SPLITS_DIR = Path(splits_dir)
+    TRAIN_PATH = SPLITS_DIR / "train.parquet"
+    VAL_PATH = SPLITS_DIR / "val.parquet"
+    TEST_PATH = SPLITS_DIR / "test.parquet"
+    SCALER_PATH = SPLITS_DIR / "feature_scaler.joblib"
+    _scaler = _feat_cols = None
 
 
-fds = None  # Cache FederatedDataset
+def Net() -> MLPClassifier:
+    """Centralized-light MLP (64-32) so federated results compare directly to that lane."""
+    return MLPClassifier(in_features=NUM_FEATURES, num_classes=NUM_CLASSES, config=LIGHT_CONFIG)
 
-pytorch_transforms = Compose([ToTensor(), Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))])
+
+def _init_scaler() -> None:
+    """Load the train-fitted scaler, computing it from streamed train stats if absent.
+
+    Never loads the full train split, so many concurrent clients stay light.
+    """
+    global _scaler, _feat_cols
+    if _scaler is not None:
+        return
+
+    names = pl.scan_parquet(TRAIN_PATH).collect_schema().names()
+    _feat_cols = [c for c in names if c not in META_COLS]
+
+    if not SCALER_PATH.exists():
+        lf = pl.scan_parquet(TRAIN_PATH)
+        mean = np.array(lf.select(_feat_cols).mean().collect(engine="streaming").row(0))
+        std = np.array(lf.select(_feat_cols).std(ddof=0).collect(engine="streaming").row(0))
+        n_rows = lf.select(pl.len()).collect(engine="streaming").item()
+        scaler = StandardScaler()
+        scaler.mean_ = mean
+        scaler.scale_ = np.where(std == 0, 1.0, std)
+        scaler.var_ = std**2
+        scaler.n_features_in_ = len(_feat_cols)
+        scaler.n_samples_seen_ = n_rows
+        SPLITS_DIR.mkdir(parents=True, exist_ok=True)
+        tmp = SCALER_PATH.with_suffix(f".tmp{os.getpid()}")
+        joblib.dump(scaler, tmp)
+        os.replace(tmp, SCALER_PATH)  # Atomic: parallel clients never read a half-written file
+
+    _scaler = joblib.load(SCALER_PATH)
 
 
-def apply_transforms(batch):
-    """Apply transforms to the partition from FederatedDataset."""
-    batch["img"] = [pytorch_transforms(img) for img in batch["img"]]
-    return batch
+def _to_tensors(df: pl.DataFrame) -> TensorDataset:
+    X = _scaler.transform(df.select(_feat_cols).to_numpy()).astype(np.float32)
+    y = np.array([CLASS_TO_IDX[c] for c in df["class"].to_list()], dtype=np.int64)
+    return TensorDataset(torch.from_numpy(X), torch.from_numpy(y))
+
+
+def _load_slice(path: Path, partition_id: int, num_partitions: int) -> TensorDataset:
+    """Load every num_partitions-th row of a parquet split.
+
+    The parquets are ordered by label, so this gives each client a balanced,
+    deterministic sample of every class without loading the whole file.
+    """
+    df = (
+        pl.scan_parquet(path)
+        .with_row_index("_row")
+        .filter(pl.col("_row") % num_partitions == partition_id)
+        .select(_feat_cols + ["class"])
+        .collect(engine="streaming")
+    )
+    return _to_tensors(df)
 
 
 def load_data(partition_id: int, num_partitions: int, batch_size: int):
-    """Load partition CIFAR10 data."""
-    # Only initialize `FederatedDataset` once
-    global fds
-    if fds is None:
-        partitioner = IidPartitioner(num_partitions=num_partitions)
-        fds = FederatedDataset(
-            dataset="uoft-cs/cifar10",
-            partitioners={"train": partitioner},
-        )
-    partition = fds.load_partition(partition_id)
-    # Divide data on each node: 80% train, 20% test
-    partition_train_test = partition.train_test_split(test_size=0.2, seed=42)
-    # Construct dataloaders
-    partition_train_test = partition_train_test.with_transform(apply_transforms)
+    """Load this client's slice of train.parquet (train) and val.parquet (val)."""
+    _init_scaler()
     trainloader = DataLoader(
-        partition_train_test["train"], batch_size=batch_size, shuffle=True
+        _load_slice(TRAIN_PATH, partition_id, num_partitions), batch_size=batch_size, shuffle=True
     )
-    testloader = DataLoader(partition_train_test["test"], batch_size=batch_size)
-    return trainloader, testloader
+    valloader = DataLoader(
+        _load_slice(VAL_PATH, partition_id, num_partitions), batch_size=batch_size
+    )
+    return trainloader, valloader
 
 
-def load_centralized_dataset():
-    """Load test set and return dataloader."""
-    # Load entire test set
-    test_dataset = load_dataset("uoft-cs/cifar10", split="test")
-    dataset = test_dataset.with_format("torch").with_transform(apply_transforms)
-    return DataLoader(dataset, batch_size=128)
+def load_centralized_dataset(batch_size: int = 512):
+    """Load the full test split for server-side global evaluation."""
+    _init_scaler()
+    df = pl.read_parquet(TEST_PATH, columns=_feat_cols + ["class"])
+    return DataLoader(_to_tensors(df), batch_size=batch_size)
 
 
 def train(net, trainloader, epochs, lr, device):
     """Train the model on the training set."""
-    net.to(device)  # move model to GPU if available
+    net.to(device)
     criterion = torch.nn.CrossEntropyLoss().to(device)
-    optimizer = torch.optim.SGD(net.parameters(), lr=lr, momentum=0.9)
+    optimizer = torch.optim.Adam(net.parameters(), lr=lr)
     net.train()
     running_loss = 0.0
     for _ in range(epochs):
-        for batch in trainloader:
-            images = batch["img"].to(device)
-            labels = batch["label"].to(device)
+        for X, y in trainloader:
+            X, y = X.to(device), y.to(device)
             optimizer.zero_grad()
-            loss = criterion(net(images), labels)
+            loss = criterion(net(X), y)
             loss.backward()
             optimizer.step()
             running_loss += loss.item()
-    avg_trainloss = running_loss / (epochs * len(trainloader))
-    return avg_trainloss
+    return running_loss / (epochs * len(trainloader))
 
 
 def test(net, testloader, device):
     """Validate the model on the test set."""
     net.to(device)
+    net.eval()
     criterion = torch.nn.CrossEntropyLoss()
     correct, loss = 0, 0.0
     with torch.no_grad():
-        for batch in testloader:
-            images = batch["img"].to(device)
-            labels = batch["label"].to(device)
-            outputs = net(images)
-            loss += criterion(outputs, labels).item()
-            correct += (torch.max(outputs.data, 1)[1] == labels).sum().item()
+        for X, y in testloader:
+            X, y = X.to(device), y.to(device)
+            logits = net(X)
+            loss += criterion(logits, y).item()
+            correct += (logits.argmax(dim=1) == y).sum().item()
     accuracy = correct / len(testloader.dataset)
     loss = loss / len(testloader)
     return loss, accuracy
