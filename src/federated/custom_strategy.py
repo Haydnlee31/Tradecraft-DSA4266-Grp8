@@ -12,7 +12,7 @@ from flwr.serverapp import Grid
 from flwr.serverapp.strategy import FedAdagrad, Result
 from flwr.serverapp.strategy.strategy_utils import log_strategy_start_info
 
-PROJECT_NAME = "fed_ciciot"
+PROJECT_NAME = "fed-ciciot"
 FEDERATED_DIR = Path(__file__).resolve().parent
 
 

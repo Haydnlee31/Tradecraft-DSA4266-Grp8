@@ -3,7 +3,7 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [project]
-name = "ciciot_fed"
+name = "fed-ciciot"
 version = "0.1.0"
 description = "Federated learning simulation for IoT network intrusion detection on CICIoT2023"
 license = {file = "LICENSE"}
