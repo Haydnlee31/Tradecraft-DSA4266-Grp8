@@ -1,11 +1,14 @@
 """fed_ciciot: Flower ServerApp for CICIoT2023 federated learning simulation."""
 
+from pathlib import Path
+
 import torch
 from flwr.app import ArrayRecord, ConfigRecord, Context, MetricRecord
 from flwr.serverapp import Grid, ServerApp
 from flwr.serverapp.strategy import FedAvg, FedAdagrad
 from src.federated.custom_strategy import FEDERATED_DIR, CustomFedAdagrad
 
+from src.federated import task_claude
 from src.federated.task_claude import Net, load_centralized_dataset, test
 
 from datetime import datetime
@@ -17,6 +20,8 @@ app = ServerApp()
 @app.main()
 def main(grid: Grid, context: Context) -> None:
     """Main entry point for the ServerApp."""
+
+    task_claude.configure(context.run_config)
 
     # Read run config
     fraction_evaluate: float = context.run_config["fraction-evaluate"]
@@ -34,7 +39,8 @@ def main(grid: Grid, context: Context) -> None:
     current_time = datetime.now()
     run_dir = current_time.strftime("%Y-%m-%d/%H-%M-%S")
     # Save path is based on the current directory
-    save_path = FEDERATED_DIR / "outputs" / run_dir
+    out_base = Path(context.run_config.get("output-dir") or FEDERATED_DIR)
+    save_path = out_base / "outputs" / run_dir
     save_path.mkdir(parents=True, exist_ok=False)
 
     # Set the path where results and model checkpoints will be saved

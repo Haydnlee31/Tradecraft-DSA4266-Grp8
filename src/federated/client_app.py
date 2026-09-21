@@ -4,6 +4,7 @@ import torch
 from flwr.app import ArrayRecord, Context, Message, MetricRecord, RecordDict
 from flwr.clientapp import ClientApp
 
+from src.federated import task_claude
 from src.federated.task_claude import Net, load_data
 from src.federated.task_claude import test as test_fn
 from src.federated.task_claude import train as train_fn
@@ -18,6 +19,7 @@ app = ClientApp()
 def train(msg: Message, context: Context):
     """Train the model on local data."""
 
+    task_claude.configure(context.run_config)
     start_time = time.time()
     
     # Load the model and initialize it with the received weights
@@ -59,6 +61,8 @@ def train(msg: Message, context: Context):
 @app.evaluate()
 def evaluate(msg: Message, context: Context):
     """Evaluate the model on local data."""
+
+    task_claude.configure(context.run_config)
 
     # Load the model and initialize it with the received weights
     model = Net()

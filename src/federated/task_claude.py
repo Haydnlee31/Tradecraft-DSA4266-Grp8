@@ -16,7 +16,8 @@ from src.data.label_map import CLASSES
 from src.models.architectures import LIGHT_CONFIG, MLPClassifier
 
 ROOT = Path(__file__).resolve().parents[2]
-SPLITS_DIR = ROOT / "data" / "splits"
+# Flower runs a packaged copy of the app, so data/ (gitignored) isn't next to this file.
+SPLITS_DIR = Path(os.environ.get("CICIOT_SPLITS_DIR", ROOT / "data" / "splits"))
 TRAIN_PATH = SPLITS_DIR / "train.parquet"
 VAL_PATH = SPLITS_DIR / "val.parquet"
 TEST_PATH = SPLITS_DIR / "test.parquet"
@@ -29,6 +30,20 @@ NUM_CLASSES = len(CLASSES)
 
 _scaler: StandardScaler | None = None  # Cache per process
 _feat_cols: list[str] | None = None
+
+
+def configure(run_config) -> None:
+    """Point the data paths at run_config["splits-dir"] (empty = keep the default)."""
+    global SPLITS_DIR, TRAIN_PATH, VAL_PATH, TEST_PATH, SCALER_PATH, _scaler, _feat_cols
+    splits_dir = str(run_config.get("splits-dir", "") or "")
+    if not splits_dir or Path(splits_dir) == SPLITS_DIR:
+        return
+    SPLITS_DIR = Path(splits_dir)
+    TRAIN_PATH = SPLITS_DIR / "train.parquet"
+    VAL_PATH = SPLITS_DIR / "val.parquet"
+    TEST_PATH = SPLITS_DIR / "test.parquet"
+    SCALER_PATH = SPLITS_DIR / "feature_scaler.joblib"
+    _scaler = _feat_cols = None
 
 
 def Net() -> MLPClassifier:

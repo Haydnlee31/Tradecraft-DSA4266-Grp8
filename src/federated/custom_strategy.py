@@ -63,7 +63,7 @@ class CustomFedAdagrad(FedAdagrad):
 
         # Init W&B
         name = f"{str(self.save_path.parent.name)}/{str(self.save_path.name)}-ServerApp"
-        wandb.init(project=PROJECT_NAME, name=name, dir=str(FEDERATED_DIR))
+        wandb.init(project=PROJECT_NAME, name=name, dir=str(self.save_path.parents[2]))
 
         # Keep track of best acc
         self.best_acc_so_far = 0.0
