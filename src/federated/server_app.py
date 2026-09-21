@@ -4,12 +4,11 @@ import torch
 from flwr.app import ArrayRecord, ConfigRecord, Context, MetricRecord
 from flwr.serverapp import Grid, ServerApp
 from flwr.serverapp.strategy import FedAvg, FedAdagrad
-from fed_ciciot.custom_strategy import CustomFedAdagrad
+from src.federated.custom_strategy import FEDERATED_DIR, CustomFedAdagrad
 
-from fed_ciciot.task import Net, load_centralized_dataset, test
+from src.federated.task_claude import Net, load_centralized_dataset, test
 
 from datetime import datetime
-from pathlib import Path
 
 # Create ServerApp
 app = ServerApp()
@@ -35,7 +34,7 @@ def main(grid: Grid, context: Context) -> None:
     current_time = datetime.now()
     run_dir = current_time.strftime("%Y-%m-%d/%H-%M-%S")
     # Save path is based on the current directory
-    save_path = Path.cwd() / f"outputs/{run_dir}"
+    save_path = FEDERATED_DIR / "outputs" / run_dir
     save_path.mkdir(parents=True, exist_ok=False)
 
     # Set the path where results and model checkpoints will be saved
@@ -54,7 +53,7 @@ def main(grid: Grid, context: Context) -> None:
         # Save final model to disk
         print("\nSaving final model to disk...")
         state_dict = result.arrays.to_torch_state_dict()
-        torch.save(state_dict, "final_model.pt")
+        torch.save(state_dict, save_path / "final_model.pt")
 
 
 def global_evaluate(server_round: int, arrays: ArrayRecord) -> MetricRecord:

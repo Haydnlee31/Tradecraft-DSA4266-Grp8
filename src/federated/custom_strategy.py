@@ -12,7 +12,8 @@ from flwr.serverapp import Grid
 from flwr.serverapp.strategy import FedAdagrad, Result
 from flwr.serverapp.strategy.strategy_utils import log_strategy_start_info
 
-PROJECT_NAME = "FLOWER-advanced-pytorch"
+PROJECT_NAME = "fed_ciciot"
+FEDERATED_DIR = Path(__file__).resolve().parent
 
 
 class CustomFedAdagrad(FedAdagrad):
@@ -62,7 +63,7 @@ class CustomFedAdagrad(FedAdagrad):
 
         # Init W&B
         name = f"{str(self.save_path.parent.name)}/{str(self.save_path.name)}-ServerApp"
-        wandb.init(project=PROJECT_NAME, name=name)
+        wandb.init(project=PROJECT_NAME, name=name, dir=str(FEDERATED_DIR))
 
         # Keep track of best acc
         self.best_acc_so_far = 0.0

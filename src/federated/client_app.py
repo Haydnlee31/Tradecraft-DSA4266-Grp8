@@ -4,9 +4,9 @@ import torch
 from flwr.app import ArrayRecord, Context, Message, MetricRecord, RecordDict
 from flwr.clientapp import ClientApp
 
-from fed_ciciot.task import Net, load_data
-from fed_ciciot.task import test as test_fn
-from fed_ciciot.task import train as train_fn
+from src.federated.task_claude import Net, load_data
+from src.federated.task_claude import test as test_fn
+from src.federated.task_claude import train as train_fn
 
 import time
 
