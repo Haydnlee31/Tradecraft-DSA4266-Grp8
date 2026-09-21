@@ -16,8 +16,9 @@ from src.data.label_map import CLASSES
 from src.models.architectures import LIGHT_CONFIG, MLPClassifier
 
 ROOT = Path(__file__).resolve().parents[2]
-# Flower runs a packaged copy of the app, so data/ (gitignored) isn't next to this file.
-SPLITS_DIR = Path(os.environ.get("CICIOT_SPLITS_DIR", ROOT / "data" / "splits"))
+# Default for running outside Flower; under `flwr run` the packaged app copy has no data/,
+# so configure() overrides these from the "splits-dir" run config.
+SPLITS_DIR = ROOT / "data" / "splits"
 TRAIN_PATH = SPLITS_DIR / "train.parquet"
 VAL_PATH = SPLITS_DIR / "val.parquet"
 TEST_PATH = SPLITS_DIR / "test.parquet"
@@ -46,7 +47,7 @@ def configure(run_config) -> None:
     _scaler = _feat_cols = None
 
 
-def Net() -> MLPClassifier:
+def load_model() -> MLPClassifier:
     """Centralized-light MLP (64-32) so federated results compare directly to that lane."""
     return MLPClassifier(in_features=NUM_FEATURES, num_classes=NUM_CLASSES, config=LIGHT_CONFIG)
 
@@ -123,34 +124,34 @@ def load_centralized_dataset(batch_size: int = 512):
     return DataLoader(_to_tensors(df), batch_size=batch_size)
 
 
-def train(net, trainloader, epochs, lr, device):
+def train(model, trainloader, epochs, lr, device):
     """Train the model on the training set."""
-    net.to(device)
+    model.to(device)
     criterion = torch.nn.CrossEntropyLoss().to(device)
-    optimizer = torch.optim.Adam(net.parameters(), lr=lr)
-    net.train()
+    optimizer = torch.optim.Adam(model.parameters(), lr=lr)
+    model.train()
     running_loss = 0.0
     for _ in range(epochs):
         for X, y in trainloader:
             X, y = X.to(device), y.to(device)
             optimizer.zero_grad()
-            loss = criterion(net(X), y)
+            loss = criterion(model(X), y)
             loss.backward()
             optimizer.step()
             running_loss += loss.item()
     return running_loss / (epochs * len(trainloader))
 
 
-def test(net, testloader, device):
+def test(model, testloader, device):
     """Validate the model on the test set."""
-    net.to(device)
-    net.eval()
+    model.to(device)
+    model.eval()
     criterion = torch.nn.CrossEntropyLoss()
     correct, loss = 0, 0.0
     with torch.no_grad():
         for X, y in testloader:
             X, y = X.to(device), y.to(device)
-            logits = net(X)
+            logits = model(X)
             loss += criterion(logits, y).item()
             correct += (logits.argmax(dim=1) == y).sum().item()
     accuracy = correct / len(testloader.dataset)

@@ -8,8 +8,8 @@ from flwr.serverapp import Grid, ServerApp
 from flwr.serverapp.strategy import FedAvg, FedAdagrad
 from src.federated.custom_strategy import FEDERATED_DIR, CustomFedAdagrad
 
-from src.federated import task_claude
-from src.federated.task_claude import Net, load_centralized_dataset, test
+from src.federated import task
+from src.federated.task import load_model, load_centralized_dataset, test
 
 from datetime import datetime
 
@@ -21,7 +21,7 @@ app = ServerApp()
 def main(grid: Grid, context: Context) -> None:
     """Main entry point for the ServerApp."""
 
-    task_claude.configure(context.run_config)
+    task.configure(context.run_config)
 
     # Read run config
     fraction_evaluate: float = context.run_config["fraction-evaluate"]
@@ -29,7 +29,7 @@ def main(grid: Grid, context: Context) -> None:
     lr: float = context.run_config["learning-rate"]
 
     # Load global model
-    global_model = Net()
+    global_model = load_model()
     arrays = ArrayRecord(global_model.state_dict())
 
     # Initialize FedAvg/FedAdagrad/CustomFedAdagrad strategy
@@ -66,7 +66,7 @@ def global_evaluate(server_round: int, arrays: ArrayRecord) -> MetricRecord:
     """Evaluate model on central data."""
 
     # Load the model and initialize it with the received weights
-    model = Net()
+    model = load_model()
     model.load_state_dict(arrays.to_torch_state_dict())
     device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
     model.to(device)

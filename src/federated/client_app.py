@@ -4,10 +4,10 @@ import torch
 from flwr.app import ArrayRecord, Context, Message, MetricRecord, RecordDict
 from flwr.clientapp import ClientApp
 
-from src.federated import task_claude
-from src.federated.task_claude import Net, load_data
-from src.federated.task_claude import test as test_fn
-from src.federated.task_claude import train as train_fn
+from src.federated import task
+from src.federated.task import load_model, load_data
+from src.federated.task import test as test_fn
+from src.federated.task import train as train_fn
 
 import time
 
@@ -19,11 +19,11 @@ app = ClientApp()
 def train(msg: Message, context: Context):
     """Train the model on local data."""
 
-    task_claude.configure(context.run_config)
+    task.configure(context.run_config)
     start_time = time.time()
     
     # Load the model and initialize it with the received weights
-    model = Net()
+    model = load_model()
     model.load_state_dict(msg.content["arrays"].to_torch_state_dict())
     device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
     model.to(device)
@@ -62,10 +62,10 @@ def train(msg: Message, context: Context):
 def evaluate(msg: Message, context: Context):
     """Evaluate the model on local data."""
 
-    task_claude.configure(context.run_config)
+    task.configure(context.run_config)
 
     # Load the model and initialize it with the received weights
-    model = Net()
+    model = load_model()
     model.load_state_dict(msg.content["arrays"].to_torch_state_dict())
     device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
     model.to(device)
