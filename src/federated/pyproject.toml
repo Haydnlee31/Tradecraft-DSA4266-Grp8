@@ -1,0 +1,36 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "ciciot_fed"
+version = "0.1.0"
+description = "Federated learning simulation for IoT network intrusion detection on CICIoT2023"
+license = {file = "LICENSE"}
+dependencies = [
+    "flwr[simulation]>=1.36.0",
+    "flwr-datasets[vision]>=0.6.1",
+    "torch==2.10.0",
+    "torchvision==0.25.0",
+    "wandb>=0.17.8"
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["."]
+
+[tool.flwr.app]
+publisher = "Tradecraft-DSA4266-Grp8"
+fab-format-version = 1
+flwr-version-target = "1.36.0"
+
+[tool.flwr.app.components]
+serverapp = "fed_ciciot.server_app:app"
+clientapp = "fed_ciciot.client_app:app"
+
+[tool.flwr.app.config]
+num-server-rounds = 3
+fraction-evaluate = 1.0
+local-epochs = 1
+learning-rate = 0.1
+batch-size = 32
+save-model = false
