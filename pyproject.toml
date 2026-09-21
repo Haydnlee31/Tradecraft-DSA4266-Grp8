@@ -16,7 +16,7 @@ dependencies = [
 ]
 
 [tool.hatch.build.targets.wheel]
-packages = ["."]
+packages = ["src"]
 
 [tool.flwr.app]
 publisher = "Tradecraft-DSA4266-Grp8"
@@ -24,8 +24,8 @@ fab-format-version = 1
 flwr-version-target = "1.36.0"
 
 [tool.flwr.app.components]
-serverapp = "fed_ciciot.server_app:app"
-clientapp = "fed_ciciot.client_app:app"
+serverapp = "src.federated.server_app:app"
+clientapp = "src.federated.client_app:app"
 
 [tool.flwr.app.config]
 num-server-rounds = 3

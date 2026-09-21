@@ -22,6 +22,7 @@ venv/
 *.ckpt
 runs/
 wandb/
+outputs/
 mlruns/
 
 # Reports (keep the write-up itself and figures, ignore scratch outputs)
