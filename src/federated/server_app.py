@@ -11,6 +11,7 @@ from src.federated.custom_strategy import FEDERATED_DIR, CustomFedAdagrad
 
 from src.federated import task
 from src.eval.metrics import compute_metrics
+from src.models.architectures import LIGHT_CONFIG
 from src.federated.task import load_model, load_server_val, load_test, predict, test
 from src.utils.seed import set_seed
 
@@ -42,6 +43,7 @@ def main(grid: Grid, context: Context) -> None:
 
     # Initialize FedAvg/FedAdagrad/CustomFedAdagrad strategy
     strategy = CustomFedAdagrad(
+        fraction_train=float(context.run_config["fraction-train"]),
         fraction_evaluate=fraction_evaluate,
         patience=int(context.run_config["patience"]),
     )
@@ -90,10 +92,66 @@ def main(grid: Grid, context: Context) -> None:
         state_dict = result.arrays.to_torch_state_dict()
         torch.save(state_dict, save_path / "final_model.pt")
 
-    final_test_evaluate(save_path)
+    test_metrics = final_test_evaluate(save_path)
+    if test_metrics is not None:
+        write_report(context, grid, strategy, result, global_model, test_metrics, save_path)
 
 
-def final_test_evaluate(save_path: Path) -> None:
+def write_report(context, grid, strategy, result, model, test_metrics, save_path) -> None:
+    """Write reports/federated_light_{loss}_seed{N}.json.
+
+    Same fields as the centralized JSONs (variant, config, loss, num_parameters,
+    history, test_metrics, args) so one script can tabulate all three lanes, plus
+    FL-specific ones. `rounds` is the number actually run (after early stopping);
+    with fraction-train = 1 and 1 local epoch, each round is ~one pass over train,
+    so it is the counterpart of the centralized history's epoch count.
+    """
+    rc = context.run_config
+    history = []
+    for rnd in range(1, strategy.rounds_run + 1):
+        train_m = dict(result.train_metrics_clientapp.get(rnd, {}))
+        val_m = dict(result.evaluate_metrics_serverapp.get(rnd, {}))
+        history.append(
+            {
+                "round": rnd,
+                "train_loss": train_m.get("train_loss"),
+                "val_loss": val_m.get("val_loss"),
+                "val_macro_f1": val_m.get("val_macro_f1"),
+                "val_accuracy": val_m.get("val_accuracy"),
+            }
+        )
+
+    report = {
+        "variant": "light",
+        "lane": "federated",
+        "config": {"hidden_dims": LIGHT_CONFIG.hidden_dims, "dropout": LIGHT_CONFIG.dropout},
+        "loss": rc["loss"],
+        "num_parameters": model.num_parameters(),
+        "history": history,
+        "test_metrics": test_metrics,
+        "args": dict(rc),
+        # FL-specific
+        "num_clients": len(list(grid.get_node_ids())),
+        "alpha": None,  # No Dirichlet split yet (row-modulo partitions); set in Step 4
+        "strategy": type(strategy).__name__,
+        "rounds": strategy.rounds_run,
+        "num_server_rounds": int(rc["num-server-rounds"]),
+        "early_stopped": strategy.early_stopped,
+        "best_round": strategy.best_round,
+        "local_epochs": int(rc["local-epochs"]),
+        "fraction_train": float(rc["fraction-train"]),
+        "class_weights": rc["class-weights"],
+        "run_dir": str(save_path),
+    }
+
+    reports_dir = Path(rc.get("reports-dir") or task.ROOT / "reports")
+    reports_dir.mkdir(parents=True, exist_ok=True)
+    out_path = reports_dir / f"federated_light_{rc['loss']}_seed{int(rc['seed'])}.json"
+    out_path.write_text(json.dumps(report, indent=2))
+    print(f"Saved report to {out_path} ({strategy.rounds_run} rounds run)")
+
+
+def final_test_evaluate(save_path: Path) -> dict | None:
     """Score the val-selected best_model.pt on the test split, once, after training.
 
     This is the only place test.parquet is read; training and model selection only
@@ -102,7 +160,7 @@ def final_test_evaluate(save_path: Path) -> None:
     best_path = save_path / "best_model.pt"
     if not best_path.exists():
         print("\nNo best_model.pt (no server-side evaluation ran); skipping test evaluation.")
-        return
+        return None
 
     model = load_model()
     model.load_state_dict(torch.load(best_path, map_location="cpu"))
@@ -119,6 +177,7 @@ def final_test_evaluate(save_path: Path) -> None:
     print(f"Test accuracy: {test_metrics['accuracy']:.4f}  macro-F1: {test_metrics['macro_f1']:.4f}")
     for c, r in test_metrics["per_class_recall"].items():
         print(f"  recall[{c}]: {r:.4f}")
+    return test_metrics
 
 
 def global_evaluate(server_round: int, arrays: ArrayRecord) -> MetricRecord:

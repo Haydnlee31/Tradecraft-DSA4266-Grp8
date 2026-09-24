@@ -54,6 +54,7 @@ class CustomFedAdagrad(FedAdagrad):
         """
         if macro_f1 > self.best_f1_so_far:
             self.best_f1_so_far = macro_f1
+            self.best_round = current_round
             logger.log(INFO, "💡 New best global model found: val_macro_f1=%f", macro_f1)
             torch.save(arrays.to_torch_state_dict(), self.save_path / "best_model.pt")
             (self.save_path / "best_model.json").write_text(
@@ -85,6 +86,9 @@ class CustomFedAdagrad(FedAdagrad):
         # Keep track of best val macro-F1
         self.best_f1_so_far = -1.0
         rounds_without_improvement = 0
+        self.best_round = None
+        self.rounds_run = 0
+        self.early_stopped = False
 
         log(INFO, "Starting %s strategy:", self.__class__.__name__)
         log_strategy_start_info(
@@ -111,6 +115,7 @@ class CustomFedAdagrad(FedAdagrad):
         for current_round in range(1, num_rounds + 1):
             log(INFO, "")
             log(INFO, "[ROUND %s/%s]", current_round, num_rounds)
+            self.rounds_run = current_round
 
             # -----------------------------------------------------------------
             # --- TRAINING (CLIENTAPP-SIDE) -----------------------------------
@@ -195,6 +200,7 @@ class CustomFedAdagrad(FedAdagrad):
                             current_round,
                             self.best_f1_so_far,
                         )
+                        self.early_stopped = True
                         break
 
         log(INFO, "")

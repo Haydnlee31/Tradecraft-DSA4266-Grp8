@@ -48,6 +48,8 @@ def train(msg: Message, context: Context):
         context.run_config["local-epochs"],
         msg.content["config"]["lr"],
         device,
+        loss_name=context.run_config["loss"],
+        class_weights=context.run_config["class-weights"],
     )
 
     end_time = time.time()

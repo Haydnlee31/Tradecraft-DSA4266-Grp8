@@ -36,10 +36,18 @@ clientapp = "src.federated.client_app:app"
 num-server-rounds = 25
 seed = 0
 patience = 5
+# 1.0 = every client trains every round, so 1 round x 1 local epoch ~ one pass over
+# train -- keeps the round budget comparable to centralized-light's epochs
+fraction-train = 1.0
 fraction-evaluate = 1.0
+loss = "sqrt_weighted_ce"
+# Loss class weights from "global" (whole train split; matches centralized) or
+# "local" (each client's own counts, floored at 1)
+class-weights = "global"
 local-epochs = 1
 learning-rate = 0.001
 batch-size = 64
 save-model = false
 splits-dir = ""
 output-dir = ""
+reports-dir = ""

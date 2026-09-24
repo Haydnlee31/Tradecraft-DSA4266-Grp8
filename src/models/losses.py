@@ -35,6 +35,7 @@ from __future__ import annotations
 import torch
 import torch.nn.functional as F
 from torch import nn
+from src.data.label_map import CLASSES
 
 
 def class_weights_from_counts(counts: dict[str, int], classes: list[str]) -> torch.Tensor:
@@ -77,3 +78,37 @@ class FocalLoss(nn.Module):
         p_t = log_p.gather(1, target.unsqueeze(1)).squeeze(1).exp()
         focal_term = (1 - p_t) ** self.gamma
         return (focal_term * ce).mean()
+
+def build_criterion(
+    loss_name: str,
+    class_counts: dict[str, int],
+) -> torch.nn.Module:
+
+    if loss_name == "ce":
+        return torch.nn.CrossEntropyLoss()
+
+    if loss_name == "weighted_ce":
+        weights = class_weights_from_counts(
+            class_counts,
+            CLASSES,
+        )
+        return torch.nn.CrossEntropyLoss(weight=weights)
+
+    if loss_name == "sqrt_weighted_ce":
+        weights = sqrt_class_weights_from_counts(
+            class_counts,
+            CLASSES,
+        )
+        return torch.nn.CrossEntropyLoss(weight=weights)
+
+    if loss_name == "focal":
+        weights = class_weights_from_counts(
+            class_counts,
+            CLASSES,
+        )
+        return FocalLoss(
+            alpha=weights,
+            gamma=2.0,
+        )
+
+    raise ValueError(f"unknown loss: {loss_name}")

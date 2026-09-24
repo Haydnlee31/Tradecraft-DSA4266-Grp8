@@ -23,51 +23,12 @@ from src.data.label_map import CLASSES
 from src.eval.metrics import compute_metrics
 from src.models.architectures import HEAVY_CONFIG, LIGHT_CONFIG, MLPClassifier
 from src.models.dataset import build_dataloaders
-from src.models.losses import (
-    FocalLoss,
-    class_weights_from_counts,
-    sqrt_class_weights_from_counts,
-)
+from src.models.losses import build_criterion
 from src.models.train import Trainer
 from src.utils.seed import set_seed
 
 ROOT = Path(__file__).resolve().parents[2]
 REPORTS_DIR = ROOT / "reports"
-
-
-def build_criterion(
-    loss_name: str,
-    class_counts: dict[str, int],
-) -> torch.nn.Module:
-
-    if loss_name == "ce":
-        return torch.nn.CrossEntropyLoss()
-
-    if loss_name == "weighted_ce":
-        weights = class_weights_from_counts(
-            class_counts,
-            CLASSES,
-        )
-        return torch.nn.CrossEntropyLoss(weight=weights)
-
-    if loss_name == "sqrt_weighted_ce":
-        weights = sqrt_class_weights_from_counts(
-            class_counts,
-            CLASSES,
-        )
-        return torch.nn.CrossEntropyLoss(weight=weights)
-
-    if loss_name == "focal":
-        weights = class_weights_from_counts(
-            class_counts,
-            CLASSES,
-        )
-        return FocalLoss(
-            alpha=weights,
-            gamma=2.0,
-        )
-
-    raise ValueError(f"unknown loss: {loss_name}")
 
 
 def main() -> None:

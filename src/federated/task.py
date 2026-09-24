@@ -15,6 +15,7 @@ from torch.utils.data import DataLoader, TensorDataset
 
 from src.data.label_map import CLASSES
 from src.models.architectures import LIGHT_CONFIG, MLPClassifier
+from src.models.losses import build_criterion
 
 ROOT = Path(__file__).resolve().parents[2]
 # Default for running outside Flower; under `flwr run` the packaged app copy has no data/,
@@ -33,11 +34,12 @@ NUM_CLASSES = len(CLASSES)
 _scaler: StandardScaler | None = None  # Cache per process
 _feat_cols: list[str] | None = None
 _server_val: TensorDataset | None = None  # Full val split, loaded once for server eval
+_class_counts: dict[str, int] | None = None  # Global train class counts, for loss weights
 
 
 def configure(run_config) -> None:
     """Point the data paths at run_config["splits-dir"] (empty = keep the default)."""
-    global SPLITS_DIR, TRAIN_PATH, VAL_PATH, TEST_PATH, SCALER_PATH, _scaler, _feat_cols, _server_val
+    global SPLITS_DIR, TRAIN_PATH, VAL_PATH, TEST_PATH, SCALER_PATH, _scaler, _feat_cols, _server_val, _class_counts
     splits_dir = str(run_config.get("splits-dir", "") or "")
     if not splits_dir or Path(splits_dir) == SPLITS_DIR:
         return
@@ -46,7 +48,7 @@ def configure(run_config) -> None:
     VAL_PATH = SPLITS_DIR / "val.parquet"
     TEST_PATH = SPLITS_DIR / "test.parquet"
     SCALER_PATH = SPLITS_DIR / "feature_scaler.joblib"
-    _scaler = _feat_cols = _server_val = None
+    _scaler = _feat_cols = _server_val = _class_counts = None
 
 
 def load_model() -> MLPClassifier:
@@ -147,10 +149,42 @@ def load_test(batch_size: int = 512):
     return DataLoader(_to_tensors(df), batch_size=batch_size)
 
 
-def train(model, trainloader, epochs, lr, device):
-    """Train the model on the training set."""
+def train_class_counts() -> dict[str, int]:
+    """Per-class row counts of the full train split, streamed and cached per process.
+
+    Global (not per-client) counts, so the loss weights match the centralized lane's
+    build_criterion(loss, class_counts) exactly, and a class missing from one
+    client's slice can't produce an infinite weight.
+    """
+    global _class_counts
+    if _class_counts is None:
+        counts = pl.scan_parquet(TRAIN_PATH).group_by("class").len().collect(engine="streaming")
+        _class_counts = {row[0]: row[1] for row in counts.iter_rows()}
+    return _class_counts
+
+
+def loss_class_counts(mode: str, trainloader: DataLoader) -> dict[str, int]:
+    """Class counts the loss weights are built from.
+
+    "global": the whole train split (train_class_counts). Matches centralized-light
+      exactly; a real deployment would need clients to share their class counts.
+    "local": this client's own slice. Realistic for FL, but a client can have none of
+      some class, so each count is floored at 1 to avoid a divide-by-zero weight.
+    """
+    if mode == "global":
+        return train_class_counts()
+    if mode == "local":
+        labels = trainloader.dataset.tensors[1]
+        counts = torch.bincount(labels, minlength=NUM_CLASSES).tolist()
+        return {c: max(int(n), 1) for c, n in zip(CLASSES, counts)}
+    raise ValueError(f"unknown class-weights mode: {mode}")
+
+
+def train(model, trainloader, epochs, lr, device, loss_name: str = "ce", class_weights: str = "global"):
+    """Train the model on the training set with the loss named by `loss_name`,
+    weighted by `class_weights` counts ("global" or "local")."""
     model.to(device)
-    criterion = torch.nn.CrossEntropyLoss().to(device)
+    criterion = build_criterion(loss_name, loss_class_counts(class_weights, trainloader)).to(device)
     optimizer = torch.optim.Adam(model.parameters(), lr=lr)
     model.train()
     running_loss = 0.0
