@@ -59,14 +59,17 @@ def main(grid: Grid, context: Context) -> None:
     save_path.mkdir(parents=True, exist_ok=False)
 
     # Log what this run used, per the repo's reproducibility convention
+    num_clients = len(list(grid.get_node_ids()))
     run_info = {
         "seed": seed,
         "run_config": dict(context.run_config),
-        # No partition file yet: clients take every num_partitions-th row of these
-        # splits (task._load_slice). Record the Dirichlet partition file here once
-        # Step 4 lands.
         "partition": {
-            "scheme": "row-modulo",
+            "partitioner": task.PARTITIONER,
+            "num_clients": num_clients,
+            "dirichlet_alpha": task.DIRICHLET_ALPHA if task.PARTITIONER == "dirichlet" else None,
+            "partition_file": (
+                task.partition_path(num_clients).name if task.PARTITIONER == "dirichlet" else None
+            ),
             "train_file": task.TRAIN_PATH.name,
             "val_file": task.VAL_PATH.name,
             "splits_dir": str(task.SPLITS_DIR),
@@ -98,7 +101,7 @@ def main(grid: Grid, context: Context) -> None:
 
 
 def write_report(context, grid, strategy, result, model, test_metrics, save_path) -> None:
-    """Write reports/federated_light_{loss}_seed{N}.json.
+    """Write reports/federated_light_{loss}_{a<alpha>|iid}_n{clients}_seed{N}.json.
 
     Same fields as the centralized JSONs (variant, config, loss, num_parameters,
     history, test_metrics, args) so one script can tabulate all three lanes, plus
@@ -132,7 +135,8 @@ def write_report(context, grid, strategy, result, model, test_metrics, save_path
         "args": dict(rc),
         # FL-specific
         "num_clients": len(list(grid.get_node_ids())),
-        "alpha": None,  # No Dirichlet split yet (row-modulo partitions); set in Step 4
+        "partitioner": task.PARTITIONER,
+        "alpha": task.DIRICHLET_ALPHA if task.PARTITIONER == "dirichlet" else None,
         "strategy": type(strategy).__name__,
         "rounds": strategy.rounds_run,
         "num_server_rounds": int(rc["num-server-rounds"]),
@@ -146,7 +150,11 @@ def write_report(context, grid, strategy, result, model, test_metrics, save_path
 
     reports_dir = Path(rc.get("reports-dir") or task.ROOT / "reports")
     reports_dir.mkdir(parents=True, exist_ok=True)
-    out_path = reports_dir / f"federated_light_{rc['loss']}_seed{int(rc['seed'])}.json"
+    # Partition setting in the name, so the alpha / IID sweep doesn't overwrite itself
+    part = f"a{task.DIRICHLET_ALPHA}" if task.PARTITIONER == "dirichlet" else "iid"
+    out_path = reports_dir / (
+        f"federated_light_{rc['loss']}_{part}_n{report['num_clients']}_seed{int(rc['seed'])}.json"
+    )
     out_path.write_text(json.dumps(report, indent=2))
     print(f"Saved report to {out_path} ({strategy.rounds_run} rounds run)")
 

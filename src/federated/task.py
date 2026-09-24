@@ -15,6 +15,7 @@ from torch.utils.data import DataLoader, TensorDataset
 
 from src.data.label_map import CLASSES
 from src.models.architectures import LIGHT_CONFIG, MLPClassifier
+from src.federated.partition import partition_filename
 from src.models.losses import build_criterion
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -25,6 +26,13 @@ TRAIN_PATH = SPLITS_DIR / "train.parquet"
 VAL_PATH = SPLITS_DIR / "val.parquet"
 TEST_PATH = SPLITS_DIR / "test.parquet"
 SCALER_PATH = SPLITS_DIR / "feature_scaler.joblib"
+
+# Train partitioning across clients, set from the run config by configure():
+# "iid" = every num_partitions-th row; "dirichlet" = mapping file from partition.py
+PARTITIONER = "iid"
+DIRICHLET_ALPHA = 0.5
+PARTITION_SEED = 0
+PARTITION_FILE = ""  # Explicit mapping path; empty = derive from alpha/N/seed
 
 META_COLS = frozenset(("label", "class", "source_file"))
 CLASS_TO_IDX = {c: i for i, c in enumerate(CLASSES)}
@@ -38,8 +46,17 @@ _class_counts: dict[str, int] | None = None  # Global train class counts, for lo
 
 
 def configure(run_config) -> None:
-    """Point the data paths at run_config["splits-dir"] (empty = keep the default)."""
+    """Point the data paths at run_config["splits-dir"] (empty = keep the default) and
+    read the partitioning settings."""
     global SPLITS_DIR, TRAIN_PATH, VAL_PATH, TEST_PATH, SCALER_PATH, _scaler, _feat_cols, _server_val, _class_counts
+    global PARTITIONER, DIRICHLET_ALPHA, PARTITION_SEED, PARTITION_FILE
+    PARTITIONER = str(run_config.get("partitioner", "iid"))
+    if PARTITIONER not in ("iid", "dirichlet"):
+        raise ValueError(f"unknown partitioner: {PARTITIONER}")
+    DIRICHLET_ALPHA = float(run_config.get("dirichlet-alpha", DIRICHLET_ALPHA))
+    PARTITION_SEED = int(run_config.get("seed", PARTITION_SEED))
+    PARTITION_FILE = str(run_config.get("partition-file", "") or "")
+
     splits_dir = str(run_config.get("splits-dir", "") or "")
     if not splits_dir or Path(splits_dir) == SPLITS_DIR:
         return
@@ -109,14 +126,60 @@ def _load_slice(path: Path, partition_id: int, num_partitions: int) -> TensorDat
     return _to_tensors(df)
 
 
-def load_data(partition_id: int, num_partitions: int, batch_size: int, seed: int = 0):
-    """Load this client's slice of train.parquet (train) and val.parquet (val).
+def partition_path(num_partitions: int) -> Path:
+    """The Dirichlet mapping file for this run: run_config["partition-file"] if set,
+    else <splits-dir>/../partitions/dirichlet_a{alpha}_n{N}_s{seed}.parquet -- resolved
+    from splits-dir because the packaged Flower app has no copy of data/."""
+    if PARTITION_FILE:
+        return Path(PARTITION_FILE)
+    return SPLITS_DIR.parent / "partitions" / partition_filename(
+        DIRICHLET_ALPHA, num_partitions, PARTITION_SEED
+    )
 
+
+def _load_dirichlet_partition(partition_id: int, num_partitions: int) -> TensorDataset:
+    """Load this client's train rows via a lazy semi-join on the partition mapping."""
+    path = partition_path(num_partitions)
+    if not path.exists():
+        raise FileNotFoundError(
+            f"Missing partition file {path}. Build it first: python -m src.federated.partition "
+            f"--alpha {DIRICHLET_ALPHA} --num-partitions {num_partitions} --seed {PARTITION_SEED}"
+        )
+    # Guard against a mapping built for a different train split or client count
+    n_map, max_pid = pl.scan_parquet(path).select(pl.len(), pl.col("partition_id").max()).collect().row(0)
+    n_train = pl.scan_parquet(TRAIN_PATH).select(pl.len()).collect().item()
+    if n_map != n_train or max_pid != num_partitions - 1:
+        raise RuntimeError(
+            f"{path.name} maps {n_map} rows to {max_pid + 1} partitions, but train has "
+            f"{n_train} rows and this run has {num_partitions} clients. Rebuild the partition."
+        )
+
+    rows = pl.scan_parquet(path).filter(pl.col("partition_id") == partition_id).select("_row")
+    df = (
+        pl.scan_parquet(TRAIN_PATH)
+        .with_row_index("_row")
+        .join(rows, on="_row", how="semi")
+        .sort("_row")  # Fixed row order, so seeded shuffling is reproducible
+        .select(_feat_cols + ["class"])
+        .collect(engine="streaming")
+    )
+    return _to_tensors(df)
+
+
+def load_data(partition_id: int, num_partitions: int, batch_size: int, seed: int = 0):
+    """Load this client's train partition and val slice.
+
+    Train follows PARTITIONER ("iid" modulo slice or "dirichlet" mapping). Val is
+    always the modulo slice; the val result that counts is the server's full-val eval.
     `seed` drives the train loader's shuffle order via its own generator.
     """
     _init_scaler()
+    if PARTITIONER == "dirichlet":
+        train_ds = _load_dirichlet_partition(partition_id, num_partitions)
+    else:
+        train_ds = _load_slice(TRAIN_PATH, partition_id, num_partitions)
     trainloader = DataLoader(
-        _load_slice(TRAIN_PATH, partition_id, num_partitions),
+        train_ds,
         batch_size=batch_size,
         shuffle=True,
         generator=torch.Generator().manual_seed(seed),

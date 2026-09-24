@@ -39,7 +39,14 @@ patience = 5
 # 1.0 = every client trains every round, so 1 round x 1 local epoch ~ one pass over
 # train -- keeps the round budget comparable to centralized-light's epochs
 fraction-train = 1.0
-fraction-evaluate = 1.0
+# 0 = no client-side eval; the server's full-val eval is the val result that counts
+fraction-evaluate = 0.0
+# Train split across clients: "dirichlet" (non-IID by class, mapping from
+# src/federated/partition.py) or "iid" (every N-th row; the IID baseline)
+partitioner = "dirichlet"
+dirichlet-alpha = 0.5
+# Explicit mapping path; empty = <splits-dir>/../partitions/dirichlet_a{alpha}_n{N}_s{seed}.parquet
+partition-file = ""
 loss = "sqrt_weighted_ce"
 # Loss class weights from "global" (whole train split; matches centralized) or
 # "local" (each client's own counts, floored at 1)

@@ -39,3 +39,4 @@ kaggle.json
 
 # Claude Code session/harness state
 .claude/
+data/partitions/*.parquet
