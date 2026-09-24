@@ -84,7 +84,7 @@ def evaluate(msg: Message, context: Context):
     _, valloader = load_data(partition_id, num_partitions, batch_size)
 
     # Call the evaluation function
-    eval_loss, eval_acc = test_fn(
+    eval_loss, eval_acc, _ = test_fn(
         model,
         valloader,
         device,

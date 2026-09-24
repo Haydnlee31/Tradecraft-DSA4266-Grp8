@@ -10,7 +10,8 @@ from flwr.serverapp.strategy import FedAvg, FedAdagrad
 from src.federated.custom_strategy import FEDERATED_DIR, CustomFedAdagrad
 
 from src.federated import task
-from src.federated.task import load_model, load_centralized_dataset, test
+from src.eval.metrics import compute_metrics
+from src.federated.task import load_model, load_server_val, load_test, predict, test
 from src.utils.seed import set_seed
 
 from datetime import datetime
@@ -40,7 +41,10 @@ def main(grid: Grid, context: Context) -> None:
     arrays = ArrayRecord(global_model.state_dict())
 
     # Initialize FedAvg/FedAdagrad/CustomFedAdagrad strategy
-    strategy = CustomFedAdagrad(fraction_evaluate=fraction_evaluate)
+    strategy = CustomFedAdagrad(
+        fraction_evaluate=fraction_evaluate,
+        patience=int(context.run_config["patience"]),
+    )
     
     # Get the current date and time
     current_time = datetime.now()
@@ -86,6 +90,36 @@ def main(grid: Grid, context: Context) -> None:
         state_dict = result.arrays.to_torch_state_dict()
         torch.save(state_dict, save_path / "final_model.pt")
 
+    final_test_evaluate(save_path)
+
+
+def final_test_evaluate(save_path: Path) -> None:
+    """Score the val-selected best_model.pt on the test split, once, after training.
+
+    This is the only place test.parquet is read; training and model selection only
+    ever see val.
+    """
+    best_path = save_path / "best_model.pt"
+    if not best_path.exists():
+        print("\nNo best_model.pt (no server-side evaluation ran); skipping test evaluation.")
+        return
+
+    model = load_model()
+    model.load_state_dict(torch.load(best_path, map_location="cpu"))
+    device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+
+    _, y_true, y_pred = predict(model, load_test(), device)
+    test_metrics = compute_metrics(y_true, y_pred)
+    best_info = json.loads((save_path / "best_model.json").read_text())
+
+    out_path = save_path / "test_metrics.json"
+    out_path.write_text(json.dumps({"best_model": best_info, "test_metrics": test_metrics}, indent=2))
+
+    print(f"\nTest evaluation of best model (round {best_info['round']}) -> {out_path}")
+    print(f"Test accuracy: {test_metrics['accuracy']:.4f}  macro-F1: {test_metrics['macro_f1']:.4f}")
+    for c, r in test_metrics["per_class_recall"].items():
+        print(f"  recall[{c}]: {r:.4f}")
+
 
 def global_evaluate(server_round: int, arrays: ArrayRecord) -> MetricRecord:
     """Evaluate model on central data."""
@@ -96,11 +130,11 @@ def global_evaluate(server_round: int, arrays: ArrayRecord) -> MetricRecord:
     device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
     model.to(device)
 
-    # Load entire test set
-    test_dataloader = load_centralized_dataset()
+    # Full val split (cached after the first round)
+    val_dataloader = load_server_val()
 
-    # Evaluate the global model on the test set
-    test_loss, test_acc = test(model, test_dataloader, device)
+    # Evaluate the global model on the val set
+    val_loss, val_acc, val_f1 = test(model, val_dataloader, device)
 
-    # Return the evaluation metrics
-    return MetricRecord({"accuracy": test_acc, "loss": test_loss})
+    # Return the evaluation metrics; the strategy picks the best round by val_macro_f1
+    return MetricRecord({"val_macro_f1": val_f1, "val_accuracy": val_acc, "val_loss": val_loss})

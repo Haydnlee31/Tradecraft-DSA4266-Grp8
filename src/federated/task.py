@@ -9,6 +9,7 @@ import joblib
 import numpy as np
 import polars as pl
 import torch
+from sklearn.metrics import f1_score
 from sklearn.preprocessing import StandardScaler
 from torch.utils.data import DataLoader, TensorDataset
 
@@ -31,11 +32,12 @@ NUM_CLASSES = len(CLASSES)
 
 _scaler: StandardScaler | None = None  # Cache per process
 _feat_cols: list[str] | None = None
+_server_val: TensorDataset | None = None  # Full val split, loaded once for server eval
 
 
 def configure(run_config) -> None:
     """Point the data paths at run_config["splits-dir"] (empty = keep the default)."""
-    global SPLITS_DIR, TRAIN_PATH, VAL_PATH, TEST_PATH, SCALER_PATH, _scaler, _feat_cols
+    global SPLITS_DIR, TRAIN_PATH, VAL_PATH, TEST_PATH, SCALER_PATH, _scaler, _feat_cols, _server_val
     splits_dir = str(run_config.get("splits-dir", "") or "")
     if not splits_dir or Path(splits_dir) == SPLITS_DIR:
         return
@@ -44,7 +46,7 @@ def configure(run_config) -> None:
     VAL_PATH = SPLITS_DIR / "val.parquet"
     TEST_PATH = SPLITS_DIR / "test.parquet"
     SCALER_PATH = SPLITS_DIR / "feature_scaler.joblib"
-    _scaler = _feat_cols = None
+    _scaler = _feat_cols = _server_val = None
 
 
 def load_model() -> MLPClassifier:
@@ -123,8 +125,23 @@ def load_data(partition_id: int, num_partitions: int, batch_size: int, seed: int
     return trainloader, valloader
 
 
-def load_centralized_dataset(batch_size: int = 512):
-    """Load the full test split for server-side global evaluation."""
+def load_server_val(batch_size: int = 512):
+    """Load the full val split for server-side global evaluation.
+
+    Read from disk once per process and cached, so each round only rebuilds the
+    (cheap) DataLoader. The test split stays untouched until final evaluation.
+    """
+    global _server_val
+    if _server_val is None:
+        _init_scaler()
+        df = pl.read_parquet(VAL_PATH, columns=_feat_cols + ["class"])
+        _server_val = _to_tensors(df)
+    return DataLoader(_server_val, batch_size=batch_size)
+
+
+def load_test(batch_size: int = 512):
+    """Load the full test split. Only for the single final evaluation of the chosen
+    model -- never for training or model selection."""
     _init_scaler()
     df = pl.read_parquet(TEST_PATH, columns=_feat_cols + ["class"])
     return DataLoader(_to_tensors(df), batch_size=batch_size)
@@ -148,18 +165,28 @@ def train(model, trainloader, epochs, lr, device):
     return running_loss / (epochs * len(trainloader))
 
 
-def test(model, testloader, device):
-    """Validate the model on the test set."""
+def predict(model, loader, device):
+    """Run the model over a loader; returns (mean batch loss, y_true, y_pred)."""
     model.to(device)
     model.eval()
     criterion = torch.nn.CrossEntropyLoss()
-    correct, loss = 0, 0.0
+    loss = 0.0
+    preds, targets = [], []
     with torch.no_grad():
-        for X, y in testloader:
+        for X, y in loader:
             X, y = X.to(device), y.to(device)
             logits = model(X)
             loss += criterion(logits, y).item()
-            correct += (logits.argmax(dim=1) == y).sum().item()
-    accuracy = correct / len(testloader.dataset)
-    loss = loss / len(testloader)
-    return loss, accuracy
+            preds.append(logits.argmax(dim=1).cpu())
+            targets.append(y.cpu())
+    return loss / len(loader), torch.cat(targets).numpy(), torch.cat(preds).numpy()
+
+
+def test(model, testloader, device):
+    """Evaluate the model; returns (loss, accuracy, macro-F1)."""
+    loss, targets, preds = predict(model, testloader, device)
+    accuracy = float((preds == targets).mean())
+    macro_f1 = float(
+        f1_score(targets, preds, average="macro", labels=list(range(NUM_CLASSES)), zero_division=0)
+    )
+    return loss, accuracy, macro_f1
