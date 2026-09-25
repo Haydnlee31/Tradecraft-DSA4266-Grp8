@@ -26,20 +26,26 @@ import polars as pl
 SPLITS_DIR = Path(__file__).resolve().parents[2] / "data" / "splits"
 
 
-def _load(name: str) -> pl.DataFrame:
-    path = SPLITS_DIR / f"{name}.parquet"
+def _load(name: str, splits_dir: Path) -> pl.DataFrame:
+    path = splits_dir / f"{name}.parquet"
     if not path.exists():
-        raise SystemExit(f"Missing {path}. Run `python -m src.data.sample_dataset` first.")
+        raise SystemExit(
+            f"Missing {path}. Run `python -m src.data.sample_dataset` first."
+        )
     return pl.read_parquet(path)
 
 
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--fix", action="store_true",
-                         help="Drop overlapping rows from val/test (train is authoritative) and overwrite the parquet files.")
+    parser.add_argument(
+        "--fix",
+        action="store_true",
+        help="Drop overlapping rows from val/test (train is authoritative) and overwrite the parquet files.",
+    )
+    parser.add_argument("--splits-dir", type=Path, default=SPLITS_DIR)
     args = parser.parse_args()
 
-    frames = {name: _load(name) for name in ("train", "val", "test")}
+    frames = {name: _load(name, args.splits_dir) for name in ("train", "val", "test")}
     feature_cols = [c for c in frames["train"].columns if c != "source_file"]
 
     def overlap_count(a: str, b: str) -> int:
@@ -53,8 +59,10 @@ def main() -> None:
         return
 
     frames["val"] = frames["val"].join(frames["train"], on=feature_cols, how="anti")
-    frames["test"] = frames["test"].join(frames["train"], on=feature_cols, how="anti").join(
-        frames["val"], on=feature_cols, how="anti"
+    frames["test"] = (
+        frames["test"]
+        .join(frames["train"], on=feature_cols, how="anti")
+        .join(frames["val"], on=feature_cols, how="anti")
     )
 
     print("\nAfter fix:")
@@ -62,7 +70,7 @@ def main() -> None:
         print(f"  {a} <-> {b}: {overlap_count(a, b)} duplicate rows")
 
     for name in ("val", "test"):
-        path = SPLITS_DIR / f"{name}.parquet"
+        path = args.splits_dir / f"{name}.parquet"
         frames[name].write_parquet(path)
         print(f"\n{name}: {frames[name].height} rows -> {path}")
         print(frames[name].group_by("class").len().sort("class"))

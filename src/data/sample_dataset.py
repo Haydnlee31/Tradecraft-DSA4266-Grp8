@@ -51,10 +51,15 @@ def _count_labels(csv_path: Path, label_col: str) -> pl.DataFrame:
         .len()
         .collect(engine="streaming")
         .rename({label_col: "raw_label", "len": "n_total_in_file"})
+        # Group-by output order is not guaranteed. Sorting makes the output row
+        # order and manifest stable across Polars versions/thread schedules.
+        .sort("raw_label")
     )
 
 
-def _sample_split(csv_path: Path, label_col: str, per_class_cap: int, seed: int) -> tuple[pl.DataFrame, pl.DataFrame]:
+def _sample_split(
+    csv_path: Path, label_col: str, per_class_cap: int, seed: int
+) -> tuple[pl.DataFrame, pl.DataFrame]:
     counts = _count_labels(csv_path, label_col)
 
     bad_labels = set(counts["raw_label"]) - set(LABEL_TO_CLASS)
@@ -71,7 +76,11 @@ def _sample_split(csv_path: Path, label_col: str, per_class_cap: int, seed: int)
         raw_label, n_total = row["raw_label"], row["n_total_in_file"]
         n_target = min(n_total, per_class_cap)
         sub = lf.filter(pl.col(label_col) == raw_label).collect(engine="streaming")
-        sampled = sub.sample(n=n_target, seed=seed, shuffle=True) if n_target > 0 else sub.clear()
+        sampled = (
+            sub.sample(n=n_target, seed=seed, shuffle=True)
+            if n_target > 0
+            else sub.clear()
+        )
         sampled_frames.append(sampled)
         manifest_rows.append(
             {
@@ -80,6 +89,8 @@ def _sample_split(csv_path: Path, label_col: str, per_class_cap: int, seed: int)
                 "class": to_class(raw_label),
                 "n_total_in_file": n_total,
                 "n_sampled_from_file": sampled.height,
+                "per_class_cap": per_class_cap,
+                "sampling_seed": seed,
             }
         )
 
@@ -92,15 +103,28 @@ def _sample_split(csv_path: Path, label_col: str, per_class_cap: int, seed: int)
 
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--per-class-cap", type=int, default=50_000,
-                         help="Max sampled rows per raw label (34 labels), per split.")
+    parser.add_argument(
+        "--per-class-cap",
+        type=int,
+        default=50_000,
+        help="Max sampled rows per raw label (34 labels), per split.",
+    )
     parser.add_argument("--seed", type=int, default=0)
     parser.add_argument("--raw-dir", type=Path, default=RAW_DIR)
     parser.add_argument("--out-dir", type=Path, default=SPLITS_DIR)
+    parser.add_argument(
+        "--manifest-dir",
+        type=Path,
+        default=MANIFEST_DIR,
+        help="Directory for the sampling provenance manifest.",
+    )
     args = parser.parse_args()
 
+    if args.per_class_cap < 1:
+        raise SystemExit("--per-class-cap must be >= 1")
+
     args.out_dir.mkdir(parents=True, exist_ok=True)
-    MANIFEST_DIR.mkdir(parents=True, exist_ok=True)
+    args.manifest_dir.mkdir(parents=True, exist_ok=True)
 
     all_manifests = []
     for mirror_name, out_name in SPLITS.items():
@@ -111,7 +135,9 @@ def main() -> None:
             )
         label_col = _find_label_column(csv_path)
         print(f"\n[{out_name}] sampling {csv_path} (label column: {label_col!r}) ...")
-        sampled_df, manifest = _sample_split(csv_path, label_col, args.per_class_cap, args.seed)
+        sampled_df, manifest = _sample_split(
+            csv_path, label_col, args.per_class_cap, args.seed
+        )
         manifest = manifest.with_columns(pl.lit(out_name).alias("split"))
         all_manifests.append(manifest)
 
@@ -120,7 +146,7 @@ def main() -> None:
         print(f"[{out_name}] wrote {sampled_df.height} rows -> {out_path}")
         print(sampled_df.group_by("class").len().sort("class"))
 
-    manifest_path = MANIFEST_DIR / "manifest.csv"
+    manifest_path = args.manifest_dir / "manifest.csv"
     pl.concat(all_manifests).write_csv(manifest_path)
     print(f"\nManifest: {manifest_path}")
 

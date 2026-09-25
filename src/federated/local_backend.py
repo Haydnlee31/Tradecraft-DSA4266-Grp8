@@ -1,43 +1,30 @@
-"""In-process FedAvg driver — the federated lane without Ray.
+"""Sequential in-process FedAvg compatibility runner.
 
-Why this exists: Flower's simulation runtime spawns Ray, and Ray launches
-native helper binaries (raylet.exe, gcs_server.exe) as subprocesses. Under
-Windows Smart App Control those launches fail with
-`OSError: [WinError 4551] An Application Control policy has blocked this file`,
-so the Ray backend cannot start on such a machine. Disabling Smart App Control
-is irreversible without reinstalling Windows, which is not a reasonable price
-for running a coursework simulation.
+Flower's normal Simulation Runtime uses Ray workers. This small driver is
+useful for teaching/smoke tests on machines where Ray cannot launch (notably
+some Windows Smart App Control setups). It calls the exact same pure client
+helpers as ``client_app.py`` and Flower's own aggregation helpers, so it does
+not maintain a second model, loss, scaler, or FedAvg implementation.
 
-This driver runs the identical client code (`local_train` / `local_evaluate`
-from client_app) sequentially in one process, and aggregates with Flower's own
-`aggregate_arrayrecords`, so the FedAvg arithmetic is Flower's rather than a
-second implementation that could silently drift from it.
-
-What it does NOT reproduce: process isolation, concurrent client execution,
-message serialization, and client sampling via a Grid. Those matter for
-throughput and for realism about network cost — not for the learned parameters.
-For the report: results from this backend are the same computation as the Ray
-backend; timing figures from it are not comparable to a distributed setting,
-and neither backend produces *measured* edge numbers (see CLAUDE.md).
+What it does *not* reproduce is process isolation, concurrent clients, message
+serialization, or Grid-based sampling. Those affect throughput and systems
+realism. Wall-clock timings here are simulation timings and must never be
+reported as measured edge-hardware latency.
 """
 
 from __future__ import annotations
 
-from typing import Any, Callable, Mapping
+from collections.abc import Callable, Mapping
+from typing import Any
 
 import torch
 from flwr.app import ArrayRecord, MetricRecord, RecordDict
-
-# Flower's internal aggregation helper. Imported deliberately rather than
-# reimplemented: if a future Flower release moves it, this fails loudly at
-# import instead of quietly averaging differently from the Ray backend.
 from flwr.serverapp.strategy.strategy_utils import (
     aggregate_arrayrecords,
     aggregate_metricrecords,
 )
 
-from src.eval.metrics import format_summary_line
-from src.federated.client_app import local_evaluate, local_train, shard_for
+from src.federated.client_app import evaluate_partition, train_partition
 
 StateDict = dict[str, torch.Tensor]
 
@@ -46,30 +33,29 @@ def run_local_federation(
     initial_state: StateDict,
     num_clients: int,
     num_rounds: int,
-    config: Mapping[str, Any],
+    run_config: Mapping[str, Any],
     evaluate_fn: Callable[[int, StateDict], dict[str, float] | None] | None = None,
-    fraction_evaluate: float = 1.0,
+    fraction_evaluate: float = 0.0,
 ) -> tuple[StateDict, list[dict[str, float]]]:
-    """Run `num_rounds` of FedAvg across `num_clients` sequential virtual clients.
-
-    Returns the final global state dict and the per-round centralized metrics.
-    """
-    global_state = {key: value.clone() for key, value in initial_state.items()}
+    """Run deterministic full-participation FedAvg in one process."""
+    if num_clients < 1 or num_rounds < 1:
+        raise ValueError("num_clients and num_rounds must both be >= 1")
+    global_state = {
+        key: value.detach().cpu().clone() for key, value in initial_state.items()
+    }
     history: list[dict[str, float]] = []
 
-    # Shards are built once and reused across rounds — client_shard is cached,
-    # but resolving them up front also surfaces a bad partition immediately.
-    shards = [
-        shard_for(client_id, num_clients, config) for client_id in range(num_clients)
-    ]
-
     for server_round in range(1, num_rounds + 1):
-        round_config = dict(config)
-        round_config["server-round"] = server_round
-
         replies: list[RecordDict] = []
-        for client_id, shard in enumerate(shards):
-            state, metrics = local_train(global_state, shard, round_config, client_id)
+        for partition_id in range(num_clients):
+            state, metrics = train_partition(
+                global_state=global_state,
+                partition_id=partition_id,
+                num_partitions=num_clients,
+                run_config=run_config,
+                server_round=server_round,
+                learning_rate=float(run_config["learning-rate"]),
+            )
             replies.append(
                 RecordDict(
                     {
@@ -79,10 +65,10 @@ def run_local_federation(
                 )
             )
 
-        aggregated = aggregate_arrayrecords(replies, "num-examples")
+        global_state = aggregate_arrayrecords(
+            replies, "num-examples"
+        ).to_torch_state_dict()
         train_metrics = aggregate_metricrecords(replies, "num-examples")
-        global_state = aggregated.to_torch_state_dict()
-
         print(
             f"[local] round {server_round:>3}  "
             f"train_loss={float(train_metrics['train_loss']):.4f}  "
@@ -90,16 +76,20 @@ def run_local_federation(
         )
 
         if fraction_evaluate > 0.0:
-            eval_replies = [
-                RecordDict(
-                    {"metrics": MetricRecord(local_evaluate(global_state, shard, round_config))}
+            eval_replies = []
+            for partition_id in range(num_clients):
+                metrics = evaluate_partition(
+                    global_state=global_state,
+                    partition_id=partition_id,
+                    num_partitions=num_clients,
+                    run_config=run_config,
                 )
-                for shard in shards
-            ]
+                eval_replies.append(RecordDict({"metrics": MetricRecord(metrics)}))
             client_metrics = aggregate_metricrecords(eval_replies, "num-examples")
             print(
-                f"[local] round {server_round:>3}  federated (per-shard) "
-                f"{format_summary_line({k: float(v) for k, v in client_metrics.items()})}"
+                f"[local] round {server_round:>3}  client-val "
+                f"macro_f1={float(client_metrics['eval_macro_f1']):.4f}  "
+                f"acc={float(client_metrics['eval_accuracy']):.4f}"
             )
 
         if evaluate_fn is not None:

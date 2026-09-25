@@ -1,229 +1,262 @@
-"""Flower ServerApp — FedAvg aggregation plus centralized evaluation.
+"""Flower ``ServerApp`` for the simulated federated-light lane.
 
-Port of the notebook's `fed_avg` + `run_federated_experiment`: Flower's FedAvg
-strategy does the weighted parameter average (weighting by each client's
-"num-examples", exactly as the notebook did), and this module supplies the
-initial global model, the per-round client config, and a centralized scoring
-pass over the held-out validation split.
-
-The centralized pass is what produces the project's headline numbers. Clients
-evaluate on their own non-IID shards, which is informative about site-level
-behaviour but is not comparable across lanes — the val split is identical for
-the centralized-heavy, centralized-light, and federated-light lanes, so only it
-supports the trade-off comparison in CLAUDE.md.
-
-`prepare_server` holds the setup shared by both execution backends (Flower's
-Ray runtime via `app`, and the in-process driver in local_backend.py), so the
-two cannot drift in how they seed, scale, or score.
-
-Run configuration arrives either through the Context's run_config (under
-`flwr run`) or through the TRADECRAFT_FED_CONFIG environment variable (under
-run_simulation.py, whose backend has no run_config channel).
+The server initializes the exact same light model used by centralized-light,
+runs sample-count-weighted FedAvg, evaluates every global model on the shared
+validation split, and evaluates the validation-selected checkpoint on test
+once at the end. Its JSON report intentionally follows the centralized report
+schema so the decision layer can compare all three lanes without adapters.
 """
 
 from __future__ import annotations
 
 import json
-import os
-from dataclasses import dataclass, field
+from datetime import datetime
 from pathlib import Path
-from typing import Any, Callable
 
 import torch
 from flwr.app import ArrayRecord, ConfigRecord, Context, MetricRecord
 from flwr.serverapp import Grid, ServerApp
-from flwr.serverapp.strategy import FedAvg
-from torch import nn
 
-from src.eval.metrics import format_report, format_summary_line, summarize
-from src.federated.partition import SPLITS_DIR, SplitData, load_split
-from src.models.mlp import count_parameters, make_light_mlp, parameter_bytes
+from src.data.label_map import CLASSES
+from src.eval.metrics import compute_metrics
+from src.federated import task
+from src.federated.custom_strategy import FEDERATED_DIR, CustomFedAvg
+from src.models.architectures import LIGHT_CONFIG
+from src.utils.seed import set_seed
 
 app = ServerApp()
 
-CONFIG_ENV_VAR = "TRADECRAFT_FED_CONFIG"
 
-DEFAULTS: dict[str, Any] = {
-    "num-rounds": 5,
-    "local-epochs": 1,
-    "batch-size": 64,
-    "lr": 0.05,
-    "momentum": 0.9,
-    "alpha": 0.5,
-    "seed": 7,
-    "max-rows": 50_000,
-    "eval-max-rows": 50_000,
-    "hidden-dims": [64, 32],
-    "splits-dir": str(SPLITS_DIR),
-    "fraction-train": 1.0,
-    "fraction-evaluate": 1.0,
-    "history-path": "",
-}
-
-
-def settings_from_env() -> dict[str, Any]:
-    """Defaults overlaid with TRADECRAFT_FED_CONFIG, if set."""
-    settings = dict(DEFAULTS)
-    raw = os.environ.get(CONFIG_ENV_VAR)
-    if raw:
-        settings.update(json.loads(raw))
-    return settings
-
-
-def _settings(context: Context) -> dict[str, Any]:
-    """Merge run configuration: defaults < environment < run_config."""
-    settings = settings_from_env()
-    settings.update(dict(context.run_config))
-    return settings
-
-
-def hidden_dims_of(value: Any) -> tuple[int, ...]:
-    # Arrives as a list via JSON, or as "64,32" via `flwr run --run-config`,
-    # which only carries scalars.
-    if isinstance(value, str):
-        return tuple(int(part) for part in value.split(",") if part.strip())
-    return tuple(int(width) for width in value)
-
-
-@dataclass
-class ServerSetup:
-    """Everything both backends need to drive and score a federated run."""
-
-    model: nn.Module
-    val: SplitData
-    input_features: int
-    hidden_dims: tuple[int, ...]
-    client_config: dict[str, Any]
-    evaluate_fn: Callable[[int, Any], dict[str, float] | None]
-    history: list[dict[str, float]] = field(default_factory=list)
-
-
-def prepare_server(settings: dict[str, Any], verbose: bool = True) -> ServerSetup:
-    """Seed, load the val split, build the initial model and the scoring hook."""
-    seed = int(settings["seed"])
-    splits_dir = Path(str(settings["splits-dir"]))
-    hidden_dims = hidden_dims_of(settings["hidden-dims"])
-    max_rows = int(settings["max-rows"])
-    eval_max_rows = int(settings["eval-max-rows"]) or None
-
-    torch.manual_seed(seed)
-
-    # The standardizer must be the one fitted on the *training* rows the
-    # clients use, or the server would score the global model on differently
-    # scaled inputs than it was trained on.
-    train_reference, standardizer = load_split(
-        "train", max_rows=max_rows or None, seed=seed, splits_dir=splits_dir
-    )
-    val, _ = load_split(
-        "val",
-        max_rows=eval_max_rows,
-        seed=seed,
-        standardizer=standardizer,
-        splits_dir=splits_dir,
-    )
-    input_features = train_reference.x.shape[1]
-
-    model = make_light_mlp(input_features=input_features, hidden_dims=hidden_dims, seed=seed)
-    if verbose:
-        print(
-            f"[server] light MLP: {input_features} features -> {hidden_dims} -> 8 classes | "
-            f"{count_parameters(model)} params | "
-            f"{parameter_bytes(model) / 1024:.1f} KiB uploaded per client per round"
-        )
-        print(f"[server] centralized val split: {len(val)} rows | {val.class_counts()}")
-
-    history: list[dict[str, float]] = []
-
-    def evaluate_state(server_round: int, state: dict[str, torch.Tensor]) -> dict[str, float]:
-        evaluation_model = make_light_mlp(
-            input_features=input_features, hidden_dims=hidden_dims
-        )
-        evaluation_model.load_state_dict(state)
-        evaluation_model.eval()
-        with torch.no_grad():
-            predictions = evaluation_model(val.x).argmax(dim=1).numpy()
-        metrics = summarize(val.y.numpy(), predictions)
-        print(f"[server] round {server_round:>3}  centralized {format_summary_line(metrics)}")
-        return metrics
-
-    def evaluate_fn(server_round: int, arrays: Any) -> dict[str, float] | None:
-        # Accepts a Flower ArrayRecord (Ray backend) or a plain state dict
-        # (local backend), so both paths score identically.
-        state = arrays.to_torch_state_dict() if isinstance(arrays, ArrayRecord) else arrays
-        metrics = evaluate_state(server_round, state)
-        history.append({"round": server_round, **metrics})
-        return metrics
-
-    client_config = {
-        "seed": seed,
-        "alpha": float(settings["alpha"]),
-        "max-rows": max_rows,
-        "splits-dir": str(splits_dir),
-        "hidden-dims": list(hidden_dims),
-        "batch-size": int(settings["batch-size"]),
-        "local-epochs": int(settings["local-epochs"]),
-        "lr": float(settings["lr"]),
-        "momentum": float(settings["momentum"]),
-        "server-round": 0,  # overwritten per round
-    }
-
-    return ServerSetup(
-        model=model,
-        val=val,
-        input_features=input_features,
-        hidden_dims=hidden_dims,
-        client_config=client_config,
-        evaluate_fn=evaluate_fn,
-        history=history,
-    )
-
-
-def finalize(setup: ServerSetup, final_state: dict[str, torch.Tensor] | None, history_path: str) -> None:
-    """Print the final per-class report and optionally persist the history."""
-    if final_state is not None:
-        setup.model.load_state_dict(final_state)
-        setup.model.eval()
-        with torch.no_grad():
-            predictions = setup.model(setup.val.x).argmax(dim=1).numpy()
-        print("\n[server] final global model on centralized val split:")
-        print(format_report(setup.val.y.numpy(), predictions))
-
-    if history_path:
-        target = Path(history_path)
-        target.parent.mkdir(parents=True, exist_ok=True)
-        target.write_text(json.dumps(setup.history, indent=2), encoding="utf-8")
-        print(f"[server] per-round history -> {target}")
+def _parameter_bytes(model: torch.nn.Module) -> int:
+    """Exact bytes in model tensors; also one full client upload per round."""
+    return sum(p.numel() * p.element_size() for p in model.parameters())
 
 
 @app.main()
 def main(grid: Grid, context: Context) -> None:
-    """Flower ServerApp entrypoint (Ray simulation runtime / `flwr run`)."""
-    settings = _settings(context)
-    setup = prepare_server(settings)
+    """Configure and run the federated experiment."""
+    task.configure(context.run_config)
+    run_config = context.run_config
+    num_rounds = int(run_config["num-server-rounds"])
+    learning_rate = float(run_config["learning-rate"])
+    seed = int(run_config["seed"])
 
-    train_config = ConfigRecord(setup.client_config)
+    # Seed before model construction so initial weights and client sampling are
+    # reproducible. Clients use a separate (seed, client, round) derivation.
+    set_seed(seed)
+    global_model = task.load_model()
+    arrays = ArrayRecord(global_model.state_dict())
 
-    strategy = FedAvg(
-        fraction_train=float(settings["fraction-train"]),
-        fraction_evaluate=float(settings["fraction-evaluate"]),
+    strategy = CustomFedAvg(
+        fraction_train=float(run_config["fraction-train"]),
+        fraction_evaluate=float(run_config["fraction-evaluate"]),
         min_train_nodes=1,
         min_evaluate_nodes=1,
         min_available_nodes=1,
         weighted_by_key="num-examples",
+        patience=int(run_config["patience"]),
+        lr_decay_every=int(run_config.get("lr-decay-every", 0)),
+        lr_decay_factor=float(run_config.get("lr-decay-factor", 0.5)),
     )
 
-    def flwr_evaluate(server_round: int, arrays: ArrayRecord) -> MetricRecord | None:
-        metrics = setup.evaluate_fn(server_round, arrays)
-        return MetricRecord(metrics) if metrics is not None else None
+    # Microseconds and seed keep repeated/swept runs from colliding.
+    run_name = datetime.now().strftime("%Y-%m-%d/%H-%M-%S-%f") + f"_seed{seed}"
+    output_base = Path(run_config.get("output-dir") or FEDERATED_DIR)
+    save_path = output_base / "outputs" / run_name
+    strategy.set_save_path(save_path)
+
+    node_ids = list(grid.get_node_ids())
+    num_clients = len(node_ids)
+    if num_clients < 1:
+        raise RuntimeError("Flower reported no available simulated clients")
+    if task.PARTITIONER == "dirichlet":
+        task.validate_partition_file(num_clients)
+
+    # This provenance record is separate from the final metrics report so a
+    # failed/interrupted run still leaves enough detail to reproduce it.
+    run_info = {
+        "seed": seed,
+        "run_config": dict(run_config),
+        "model": {
+            "architecture": "MLPClassifier",
+            "hidden_dims": list(LIGHT_CONFIG.hidden_dims),
+            "dropout": LIGHT_CONFIG.dropout,
+            "num_parameters": global_model.num_parameters(),
+            "parameter_bytes": _parameter_bytes(global_model),
+        },
+        "partition": {
+            "partitioner": task.PARTITIONER,
+            "num_clients": num_clients,
+            "dirichlet_alpha": (
+                task.DIRICHLET_ALPHA if task.PARTITIONER == "dirichlet" else None
+            ),
+            "partition_file": (
+                str(task.partition_path(num_clients))
+                if task.PARTITIONER == "dirichlet"
+                else None
+            ),
+            "train_file": str(task.TRAIN_PATH),
+            "val_file": str(task.VAL_PATH),
+        },
+        # Wall-clock client timing is a simulation measurement only. Nothing
+        # in this record is a measured Jetson/edge-hardware result.
+        "edge_hardware_measurements": False,
+    }
+    (save_path / "run_info.json").write_text(
+        json.dumps(run_info, indent=2), encoding="utf-8"
+    )
 
     result = strategy.start(
         grid=grid,
-        initial_arrays=ArrayRecord(setup.model.state_dict()),
-        num_rounds=int(settings["num-rounds"]),
-        train_config=train_config,
-        evaluate_config=train_config,
-        evaluate_fn=flwr_evaluate,
+        initial_arrays=arrays,
+        train_config=ConfigRecord({"lr": learning_rate}),
+        num_rounds=num_rounds,
+        evaluate_fn=global_evaluate,
     )
 
-    final_state = result.arrays.to_torch_state_dict() if result.arrays is not None else None
-    finalize(setup, final_state, str(settings["history-path"]))
+    if bool(run_config["save-model"]) and result.arrays is not None:
+        torch.save(result.arrays.to_torch_state_dict(), save_path / "final_model.pt")
+
+    test_metrics = final_test_evaluate(save_path)
+    if test_metrics is not None:
+        write_report(
+            context=context,
+            strategy=strategy,
+            result=result,
+            model=global_model,
+            test_metrics=test_metrics,
+            save_path=save_path,
+            num_clients=num_clients,
+        )
+
+
+def write_report(
+    context: Context,
+    strategy: CustomFedAvg,
+    result,
+    model,
+    test_metrics: dict,
+    save_path: Path,
+    num_clients: int,
+) -> Path:
+    """Write the same core result schema as centralized training.
+
+    ``rounds`` is the number actually executed after early stopping. With all
+    clients selected and one local epoch, one round is approximately one pass
+    over the pooled training rows, which is the closest counterpart to a
+    centralized epoch.
+    """
+    run_config = context.run_config
+    history = []
+    for server_round in range(0, strategy.rounds_run + 1):
+        train_metrics = dict(result.train_metrics_clientapp.get(server_round, {}))
+        val_metrics = dict(result.evaluate_metrics_serverapp.get(server_round, {}))
+        if not train_metrics and not val_metrics:
+            continue
+        history.append(
+            {
+                "round": server_round,
+                "train_loss": train_metrics.get("train_loss"),
+                "val_loss": val_metrics.get("val_loss"),
+                "val_macro_f1": val_metrics.get("val_macro_f1"),
+                "val_accuracy": val_metrics.get("val_accuracy"),
+                "val_per_class_recall": {
+                    class_name: val_metrics.get(f"val_recall/{class_name}")
+                    for class_name in CLASSES
+                },
+            }
+        )
+
+    report = {
+        "variant": "light",
+        "lane": "federated",
+        "config": {
+            "hidden_dims": list(LIGHT_CONFIG.hidden_dims),
+            "dropout": LIGHT_CONFIG.dropout,
+        },
+        "loss": run_config["loss"],
+        "num_parameters": model.num_parameters(),
+        "parameter_bytes": _parameter_bytes(model),
+        "history": history,
+        "test_metrics": test_metrics,
+        "args": dict(run_config),
+        "num_clients": num_clients,
+        "partitioner": task.PARTITIONER,
+        "alpha": (task.DIRICHLET_ALPHA if task.PARTITIONER == "dirichlet" else None),
+        "strategy": "FedAvg",
+        "rounds": strategy.rounds_run,
+        "num_server_rounds": int(run_config["num-server-rounds"]),
+        "early_stopped": strategy.early_stopped,
+        "best_round": strategy.best_round,
+        "local_epochs": int(run_config["local-epochs"]),
+        "fraction_train": float(run_config["fraction-train"]),
+        "class_weights": run_config["class-weights"],
+        "run_dir": str(save_path),
+        "edge_hardware_measurements": False,
+    }
+
+    reports_dir = Path(run_config.get("reports-dir") or task.ROOT / "reports")
+    reports_dir.mkdir(parents=True, exist_ok=True)
+    partition_tag = (
+        f"a{task.DIRICHLET_ALPHA}" if task.PARTITIONER == "dirichlet" else "iid"
+    )
+    out_path = reports_dir / (
+        f"federated_light_{run_config['loss']}_{partition_tag}_"
+        f"n{num_clients}_seed{int(run_config['seed'])}.json"
+    )
+    out_path.write_text(json.dumps(report, indent=2), encoding="utf-8")
+    print(f"Saved report to {out_path} ({strategy.rounds_run} rounds run)")
+    return out_path
+
+
+def final_test_evaluate(save_path: Path) -> dict | None:
+    """Evaluate the validation-selected checkpoint on test exactly once."""
+    best_path = save_path / "best_model.pt"
+    if not best_path.exists():
+        print("No best_model.pt was produced; skipping final test evaluation.")
+        return None
+
+    model = task.load_model()
+    model.load_state_dict(torch.load(best_path, map_location="cpu", weights_only=True))
+    device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+    _, y_true, y_pred = task.predict(model, task.load_test(), device)
+    test_metrics = compute_metrics(y_true, y_pred)
+    best_info = json.loads((save_path / "best_model.json").read_text(encoding="utf-8"))
+
+    out_path = save_path / "test_metrics.json"
+    out_path.write_text(
+        json.dumps({"best_model": best_info, "test_metrics": test_metrics}, indent=2),
+        encoding="utf-8",
+    )
+    print(f"Test evaluation of best model (round {best_info['round']}) -> {out_path}")
+    print(
+        f"Test accuracy: {test_metrics['accuracy']:.4f}  "
+        f"macro-F1: {test_metrics['macro_f1']:.4f}"
+    )
+    for class_name, recall in test_metrics["per_class_recall"].items():
+        print(f"  recall[{class_name}]: {recall:.4f}")
+    return test_metrics
+
+
+def global_evaluate(server_round: int, arrays: ArrayRecord) -> MetricRecord:
+    """Evaluate one global model on the full shared validation split."""
+    model = task.load_model()
+    model.load_state_dict(arrays.to_torch_state_dict())
+    device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+    val_loss, y_true, y_pred = task.predict(model, task.load_server_val(), device)
+    metrics = compute_metrics(y_true, y_pred)
+
+    flat = {
+        "val_loss": float(val_loss),
+        "val_accuracy": float(metrics["accuracy"]),
+        "val_macro_f1": float(metrics["macro_f1"]),
+    }
+    for class_name, recall in metrics["per_class_recall"].items():
+        flat[f"val_recall/{class_name}"] = float(recall)
+
+    print(
+        f"[server] round {server_round:>3}  val_macro_f1={flat['val_macro_f1']:.4f}  "
+        f"recall[Brute Force]={flat['val_recall/Brute Force']:.3f}  "
+        f"recall[Web-based]={flat['val_recall/Web-based']:.3f}"
+    )
+    return MetricRecord(flat)

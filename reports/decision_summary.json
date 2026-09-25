@@ -1,0 +1,383 @@
+{
+  "status": "incomplete",
+  "recommended_lane": null,
+  "provisional_recommendation": null,
+  "criteria": {
+    "loss": "sqrt_weighted_ce",
+    "min_macro_f1": 0.6,
+    "min_class_recall": 0.2,
+    "max_model_mib": 1.0,
+    "max_macro_f1_drop": 0.02,
+    "min_seeds": 3,
+    "require_federated": false,
+    "prefer_federated": false
+  },
+  "selection_metric": "mean best validation macro-F1 across seeds",
+  "comparison_metrics": "test metrics of validation-selected checkpoints",
+  "blocking_issues": [
+    "missing centralized-heavy report with loss=sqrt_weighted_ce",
+    "missing federated-light report with loss=sqrt_weighted_ce",
+    "no candidate passes all metric and size constraints"
+  ],
+  "warnings": [
+    "centralized-heavy has only these excluded losses: ['weighted_ce']"
+  ],
+  "selected_candidates": {
+    "centralized-light": {
+      "config": {
+        "dropout": 0.2,
+        "hidden_dims": [
+          64,
+          32
+        ]
+      },
+      "lane": "centralized-light",
+      "loss": "sqrt_weighted_ce",
+      "training": {
+        "batch_size": 512,
+        "epochs": 30,
+        "l1_lambda": 0.0,
+        "lr": 0.001,
+        "patience": 5
+      },
+      "seeds": [
+        0,
+        1,
+        2
+      ],
+      "num_seeds": 3,
+      "duplicate_seeds": [],
+      "sources": [
+        "reports/centralized_light_sqrt_weighted_ce_seed0.json",
+        "reports/centralized_light_sqrt_weighted_ce_seed1.json",
+        "reports/centralized_light_sqrt_weighted_ce_seed2.json"
+      ],
+      "num_parameters": 5544,
+      "parameter_bytes": 22176,
+      "model_mib": 0.021148681640625,
+      "validation_macro_f1_mean": 0.645830005625195,
+      "validation_macro_f1_std": 0.0015786118496552964,
+      "test_macro_f1_mean": 0.6454855000280183,
+      "test_macro_f1_std": 0.0015942852290371404,
+      "test_accuracy_mean": 0.81658352610082,
+      "test_accuracy_std": 0.007028046943125248,
+      "per_class_recall_mean": {
+        "Benign": 0.7500971694127587,
+        "DDoS": 0.7847528942308465,
+        "DoS": 0.7871609127890534,
+        "Recon": 0.7533725631479925,
+        "Web-based": 0.196969696969697,
+        "Brute Force": 0.20426487093153758,
+        "Spoofing": 0.7496194824961949,
+        "Mirai": 0.992962065072242
+      },
+      "per_class_recall_std": {
+        "Benign": 0.019475160512050935,
+        "DDoS": 0.02635462938209568,
+        "DoS": 0.030807767187822,
+        "Recon": 0.018554133503894253,
+        "Web-based": 0.03622463769587543,
+        "Brute Force": 0.012747269014142028,
+        "Spoofing": 0.020161887144657165,
+        "Mirai": 8.481427180270125e-05
+      },
+      "worst_class_recall_mean": 0.196969696969697,
+      "eligible": false,
+      "constraint_failures": [
+        "recall below threshold for Web-based"
+      ]
+    }
+  },
+  "all_candidates": [
+    {
+      "config": {
+        "dropout": 0.3,
+        "hidden_dims": [
+          512,
+          256,
+          128,
+          64
+        ]
+      },
+      "lane": "centralized-heavy",
+      "loss": "weighted_ce",
+      "training": {
+        "batch_size": 512,
+        "epochs": 60,
+        "l1_lambda": 0.0,
+        "lr": 0.001,
+        "patience": 10
+      },
+      "seeds": [
+        0
+      ],
+      "num_seeds": 1,
+      "duplicate_seeds": [],
+      "sources": [
+        "reports/centralized_heavy_weighted_ce_seed0.json"
+      ],
+      "num_parameters": 198984,
+      "parameter_bytes": 795936,
+      "model_mib": 0.759063720703125,
+      "validation_macro_f1_mean": 0.6052931088827671,
+      "validation_macro_f1_std": 0.0,
+      "test_macro_f1_mean": 0.6057491338983165,
+      "test_macro_f1_std": 0.0,
+      "test_accuracy_mean": 0.7534345337072103,
+      "test_accuracy_std": 0.0,
+      "per_class_recall_mean": {
+        "Benign": 0.7778453738910013,
+        "DDoS": 0.6002703159317452,
+        "DoS": 0.9803236964040984,
+        "Recon": 0.5419718986429687,
+        "Web-based": 0.7457912457912458,
+        "Brute Force": 0.7205387205387206,
+        "Spoofing": 0.6527989176391003,
+        "Mirai": 0.9934836058527192
+      },
+      "per_class_recall_std": {
+        "Benign": 0.0,
+        "DDoS": 0.0,
+        "DoS": 0.0,
+        "Recon": 0.0,
+        "Web-based": 0.0,
+        "Brute Force": 0.0,
+        "Spoofing": 0.0,
+        "Mirai": 0.0
+      },
+      "worst_class_recall_mean": 0.5419718986429687
+    },
+    {
+      "config": {
+        "dropout": 0.2,
+        "hidden_dims": [
+          64,
+          32
+        ]
+      },
+      "lane": "centralized-light",
+      "loss": "sqrt_weighted_ce",
+      "training": {
+        "batch_size": 512,
+        "epochs": 30,
+        "l1_lambda": 0.0,
+        "lr": 0.001,
+        "patience": 5
+      },
+      "seeds": [
+        0,
+        1,
+        2
+      ],
+      "num_seeds": 3,
+      "duplicate_seeds": [],
+      "sources": [
+        "reports/centralized_light_sqrt_weighted_ce_seed0.json",
+        "reports/centralized_light_sqrt_weighted_ce_seed1.json",
+        "reports/centralized_light_sqrt_weighted_ce_seed2.json"
+      ],
+      "num_parameters": 5544,
+      "parameter_bytes": 22176,
+      "model_mib": 0.021148681640625,
+      "validation_macro_f1_mean": 0.645830005625195,
+      "validation_macro_f1_std": 0.0015786118496552964,
+      "test_macro_f1_mean": 0.6454855000280183,
+      "test_macro_f1_std": 0.0015942852290371404,
+      "test_accuracy_mean": 0.81658352610082,
+      "test_accuracy_std": 0.007028046943125248,
+      "per_class_recall_mean": {
+        "Benign": 0.7500971694127587,
+        "DDoS": 0.7847528942308465,
+        "DoS": 0.7871609127890534,
+        "Recon": 0.7533725631479925,
+        "Web-based": 0.196969696969697,
+        "Brute Force": 0.20426487093153758,
+        "Spoofing": 0.7496194824961949,
+        "Mirai": 0.992962065072242
+      },
+      "per_class_recall_std": {
+        "Benign": 0.019475160512050935,
+        "DDoS": 0.02635462938209568,
+        "DoS": 0.030807767187822,
+        "Recon": 0.018554133503894253,
+        "Web-based": 0.03622463769587543,
+        "Brute Force": 0.012747269014142028,
+        "Spoofing": 0.020161887144657165,
+        "Mirai": 8.481427180270125e-05
+      },
+      "worst_class_recall_mean": 0.196969696969697
+    },
+    {
+      "config": {
+        "dropout": 0.2,
+        "hidden_dims": [
+          64,
+          32
+        ]
+      },
+      "lane": "centralized-light",
+      "loss": "ce",
+      "training": {
+        "batch_size": 512,
+        "epochs": 30,
+        "l1_lambda": 0.0,
+        "lr": 0.001,
+        "patience": 5
+      },
+      "seeds": [
+        0,
+        1,
+        2
+      ],
+      "num_seeds": 3,
+      "duplicate_seeds": [],
+      "sources": [
+        "reports/centralized_light_ce_seed0.json",
+        "reports/centralized_light_ce_seed1.json",
+        "reports/centralized_light_ce_seed2.json"
+      ],
+      "num_parameters": 5544,
+      "parameter_bytes": 22176,
+      "model_mib": 0.021148681640625,
+      "validation_macro_f1_mean": 0.6145104508686019,
+      "validation_macro_f1_std": 0.0027340348636813944,
+      "test_macro_f1_mean": 0.6173800329259961,
+      "test_macro_f1_std": 0.00105552367790194,
+      "test_accuracy_mean": 0.8218756838899558,
+      "test_accuracy_std": 0.0038685361806491242,
+      "per_class_recall_mean": {
+        "Benign": 0.6449683143219265,
+        "DDoS": 0.8299463390695018,
+        "DoS": 0.7181742043551088,
+        "Recon": 0.809295064248829,
+        "Web-based": 0.009539842873176206,
+        "Brute Force": 0.19079685746352412,
+        "Spoofing": 0.7658548959918822,
+        "Mirai": 0.9928703655943559
+      },
+      "per_class_recall_std": {
+        "Benign": 0.02201041835719825,
+        "DDoS": 0.016754438113742134,
+        "DoS": 0.031999018603266136,
+        "Recon": 0.04135117519828927,
+        "Web-based": 0.007008976429178898,
+        "Brute Force": 0.0019439403003017614,
+        "Spoofing": 0.036419214155853884,
+        "Mirai": 0.00013131868706279355
+      },
+      "worst_class_recall_mean": 0.009539842873176206
+    },
+    {
+      "config": {
+        "dropout": 0.2,
+        "hidden_dims": [
+          64,
+          32
+        ]
+      },
+      "lane": "centralized-light",
+      "loss": "weighted_ce",
+      "training": {
+        "batch_size": 512,
+        "epochs": 30,
+        "l1_lambda": 0.0,
+        "lr": 0.001,
+        "patience": 5
+      },
+      "seeds": [
+        0
+      ],
+      "num_seeds": 1,
+      "duplicate_seeds": [],
+      "sources": [
+        "reports/centralized_light_weighted_ce_seed0.json"
+      ],
+      "num_parameters": 5544,
+      "parameter_bytes": 22176,
+      "model_mib": 0.021148681640625,
+      "validation_macro_f1_mean": 0.575696197029005,
+      "validation_macro_f1_std": 0.0,
+      "test_macro_f1_mean": 0.5749116160895633,
+      "test_macro_f1_std": 0.0,
+      "test_accuracy_mean": 0.7122201292206876,
+      "test_accuracy_std": 0.0,
+      "per_class_recall_mean": {
+        "Benign": 0.7288212927756654,
+        "DDoS": 0.5263799386962084,
+        "DoS": 0.9913528682372903,
+        "Recon": 0.5138705416116248,
+        "Web-based": 0.8215488215488216,
+        "Brute Force": 0.6026936026936027,
+        "Spoofing": 0.6029934043632674,
+        "Mirai": 0.9920393390760132
+      },
+      "per_class_recall_std": {
+        "Benign": 0.0,
+        "DDoS": 0.0,
+        "DoS": 0.0,
+        "Recon": 0.0,
+        "Web-based": 0.0,
+        "Brute Force": 0.0,
+        "Spoofing": 0.0,
+        "Mirai": 0.0
+      },
+      "worst_class_recall_mean": 0.5138705416116248
+    },
+    {
+      "config": {
+        "dropout": 0.2,
+        "hidden_dims": [
+          64,
+          32
+        ]
+      },
+      "lane": "centralized-light",
+      "loss": "focal",
+      "training": {
+        "batch_size": 512,
+        "epochs": 30,
+        "l1_lambda": 0.0,
+        "lr": 0.001,
+        "patience": 5
+      },
+      "seeds": [
+        0
+      ],
+      "num_seeds": 1,
+      "duplicate_seeds": [],
+      "sources": [
+        "reports/centralized_light_focal_seed0.json"
+      ],
+      "num_parameters": 5544,
+      "parameter_bytes": 22176,
+      "model_mib": 0.021148681640625,
+      "validation_macro_f1_mean": 0.5728154920142642,
+      "validation_macro_f1_std": 0.0,
+      "test_macro_f1_mean": 0.5702783646774405,
+      "test_macro_f1_std": 0.0,
+      "test_accuracy_mean": 0.7358737735999559,
+      "test_accuracy_std": 0.0,
+      "per_class_recall_mean": {
+        "Benign": 0.6439543726235741,
+        "DDoS": 0.584877995800449,
+        "DoS": 0.9917118057821576,
+        "Recon": 0.495976942476282,
+        "Web-based": 0.8080808080808081,
+        "Brute Force": 0.5993265993265994,
+        "Spoofing": 0.5926771520378826,
+        "Mirai": 0.9911280755145201
+      },
+      "per_class_recall_std": {
+        "Benign": 0.0,
+        "DDoS": 0.0,
+        "DoS": 0.0,
+        "Recon": 0.0,
+        "Web-based": 0.0,
+        "Brute Force": 0.0,
+        "Spoofing": 0.0,
+        "Mirai": 0.0
+      },
+      "worst_class_recall_mean": 0.495976942476282
+    }
+  ]
+}

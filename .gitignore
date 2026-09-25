@@ -22,6 +22,7 @@ venv/
 *.ckpt
 runs/
 wandb/
+outputs/
 mlruns/
 
 # Reports (keep the write-up itself and figures, ignore scratch outputs)
@@ -38,3 +39,6 @@ kaggle.json
 
 # Claude Code session/harness state
 .claude/
+# Generated partition mappings, counts, and provenance (keep only the folder).
+data/partitions/*
+!data/partitions/.gitkeep

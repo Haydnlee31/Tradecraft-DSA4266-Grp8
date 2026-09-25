@@ -1,15 +1,16 @@
-"""Light MLP classifier for the 8-class CICIoT2023 task.
+"""Backward-compatible access to the canonical light MLP.
 
-This is the "light" architecture used by both the centralized-light and
-federated-light lanes (CLAUDE.md's three-lane comparison). Keeping it in one
-place matters for the federated lane specifically: FedAvg averages parameter
-tensors elementwise, so every client must instantiate a structurally
-identical model or aggregation is meaningless.
+The original federated branch defined a second ``LightMLP`` here. Its layers
+did not include the BatchNorm and default Dropout used by centralized-light,
+so comparing their results was not an apples-to-apples centralized-versus-
+federated experiment. The implementation now delegates to
+``src.models.architectures.MLPClassifier``; this module remains as a friendly
+import path for the teaching notebook and any teammate scripts.
 
-Deliberately small — the point of the comparison is whether a model this size,
-trained federated, is good enough to justify skipping a heavy centralized one.
-Parameter counts here feed the efficiency/trade-off analysis; any latency or
-power figure derived from them is *projected*, not measured (see CLAUDE.md).
+Keeping one architecture matters especially for FedAvg: every client must
+instantiate tensors with identical structure, and federated-light must have
+the same capacity as centralized-light for the decision layer to attribute a
+difference to training setting rather than model design.
 """
 
 from __future__ import annotations
@@ -18,55 +19,41 @@ import torch
 from torch import nn
 
 from src.data.label_map import CLASSES
+from src.models.architectures import LIGHT_CONFIG, MLPConfig, MLPClassifier
 
-DEFAULT_HIDDEN_DIMS = (64, 32)
+DEFAULT_HIDDEN_DIMS = LIGHT_CONFIG.hidden_dims
 
 
-class LightMLP(nn.Module):
-    """Fully-connected classifier over the 46 CICIoT2023 flow statistics.
-
-    Args:
-        input_features: number of numeric flow features (46 for this dataset).
-        hidden_dims: widths of the hidden layers.
-        num_classes: output classes (8 — see src/data/label_map.CLASSES).
-        dropout: applied after each hidden activation; 0.0 disables it.
-    """
+class LightMLP(MLPClassifier):
+    """Canonical 46-feature light classifier with a compatibility signature."""
 
     def __init__(
         self,
         input_features: int,
         hidden_dims: tuple[int, ...] = DEFAULT_HIDDEN_DIMS,
         num_classes: int = len(CLASSES),
-        dropout: float = 0.0,
+        dropout: float = LIGHT_CONFIG.dropout,
     ) -> None:
-        super().__init__()
-        layers: list[nn.Module] = []
-        in_dim = input_features
-        for hidden in hidden_dims:
-            layers.append(nn.Linear(in_dim, hidden))
-            layers.append(nn.ReLU())
-            if dropout > 0.0:
-                layers.append(nn.Dropout(dropout))
-            in_dim = hidden
-        layers.append(nn.Linear(in_dim, num_classes))
-        self.network = nn.Sequential(*layers)
-
-    def forward(self, x: torch.Tensor) -> torch.Tensor:
-        return self.network(x)
+        config = MLPConfig(
+            name=LIGHT_CONFIG.name,
+            hidden_dims=tuple(hidden_dims),
+            dropout=dropout,
+        )
+        super().__init__(input_features, num_classes, config)
 
 
 def make_light_mlp(
     input_features: int,
     hidden_dims: tuple[int, ...] = DEFAULT_HIDDEN_DIMS,
     num_classes: int = len(CLASSES),
-    dropout: float = 0.0,
+    dropout: float = LIGHT_CONFIG.dropout,
     seed: int | None = None,
 ) -> LightMLP:
-    """Build a LightMLP with optionally seeded initialization.
+    """Build the shared light architecture with optional seeded initialization.
 
-    Every federated run is seeded (CLAUDE.md convention). The server seeds the
-    initial global model once; clients receive those weights over the wire and
-    never re-initialize, so client-side seeding only affects batch shuffling.
+    The server seeds the initial global model once. Clients immediately load
+    those received weights, so their per-round seeds affect batch order and
+    Dropout masks rather than creating different initial models.
     """
     if seed is not None:
         torch.manual_seed(seed)
@@ -74,17 +61,17 @@ def make_light_mlp(
 
 
 def count_parameters(model: nn.Module, trainable_only: bool = True) -> int:
-    """Total parameter count — input to the model-size side of the trade-off table."""
-    params = model.parameters()
-    if trainable_only:
-        params = (p for p in model.parameters() if p.requires_grad)
-    return sum(p.numel() for p in params)
+    """Count parameters for the capacity side of the trade-off table."""
+    params = (
+        (parameter for parameter in model.parameters() if parameter.requires_grad)
+        if trainable_only
+        else model.parameters()
+    )
+    return sum(parameter.numel() for parameter in params)
 
 
 def parameter_bytes(model: nn.Module) -> int:
-    """Size of the parameter tensors in bytes.
-
-    This is also the per-client upload volume of one FedAvg round, since a
-    client returns exactly one full set of parameters per round.
-    """
-    return sum(p.numel() * p.element_size() for p in model.parameters())
+    """Return exact tensor bytes, also one full-model client upload."""
+    return sum(
+        parameter.numel() * parameter.element_size() for parameter in model.parameters()
+    )
