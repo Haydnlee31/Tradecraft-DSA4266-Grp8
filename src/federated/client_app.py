@@ -1,16 +1,17 @@
 """fed_ciciot: Flower ClientApp for CICIoT2023 federated learning simulation."""
 
+import time
+
 import torch
 from flwr.app import ArrayRecord, Context, Message, MetricRecord, RecordDict
 from flwr.clientapp import ClientApp
 
+from src.eval.metrics import compute_metrics
 from src.federated import task
-from src.federated.task import load_model, load_data
+from src.federated.task import load_model, load_train_partition, load_val_partition
 from src.federated.task import test as test_fn
 from src.federated.task import train as train_fn
 from src.utils.seed import client_seed, set_seed
-
-import time
 
 # Flower ClientApp
 app = ClientApp()
@@ -39,7 +40,7 @@ def train(msg: Message, context: Context):
     # Load the data
     num_partitions = context.node_config["num-partitions"]
     batch_size = context.run_config["batch-size"]
-    trainloader, _ = load_data(partition_id, num_partitions, batch_size, seed=seed)
+    trainloader = load_train_partition(partition_id, num_partitions, batch_size, seed=seed)
 
     # Call the training function
     train_loss = train_fn(
@@ -52,15 +53,16 @@ def train(msg: Message, context: Context):
         class_weights=context.run_config["class-weights"],
     )
 
-    end_time = time.time()
-    training_time = end_time - start_time
-    
+    # Measured (simulation host): wall-clock seconds on the machine running the
+    # simulation. Not an edge-device figure -- edge latency/memory/power stay "projected".
+    training_time_sim_host_s = time.time() - start_time
+
     # Construct and return reply Message
     model_record = ArrayRecord(model.state_dict())
     metrics = {
         "train_loss": train_loss,
         "num-examples": len(trainloader.dataset),
-        "training_time": training_time,  # New metric
+        "training_time_sim_host_s": training_time_sim_host_s,
     }
     metric_record = MetricRecord(metrics)
     content = RecordDict({"arrays": model_record, "metrics": metric_record})
@@ -69,7 +71,12 @@ def train(msg: Message, context: Context):
 
 @app.evaluate()
 def evaluate(msg: Message, context: Context):
-    """Evaluate the model on local data."""
+    """Evaluate the global model on this client's val slice.
+
+    Reports this client's own macro-F1 (with its partition id) so the strategy can show
+    how evenly clients are served. Not a substitute for the server's full-val macro-F1:
+    a weighted average of per-client macro-F1 is a different number.
+    """
 
     task.configure(context.run_config)
 
@@ -79,23 +86,22 @@ def evaluate(msg: Message, context: Context):
     device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
     model.to(device)
 
-    # Load the data
+    # Load the data (val only; train isn't needed here)
     partition_id = context.node_config["partition-id"]
     num_partitions = context.node_config["num-partitions"]
     batch_size = context.run_config["batch-size"]
-    _, valloader = load_data(partition_id, num_partitions, batch_size)
+    valloader = load_val_partition(partition_id, num_partitions, batch_size)
 
     # Call the evaluation function
-    eval_loss, eval_acc, _ = test_fn(
-        model,
-        valloader,
-        device,
-    )
+    eval_loss, y_true, y_pred = test_fn(model, valloader, device)
+    m = compute_metrics(y_true, y_pred)
 
     # Construct and return reply Message
     metrics = {
         "eval_loss": eval_loss,
-        "eval_acc": eval_acc,
+        "eval_acc": m["accuracy"],
+        "client_macro_f1": m["macro_f1"],
+        "partition-id": partition_id,
         "num-examples": len(valloader.dataset),
     }
     metric_record = MetricRecord(metrics)

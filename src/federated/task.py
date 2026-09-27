@@ -9,7 +9,6 @@ import joblib
 import numpy as np
 import polars as pl
 import torch
-from sklearn.metrics import f1_score
 from sklearn.preprocessing import StandardScaler
 from torch.utils.data import DataLoader, TensorDataset
 
@@ -41,14 +40,16 @@ NUM_CLASSES = len(CLASSES)
 
 _scaler: StandardScaler | None = None  # Cache per process
 _feat_cols: list[str] | None = None
-_server_val: TensorDataset | None = None  # Full val split, loaded once for server eval
+# Loaded tensors keyed by (what, path, partition...). Simulation workers are reused
+# across rounds, so each client slice / server split is read from disk once per worker
+_tensor_cache: dict[tuple, TensorDataset] = {}
 _class_counts: dict[str, int] | None = None  # Global train class counts, for loss weights
 
 
 def configure(run_config) -> None:
     """Point the data paths at run_config["splits-dir"] (empty = keep the default) and
     read the partitioning settings."""
-    global SPLITS_DIR, TRAIN_PATH, VAL_PATH, TEST_PATH, SCALER_PATH, _scaler, _feat_cols, _server_val, _class_counts
+    global SPLITS_DIR, TRAIN_PATH, VAL_PATH, TEST_PATH, SCALER_PATH, _scaler, _feat_cols, _class_counts
     global PARTITIONER, DIRICHLET_ALPHA, PARTITION_SEED, PARTITION_FILE
     PARTITIONER = str(run_config.get("partitioner", "iid"))
     if PARTITIONER not in ("iid", "dirichlet"):
@@ -65,7 +66,8 @@ def configure(run_config) -> None:
     VAL_PATH = SPLITS_DIR / "val.parquet"
     TEST_PATH = SPLITS_DIR / "test.parquet"
     SCALER_PATH = SPLITS_DIR / "feature_scaler.joblib"
-    _scaler = _feat_cols = _server_val = _class_counts = None
+    _scaler = _feat_cols = _class_counts = None
+    _tensor_cache.clear()  # Scaled with the old scaler
 
 
 def load_model() -> MLPClassifier:
@@ -108,6 +110,13 @@ def _to_tensors(df: pl.DataFrame) -> TensorDataset:
     X = _scaler.transform(df.select(_feat_cols).to_numpy()).astype(np.float32)
     y = np.array([CLASS_TO_IDX[c] for c in df["class"].to_list()], dtype=np.int64)
     return TensorDataset(torch.from_numpy(X), torch.from_numpy(y))
+
+
+def _cached(key: tuple, load) -> TensorDataset:
+    """Return _tensor_cache[key], calling load() to fill it on a miss."""
+    if key not in _tensor_cache:
+        _tensor_cache[key] = load()
+    return _tensor_cache[key]
 
 
 def _load_slice(path: Path, partition_id: int, num_partitions: int) -> TensorDataset:
@@ -166,50 +175,56 @@ def _load_dirichlet_partition(partition_id: int, num_partitions: int) -> TensorD
     return _to_tensors(df)
 
 
-def load_data(partition_id: int, num_partitions: int, batch_size: int, seed: int = 0):
-    """Load this client's train partition and val slice.
+def load_train_partition(partition_id: int, num_partitions: int, batch_size: int, seed: int = 0):
+    """This client's train rows, cached in memory after the first load.
 
-    Train follows PARTITIONER ("iid" modulo slice or "dirichlet" mapping). Val is
-    always the modulo slice; the val result that counts is the server's full-val eval.
-    `seed` drives the train loader's shuffle order via its own generator.
+    Follows PARTITIONER ("iid" modulo slice or "dirichlet" mapping). `seed` drives the
+    loader's shuffle order via its own generator.
     """
     _init_scaler()
     if PARTITIONER == "dirichlet":
-        train_ds = _load_dirichlet_partition(partition_id, num_partitions)
+        path = partition_path(num_partitions)
+        ds = _cached(
+            ("train", str(TRAIN_PATH), str(path), partition_id),
+            lambda: _load_dirichlet_partition(partition_id, num_partitions),
+        )
     else:
-        train_ds = _load_slice(TRAIN_PATH, partition_id, num_partitions)
-    trainloader = DataLoader(
-        train_ds,
-        batch_size=batch_size,
-        shuffle=True,
-        generator=torch.Generator().manual_seed(seed),
+        ds = _cached(
+            ("train", str(TRAIN_PATH), "iid", num_partitions, partition_id),
+            lambda: _load_slice(TRAIN_PATH, partition_id, num_partitions),
+        )
+    return DataLoader(ds, batch_size=batch_size, shuffle=True, generator=torch.Generator().manual_seed(seed))
+
+
+def load_val_partition(partition_id: int, num_partitions: int, batch_size: int):
+    """This client's val rows (always the modulo slice), cached in memory.
+
+    For client-side eval only; the val result that counts is the server's full-val eval.
+    """
+    _init_scaler()
+    ds = _cached(
+        ("val", str(VAL_PATH), num_partitions, partition_id),
+        lambda: _load_slice(VAL_PATH, partition_id, num_partitions),
     )
-    valloader = DataLoader(
-        _load_slice(VAL_PATH, partition_id, num_partitions), batch_size=batch_size
-    )
-    return trainloader, valloader
+    return DataLoader(ds, batch_size=batch_size)
+
+
+def _load_full(path: Path) -> TensorDataset:
+    return _to_tensors(pl.read_parquet(path, columns=_feat_cols + ["class"]))
 
 
 def load_server_val(batch_size: int = 512):
-    """Load the full val split for server-side global evaluation.
-
-    Read from disk once per process and cached, so each round only rebuilds the
-    (cheap) DataLoader. The test split stays untouched until final evaluation.
-    """
-    global _server_val
-    if _server_val is None:
-        _init_scaler()
-        df = pl.read_parquet(VAL_PATH, columns=_feat_cols + ["class"])
-        _server_val = _to_tensors(df)
-    return DataLoader(_server_val, batch_size=batch_size)
+    """The full val split for server-side evaluation, cached in memory. The test split
+    stays untouched until final evaluation."""
+    _init_scaler()
+    return DataLoader(_cached(("full", str(VAL_PATH)), lambda: _load_full(VAL_PATH)), batch_size=batch_size)
 
 
 def load_test(batch_size: int = 512):
-    """Load the full test split. Only for the single final evaluation of the chosen
-    model -- never for training or model selection."""
+    """The full test split, cached in memory. Only for the single final evaluation of
+    the chosen model -- never for training or model selection."""
     _init_scaler()
-    df = pl.read_parquet(TEST_PATH, columns=_feat_cols + ["class"])
-    return DataLoader(_to_tensors(df), batch_size=batch_size)
+    return DataLoader(_cached(("full", str(TEST_PATH)), lambda: _load_full(TEST_PATH)), batch_size=batch_size)
 
 
 def train_class_counts() -> dict[str, int]:
@@ -262,8 +277,12 @@ def train(model, trainloader, epochs, lr, device, loss_name: str = "ce", class_w
     return running_loss / (epochs * len(trainloader))
 
 
-def predict(model, loader, device):
-    """Run the model over a loader; returns (mean batch loss, y_true, y_pred)."""
+def test(model, loader, device):
+    """Run the model over a loader; returns (mean batch loss, y_true, y_pred).
+
+    Scoring is left to src/eval/metrics.compute_metrics, so every lane computes its
+    metrics the same way.
+    """
     model.to(device)
     model.eval()
     criterion = torch.nn.CrossEntropyLoss()
@@ -277,13 +296,3 @@ def predict(model, loader, device):
             preds.append(logits.argmax(dim=1).cpu())
             targets.append(y.cpu())
     return loss / len(loader), torch.cat(targets).numpy(), torch.cat(preds).numpy()
-
-
-def test(model, testloader, device):
-    """Evaluate the model; returns (loss, accuracy, macro-F1)."""
-    loss, targets, preds = predict(model, testloader, device)
-    accuracy = float((preds == targets).mean())
-    macro_f1 = float(
-        f1_score(targets, preds, average="macro", labels=list(range(NUM_CLASSES)), zero_division=0)
-    )
-    return loss, accuracy, macro_f1

@@ -43,3 +43,61 @@ python3 -m pip install -r requirements.txt
 
 Raw and derived data are gitignored — `data/raw/`, `data/sampled/`, and `data/splits/`
 are populated locally by the commands above, not committed.
+
+## Running the federated lane
+
+Simulated federated training of the light MLP over virtual clients, with Flower
+(`flwr run`). Requires the splits above. Settings live in `[tool.flwr.app.config]` in
+`pyproject.toml` (strategy, rounds, loss, partitioner, alpha, seed, ...).
+
+```bash
+# 1. Build the non-IID partition for (alpha, clients, seed) -- once, before training
+python -m src.federated.partition --alpha 0.5 --num-partitions 20 --seed 0
+# 2. Train; NUM_NODES must equal --num-partitions
+NUM_NODES=20 SEED=0 ALPHA=0.5 ./run_fed.sh
+# IID baseline / FedAvg baseline / a one-round smoke test
+NUM_NODES=20 PARTITIONER=iid ./run_fed.sh
+NUM_NODES=20 ./run_fed.sh "strategy='fedavg'"
+NUM_NODES=20 ./run_fed.sh "num-server-rounds=1"
+# Full sweep: alpha in {0.1, 0.5, 1.0} + IID, seeds 0-2
+NUM_NODES=20 ./run_sweep.sh
+```
+
+The simulated clients are arbitrary shards of the pooled data, not the 105 real
+CICIoT2023 devices (device identity is not in the flow CSVs).
+
+Each run writes `outputs/federated/<date>/<time>_seed<N>/` (run_info.json,
+history.json, best_model.pt, test_metrics.json) and a summary JSON in `reports/` with
+the same fields as the centralized results. W&B logging is off unless `use-wandb = true`.
+
+### Windows
+
+`flwr run` uses Flower's Ray simulation runtime. **This does not work on Windows with
+Smart App Control enabled**: Ray launches native helpers (`raylet.exe`,
+`gcs_server.exe`) as subprocesses and Windows blocks them with
+`OSError: [WinError 4551] An Application Control policy has blocked this file`.
+Note also that `pip install "flwr[simulation]"` installs *nothing* on Windows for
+Python >=3.13 -- the extra's `ray` dependency is gated on `sys_platform != 'win32'` --
+so the failure looks like a successful install.
+
+Run it under WSL2 instead (Flower's own recommendation for Windows):
+
+```bash
+wsl --install                      # once, from PowerShell, then reboot
+# inside WSL, from the repo directory:
+python3 -m venv .venv-wsl && source .venv-wsl/bin/activate
+pip install -r requirements.txt "flwr[simulation]"
+NUM_NODES=20 ./run_fed.sh
+```
+
+Timing from a simulation is measured on the simulation host, *not* an edge-hardware
+number (see CLAUDE.md).
+
+### Metrics
+
+Headline numbers come from the server's pass over the full validation split -- the
+same split all three lanes use, so it is the only comparable one. It reports macro-F1
+and per-class recall every round; the best round by val macro-F1 is then scored once
+on test. Client-side eval (off by default, `fraction-evaluate`) is summarized as the
+min/median/max of per-client macro-F1 -- how evenly clients are served -- never as a
+substitute for the global macro-F1.
