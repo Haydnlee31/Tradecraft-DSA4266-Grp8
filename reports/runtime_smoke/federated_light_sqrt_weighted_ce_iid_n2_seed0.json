@@ -1,0 +1,196 @@
+{
+  "variant": "light",
+  "lane": "federated",
+  "config": {
+    "hidden_dims": [
+      64,
+      32
+    ],
+    "dropout": 0.2
+  },
+  "loss": "sqrt_weighted_ce",
+  "num_parameters": 5544,
+  "parameter_bytes": 22176,
+  "history": [
+    {
+      "round": 0,
+      "train_loss": null,
+      "val_loss": 2.482556104660034,
+      "val_macro_f1": 0.14356022267206478,
+      "val_accuracy": 0.15625,
+      "val_per_class_recall": {
+        "Benign": 0.125,
+        "DDoS": 0.125,
+        "DoS": 0.0,
+        "Recon": 0.25,
+        "Web-based": 0.375,
+        "Brute Force": 0.0,
+        "Spoofing": 0.0,
+        "Mirai": 0.375
+      }
+    },
+    {
+      "round": 1,
+      "train_loss": 2.501091182231903,
+      "val_loss": 2.351194143295288,
+      "val_macro_f1": 0.14915128730918203,
+      "val_accuracy": 0.15625,
+      "val_per_class_recall": {
+        "Benign": 0.125,
+        "DDoS": 0.25,
+        "DoS": 0.0,
+        "Recon": 0.25,
+        "Web-based": 0.375,
+        "Brute Force": 0.0,
+        "Spoofing": 0.0,
+        "Mirai": 0.25
+      }
+    }
+  ],
+  "test_metrics": {
+    "accuracy": 0.109375,
+    "macro_f1": 0.07545045045045046,
+    "per_class_recall": {
+      "Benign": 0.125,
+      "DDoS": 0.0,
+      "DoS": 0.0,
+      "Recon": 0.0,
+      "Web-based": 0.625,
+      "Brute Force": 0.0,
+      "Spoofing": 0.125,
+      "Mirai": 0.0
+    },
+    "confusion_matrix": [
+      [
+        1,
+        2,
+        0,
+        0,
+        0,
+        0,
+        3,
+        2
+      ],
+      [
+        0,
+        0,
+        0,
+        1,
+        5,
+        0,
+        1,
+        1
+      ],
+      [
+        0,
+        2,
+        0,
+        1,
+        2,
+        1,
+        1,
+        1
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        5,
+        0,
+        0,
+        3
+      ],
+      [
+        0,
+        0,
+        0,
+        1,
+        5,
+        0,
+        0,
+        2
+      ],
+      [
+        0,
+        0,
+        1,
+        2,
+        3,
+        0,
+        2,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        4,
+        1,
+        1,
+        2
+      ],
+      [
+        0,
+        1,
+        0,
+        0,
+        5,
+        0,
+        2,
+        0
+      ]
+    ],
+    "report": "              precision    recall  f1-score   support\n\n      Benign       1.00      0.12      0.22         8\n        DDoS       0.00      0.00      0.00         8\n         DoS       0.00      0.00      0.00         8\n       Recon       0.00      0.00      0.00         8\n   Web-based       0.17      0.62      0.27         8\n Brute Force       0.00      0.00      0.00         8\n    Spoofing       0.10      0.12      0.11         8\n       Mirai       0.00      0.00      0.00         8\n\n    accuracy                           0.11        64\n   macro avg       0.16      0.11      0.08        64\nweighted avg       0.16      0.11      0.08        64\n"
+  },
+  "validation_metrics": {
+    "macro_f1": 0.14915128730918203,
+    "accuracy": 0.15625,
+    "per_class_recall": {
+      "Benign": 0.125,
+      "DDoS": 0.25,
+      "DoS": 0.0,
+      "Recon": 0.25,
+      "Web-based": 0.375,
+      "Brute Force": 0.0,
+      "Spoofing": 0.0,
+      "Mirai": 0.25
+    }
+  },
+  "args": {
+    "num-server-rounds": 1,
+    "seed": 0,
+    "patience": 5,
+    "fraction-train": 1.0,
+    "fraction-evaluate": 0.0,
+    "lr-decay-every": 0,
+    "lr-decay-factor": 0.5,
+    "partitioner": "iid",
+    "dirichlet-alpha": 0.5,
+    "partition-file": "",
+    "loss": "sqrt_weighted_ce",
+    "class-weights": "global",
+    "local-epochs": 1,
+    "learning-rate": 0.001,
+    "weight-decay": 1e-05,
+    "batch-size": 32,
+    "save-model": false,
+    "splits-dir": "/var/folders/r1/4kw_6kgx4q36x4gdp753v3r00000gn/T/tradecraft-smoke-d9us7hy6",
+    "output-dir": "/Users/haydn/Documents/DSA4266Proj/reports/runtime_smoke",
+    "reports-dir": "/Users/haydn/Documents/DSA4266Proj/reports/runtime_smoke"
+  },
+  "num_clients": 2,
+  "partitioner": "iid",
+  "alpha": null,
+  "strategy": "FedAvg",
+  "rounds": 1,
+  "num_server_rounds": 1,
+  "early_stopped": false,
+  "best_round": 1,
+  "local_epochs": 1,
+  "fraction_train": 1.0,
+  "class_weights": "global",
+  "run_dir": "/Users/haydn/Documents/DSA4266Proj/reports/runtime_smoke/outputs/2026-09-25/17-52-47-443766_seed0",
+  "edge_hardware_measurements": false
+}

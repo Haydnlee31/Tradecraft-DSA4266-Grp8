@@ -1,0 +1,5 @@
+# Optional Flower/Ray worker runtime, on top of the complete shared pipeline.
+# Native Windows simulation support is experimental upstream; use WSL2 if
+# worker startup fails, or use src.experiment's sequential Flower backend.
+-r requirements.txt
+flwr[simulation]>=1.36,<1.40

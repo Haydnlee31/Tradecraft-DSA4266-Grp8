@@ -14,6 +14,12 @@ in CICIoT2023 because the released flow CSVs contain no device identity.
 Prerequisite: build `data/splits/{train,val,test}.parquet` and run leakage removal as
 described in the root README.
 
+Activate your virtual environment and install the optional worker dependencies
+from the repository root with `python -m pip install -r requirements-simulation.txt`.
+The shared `requirements.txt` alone supports the sequential full-study runner;
+it intentionally does not require Ray. The bash commands below need WSL2/bash
+on Windows; `python -m src.experiment --threads 2` also works from PowerShell.
+
 ```bash
 # Build one persistent mapping and its class-count/provenance files.
 python -m src.federated.partition --alpha 0.5 --num-partitions 20 --seed 0

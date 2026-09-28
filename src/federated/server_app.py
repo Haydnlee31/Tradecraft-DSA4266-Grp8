@@ -28,7 +28,11 @@ app = ServerApp()
 
 
 def _parameter_bytes(model: torch.nn.Module) -> int:
-    """Exact bytes in model tensors; also one full client upload per round."""
+    """Exact parameter bytes, excluding BatchNorm buffers and wire overhead.
+
+    A full client upload also contains buffers, so this is a model-capacity
+    measure and must not be presented as measured network traffic.
+    """
     return sum(p.numel() * p.element_size() for p in model.parameters())
 
 
@@ -179,6 +183,16 @@ def write_report(
         "parameter_bytes": _parameter_bytes(model),
         "history": history,
         "test_metrics": test_metrics,
+        # Keep validation recall available to the decision gates. Using test
+        # recall to choose a deployment candidate would leak the held-out test.
+        "validation_metrics": {
+            "macro_f1": result.evaluate_metrics_serverapp[strategy.best_round]["val_macro_f1"],
+            "accuracy": result.evaluate_metrics_serverapp[strategy.best_round]["val_accuracy"],
+            "per_class_recall": {
+                name: result.evaluate_metrics_serverapp[strategy.best_round][f"val_recall/{name}"]
+                for name in CLASSES
+            },
+        },
         "args": dict(run_config),
         "num_clients": num_clients,
         "partitioner": task.PARTITIONER,

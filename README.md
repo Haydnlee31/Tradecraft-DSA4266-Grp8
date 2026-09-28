@@ -9,9 +9,94 @@ link to the complete narrative plan.
 
 ## Setup
 
+Use the shared `requirements.txt` on **macOS, Linux or Windows**. It is not a
+macOS lock file: pip resolves the appropriate platform wheels. Python 3.11–3.13
+is the intended team baseline; the CI configuration checks Python 3.12 on all
+three OS families. Availability still depends on your CPU architecture and the
+upstream packages—this is not a guarantee for every OS/Python/hardware combination.
+
+Create and activate a virtual environment first.
+
+macOS / Linux (bash or zsh):
+
 ```bash
-python3 -m pip install -r requirements.txt
+python3 -m venv .venv
+source .venv/bin/activate
 ```
+
+Windows (PowerShell):
+
+```powershell
+py -3.12 -m venv .venv
+.\.venv\Scripts\Activate.ps1
+```
+
+Then run the same commands on any OS:
+
+```text
+python -m pip install --upgrade pip
+python -m pip install -r requirements.txt
+python -m pip check
+python -m unittest discover -v
+```
+
+The shared install covers data preparation, centralized training, sequential
+Flower/FedAvg experiments, evaluation and SHAP. For **Ray worker simulation**
+(`flwr run` or `src.federated.runtime_smoke`), also run:
+
+```text
+python -m pip install -r requirements-simulation.txt
+```
+
+For editable package installs, the equivalent choices are `pip install -e .`
+and `pip install -e ".[simulation]"`. Both use the same declared dependencies.
+Native Windows Ray simulation is experimental; use WSL2 if workers cannot start,
+or keep using the sequential backend. See the
+[Flower simulation platform notes](https://flower.ai/docs/framework/how-to-run-simulations.html).
+
+No GPU is required. For a particular CUDA/ROCm build, install the matching `torch`
+package using the [official PyTorch selector](https://pytorch.org/get-started/locally/)
+before installing these requirements. GPU drivers are not installed by pip.
+
+Tested locally on macOS Apple Silicon with Python 3.13.9. For the exact tested
+environment use `pip install -r requirements-macos-py313.lock` instead of the broad
+requirements. The lock is platform-specific; it is not a promise of identical
+CUDA/Windows support. Keep the venv active: Flower launches companion executables
+by name, so invoking only `.venv/bin/flwr` is insufficient if its bin folder is
+not on `PATH`. Do not use that historical Mac snapshot for teammates' Windows or
+Linux environments. Windows/Linux CI jobs have been added, but have not been run
+from this local session.
+
+## Reproduce the complete study
+
+With the three parquet splits already present:
+
+```bash
+python -m src.data.audit --output reports/full_run/data_audit.json
+python -u -m src.experiment --output reports/full_run --threads 2
+python -m src.eval.decision --reports-dir reports/full_run
+python -m src.eval.study --reports-dir reports/full_run
+python -m src.explain.analyze
+```
+
+This runs heavy, light, FL IID control and FL Dirichlet alpha=0.5, each for seeds
+0/1/2, at most 30 epochs/rounds with validation early stopping. It uses all existing
+sampled split rows, not the full official dataset. It resumes completed reports;
+use a new output folder for changed settings. The output includes model checkpoints,
+package/data provenance, per-seed metrics, a comparison table/figure and exploratory
+validation SHAP audits. Checkpoints and data are intentionally not committed.
+These Python commands work in PowerShell as well as bash; `--threads` configures
+the thread environment internally. The convenience `.sh` scripts elsewhere in
+this README require bash (on Windows, use WSL2 or the Python entry points).
+
+The full-study FL backend is sequential, using the same client helpers and Flower
+aggregation; it is a learning experiment, not a systems benchmark. A separate
+`python -m src.federated.runtime_smoke` checks actual Ray worker messages, training,
+server checkpointing and reports on tiny **synthetic** data. Its output must never
+be included in study metrics. The API smoke path is deprecated upstream but works
+with the pinned Flower version. The optional `--backend cli` path creates a second
+dependency environment; its initial download may be slow. The CLI startup was not
+validated successfully in this environment (see the full-run assessment).
 
 ## Getting the data
 
@@ -84,8 +169,10 @@ same client code and Flower aggregation helpers:
 python -m src.federated.run_simulation --rounds 2 --clients 3 --alpha 0.5
 ```
 
-The in-process runner is for debugging, not the final benchmark. Wall-clock time from
-either simulation path is not measured edge-hardware latency, memory, or power.
+This particular two-round in-process runner is for debugging, not the final
+benchmark. The full-study runner above adds checkpoint selection, three-seed
+repetition and held-out reporting. Wall-clock time from either simulation path is
+not measured edge-hardware latency, memory, or power.
 
 ## Building the decision summary
 
@@ -100,6 +187,11 @@ python -m src.eval.decision --reports-dir reports
 It writes `reports/decision_summary.json` and `.md`. It deliberately returns an
 `incomplete` decision when a lane or the required seed count is missing instead of
 silently recommending from a partial comparison.
+
+Gates use validation metrics; test is descriptive only. The default FL target is
+Dirichlet, so the easier IID control cannot silently replace it. Thresholds are
+illustrative research choices, not a security-service specification or permission
+to deploy an automatic blocker.
 
 ## Metrics and interpretation
 

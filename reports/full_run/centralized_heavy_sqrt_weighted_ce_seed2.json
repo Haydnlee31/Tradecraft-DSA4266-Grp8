@@ -1,0 +1,500 @@
+{
+  "variant": "heavy",
+  "lane": "centralized",
+  "config": {
+    "hidden_dims": [
+      512,
+      256,
+      128,
+      64
+    ],
+    "dropout": 0.3
+  },
+  "loss": "sqrt_weighted_ce",
+  "num_parameters": 198984,
+  "parameter_bytes": 795936,
+  "history": [
+    {
+      "epoch": 1,
+      "train_loss": 0.71675564119333,
+      "train_macro_f1": 0.5392460860558206,
+      "val_loss": 0.4050843788590076,
+      "val_macro_f1": 0.597272728018759
+    },
+    {
+      "epoch": 2,
+      "train_loss": 0.5788495796116075,
+      "train_macro_f1": 0.6040005361057115,
+      "val_loss": 0.38899596540305276,
+      "val_macro_f1": 0.6159796378507958
+    },
+    {
+      "epoch": 3,
+      "train_loss": 0.5523367186285828,
+      "train_macro_f1": 0.6185294634955667,
+      "val_loss": 0.3828257474474055,
+      "val_macro_f1": 0.6256732271506431
+    },
+    {
+      "epoch": 4,
+      "train_loss": 0.5354953560095845,
+      "train_macro_f1": 0.6281480919642756,
+      "val_loss": 0.3709396660853459,
+      "val_macro_f1": 0.6303741593259184
+    },
+    {
+      "epoch": 5,
+      "train_loss": 0.5242576841563514,
+      "train_macro_f1": 0.6342004117931219,
+      "val_loss": 0.37003532594310035,
+      "val_macro_f1": 0.636572263551867
+    },
+    {
+      "epoch": 6,
+      "train_loss": 0.51654947200776,
+      "train_macro_f1": 0.6372134999994364,
+      "val_loss": 0.36785089622371253,
+      "val_macro_f1": 0.6383891988755572
+    },
+    {
+      "epoch": 7,
+      "train_loss": 0.5088925992809901,
+      "train_macro_f1": 0.6426012745083398,
+      "val_loss": 0.36781685083528265,
+      "val_macro_f1": 0.6378979392634749
+    },
+    {
+      "epoch": 8,
+      "train_loss": 0.502402896166206,
+      "train_macro_f1": 0.6459338881975245,
+      "val_loss": 0.38030397122954157,
+      "val_macro_f1": 0.6105060546599153
+    },
+    {
+      "epoch": 9,
+      "train_loss": 0.49669755531707915,
+      "train_macro_f1": 0.6493014434709665,
+      "val_loss": 0.3618360919711583,
+      "val_macro_f1": 0.6316734206457684
+    },
+    {
+      "epoch": 10,
+      "train_loss": 0.4942274532581667,
+      "train_macro_f1": 0.6502121467691543,
+      "val_loss": 0.36061464943189436,
+      "val_macro_f1": 0.6407523418998917
+    },
+    {
+      "epoch": 11,
+      "train_loss": 0.49095563038878487,
+      "train_macro_f1": 0.6495390603820475,
+      "val_loss": 0.3788227131403838,
+      "val_macro_f1": 0.623856309743676
+    },
+    {
+      "epoch": 12,
+      "train_loss": 0.48708813468774126,
+      "train_macro_f1": 0.6556228110304907,
+      "val_loss": 0.3593138083701054,
+      "val_macro_f1": 0.6324891868923777
+    },
+    {
+      "epoch": 13,
+      "train_loss": 0.4839897024659477,
+      "train_macro_f1": 0.6556273916762385,
+      "val_loss": 0.35225231829905007,
+      "val_macro_f1": 0.6461043973193195
+    },
+    {
+      "epoch": 14,
+      "train_loss": 0.48154709689301584,
+      "train_macro_f1": 0.6563311248150581,
+      "val_loss": 0.3603549082547568,
+      "val_macro_f1": 0.6372949745098737
+    },
+    {
+      "epoch": 15,
+      "train_loss": 0.47939469267954166,
+      "train_macro_f1": 0.6593865451834361,
+      "val_loss": 0.38341242392813996,
+      "val_macro_f1": 0.6294385504443426
+    },
+    {
+      "epoch": 16,
+      "train_loss": 0.47620673816227893,
+      "train_macro_f1": 0.6618008804833208,
+      "val_loss": 0.35121430951851634,
+      "val_macro_f1": 0.6488831471276023
+    },
+    {
+      "epoch": 17,
+      "train_loss": 0.47459587555811256,
+      "train_macro_f1": 0.6625484116662426,
+      "val_loss": 0.34383728052965923,
+      "val_macro_f1": 0.651523775489202
+    },
+    {
+      "epoch": 18,
+      "train_loss": 0.47206519351435017,
+      "train_macro_f1": 0.6634359809082138,
+      "val_loss": 0.3481398344048478,
+      "val_macro_f1": 0.6551418706447827
+    },
+    {
+      "epoch": 19,
+      "train_loss": 0.47136276176749214,
+      "train_macro_f1": 0.6639327629650307,
+      "val_loss": 0.3462200102519589,
+      "val_macro_f1": 0.6516669367129249
+    },
+    {
+      "epoch": 20,
+      "train_loss": 0.4691982294093856,
+      "train_macro_f1": 0.6645560052415833,
+      "val_loss": 0.3725874395054897,
+      "val_macro_f1": 0.6209268688855317
+    },
+    {
+      "epoch": 21,
+      "train_loss": 0.46868279792821166,
+      "train_macro_f1": 0.6674338349090402,
+      "val_loss": 0.34930209702959464,
+      "val_macro_f1": 0.6558086173316297
+    },
+    {
+      "epoch": 22,
+      "train_loss": 0.46642928255128313,
+      "train_macro_f1": 0.6691061478213431,
+      "val_loss": 0.36482231902589213,
+      "val_macro_f1": 0.6468141056461751
+    },
+    {
+      "epoch": 23,
+      "train_loss": 0.4634226463332672,
+      "train_macro_f1": 0.66855925513265,
+      "val_loss": 0.34799179994996576,
+      "val_macro_f1": 0.6434271624818877
+    },
+    {
+      "epoch": 24,
+      "train_loss": 0.46326851119051254,
+      "train_macro_f1": 0.6694544741349603,
+      "val_loss": 0.39972052315945317,
+      "val_macro_f1": 0.621755514832602
+    },
+    {
+      "epoch": 25,
+      "train_loss": 0.46135027118083455,
+      "train_macro_f1": 0.6709902277491332,
+      "val_loss": 0.335202067082357,
+      "val_macro_f1": 0.664204361946271
+    },
+    {
+      "epoch": 26,
+      "train_loss": 0.46026868009891725,
+      "train_macro_f1": 0.6724446661829386,
+      "val_loss": 0.34140758516724296,
+      "val_macro_f1": 0.6604866687399218
+    },
+    {
+      "epoch": 27,
+      "train_loss": 0.4604322792903946,
+      "train_macro_f1": 0.6711056943515927,
+      "val_loss": 0.34266601639917993,
+      "val_macro_f1": 0.6561487747330548
+    },
+    {
+      "epoch": 28,
+      "train_loss": 0.45897876316074854,
+      "train_macro_f1": 0.6723622364896877,
+      "val_loss": 0.34769507503009006,
+      "val_macro_f1": 0.6574678597367672
+    },
+    {
+      "epoch": 29,
+      "train_loss": 0.4565636441949301,
+      "train_macro_f1": 0.6750185401899332,
+      "val_loss": 0.34175665532677063,
+      "val_macro_f1": 0.6690128097485667
+    },
+    {
+      "epoch": 30,
+      "train_loss": 0.45548732488703647,
+      "train_macro_f1": 0.6754803154274314,
+      "val_loss": 0.365187677566314,
+      "val_macro_f1": 0.6510995726178306
+    }
+  ],
+  "test_metrics": {
+    "accuracy": 0.8295188891684102,
+    "macro_f1": 0.6724848455505679,
+    "per_class_recall": {
+      "Benign": 0.7534093789607098,
+      "DDoS": 0.7927497405449763,
+      "DoS": 0.8213469947138289,
+      "Recon": 0.790680917497298,
+      "Web-based": 0.2828282828282828,
+      "Brute Force": 0.30303030303030304,
+      "Spoofing": 0.7749873160832065,
+      "Mirai": 0.993638348721652
+    },
+    "confusion_matrix": [
+      [
+        14861,
+        0,
+        0,
+        2182,
+        113,
+        29,
+        2540,
+        0
+      ],
+      [
+        1,
+        131384,
+        34091,
+        226,
+        1,
+        0,
+        6,
+        23
+      ],
+      [
+        0,
+        10826,
+        50342,
+        104,
+        0,
+        0,
+        2,
+        18
+      ],
+      [
+        711,
+        24,
+        3,
+        6584,
+        204,
+        58,
+        743,
+        0
+      ],
+      [
+        19,
+        0,
+        0,
+        221,
+        168,
+        3,
+        183,
+        0
+      ],
+      [
+        23,
+        0,
+        0,
+        113,
+        10,
+        90,
+        61,
+        0
+      ],
+      [
+        949,
+        1,
+        0,
+        1399,
+        265,
+        47,
+        9165,
+        0
+      ],
+      [
+        0,
+        202,
+        16,
+        145,
+        0,
+        0,
+        7,
+        57791
+      ]
+    ],
+    "report": "              precision    recall  f1-score   support\n\n      Benign       0.90      0.75      0.82     19725\n        DDoS       0.92      0.79      0.85    165732\n         DoS       0.60      0.82      0.69     61292\n       Recon       0.60      0.79      0.68      8327\n   Web-based       0.22      0.28      0.25       594\n Brute Force       0.40      0.30      0.34       297\n    Spoofing       0.72      0.77      0.75     11826\n       Mirai       1.00      0.99      1.00     58161\n\n    accuracy                           0.83    325954\n   macro avg       0.67      0.69      0.67    325954\nweighted avg       0.86      0.83      0.84    325954\n"
+  },
+  "validation_metrics": {
+    "accuracy": 0.8302893444601643,
+    "macro_f1": 0.6690128097485667,
+    "per_class_recall": {
+      "Benign": 0.7590513117478221,
+      "DDoS": 0.7933401929105668,
+      "DoS": 0.8193172221139479,
+      "Recon": 0.7947608466845983,
+      "Web-based": 0.2961783439490446,
+      "Brute Force": 0.22382671480144403,
+      "Spoofing": 0.7845378151260505,
+      "Mirai": 0.9947150774721598
+    },
+    "confusion_matrix": [
+      [
+        15074,
+        1,
+        0,
+        2135,
+        94,
+        29,
+        2526,
+        0
+      ],
+      [
+        0,
+        131846,
+        34064,
+        247,
+        0,
+        0,
+        9,
+        25
+      ],
+      [
+        1,
+        10984,
+        50447,
+        114,
+        2,
+        0,
+        4,
+        20
+      ],
+      [
+        664,
+        14,
+        1,
+        6796,
+        220,
+        57,
+        798,
+        1
+      ],
+      [
+        17,
+        0,
+        0,
+        246,
+        186,
+        3,
+        176,
+        0
+      ],
+      [
+        25,
+        0,
+        0,
+        122,
+        12,
+        62,
+        56,
+        0
+      ],
+      [
+        923,
+        1,
+        0,
+        1381,
+        237,
+        22,
+        9336,
+        0
+      ],
+      [
+        0,
+        159,
+        16,
+        124,
+        0,
+        0,
+        9,
+        57971
+      ]
+    ],
+    "report": "              precision    recall  f1-score   support\n\n      Benign       0.90      0.76      0.82     19859\n        DDoS       0.92      0.79      0.85    166191\n         DoS       0.60      0.82      0.69     61572\n       Recon       0.61      0.79      0.69      8551\n   Web-based       0.25      0.30      0.27       628\n Brute Force       0.36      0.22      0.28       277\n    Spoofing       0.72      0.78      0.75     11900\n       Mirai       1.00      0.99      1.00     58279\n\n    accuracy                           0.83    327257\n   macro avg       0.67      0.68      0.67    327257\nweighted avg       0.86      0.83      0.84    327257\n"
+  },
+  "args": {
+    "variant": "heavy",
+    "loss": "sqrt_weighted_ce",
+    "epochs": 30,
+    "batch_size": 512,
+    "lr": 0.001,
+    "weight_decay": 1e-05,
+    "l1_lambda": 0.0,
+    "patience": 5,
+    "seed": 2,
+    "num_workers": 0,
+    "splits_dir": "data/splits",
+    "reports_dir": "reports/full_run",
+    "checkpoint_dir": "reports/full_run/checkpoints"
+  },
+  "data": {
+    "splits_dir": "/Users/haydn/Documents/DSA4266Proj/data/splits",
+    "scaler_path": "/Users/haydn/Documents/DSA4266Proj/data/splits/feature_scaler.joblib",
+    "feature_columns": [
+      "flow_duration",
+      "Header_Length",
+      "Protocol Type",
+      "Duration",
+      "Rate",
+      "Srate",
+      "Drate",
+      "fin_flag_number",
+      "syn_flag_number",
+      "rst_flag_number",
+      "psh_flag_number",
+      "ack_flag_number",
+      "ece_flag_number",
+      "cwr_flag_number",
+      "ack_count",
+      "syn_count",
+      "fin_count",
+      "urg_count",
+      "rst_count",
+      "HTTP",
+      "HTTPS",
+      "DNS",
+      "Telnet",
+      "SMTP",
+      "SSH",
+      "IRC",
+      "TCP",
+      "UDP",
+      "DHCP",
+      "ARP",
+      "ICMP",
+      "IPv",
+      "LLC",
+      "Tot sum",
+      "Min",
+      "Max",
+      "AVG",
+      "Std",
+      "Tot size",
+      "IAT",
+      "Number",
+      "Magnitue",
+      "Radius",
+      "Covariance",
+      "Variance",
+      "Weight"
+    ],
+    "classes": [
+      "Benign",
+      "DDoS",
+      "DoS",
+      "Recon",
+      "Web-based",
+      "Brute Force",
+      "Spoofing",
+      "Mirai"
+    ]
+  },
+  "edge_hardware_measurements": false
+}

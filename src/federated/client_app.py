@@ -57,7 +57,7 @@ def train_partition(
     device = _device()
     model.to(device)
 
-    trainloader, _ = task.load_data(
+    trainloader = task.load_client_train(
         partition_id=partition_id,
         num_partitions=num_partitions,
         batch_size=int(run_config["batch-size"]),
@@ -71,6 +71,7 @@ def train_partition(
         device=device,
         loss_name=str(run_config["loss"]),
         class_weights=str(run_config["class-weights"]),
+        weight_decay=float(run_config.get("weight-decay", 1e-5)),
     )
 
     # Flower serializes these tensors for aggregation. Moving them back to CPU

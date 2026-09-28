@@ -1,0 +1,36 @@
+{
+  "python": "3.13.9 | packaged by Anaconda, Inc. | (main, Oct 21 2025, 19:11:29) [Clang 20.1.8 ]",
+  "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
+  "split_sha256": {
+    "train": "94887ad78cdba887b6495550064788f101549510b57b265146c5dfd208f3c4e5",
+    "val": "48d3623122f291c92e8427030b838605c72fc56c8a4706f61be595886d8e7f3f",
+    "test": "3677f4d2d294159c6f2125c012dc32af2e85d857b791fda88dc2e9e40b1f08d6"
+  },
+  "settings": {
+    "output": "reports/full_run",
+    "splits": "data/splits",
+    "epochs": 30,
+    "clients": 20,
+    "seeds": [
+      0,
+      1,
+      2
+    ],
+    "threads": 2,
+    "lanes": [
+      "heavy",
+      "light",
+      "iid",
+      "dirichlet"
+    ]
+  },
+  "packages": {
+    "torch": "2.14.0",
+    "flwr": "1.38.0",
+    "ray": "2.55.1",
+    "polars": "1.44.2",
+    "numpy": "2.5.3",
+    "scikit-learn": "1.9.1",
+    "shap": "0.52.0"
+  }
+}

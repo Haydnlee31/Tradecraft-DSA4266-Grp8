@@ -1,0 +1,416 @@
+{
+  "lane": "federated",
+  "variant": "light",
+  "loss": "sqrt_weighted_ce",
+  "config": {
+    "hidden_dims": [
+      64,
+      32
+    ],
+    "dropout": 0.2
+  },
+  "num_parameters": 5544,
+  "parameter_bytes": 22176,
+  "history": [
+    {
+      "round": 1,
+      "val_loss": 1.7524912291288512,
+      "val_macro_f1": 0.19165584870030888,
+      "val_per_class_recall": {
+        "Benign": 0.6473135606022459,
+        "DDoS": 0.4406556311713631,
+        "DoS": 0.0024524134346781004,
+        "Recon": 0.05905742018477371,
+        "Web-based": 0.42038216560509556,
+        "Brute Force": 0.010830324909747292,
+        "Spoofing": 0.30781512605042016,
+        "Mirai": 0.3637159182552892
+      }
+    },
+    {
+      "round": 2,
+      "val_loss": 1.310942034586639,
+      "val_macro_f1": 0.38295901980729846,
+      "val_per_class_recall": {
+        "Benign": 0.7989324739412861,
+        "DDoS": 0.9514594653140062,
+        "DoS": 0.0033944000519716753,
+        "Recon": 0.1308618874985382,
+        "Web-based": 0.07961783439490445,
+        "Brute Force": 0.01444043321299639,
+        "Spoofing": 0.3836974789915966,
+        "Mirai": 0.9905969560218947
+      }
+    },
+    {
+      "round": 3,
+      "val_loss": 1.07024298192532,
+      "val_macro_f1": 0.4290292039600874,
+      "val_per_class_recall": {
+        "Benign": 0.807845309431492,
+        "DDoS": 0.9915458719184552,
+        "DoS": 0.003443123497693757,
+        "Recon": 0.18161618524149223,
+        "Web-based": 0.004777070063694267,
+        "Brute Force": 0.11913357400722022,
+        "Spoofing": 0.4195798319327731,
+        "Mirai": 0.9886923248511471
+      }
+    },
+    {
+      "round": 4,
+      "val_loss": 0.906341841421225,
+      "val_macro_f1": 0.44800280592404046,
+      "val_per_class_recall": {
+        "Benign": 0.8135857797472179,
+        "DDoS": 0.9958842536599455,
+        "DoS": 0.002371207691807965,
+        "Recon": 0.2296807390948427,
+        "Web-based": 0.0,
+        "Brute Force": 0.148014440433213,
+        "Spoofing": 0.42789915966386555,
+        "Mirai": 0.9865817876078862
+      }
+    },
+    {
+      "round": 5,
+      "val_loss": 0.8010568325786286,
+      "val_macro_f1": 0.46005481338913695,
+      "val_per_class_recall": {
+        "Benign": 0.8314114507276298,
+        "DDoS": 0.9978699207538314,
+        "DoS": 0.001965178977457286,
+        "Recon": 0.2913109577827155,
+        "Web-based": 0.0,
+        "Brute Force": 0.148014440433213,
+        "Spoofing": 0.42100840336134454,
+        "Mirai": 0.9843682973283687
+      }
+    },
+    {
+      "round": 6,
+      "val_loss": 0.7276217412143867,
+      "val_macro_f1": 0.4674270708247813,
+      "val_per_class_recall": {
+        "Benign": 0.8557832720680799,
+        "DDoS": 0.9988507199547508,
+        "DoS": 0.0015916325602546612,
+        "Recon": 0.33434686001637237,
+        "Web-based": 0.0,
+        "Brute Force": 0.148014440433213,
+        "Spoofing": 0.40092436974789913,
+        "Mirai": 0.9830813843751609
+      }
+    },
+    {
+      "round": 7,
+      "val_loss": 0.676835704307386,
+      "val_macro_f1": 0.4706471086584294,
+      "val_per_class_recall": {
+        "Benign": 0.8726018429931014,
+        "DDoS": 0.9992598877195517,
+        "DoS": 0.0012992918859221724,
+        "Recon": 0.3482633610104081,
+        "Web-based": 0.0,
+        "Brute Force": 0.148014440433213,
+        "Spoofing": 0.39235294117647057,
+        "Mirai": 0.9818459479400813
+      }
+    },
+    {
+      "round": 8,
+      "val_loss": 0.6350070806018318,
+      "val_macro_f1": 0.4693360783748993,
+      "val_per_class_recall": {
+        "Benign": 0.8909814190039781,
+        "DDoS": 0.9994223513908695,
+        "DoS": 0.0012180861430520367,
+        "Recon": 0.3463922348263361,
+        "Web-based": 0.0,
+        "Brute Force": 0.1407942238267148,
+        "Spoofing": 0.37798319327731095,
+        "Mirai": 0.9792206455155373
+      }
+    },
+    {
+      "round": 9,
+      "val_loss": 0.6027605438999425,
+      "val_macro_f1": 0.4688898066077338,
+      "val_per_class_recall": {
+        "Benign": 0.9101666750591672,
+        "DDoS": 0.9994704887749637,
+        "DoS": 0.0013155330344961995,
+        "Recon": 0.35375979417611975,
+        "Web-based": 0.0,
+        "Brute Force": 0.1263537906137184,
+        "Spoofing": 0.3691596638655462,
+        "Mirai": 0.9773503320235419
+      }
+    },
+    {
+      "round": 10,
+      "val_loss": 0.5814322064132315,
+      "val_macro_f1": 0.4648930177774655,
+      "val_per_class_recall": {
+        "Benign": 0.9174177954579787,
+        "DDoS": 0.999488540293999,
+        "DoS": 0.0013967387773663354,
+        "Recon": 0.36791018594316455,
+        "Web-based": 0.0,
+        "Brute Force": 0.09747292418772563,
+        "Spoofing": 0.35983193277310926,
+        "Mirai": 0.9804903996293691
+      }
+    },
+    {
+      "round": 11,
+      "val_loss": 0.5568187534349224,
+      "val_macro_f1": 0.45845889575508514,
+      "val_per_class_recall": {
+        "Benign": 0.928848381086661,
+        "DDoS": 0.9995005746400226,
+        "DoS": 0.0014779445202364712,
+        "Recon": 0.37212021985732663,
+        "Web-based": 0.0,
+        "Brute Force": 0.06498194945848375,
+        "Spoofing": 0.348655462184874,
+        "Mirai": 0.9809708471319
+      }
+    },
+    {
+      "round": 12,
+      "val_loss": 0.5414777668132281,
+      "val_macro_f1": 0.4572627651605597,
+      "val_per_class_recall": {
+        "Benign": 0.9386172516239488,
+        "DDoS": 0.9995607463701404,
+        "DoS": 0.0015429091145325797,
+        "Recon": 0.37691498070401125,
+        "Web-based": 0.0,
+        "Brute Force": 0.05776173285198556,
+        "Spoofing": 0.3377310924369748,
+        "Mirai": 0.9812110708831655
+      }
+    }
+  ],
+  "validation_metrics": {
+    "accuracy": 0.7589936960859508,
+    "macro_f1": 0.4706471086584294,
+    "per_class_recall": {
+      "Benign": 0.8726018429931014,
+      "DDoS": 0.9992598877195517,
+      "DoS": 0.0012992918859221724,
+      "Recon": 0.3482633610104081,
+      "Web-based": 0.0,
+      "Brute Force": 0.148014440433213,
+      "Spoofing": 0.39235294117647057,
+      "Mirai": 0.9818459479400813
+    },
+    "confusion_matrix": [
+      [
+        17329,
+        80,
+        1,
+        462,
+        0,
+        0,
+        1985,
+        2
+      ],
+      [
+        88,
+        166068,
+        1,
+        7,
+        0,
+        0,
+        26,
+        1
+      ],
+      [
+        6,
+        61428,
+        80,
+        23,
+        0,
+        0,
+        34,
+        1
+      ],
+      [
+        3769,
+        1096,
+        2,
+        2978,
+        0,
+        0,
+        705,
+        1
+      ],
+      [
+        420,
+        20,
+        0,
+        38,
+        0,
+        0,
+        150,
+        0
+      ],
+      [
+        166,
+        3,
+        0,
+        30,
+        0,
+        41,
+        37,
+        0
+      ],
+      [
+        6899,
+        124,
+        2,
+        190,
+        0,
+        0,
+        4669,
+        16
+      ],
+      [
+        25,
+        949,
+        0,
+        12,
+        0,
+        0,
+        72,
+        57221
+      ]
+    ],
+    "report": "              precision    recall  f1-score   support\n\n      Benign       0.60      0.87      0.71     19859\n        DDoS       0.72      1.00      0.84    166191\n         DoS       0.93      0.00      0.00     61572\n       Recon       0.80      0.35      0.48      8551\n   Web-based       0.00      0.00      0.00       628\n Brute Force       1.00      0.15      0.26       277\n    Spoofing       0.61      0.39      0.48     11900\n       Mirai       1.00      0.98      0.99     58279\n\n    accuracy                           0.76    327257\n   macro avg       0.71      0.47      0.47    327257\nweighted avg       0.80      0.76      0.68    327257\n"
+  },
+  "test_metrics": {
+    "accuracy": 0.7589629211483829,
+    "macro_f1": 0.4753759643320076,
+    "per_class_recall": {
+      "Benign": 0.8705703422053231,
+      "DDoS": 0.9994207515748317,
+      "DoS": 0.0014031194935717548,
+      "Recon": 0.3350546415275609,
+      "Web-based": 0.0,
+      "Brute Force": 0.18855218855218855,
+      "Spoofing": 0.38702858109250804,
+      "Mirai": 0.9812417255549252
+    },
+    "confusion_matrix": [
+      [
+        17172,
+        82,
+        0,
+        497,
+        0,
+        0,
+        1971,
+        3
+      ],
+      [
+        68,
+        165636,
+        0,
+        9,
+        0,
+        0,
+        19,
+        0
+      ],
+      [
+        4,
+        61158,
+        86,
+        15,
+        0,
+        0,
+        27,
+        2
+      ],
+      [
+        3742,
+        1069,
+        3,
+        2790,
+        0,
+        0,
+        722,
+        1
+      ],
+      [
+        414,
+        13,
+        0,
+        40,
+        0,
+        0,
+        126,
+        1
+      ],
+      [
+        174,
+        4,
+        0,
+        29,
+        0,
+        56,
+        34,
+        0
+      ],
+      [
+        6900,
+        144,
+        2,
+        184,
+        0,
+        0,
+        4577,
+        19
+      ],
+      [
+        47,
+        975,
+        0,
+        8,
+        0,
+        0,
+        61,
+        57070
+      ]
+    ],
+    "report": "              precision    recall  f1-score   support\n\n      Benign       0.60      0.87      0.71     19725\n        DDoS       0.72      1.00      0.84    165732\n         DoS       0.95      0.00      0.00     61292\n       Recon       0.78      0.34      0.47      8327\n   Web-based       0.00      0.00      0.00       594\n Brute Force       1.00      0.19      0.32       297\n    Spoofing       0.61      0.39      0.47     11826\n       Mirai       1.00      0.98      0.99     58161\n\n    accuracy                           0.76    325954\n   macro avg       0.71      0.47      0.48    325954\nweighted avg       0.80      0.76      0.68    325954\n"
+  },
+  "args": {
+    "seed": 0,
+    "splits-dir": "/Users/haydn/Documents/DSA4266Proj/data/splits",
+    "partitioner": "dirichlet",
+    "dirichlet-alpha": 0.5,
+    "batch-size": 512,
+    "local-epochs": 1,
+    "learning-rate": 0.001,
+    "loss": "sqrt_weighted_ce",
+    "class-weights": "global",
+    "weight-decay": 1e-05,
+    "partition-file": "/Users/haydn/Documents/DSA4266Proj/reports/full_run/partitions/dirichlet_a0.5_n20_s0.parquet"
+  },
+  "partitioner": "dirichlet",
+  "alpha": 0.5,
+  "num_clients": 20,
+  "local_epochs": 1,
+  "fraction_train": 1.0,
+  "class_weights": "global",
+  "strategy": "FedAvg",
+  "backend": "sequential-flower-aggregation",
+  "best_round": 7,
+  "rounds": 12,
+  "elapsed_seconds": 40.196227584034204,
+  "checkpoint": "reports/full_run/checkpoints/federated_light_sqrt_weighted_ce_a0.5_n20_seed0.pt",
+  "edge_hardware_measurements": false
+}

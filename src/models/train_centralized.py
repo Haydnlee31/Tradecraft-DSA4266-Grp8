@@ -123,6 +123,9 @@ def main() -> None:
 
     print(f"Saved checkpoint to {checkpoint_path}")
 
+    val_logits, val_true = trainer.predict(data["loaders"]["val"])
+    validation_metrics = compute_metrics(val_true, val_logits.argmax(axis=1))
+
     test_logits, y_true = trainer.predict(data["loaders"]["test"])
     y_pred = test_logits.argmax(axis=1)
     test_metrics = compute_metrics(y_true, y_pred)
@@ -145,6 +148,7 @@ def main() -> None:
         "parameter_bytes": model.parameter_bytes(),
         "history": history,
         "test_metrics": test_metrics,
+        "validation_metrics": validation_metrics,
         "args": json_args,
         "data": {
             "splits_dir": str(args.splits_dir.resolve()),

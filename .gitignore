@@ -42,3 +42,6 @@ kaggle.json
 # Generated partition mappings, counts, and provenance (keep only the folder).
 data/partitions/*
 !data/partitions/.gitkeep
+
+# Full-study client assignments are generated data, not source code.
+reports/**/partitions/*.parquet

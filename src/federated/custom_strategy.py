@@ -164,15 +164,22 @@ class CustomFedAvg(FedAvg):
             logger.log(INFO, "[ROUND %s/%s]", current_round, num_rounds)
             self.rounds_run = current_round
 
-            train_replies = grid.send_and_receive(
-                messages=self.configure_train(
-                    current_round, arrays, train_config, grid
-                ),
+            train_messages = list(self.configure_train(current_round, arrays, train_config, grid))
+            train_replies = list(grid.send_and_receive(
+                messages=train_messages,
                 timeout=timeout,
-            )
+            ))
+            # A failed simulation must not publish an apparently complete
+            # benchmark of unchanged initial weights or a partial client set.
+            # Network-fault tolerance would be a separate experimental setting.
+            if (not train_replies or len(train_replies) != len(train_messages)
+                    or any(reply.has_error() for reply in train_replies)):
+                raise RuntimeError("Client training failed; refusing to report an incomplete FedAvg round")
             aggregated_arrays, train_metrics = self.aggregate_train(
                 current_round, train_replies
             )
+            if aggregated_arrays is None or train_metrics is None:
+                raise RuntimeError("FedAvg produced no update; refusing to continue")
             if aggregated_arrays is not None:
                 arrays = aggregated_arrays
                 result.arrays = arrays

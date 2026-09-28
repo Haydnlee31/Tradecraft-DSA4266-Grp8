@@ -2,13 +2,13 @@
 
 The decision layer does not invent a single opaque score. It first selects one
 configuration per lane using validation macro-F1, then checks explicit gates on
-test macro-F1, every class's recall, model size, report completeness, and seed
+validation macro-F1, every class's validation recall, model size, report completeness, and seed
 count. Among eligible models within an allowed macro-F1 drop from the best, it
 prefers the smaller model; a caller can use ``--prefer-federated`` to break an
 equal-size tie in favor of the federated training setting.
 
-Test metrics are used only for the final cross-lane comparison. They are never
-used to select a loss/configuration within a lane, which would leak test
+Test metrics are used only for descriptive reporting. They are never
+used to select a lane or loss/configuration, which would leak test
 performance into model selection. The default also requires the same
 ``sqrt_weighted_ce`` loss across lanes so an old incompatible experiment is not
 silently mixed into the table.
@@ -44,6 +44,9 @@ class Criteria:
     min_seeds: int = 3
     require_federated: bool = False
     prefer_federated: bool = False
+    # IID is a diagnostic control, not a substitute for the deployment's
+    # non-IID scenario. Do not cherry-pick an easier partition distribution.
+    federated_partitioner: str | None = "dirichlet"
 
 
 def _mean(values: list[float]) -> float:
@@ -144,6 +147,12 @@ def _configuration_key(report: dict[str, Any]) -> str:
                 "fraction_train": report.get("fraction_train"),
                 "class_weights": report.get("class_weights"),
                 "strategy": report.get("strategy"),
+                "training": {
+                    name: report.get("args", {}).get(name)
+                    for name in ("batch-size", "learning-rate", "weight-decay",
+                                 "num-server-rounds", "patience", "lr-decay-every", "lr-decay-factor")
+                    if name in report.get("args", {})
+                },
             }
         )
     else:
@@ -201,6 +210,17 @@ def aggregate_candidates(reports: list[dict[str, Any]]) -> list[dict[str, Any]]:
             ]
             for class_name in CLASSES
         }
+        # New reports retain the selected checkpoint's full validation metrics.
+        # Legacy reports remain readable, but cannot pass a validation recall
+        # gate using test recalls as a substitute.
+        val_recalls = {
+            name: [
+                float(r["validation_metrics"]["per_class_recall"][name])
+                for r in group
+                if "validation_metrics" in r
+            ]
+            for name in CLASSES
+        }
         exact_parameter_bytes = parameter_bytes.pop()
         candidates.append(
             {
@@ -214,6 +234,10 @@ def aggregate_candidates(reports: list[dict[str, Any]]) -> list[dict[str, Any]]:
                 "model_mib": exact_parameter_bytes / (1024**2),
                 "validation_macro_f1_mean": _mean(validation),
                 "validation_macro_f1_std": _sample_std(validation),
+                "validation_per_class_recall_mean": {
+                    name: _mean(values) if len(values) == len(group) else None
+                    for name, values in val_recalls.items()
+                },
                 "test_macro_f1_mean": _mean(test_macro),
                 "test_macro_f1_std": _sample_std(test_macro),
                 "test_accuracy_mean": _mean(test_accuracy),
@@ -240,7 +264,8 @@ def aggregate_candidates(reports: list[dict[str, Any]]) -> list[dict[str, Any]]:
 
 
 def _select_by_validation(
-    candidates: list[dict[str, Any]], loss: str | None
+    candidates: list[dict[str, Any]], loss: str | None,
+    federated_partitioner: str | None = "dirichlet",
 ) -> dict[str, dict[str, Any]]:
     """Select the best validation configuration inside each lane."""
     selected: dict[str, dict[str, Any]] = {}
@@ -248,6 +273,9 @@ def _select_by_validation(
         if loss is not None and candidate["loss"] != loss:
             continue
         lane = candidate["lane"]
+        if (lane == "federated-light" and federated_partitioner is not None
+                and candidate.get("partitioner") != federated_partitioner):
+            continue
         current = selected.get(lane)
         if (
             current is None
@@ -261,7 +289,7 @@ def _select_by_validation(
 def build_decision(reports: list[dict[str, Any]], criteria: Criteria) -> dict[str, Any]:
     """Return a JSON-serializable decision with blockers and reasoning."""
     candidates = aggregate_candidates(reports)
-    selected = _select_by_validation(candidates, criteria.loss)
+    selected = _select_by_validation(candidates, criteria.loss, criteria.federated_partitioner)
     blockers: list[str] = []
     warnings: list[str] = []
     available_losses: dict[str, set[str]] = defaultdict(set)
@@ -292,18 +320,23 @@ def build_decision(reports: list[dict[str, Any]], criteria: Criteria) -> dict[st
     evaluated: list[dict[str, Any]] = []
     for lane, candidate in selected.items():
         failures = []
-        if candidate["test_macro_f1_mean"] < criteria.min_macro_f1:
+        if candidate["validation_macro_f1_mean"] < criteria.min_macro_f1:
             failures.append(
-                f"macro-F1 {candidate['test_macro_f1_mean']:.4f} "
+                f"validation macro-F1 {candidate['validation_macro_f1_mean']:.4f} "
                 f"< {criteria.min_macro_f1:.4f}"
             )
         weak_classes = [
             class_name
-            for class_name, recall in candidate["per_class_recall_mean"].items()
-            if recall < criteria.min_class_recall
+            for class_name, recall in candidate[
+                "validation_per_class_recall_mean"
+            ].items()
+            if recall is None or recall < criteria.min_class_recall
         ]
         if weak_classes:
-            failures.append("recall below threshold for " + ", ".join(weak_classes))
+            failures.append(
+                "validation recall missing or below threshold for "
+                + ", ".join(weak_classes)
+            )
         if candidate["model_mib"] > criteria.max_model_mib:
             failures.append(
                 f"model {candidate['model_mib']:.4f} MiB "
@@ -327,11 +360,13 @@ def build_decision(reports: list[dict[str, Any]], criteria: Criteria) -> dict[st
 
     recommendation = None
     if eligible:
-        best_macro = max(candidate["test_macro_f1_mean"] for candidate in eligible)
+        best_macro = max(
+            candidate["validation_macro_f1_mean"] for candidate in eligible
+        )
         near_best = [
             candidate
             for candidate in eligible
-            if best_macro - candidate["test_macro_f1_mean"]
+            if best_macro - candidate["validation_macro_f1_mean"]
             <= criteria.max_macro_f1_drop
         ]
         near_best.sort(
@@ -340,7 +375,7 @@ def build_decision(reports: list[dict[str, Any]], criteria: Criteria) -> dict[st
                 0
                 if criteria.prefer_federated and candidate["lane"] == "federated-light"
                 else 1,
-                -candidate["test_macro_f1_mean"],
+                -candidate["validation_macro_f1_mean"],
             )
         )
         recommendation = near_best[0]["lane"]
@@ -370,6 +405,7 @@ def build_decision(reports: list[dict[str, Any]], criteria: Criteria) -> dict[st
             "min_seeds": criteria.min_seeds,
             "require_federated": criteria.require_federated,
             "prefer_federated": criteria.prefer_federated,
+            "federated_partitioner": criteria.federated_partitioner,
         },
         "selection_metric": "mean best validation macro-F1 across seeds",
         "comparison_metrics": "test metrics of validation-selected checkpoints",
@@ -406,7 +442,8 @@ def render_markdown(decision: dict[str, Any]) -> str:
             "Configurations are selected by validation macro-F1. Test metrics are used "
             "only for the final comparison.",
             "",
-            "Current gates: loss={loss}, macro-F1 ≥ {macro:.3f}, every class recall "
+            "Illustrative research gates (not operational security requirements), applied on validation: "
+            "loss={loss}, macro-F1 ≥ {macro:.3f}, every class recall "
             "≥ {recall:.3f}, model ≤ {size:.3f} MiB, at least {seeds} seeds, and "
             "macro-F1 drop from the best ≤ {drop:.3f}.".format(
                 loss=decision["criteria"]["loss"] or "any",
@@ -444,6 +481,11 @@ def render_markdown(decision: dict[str, Any]) -> str:
     if decision["blocking_issues"]:
         lines.extend(["", "## Blocking issues", ""])
         lines.extend(f"- {issue}" for issue in decision["blocking_issues"])
+    failures = [(lane, c["constraint_failures"]) for lane, c in decision["selected_candidates"].items()
+                if c["constraint_failures"]]
+    if failures:
+        lines.extend(["", "## Failed validation gates", ""])
+        lines.extend(f"- {lane}: {'; '.join(reasons)}" for lane, reasons in failures)
     if decision["warnings"]:
         lines.extend(["", "## Warnings", ""])
         lines.extend(f"- {warning}" for warning in decision["warnings"])
@@ -475,6 +517,7 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--min-seeds", type=int, default=3)
     parser.add_argument("--require-federated", action="store_true")
     parser.add_argument("--prefer-federated", action="store_true")
+    parser.add_argument("--federated-partitioner", choices=("dirichlet", "iid", "any"), default="dirichlet")
     parser.add_argument(
         "--strict",
         action="store_true",
@@ -506,6 +549,7 @@ def main() -> None:
         min_seeds=args.min_seeds,
         require_federated=args.require_federated,
         prefer_federated=args.prefer_federated,
+        federated_partitioner=None if args.federated_partitioner == "any" else args.federated_partitioner,
     )
     decision = build_decision(reports, criteria)
     decision["warnings"] = [*load_warnings, *decision["warnings"]]

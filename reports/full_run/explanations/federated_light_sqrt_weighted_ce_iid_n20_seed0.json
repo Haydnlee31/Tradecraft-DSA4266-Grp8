@@ -1,0 +1,323 @@
+{
+  "checkpoint": "reports/full_run/checkpoints/federated_light_sqrt_weighted_ce_iid_n20_seed0.pt",
+  "method": "SHAP GradientExplainer / expected gradients",
+  "background": "128 seeded natural-prevalence training rows",
+  "explanation_sample": "seeded class-balanced validation rows; includes mistakes",
+  "seed": 0,
+  "integration_samples": 256,
+  "mean_absolute_additivity_residual_logits": 0.285531743402934,
+  "p95_absolute_additivity_residual_logits": 0.7918745909528082,
+  "mean_absolute_logit_difference_from_background": 4.596742630004883,
+  "classes": {
+    "Benign": {
+      "sample_count": 16,
+      "correct_predictions": 12,
+      "top_features": [
+        {
+          "feature": "Weight",
+          "mean_absolute_logit_attribution": 1.626139463044365
+        },
+        {
+          "feature": "IAT",
+          "mean_absolute_logit_attribution": 1.4671797532141317
+        },
+        {
+          "feature": "Number",
+          "mean_absolute_logit_attribution": 1.0681007781401337
+        },
+        {
+          "feature": "rst_count",
+          "mean_absolute_logit_attribution": 0.6770876895002984
+        },
+        {
+          "feature": "Variance",
+          "mean_absolute_logit_attribution": 0.6332799998364057
+        },
+        {
+          "feature": "Duration",
+          "mean_absolute_logit_attribution": 0.3298196920206937
+        },
+        {
+          "feature": "ack_flag_number",
+          "mean_absolute_logit_attribution": 0.2678173610445877
+        },
+        {
+          "feature": "Magnitue",
+          "mean_absolute_logit_attribution": 0.24033886361318005
+        }
+      ]
+    },
+    "DDoS": {
+      "sample_count": 16,
+      "correct_predictions": 10,
+      "top_features": [
+        {
+          "feature": "psh_flag_number",
+          "mean_absolute_logit_attribution": 1.362120268563176
+        },
+        {
+          "feature": "Weight",
+          "mean_absolute_logit_attribution": 0.6308298907366005
+        },
+        {
+          "feature": "ICMP",
+          "mean_absolute_logit_attribution": 0.6286049935394392
+        },
+        {
+          "feature": "IAT",
+          "mean_absolute_logit_attribution": 0.5951854045082183
+        },
+        {
+          "feature": "Protocol Type",
+          "mean_absolute_logit_attribution": 0.5923690158884851
+        },
+        {
+          "feature": "Radius",
+          "mean_absolute_logit_attribution": 0.5523737001499245
+        },
+        {
+          "feature": "Number",
+          "mean_absolute_logit_attribution": 0.46175551181928237
+        },
+        {
+          "feature": "Min",
+          "mean_absolute_logit_attribution": 0.3906928969272686
+        }
+      ]
+    },
+    "DoS": {
+      "sample_count": 16,
+      "correct_predictions": 12,
+      "top_features": [
+        {
+          "feature": "Weight",
+          "mean_absolute_logit_attribution": 0.5890428301349803
+        },
+        {
+          "feature": "IAT",
+          "mean_absolute_logit_attribution": 0.567133631725651
+        },
+        {
+          "feature": "TCP",
+          "mean_absolute_logit_attribution": 0.5025935966437636
+        },
+        {
+          "feature": "Variance",
+          "mean_absolute_logit_attribution": 0.43679471480269616
+        },
+        {
+          "feature": "syn_count",
+          "mean_absolute_logit_attribution": 0.43570781676069364
+        },
+        {
+          "feature": "Number",
+          "mean_absolute_logit_attribution": 0.40399358083329795
+        },
+        {
+          "feature": "Magnitue",
+          "mean_absolute_logit_attribution": 0.37176350258999924
+        },
+        {
+          "feature": "fin_count",
+          "mean_absolute_logit_attribution": 0.31014574144226303
+        }
+      ]
+    },
+    "Recon": {
+      "sample_count": 16,
+      "correct_predictions": 13,
+      "top_features": [
+        {
+          "feature": "Variance",
+          "mean_absolute_logit_attribution": 1.255695417542839
+        },
+        {
+          "feature": "IAT",
+          "mean_absolute_logit_attribution": 0.6355365765374006
+        },
+        {
+          "feature": "Weight",
+          "mean_absolute_logit_attribution": 0.4383172352391095
+        },
+        {
+          "feature": "Number",
+          "mean_absolute_logit_attribution": 0.39225710408644376
+        },
+        {
+          "feature": "fin_count",
+          "mean_absolute_logit_attribution": 0.3793152672639642
+        },
+        {
+          "feature": "rst_flag_number",
+          "mean_absolute_logit_attribution": 0.3614781255864004
+        },
+        {
+          "feature": "TCP",
+          "mean_absolute_logit_attribution": 0.3487369695331916
+        },
+        {
+          "feature": "Protocol Type",
+          "mean_absolute_logit_attribution": 0.3366671627190438
+        }
+      ]
+    },
+    "Web-based": {
+      "sample_count": 16,
+      "correct_predictions": 1,
+      "top_features": [
+        {
+          "feature": "Weight",
+          "mean_absolute_logit_attribution": 1.4816469432384047
+        },
+        {
+          "feature": "IAT",
+          "mean_absolute_logit_attribution": 1.4031765917538983
+        },
+        {
+          "feature": "Number",
+          "mean_absolute_logit_attribution": 1.1007660911161452
+        },
+        {
+          "feature": "Variance",
+          "mean_absolute_logit_attribution": 0.8789941253835155
+        },
+        {
+          "feature": "ack_count",
+          "mean_absolute_logit_attribution": 0.3395540255811192
+        },
+        {
+          "feature": "ack_flag_number",
+          "mean_absolute_logit_attribution": 0.1961624292170968
+        },
+        {
+          "feature": "HTTP",
+          "mean_absolute_logit_attribution": 0.15829453478931005
+        },
+        {
+          "feature": "HTTPS",
+          "mean_absolute_logit_attribution": 0.14679900382141092
+        }
+      ]
+    },
+    "Brute Force": {
+      "sample_count": 16,
+      "correct_predictions": 3,
+      "top_features": [
+        {
+          "feature": "SSH",
+          "mean_absolute_logit_attribution": 2.5734808632029615
+        },
+        {
+          "feature": "IAT",
+          "mean_absolute_logit_attribution": 1.7227553443365937
+        },
+        {
+          "feature": "Weight",
+          "mean_absolute_logit_attribution": 1.523950927097195
+        },
+        {
+          "feature": "Variance",
+          "mean_absolute_logit_attribution": 1.1858948974126235
+        },
+        {
+          "feature": "Number",
+          "mean_absolute_logit_attribution": 1.0865459283324295
+        },
+        {
+          "feature": "Protocol Type",
+          "mean_absolute_logit_attribution": 0.25458902822537577
+        },
+        {
+          "feature": "syn_count",
+          "mean_absolute_logit_attribution": 0.24089806386122078
+        },
+        {
+          "feature": "Radius",
+          "mean_absolute_logit_attribution": 0.19780454840602163
+        }
+      ]
+    },
+    "Spoofing": {
+      "sample_count": 16,
+      "correct_predictions": 13,
+      "top_features": [
+        {
+          "feature": "Weight",
+          "mean_absolute_logit_attribution": 1.4552820249897793
+        },
+        {
+          "feature": "IAT",
+          "mean_absolute_logit_attribution": 1.3263000096696431
+        },
+        {
+          "feature": "Number",
+          "mean_absolute_logit_attribution": 1.1574865353536992
+        },
+        {
+          "feature": "Header_Length",
+          "mean_absolute_logit_attribution": 0.6970312256061336
+        },
+        {
+          "feature": "syn_count",
+          "mean_absolute_logit_attribution": 0.3156879061874497
+        },
+        {
+          "feature": "Variance",
+          "mean_absolute_logit_attribution": 0.2714133414640085
+        },
+        {
+          "feature": "Tot sum",
+          "mean_absolute_logit_attribution": 0.26170745839795295
+        },
+        {
+          "feature": "Min",
+          "mean_absolute_logit_attribution": 0.2273474965848814
+        }
+      ]
+    },
+    "Mirai": {
+      "sample_count": 16,
+      "correct_predictions": 16,
+      "top_features": [
+        {
+          "feature": "Protocol Type",
+          "mean_absolute_logit_attribution": 5.125470574142201
+        },
+        {
+          "feature": "Min",
+          "mean_absolute_logit_attribution": 1.9863928754328253
+        },
+        {
+          "feature": "Magnitue",
+          "mean_absolute_logit_attribution": 1.2427887675565183
+        },
+        {
+          "feature": "TCP",
+          "mean_absolute_logit_attribution": 0.7023580899418612
+        },
+        {
+          "feature": "Variance",
+          "mean_absolute_logit_attribution": 0.5369484397179781
+        },
+        {
+          "feature": "syn_flag_number",
+          "mean_absolute_logit_attribution": 0.48675586828231643
+        },
+        {
+          "feature": "Header_Length",
+          "mean_absolute_logit_attribution": 0.4611921174082621
+        },
+        {
+          "feature": "IAT",
+          "mean_absolute_logit_attribution": 0.419211844755885
+        }
+      ]
+    }
+  },
+  "limitations": [
+    "One predeclared seed per configuration; not seed-stable policy evidence.",
+    "Small background/sample; correlated flow statistics can share attribution.",
+    "Absolute importance does not establish feature direction or a threshold.",
+    "No device identities, causal interpretation, automatic blocking or deployment claims."
+  ]
+}

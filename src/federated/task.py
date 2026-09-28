@@ -337,6 +337,7 @@ def train(
     device,
     loss_name: str = "ce",
     class_weights: str = "global",
+    weight_decay: float = 1e-5,
 ) -> float:
     """Train one client using the shared loss family and Adam optimizer."""
     if epochs < 1:
@@ -345,7 +346,9 @@ def train(
     criterion = build_criterion(
         loss_name, loss_class_counts(class_weights, trainloader)
     ).to(device)
-    optimizer = torch.optim.Adam(model.parameters(), lr=lr)
+    # Match centralized Adam's L2 penalty; resetting optimizer state each round
+    # remains an explicit property of this federated baseline.
+    optimizer = torch.optim.Adam(model.parameters(), lr=lr, weight_decay=weight_decay)
     model.train()
     loss_sum = 0.0
     examples = 0

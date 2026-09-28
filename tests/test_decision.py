@@ -32,6 +32,10 @@ def make_report(
             "per_class_recall": {class_name: test_f1 for class_name in CLASSES},
         },
         "args": {"seed": seed},
+        "validation_metrics": {
+            "macro_f1": validation_f1,
+            "per_class_recall": {name: validation_f1 for name in CLASSES},
+        },
         "_source": f"{lane}_seed{seed}.json",
     }
     if federated:
@@ -50,6 +54,25 @@ def make_report(
 
 
 class DecisionTests(unittest.TestCase):
+    def test_iid_control_cannot_replace_non_iid_target(self):
+        reports = []
+        for seed in range(3):
+            target = make_report("federated-light", seed, .65, .65, 5500)
+            control = make_report("federated-light", seed, .90, .90, 5500)
+            control["partitioner"] = "iid"
+            reports.extend([target, control])
+        decision = build_decision(reports, Criteria())
+        self.assertEqual(decision["selected_candidates"]["federated-light"]["partitioner"], "dirichlet")
+
+    def test_gates_ignore_test_recall(self):
+        report = make_report("centralized-light", 0, .7, .01, 5500)
+        decision = build_decision([report], Criteria(min_seeds=1))
+        self.assertTrue(decision["selected_candidates"]["centralized-light"]["eligible"])
+        report["validation_metrics"]["per_class_recall"]["Web-based"] = .01
+        report["test_metrics"]["per_class_recall"]["Web-based"] = .99
+        decision = build_decision([report], Criteria(min_seeds=1))
+        self.assertFalse(decision["selected_candidates"]["centralized-light"]["eligible"])
+
     def test_complete_decision_can_prefer_equal_size_federated_model(self) -> None:
         reports = []
         for seed in range(3):

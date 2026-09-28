@@ -41,6 +41,8 @@ from sklearn.metrics import f1_score
 from torch import nn
 from torch.utils.data import DataLoader
 
+from src.data.label_map import CLASSES
+
 
 class Trainer:
     def __init__(
@@ -97,8 +99,14 @@ class Trainer:
                 all_targets.append(y.detach().cpu().numpy())
         preds = np.concatenate(all_preds)
         targets = np.concatenate(all_targets)
-        macro_f1 = f1_score(targets, preds, average="macro", zero_division=0)
-        return total_loss / len(loader.dataset), macro_f1
+        macro_f1 = f1_score(
+            targets,
+            preds,
+            labels=list(range(len(CLASSES))),
+            average="macro",
+            zero_division=0,
+        )
+        return total_loss / len(targets), macro_f1
 
     def fit(
         self, train_loader: DataLoader, val_loader: DataLoader, epochs: int

@@ -1,0 +1,17 @@
+{
+  "alpha": 0.5,
+  "num_partitions": 20,
+  "seed": 0,
+  "min_partition_size": 10,
+  "self_balancing": true,
+  "attempts": 1,
+  "partition_by": "class",
+  "source_file": "/Users/haydn/Documents/DSA4266Proj/data/splits/train.parquet",
+  "source_size_bytes": 26991073,
+  "source_mtime_ns": 1788759772532491735,
+  "num_rows": 440594,
+  "partition_sizes": {
+    "min": 6354,
+    "max": 38733
+  }
+}
