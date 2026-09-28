@@ -34,6 +34,14 @@ NUM_NODES=20 ./run_fed.sh "dirichlet-alpha=0.5 seed=0"
 NUM_NODES=20 ./run_sweep.sh
 ```
 
+The sweep forwards `SEED`, `PARTITIONER` and `ALPHA` to the launcher. FedAvg is
+still the default; pass `"strategy='fedadagrad'"` to opt into Joel's adaptive
+server optimizer. Its `fedadagrad-eta` and `fedadagrad-tau` are recorded separately
+and produce strategy-tagged report filenames. The sequential runner is FedAvg-only.
+Client evaluation now retains each partition's macro-F1 plus its min/median/max;
+its approximately IID validation shards are not the non-IID training shards.
+Round history is written locally even when optional W&B logging is disabled.
+
 Generated partition artifacts are ignored by Git. Each JSON sidecar records the
 source train file, size, modification time, alpha, seed, and client count; a run
 refuses a stale or incompatible mapping.

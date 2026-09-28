@@ -158,6 +158,34 @@ python -m src.federated.partition --alpha 0.5 --num-partitions 20 --seed 0
 NUM_NODES=20 ./run_fed.sh "dirichlet-alpha=0.5 seed=0"
 ```
 
+The launcher also accepts `SEED=1 PARTITIONER=dirichlet ALPHA=0.5` environment
+settings; explicit run-config arguments override them. Both launchers default to
+20 simulated clients, and the partition file must match that number.
+
+FedAvg remains the baseline. Joel's adaptive alternative is explicitly opt-in:
+
+```bash
+NUM_NODES=20 ./run_fed.sh "strategy='fedadagrad' fedadagrad-eta=0.1 fedadagrad-tau=0.001"
+```
+
+The sequential full-study runner stays FedAvg-only. Worker reports now include
+the strategy in the filename; historical reports are unchanged. Each worker run
+also writes `run_info.json`, `history.json` and its checkpoints beneath
+`outputs/federated/<date>/<time>_seed<N>/`. Optional client evaluation
+(`fraction-evaluate=1.0`) reports min/median/max client macro-F1, not a replacement
+for global validation macro-F1. These client validation slices remain approximately
+IID, so the spread is not an evaluation on each non-IID training distribution.
+
+W&B is disabled by default. To opt in, install `python -m pip install -e ".[wandb]"`
+and pass `use-wandb=true`. With no login, it uses offline logging. Authenticated
+online logging sends run configuration and metrics to W&B; local history needs no
+account. The learning-rate schedule remains off by default; `lr-decay-every=5`
+enables halving after every five completed rounds.
+
+Windows note: Flower 1.38's simulation extra omits Ray on Windows/Python 3.13+.
+Use Python 3.12 for a native worker install or WSL2; the sequential runner does
+not require Ray. Do not disable Smart App Control to run the experiment.
+
 `alpha=0.1` is strongly non-IID, `0.5` is moderately skewed, and larger values
 approach IID. `./run_sweep.sh` runs alpha `{0.1, 0.5, 1.0}` plus an IID baseline for
 three seeds. Full operating notes are in [src/federated/README.md](src/federated/README.md).

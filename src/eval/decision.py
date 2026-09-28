@@ -146,7 +146,11 @@ def _configuration_key(report: dict[str, Any]) -> str:
                 "local_epochs": report.get("local_epochs"),
                 "fraction_train": report.get("fraction_train"),
                 "class_weights": report.get("class_weights"),
-                "strategy": report.get("strategy"),
+                "strategy": str(report.get("strategy", "FedAvg")).lower(),
+                "server_optimizer": {
+                    k: report.get("args", {}).get(k)
+                    for k in ("fedadagrad-eta", "fedadagrad-tau")
+                } if str(report.get("strategy", "")).lower() == "fedadagrad" else {},
                 "training": {
                     name: report.get("args", {}).get(name)
                     for name in ("batch-size", "learning-rate", "weight-decay",

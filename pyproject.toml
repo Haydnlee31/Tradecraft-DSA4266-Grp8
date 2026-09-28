@@ -28,6 +28,8 @@ dependencies = [
 
 [project.optional-dependencies]
 simulation = ["flwr[simulation]>=1.36,<1.40"]
+# Only needed with use-wandb = true. No logging service is required by default.
+wandb = ["wandb>=0.17.8"]
 
 [tool.hatch.build.targets.wheel]
 packages = ["src"]
@@ -50,6 +52,14 @@ patience = 5
 fraction-train = 1.0
 # 0 = no client-side eval; the server's full-val eval is the val result that counts
 fraction-evaluate = 0.0
+# "fedavg" is the controlled baseline; opt into the adaptive server optimizer
+# explicitly. Historical FedAvg results must not be relabeled as FedAdagrad.
+strategy = "fedavg"
+# FedAdagrad only: server learning rate and adaptivity term (Flower defaults).
+fedadagrad-eta = 0.1
+fedadagrad-tau = 0.001
+# Also log to W&B (offline if not logged in); history.json is always written.
+use-wandb = false
 # Optional client learning-rate schedule. 0 disables it so the default uses a
 # constant Adam learning rate, matching centralized-light.
 lr-decay-every = 0

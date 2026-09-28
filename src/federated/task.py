@@ -9,6 +9,7 @@ preprocessing in one place changes both centralized-light and federated-light.
 from __future__ import annotations
 
 import json
+from collections import OrderedDict
 from collections.abc import Mapping
 from pathlib import Path
 from typing import Any
@@ -54,6 +55,31 @@ _feat_cols: list[str] | None = None
 _server_val: TensorDataset | None = None
 _test_data: TensorDataset | None = None
 _class_counts: dict[str, int] | None = None
+# Loaded tensors keyed by (what, source identity, partition...). Workers are
+# reused across rounds, so cache shards, but bound their count to avoid growing
+# without limit during sweeps. Split caches above keep their existing contract.
+_tensor_cache: OrderedDict[tuple, TensorDataset] = OrderedDict()
+_source_identity: tuple | None = None
+MAX_CACHED_PARTITIONS = 32
+
+
+def _file_identity(path: Path) -> tuple:
+    stat = path.stat()
+    return (str(path.resolve()), stat.st_size, stat.st_mtime_ns)
+
+
+def _cached(key: tuple, load) -> TensorDataset:
+    """Return _tensor_cache[key], calling load() to fill it on a miss.
+
+    LRU eviction bounds retained shards. Seeds belong to fresh DataLoaders,
+    not this cache: caching shuffled loaders would repeat the same row order.
+    """
+    if key not in _tensor_cache:
+        _tensor_cache[key] = load()
+    _tensor_cache.move_to_end(key)
+    while len(_tensor_cache) > MAX_CACHED_PARTITIONS:
+        _tensor_cache.popitem(last=False)
+    return _tensor_cache[key]
 
 
 def configure(run_config: Mapping[str, Any]) -> None:
@@ -61,6 +87,7 @@ def configure(run_config: Mapping[str, Any]) -> None:
     global SPLITS_DIR, TRAIN_PATH, VAL_PATH, TEST_PATH
     global PARTITIONER, DIRICHLET_ALPHA, PARTITION_SEED, PARTITION_FILE
     global _scaler, _feat_cols, _server_val, _test_data, _class_counts
+    global _source_identity
 
     partitioner = str(run_config.get("partitioner", "iid"))
     if partitioner not in {"iid", "dirichlet"}:
@@ -72,7 +99,11 @@ def configure(run_config: Mapping[str, Any]) -> None:
 
     configured_dir = str(run_config.get("splits-dir", "") or "")
     new_splits_dir = Path(configured_dir) if configured_dir else SPLITS_DIR
-    if new_splits_dir == SPLITS_DIR:
+    # Detect same-path file replacement as well as directory changes. Mapping
+    # identity is also part of each Dirichlet cache key below.
+    identity = tuple(_file_identity(new_splits_dir / f"{split}.parquet")
+                     for split in ("train", "val", "test"))
+    if new_splits_dir == SPLITS_DIR and identity == _source_identity:
         return
 
     SPLITS_DIR = new_splits_dir
@@ -84,6 +115,8 @@ def configure(run_config: Mapping[str, Any]) -> None:
     _server_val = None
     _test_data = None
     _class_counts = None
+    _tensor_cache.clear()  # Scaled with the old scaler.
+    _source_identity = identity
 
 
 def _feature_names() -> list[str]:
@@ -254,9 +287,16 @@ def load_client_train(
     """Load one client's IID or persisted non-IID training shard."""
     _init_scaler()
     if PARTITIONER == "dirichlet":
-        dataset = _load_dirichlet_partition(partition_id, num_partitions)
+        mapping = validate_partition_file(num_partitions)
+        dataset = _cached(
+            ("train", _file_identity(TRAIN_PATH), _file_identity(mapping), num_partitions, partition_id),
+            lambda: _load_dirichlet_partition(partition_id, num_partitions),
+        )
     else:
-        dataset = _load_modulo_slice(TRAIN_PATH, partition_id, num_partitions)
+        dataset = _cached(
+            ("train", _file_identity(TRAIN_PATH), "iid", num_partitions, partition_id),
+            lambda: _load_modulo_slice(TRAIN_PATH, partition_id, num_partitions),
+        )
     return _train_loader(dataset, batch_size, seed)
 
 
@@ -265,7 +305,10 @@ def load_client_val(
 ) -> DataLoader:
     """Load a deterministic validation slice for optional site-level metrics."""
     _init_scaler()
-    dataset = _load_modulo_slice(VAL_PATH, partition_id, num_partitions)
+    dataset = _cached(
+        ("val", _file_identity(VAL_PATH), num_partitions, partition_id),
+        lambda: _load_modulo_slice(VAL_PATH, partition_id, num_partitions),
+    )
     return DataLoader(dataset, batch_size=batch_size, shuffle=False)
 
 
@@ -280,6 +323,12 @@ def load_data(
         load_client_train(partition_id, num_partitions, batch_size, seed=seed),
         load_client_val(partition_id, num_partitions, batch_size),
     )
+
+
+# Joel's split-specific loader names are aliases of the shared implementation,
+# so older callers gain caching without creating a second preprocessing path.
+load_train_partition = load_client_train
+load_val_partition = load_client_val
 
 
 def load_server_val(batch_size: int = 512) -> DataLoader:

@@ -20,11 +20,47 @@ from flwr.serverapp import Grid, ServerApp
 from src.data.label_map import CLASSES
 from src.eval.metrics import compute_metrics
 from src.federated import task
-from src.federated.custom_strategy import FEDERATED_DIR, CustomFedAvg
+from src.federated.custom_strategy import STRATEGIES, CustomFedAvg
 from src.models.architectures import LIGHT_CONFIG
 from src.utils.seed import set_seed
 
 app = ServerApp()
+
+
+def build_strategy(rc):
+    """The strategy named by run_config['strategy'], with explicit settings.
+
+    Returns (strategy, settings dict for run_info.json). FedAvg stays the
+    default so merging an optional optimizer does not change the baseline.
+    """
+    name = str(rc.get("strategy", "fedavg")).lower()
+    if name not in STRATEGIES:
+        raise ValueError(f"unknown strategy: {name} (expected one of {sorted(STRATEGIES)})")
+    settings = {
+        "fraction_train": float(rc["fraction-train"]),
+        "fraction_evaluate": float(rc["fraction-evaluate"]),
+        "min_train_nodes": 1, "min_evaluate_nodes": 1, "min_available_nodes": 1,
+        "weighted_by_key": "num-examples",
+        "patience": int(rc["patience"]),
+        "lr_decay_every": int(rc.get("lr-decay-every", 0)),
+        "lr_decay_factor": float(rc.get("lr-decay-factor", 0.5)),
+        "use_wandb": bool(rc.get("use-wandb", False)),
+    }
+    if name == "fedadagrad":
+        settings.update(
+            eta=float(rc["fedadagrad-eta"]),  # Server-side learning rate.
+            tau=float(rc["fedadagrad-tau"]),  # Adaptivity / numerical-stability term.
+            # Flower only records eta_l; clients actually train with learning-rate.
+            eta_l=float(rc["learning-rate"]),
+        )
+    return STRATEGIES[name](**settings), {"name": name, **settings}
+
+
+def report_filename(rc, num_clients):
+    """Strategy and partition setting in the name prevent cross-strategy overwrites."""
+    name = str(rc.get("strategy", "fedavg")).lower()
+    tag = f"a{float(rc['dirichlet-alpha'])}" if rc["partitioner"] == "dirichlet" else "iid"
+    return f"federated_light_{name}_{rc['loss']}_{tag}_n{num_clients}_seed{int(rc['seed'])}.json"
 
 
 def _parameter_bytes(model: torch.nn.Module) -> int:
@@ -51,23 +87,14 @@ def main(grid: Grid, context: Context) -> None:
     global_model = task.load_model()
     arrays = ArrayRecord(global_model.state_dict())
 
-    strategy = CustomFedAvg(
-        fraction_train=float(run_config["fraction-train"]),
-        fraction_evaluate=float(run_config["fraction-evaluate"]),
-        min_train_nodes=1,
-        min_evaluate_nodes=1,
-        min_available_nodes=1,
-        weighted_by_key="num-examples",
-        patience=int(run_config["patience"]),
-        lr_decay_every=int(run_config.get("lr-decay-every", 0)),
-        lr_decay_factor=float(run_config.get("lr-decay-factor", 0.5)),
-    )
+    strategy, strategy_settings = build_strategy(run_config)
 
     # Microseconds and seed keep repeated/swept runs from colliding.
     run_name = datetime.now().strftime("%Y-%m-%d/%H-%M-%S-%f") + f"_seed{seed}"
-    output_base = Path(run_config.get("output-dir") or FEDERATED_DIR)
-    save_path = output_base / "outputs" / run_name
-    strategy.set_save_path(save_path)
+    # outputs/federated/<date>/<time>_seed{N}/ at the repo root, not inside src/.
+    output_base = Path(run_config.get("output-dir") or task.ROOT / "outputs" / "federated")
+    save_path = output_base / run_name
+    strategy.set_output(save_path, dict(run_config))
 
     node_ids = list(grid.get_node_ids())
     num_clients = len(node_ids)
@@ -81,6 +108,7 @@ def main(grid: Grid, context: Context) -> None:
     run_info = {
         "seed": seed,
         "run_config": dict(run_config),
+        "strategy": strategy_settings,
         "model": {
             "architecture": "MLPClassifier",
             "hidden_dims": list(LIGHT_CONFIG.hidden_dims),
@@ -161,6 +189,9 @@ def write_report(
             {
                 "round": server_round,
                 "train_loss": train_metrics.get("train_loss"),
+                # Measured (simulation host), not an edge-device figure.
+                "training_time_sim_host_s": train_metrics.get("training_time_sim_host_s"),
+                "client_eval": dict(result.evaluate_metrics_clientapp.get(server_round, {})),
                 "val_loss": val_metrics.get("val_loss"),
                 "val_macro_f1": val_metrics.get("val_macro_f1"),
                 "val_accuracy": val_metrics.get("val_accuracy"),
@@ -197,7 +228,7 @@ def write_report(
         "num_clients": num_clients,
         "partitioner": task.PARTITIONER,
         "alpha": (task.DIRICHLET_ALPHA if task.PARTITIONER == "dirichlet" else None),
-        "strategy": "FedAvg",
+        "strategy": "FedAdagrad" if run_config.get("strategy", "fedavg").lower() == "fedadagrad" else "FedAvg",
         "rounds": strategy.rounds_run,
         "num_server_rounds": int(run_config["num-server-rounds"]),
         "early_stopped": strategy.early_stopped,
@@ -206,18 +237,13 @@ def write_report(
         "fraction_train": float(run_config["fraction-train"]),
         "class_weights": run_config["class-weights"],
         "run_dir": str(save_path),
+        "timing_note": "training_time_sim_host_s is a sample-weighted client wall time on the simulation host, not parallel round time or edge latency",
         "edge_hardware_measurements": False,
     }
 
     reports_dir = Path(run_config.get("reports-dir") or task.ROOT / "reports")
     reports_dir.mkdir(parents=True, exist_ok=True)
-    partition_tag = (
-        f"a{task.DIRICHLET_ALPHA}" if task.PARTITIONER == "dirichlet" else "iid"
-    )
-    out_path = reports_dir / (
-        f"federated_light_{run_config['loss']}_{partition_tag}_"
-        f"n{num_clients}_seed{int(run_config['seed'])}.json"
-    )
+    out_path = reports_dir / report_filename(run_config, num_clients)
     out_path.write_text(json.dumps(report, indent=2), encoding="utf-8")
     print(f"Saved report to {out_path} ({strategy.rounds_run} rounds run)")
     return out_path

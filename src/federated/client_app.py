@@ -77,12 +77,16 @@ def train_partition(
     # Flower serializes these tensors for aggregation. Moving them back to CPU
     # avoids backend/device-specific serialization and frees client GPU memory.
     model.to("cpu")
+    elapsed = time.perf_counter() - started_at
     metrics = {
         "train_loss": float(train_loss),
         "num-examples": len(trainloader.dataset),
         # This is measured simulation wall time, not edge-device latency. The
         # distinction is required by CLAUDE.md and the final report.
-        "training_time_seconds": time.perf_counter() - started_at,
+        "training_time_seconds": elapsed,
+        # Measured (simulation host), not an edge-device figure. Preserve the
+        # older key above for reports/scripts written before Joel's rename.
+        "training_time_sim_host_s": elapsed,
     }
     return model.state_dict(), metrics
 
@@ -115,7 +119,13 @@ def evaluate_partition(
     flat = {
         "eval_loss": float(eval_loss),
         "eval_accuracy": metrics["accuracy"],
+        "eval_acc": metrics["accuracy"],  # Joel's client-evaluation schema.
         "eval_macro_f1": metrics["macro_f1"],
+        # Reports this client's own macro-F1 (with its partition id) so the
+        # strategy can show how evenly clients are served. A weighted average
+        # of per-client macro-F1 is NOT the server's full-val macro-F1.
+        "client_macro_f1": metrics["macro_f1"],
+        "partition-id": partition_id,
         "num-examples": len(valloader.dataset),
     }
     for class_name in task.CLASSES:

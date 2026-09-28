@@ -16,6 +16,7 @@ from __future__ import annotations
 
 from collections.abc import Callable, Mapping
 from typing import Any
+import statistics
 
 import torch
 from flwr.app import ArrayRecord, MetricRecord, RecordDict
@@ -40,6 +41,8 @@ def run_local_federation(
     """Run deterministic full-participation FedAvg in one process."""
     if num_clients < 1 or num_rounds < 1:
         raise ValueError("num_clients and num_rounds must both be >= 1")
+    if str(run_config.get("strategy", "fedavg")).lower() != "fedavg":
+        raise ValueError("The sequential backend is FedAvg-only; use the Flower ServerApp for FedAdagrad")
     global_state = {
         key: value.detach().cpu().clone() for key, value in initial_state.items()
     }
@@ -86,9 +89,12 @@ def run_local_federation(
                 )
                 eval_replies.append(RecordDict({"metrics": MetricRecord(metrics)}))
             client_metrics = aggregate_metricrecords(eval_replies, "num-examples")
+            # Joel's fairness view: show the spread, never call a weighted
+            # average of per-client macro-F1 the global validation macro-F1.
+            f1s = [reply["metrics"]["client_macro_f1"] for reply in eval_replies]
             print(
                 f"[local] round {server_round:>3}  client-val "
-                f"macro_f1={float(client_metrics['eval_macro_f1']):.4f}  "
+                f"macro_f1 min/median/max={min(f1s):.4f}/{statistics.median(f1s):.4f}/{max(f1s):.4f}  "
                 f"acc={float(client_metrics['eval_accuracy']):.4f}"
             )
 

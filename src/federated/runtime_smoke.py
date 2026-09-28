@@ -16,6 +16,7 @@ import subprocess
 import sys
 import tempfile
 import tomllib
+from datetime import datetime
 from dataclasses import replace
 from pathlib import Path
 
@@ -28,10 +29,15 @@ from src.data.label_map import CLASSES
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--backend", choices=("api", "cli"), default="api")
+    parser.add_argument("--strategy", choices=("fedavg", "fedadagrad"), default="fedavg")
+    parser.add_argument("--client-evaluate", action="store_true")
+    parser.add_argument("--output", type=Path, default=Path("outputs/runtime_smoke"))
     args = parser.parse_args()
     if importlib.util.find_spec("ray") is None:
         raise SystemExit("Ray workers are optional. Install them with: python -m pip install -r requirements-simulation.txt")
-    output = Path("reports/runtime_smoke").resolve()
+    # A unique directory prevents an old successful report from masking a
+    # failed worker run. Synthetic results must stay out of the study reports.
+    output = (args.output / datetime.now().strftime("%Y%m%d-%H%M%S-%f")).resolve()
     output.mkdir(parents=True, exist_ok=True)
     with tempfile.TemporaryDirectory(prefix="tradecraft-smoke-") as directory:
         splits = Path(directory)
@@ -44,7 +50,8 @@ def main():
             str(Path(sys.executable).with_name("flwr.exe" if os.name == "nt" else "flwr")), "run", ".", "local", "--stream",
             "--run-config",
             f"splits-dir='{splits}' output-dir='{output}' reports-dir='{output}' "
-            "partitioner='iid' num-server-rounds=1 batch-size=32",
+            f"partitioner='iid' num-server-rounds=1 batch-size=32 strategy='{args.strategy}' "
+            f"fraction-evaluate={1.0 if args.client_evaluate else 0.0}",
             "--federation-config",
             "num-supernodes=2 init-args-num-cpus=1 client-resources-num-cpus=1",
         ]
@@ -70,6 +77,8 @@ def main():
             config = tomllib.loads(Path("pyproject.toml").read_text())["tool"]["flwr"]["app"]["config"]
             config.update({"splits-dir": str(splits), "output-dir": str(output),
                            "reports-dir": str(output), "partitioner": "iid",
+                           "strategy": args.strategy,
+                           "fraction-evaluate": 1.0 if args.client_evaluate else 0.0,
                            "num-server-rounds": 1, "batch-size": 32})
             server = ServerApp()
             client = ClientApp()
@@ -89,11 +98,14 @@ def main():
             run_simulation(server_app=server, client_app=client, num_supernodes=2,
                            backend_config={"init_args": {"num_cpus": 1},
                                            "client_resources": {"num_cpus": 1, "num_gpus": 0}})
-        report = output / "federated_light_sqrt_weighted_ce_iid_n2_seed0.json"
+        report = output / f"federated_light_{args.strategy}_sqrt_weighted_ce_iid_n2_seed0.json"
         result = json.loads(report.read_text())
         assert result["rounds"] == 1 and result["num_clients"] == 2
         assert "validation_metrics" in result and "test_metrics" in result
         assert any(h.get("train_loss") is not None for h in result["history"]), "no client updates aggregated"
+        assert result["strategy"].lower() == args.strategy
+        if args.client_evaluate:
+            assert "client_macro_f1_median" in result["history"][-1]["client_eval"]
         print("PASS: Flower/Ray transport, two clients, checkpoint and report.")
 
 

@@ -21,7 +21,9 @@ from src.eval.decision import aggregate_candidates, load_reports
 
 def name(candidate):
     if candidate["lane"] == "federated-light":
-        return "FL IID control" if candidate["partitioner"] == "iid" else "FL Dirichlet α=0.5"
+        base = "FL IID control" if candidate["partitioner"] == "iid" else f"FL Dirichlet α={candidate.get('alpha')}"
+        strategy = str(candidate.get("strategy", "fedavg")).lower()
+        return base if strategy == "fedavg" else f"{base} / {strategy}"
     return candidate["lane"]
 
 
@@ -29,7 +31,12 @@ def compile_study(folder):
     reports, warnings = load_reports(folder)
     candidates = aggregate_candidates(reports)
     order = {"centralized-heavy": 0, "centralized-light": 1, "FL IID control": 2, "FL Dirichlet α=0.5": 3}
-    candidates.sort(key=lambda c: order[name(c)])
+    # Alternative optimizers must not overwrite each other's alert diagnostics
+    # or receive the same legend label when a report directory includes both.
+    candidates.sort(key=lambda c: (
+        (2 if c["partitioner"] == "iid" else 3) if c["lane"] == "federated-light" else order[c["lane"]],
+        str(c.get("strategy", "")),
+    ))
     lookup = {r["_source"]: r for r in reports}
     lines = ["# Full-run measured results", "",
         "Fixed sampled splits; three seeds per configuration. Maximum 30 epochs/rounds, "
