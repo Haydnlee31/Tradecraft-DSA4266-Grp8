@@ -14,6 +14,7 @@ Usage:
 from __future__ import annotations
 
 import argparse
+import dataclasses
 import json
 from pathlib import Path
 
@@ -61,6 +62,20 @@ def main() -> None:
         "Adam's built-in L2 weight_decay. See train.py's Trainer docstring for why L2 is the "
         "default here and L1 is opt-in.",
     )
+    parser.add_argument(
+        "--weight-decay", type=float, default=1e-5,
+        help="Adam's built-in L2 penalty (Lecture 2 'Weight Regularisation').",
+    )
+    parser.add_argument(
+        "--dropout", type=float, default=None,
+        help="Overrides the architecture's default dropout rate (Heavy=0.3, Light=0.2; "
+        "Lecture 2 'Dropout Regularisation'). Omit to use the architecture default.",
+    )
+    parser.add_argument(
+        "--hidden-dims", type=str, default=None,
+        help="Overrides the architecture's hidden layer widths as a comma-separated list, "
+        "e.g. '512,256,128,64'. Omit to use the --variant default (Heavy or Light).",
+    )
     parser.add_argument("--patience", type=int, default=5)
     parser.add_argument("--seed", type=int, default=0)
     args = parser.parse_args()
@@ -70,10 +85,18 @@ def main() -> None:
 
     data = build_dataloaders(batch_size=args.batch_size)
     config = HEAVY_CONFIG if args.variant == "heavy" else LIGHT_CONFIG
+    if args.dropout is not None:
+        config = dataclasses.replace(config, dropout=args.dropout)
+    if args.hidden_dims is not None:
+        hidden_dims = [int(h) for h in args.hidden_dims.split(",")]
+        config = dataclasses.replace(config, hidden_dims=hidden_dims)
     model = MLPClassifier(data["num_features"], data["num_classes"], config)
     criterion = build_criterion(args.loss, data["class_counts"])
 
-    trainer = Trainer(model, criterion, lr=args.lr, l1_lambda=args.l1_lambda, patience=args.patience)
+    trainer = Trainer(
+        model, criterion, lr=args.lr, weight_decay=args.weight_decay,
+        l1_lambda=args.l1_lambda, patience=args.patience,
+    )
     history = trainer.fit(data["loaders"]["train"], data["loaders"]["val"], epochs=args.epochs)
 
     test_logits, y_true = trainer.predict(data["loaders"]["test"])
@@ -81,7 +104,12 @@ def main() -> None:
     test_metrics = compute_metrics(y_true, y_pred)
 
     REPORTS_DIR.mkdir(parents=True, exist_ok=True)
-    out_path = REPORTS_DIR / f"{config.name}_{args.loss}_seed{args.seed}.json"
+    arch_tag = "x".join(str(h) for h in config.hidden_dims)
+    out_path = (
+        REPORTS_DIR
+        / f"{config.name}_{args.loss}_lr{args.lr:g}_do{config.dropout:g}_wd{args.weight_decay:g}"
+          f"_arch{arch_tag}_bs{args.batch_size}_seed{args.seed}.json"
+    )
     result = {
         "variant": args.variant,
         "config": {"hidden_dims": config.hidden_dims, "dropout": config.dropout},
