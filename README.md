@@ -7,6 +7,13 @@ explainability translated into security-policy recommendations.
 See [CLAUDE.md](CLAUDE.md) for full project context, locked scope decisions, and the
 link to the complete narrative plan.
 
+## Supplementary classical baselines
+
+The separate [baseline runner](src/baselines/README.md) provides centralized and
+federated (IID/non-IID) logistic regression, plus centralized XGBoost. It preserves
+the original MLP pipelines and reports. XGBoost is optional; test evaluation is
+off by default, and no federated XGBoost is implemented.
+
 ## Setup
 
 Use the shared `requirements.txt` on **macOS, Linux or Windows**. It is not a

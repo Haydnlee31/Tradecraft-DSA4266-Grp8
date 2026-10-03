@@ -1,0 +1,3 @@
+# Optional centralized XGBoost baseline; pip chooses the platform's wheel.
+-r requirements.txt
+xgboost>=2.1,<4

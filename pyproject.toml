@@ -27,6 +27,7 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
+baselines = ["xgboost>=2.1,<4"]
 simulation = ["flwr[simulation]>=1.36,<1.40"]
 # Only needed with use-wandb = true. No logging service is required by default.
 wandb = ["wandb>=0.17.8"]
