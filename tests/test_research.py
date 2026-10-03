@@ -18,6 +18,16 @@ from src.models.research import main, resolve_device
 
 
 class ResearchTests(unittest.TestCase):
+    def test_failed_atomic_save_preserves_last_checkpoint(self):
+        from src.models.research import atomic_save
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "last.pt"
+            atomic_save({"step": 1}, path)
+            with patch("src.models.research.torch.save", side_effect=OSError("interrupted write")):
+                with self.assertRaises(OSError):
+                    atomic_save({"step": 2}, path)
+            self.assertEqual(torch.load(path, weights_only=True)["step"], 1)
+
     def test_plan_is_bounded_and_all_commands_parse(self):
         from src.eval.tuning_plan import commands
         from src.models.research import parse

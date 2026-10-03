@@ -19,6 +19,9 @@ metrics and crash recovery, use the [research runner](src/models/RESEARCH.md).
 The bounded plan is printed with `python -m src.eval.tuning_plan`; it does not
 automatically launch experiments or cloud resources.
 
+The [local readiness results](reports/local_readiness_2026_10_03/README.md) record
+the completed baseline screen, training-parity checks and CPU recovery pilots.
+
 ## Setup
 
 Use the shared `requirements.txt` on **macOS, Linux or Windows**. It is not a
