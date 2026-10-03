@@ -21,6 +21,10 @@ between them via `--loss`:
   DDoS/Mirai overwhelming Brute Force/Web-based here. Combined with class weights
   (`alpha`), it's a strict superset of weighted CE (gamma=0 reduces exactly to it).
 
+Implementation clarification: the focal reduction below divides by batch size,
+while PyTorch weighted CE divides by the sum of selected class weights. Thus
+gamma=0 matches weighted per-example terms, NOT their final mean/gradient scale.
+
 Both operate on raw logits (see architectures.py) for numerical stability.
 
 Per Lecture 2's "Afternote: KL Divergence" slide, categorical cross-entropy is

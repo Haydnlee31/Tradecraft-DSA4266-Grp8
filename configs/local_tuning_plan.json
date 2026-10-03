@@ -1,0 +1,44 @@
+{
+  "purpose": "Validation-only staged MLP study; original baselines remain unchanged",
+  "max_screen_runs": 12,
+  "max_confirmation_runs": 12,
+  "common": {
+    "seed": 0,
+    "partition_seed": 0,
+    "clients": 20,
+    "alpha": 0.5,
+    "epochs": 60,
+    "patience": 0,
+    "batch_size": 512,
+    "lr": 0.001,
+    "weight_decay": 0.00001,
+    "loss": "sqrt_weighted_ce",
+    "normalization": "batch",
+    "device": "cpu",
+    "threads": 2
+  },
+  "stages": [
+    {"name": "convergence", "lanes": ["heavy", "light", "iid", "dirichlet"], "overrides": {}, "question": "Does best validation through 60 improve over through 30 or retrospective patience 5?"},
+    {"name": "loss", "lanes": ["heavy", "light", "iid", "dirichlet"], "overrides": {"loss": "ce"}, "question": "Do weighting trade-offs explain failures? Compare against convergence controls."},
+    {"name": "normalization", "lanes": ["light", "iid", "dirichlet"], "overrides": {"normalization": "layer"}, "question": "Does within-example normalization reduce the federation gap?"},
+    {"name": "heavy_dropout", "lanes": ["heavy"], "overrides": {"dropout": 0.2}, "question": "How much does the original heavy/light dropout difference matter?"}
+  ],
+  "substitution_only": {
+    "lanes": ["iid", "dirichlet"],
+    "overrides": {"lr": 0.0003},
+    "rule": "May replace two later screens after inspecting convergence; never add beyond the 12-run cap. Record decision before launching."
+  },
+  "promotion": {
+    "note": "Project preferences, not significance tests or operational standards. All deltas are proportions.",
+    "option_a": {"macro_f1_gain_min": 0.01, "benign_false_alert_increase_max": 0.02, "any_class_recall_drop_max": 0.02},
+    "option_b": {"benign_false_alert_reduction_min": 0.05, "macro_f1_drop_max": 0.01, "web_and_brute_force_recall_drop_max": 0.02}
+  },
+  "confirmation": {
+    "training_seeds": [0, 1, 2],
+    "partition_seed": 0,
+    "lanes": ["heavy", "light", "iid", "dirichlet"],
+    "rule": "Freeze one recipe first; match heavy/light normalization and dropout for a capacity claim. Individual seed-0 effects remain exploratory."
+  },
+  "test_policy": "No test access during tuning. Existing test already inspected; later evaluation descriptive, not fresh confirmation.",
+  "run_policy": "Generate commands only; manually authorize each stage. No cloud launch, background scheduler or automatic sweep."
+}

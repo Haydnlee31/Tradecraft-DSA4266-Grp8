@@ -33,6 +33,19 @@ from src.models.architectures import LIGHT_CONFIG
 from src.utils.seed import set_seed
 
 
+def package_versions():
+    """Record optional Ray as absent instead of breaking core-only installs."""
+    versions = {}
+    for package in ("torch", "flwr", "ray", "polars", "numpy", "scikit-learn", "shap"):
+        try:
+            versions[package] = importlib.metadata.version(package)
+        except importlib.metadata.PackageNotFoundError:
+            if package != "ray":
+                raise
+            versions[package] = None
+    return versions
+
+
 def evaluate(model, loader):
     loss, truth, prediction = task.predict(model, loader, "cpu")
     return loss, compute_metrics(truth, prediction)
@@ -196,10 +209,7 @@ def main():
         "settings": {
             k: str(v) if isinstance(v, Path) else v for k, v in vars(args).items()
         },
-        "packages": {
-            p: importlib.metadata.version(p)
-            for p in ("torch", "flwr", "ray", "polars", "numpy", "scikit-learn", "shap")
-        },
+        "packages": package_versions(),
     }
     manifest_path = args.output / "environment.json"
     if manifest_path.exists():

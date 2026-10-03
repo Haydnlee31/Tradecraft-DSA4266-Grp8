@@ -6,6 +6,10 @@ differ. This keeps the Heavy/Light comparison in Section 05 of the plan an apple
 to-apples "same architecture family, different capacity" comparison rather than two
 unrelated designs.
 
+Clarification for controlled experiments: the original defaults also differ in
+dropout (heavy 0.3, light 0.2), so they are not a width-only ablation. The optional
+normalization setting below defaults to BatchNorm and preserves those baselines.
+
 Design notes (tied to Lecture 1 "Introduction to Deep Learning" and Lecture 2 "Deep
 Learning Improvements"):
 - Nonlinear activation (ReLU) between every hidden layer -- Lecture 1's "Nonlinear
@@ -67,6 +71,7 @@ class MLPConfig:
     name: str
     hidden_dims: tuple[int, ...]
     dropout: float = 0.3
+    normalization: str = "batch"
 
 
 HEAVY_CONFIG = MLPConfig(
@@ -79,12 +84,14 @@ class MLPClassifier(nn.Module):
     def __init__(self, in_features: int, num_classes: int, config: MLPConfig):
         super().__init__()
         self.config = config
+        if config.normalization not in {"batch", "layer"}:
+            raise ValueError("normalization must be batch or layer")
         layers: list[nn.Module] = []
         prev = in_features
         for h in config.hidden_dims:
             layers += [
                 nn.Linear(prev, h),
-                nn.BatchNorm1d(h),
+                nn.BatchNorm1d(h) if config.normalization == "batch" else nn.LayerNorm(h),
                 nn.ReLU(inplace=True),
                 nn.Dropout(config.dropout),
             ]

@@ -366,6 +366,10 @@ def loss_class_counts(mode: str, trainloader: DataLoader) -> dict[str, int]:
     Global counts make the loss exactly comparable to centralized-light. Local
     counts are closer to a strict FL setting but floor missing classes at one
     to avoid infinite weights.
+
+    Clarification: "comparable" means the same weight vector, not identical
+    optimization. Weighted CE divides by the selected batch's weight sum; client
+    label mixtures, local updates and aggregation still change the trajectory.
     """
     if mode == "global":
         return train_class_counts()

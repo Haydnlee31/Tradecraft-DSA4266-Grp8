@@ -14,6 +14,11 @@ federated (IID/non-IID) logistic regression, plus centralized XGBoost. It preser
 the original MLP pipelines and reports. XGBoost is optional; test evaluation is
 off by default, and no federated XGBoost is implemented.
 
+For validation-only MLP tuning with explicit CPU/CUDA selection, consistent
+metrics and crash recovery, use the [research runner](src/models/RESEARCH.md).
+The bounded plan is printed with `python -m src.eval.tuning_plan`; it does not
+automatically launch experiments or cloud resources.
+
 ## Setup
 
 Use the shared `requirements.txt` on **macOS, Linux or Windows**. It is not a

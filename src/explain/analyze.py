@@ -28,7 +28,8 @@ def explain(checkpoint: Path, splits: Path, output: Path, per_class=16, nsamples
     scaler, features = load_or_fit_scaler(splits)
     if saved["feature_columns"] != features or saved["classes"] != CLASSES:
         raise ValueError("checkpoint/preprocessing schema mismatch")
-    config = MLPConfig("explain", tuple(saved["config"]["hidden_dims"]), saved["config"]["dropout"])
+    config = MLPConfig("explain", tuple(saved["config"]["hidden_dims"]), saved["config"]["dropout"],
+                       normalization=saved["config"].get("normalization", "batch"))
     model = MLPClassifier(len(features), len(CLASSES), config)
     model.load_state_dict(saved["model_state_dict"])
     model.eval()

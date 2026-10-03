@@ -94,6 +94,10 @@ class Trainer:
                     self.optimizer.step()
                 # Logged/returned loss is always the task loss alone (no L1 term), so
                 # train/val loss stay comparable to each other and across l1_lambda settings.
+                # This legacy value averages batch-normalized task losses by row
+                # count; it is NOT the unweighted validation CE in task.predict.
+                # New research runs explicitly label it and share task.predict
+                # for validation loss across centralized and federated lanes.
                 total_loss += task_loss.item() * X.size(0)
                 all_preds.append(logits.argmax(dim=1).detach().cpu().numpy())
                 all_targets.append(y.detach().cpu().numpy())
@@ -139,7 +143,7 @@ class Trainer:
                 epochs_without_improvement = 0
             else:
                 epochs_without_improvement += 1
-                if epochs_without_improvement >= self.patience:
+                if self.patience and epochs_without_improvement >= self.patience:
                     print(
                         f"Early stopping at epoch {epoch} (best val_macro_f1={best_val_f1:.4f})"
                     )
