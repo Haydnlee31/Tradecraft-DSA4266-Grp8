@@ -1,0 +1,2 @@
+heavy step=1 val_macro_f1=0.58888 device=cpu
+heavy step=2 val_macro_f1=0.61049 device=cpu

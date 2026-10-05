@@ -1,0 +1,2 @@
+dirichlet step=1 val_macro_f1=0.18540 device=cpu
+dirichlet step=2 val_macro_f1=0.33541 device=cpu

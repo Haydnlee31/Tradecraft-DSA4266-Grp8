@@ -1,0 +1,1122 @@
+{
+  "heavy-seed-0": {
+    "Benign": {
+      "correct": 15818,
+      "total": 19859,
+      "wrong_destinations": [
+        [
+          "Spoofing",
+          2415
+        ],
+        [
+          "Recon",
+          1451
+        ],
+        [
+          "Web-based",
+          132
+        ],
+        [
+          "Brute Force",
+          41
+        ],
+        [
+          "DDoS",
+          2
+        ]
+      ]
+    },
+    "Web-based": {
+      "correct": 210,
+      "total": 628,
+      "wrong_destinations": [
+        [
+          "Spoofing",
+          229
+        ],
+        [
+          "Recon",
+          164
+        ],
+        [
+          "Benign",
+          21
+        ],
+        [
+          "Brute Force",
+          4
+        ]
+      ]
+    },
+    "Brute Force": {
+      "correct": 70,
+      "total": 277,
+      "wrong_destinations": [
+        [
+          "Recon",
+          95
+        ],
+        [
+          "Spoofing",
+          73
+        ],
+        [
+          "Benign",
+          25
+        ],
+        [
+          "Web-based",
+          14
+        ]
+      ]
+    },
+    "DoS": {
+      "correct": 50138,
+      "total": 61572,
+      "wrong_destinations": [
+        [
+          "DDoS",
+          11313
+        ],
+        [
+          "Recon",
+          91
+        ],
+        [
+          "Mirai",
+          25
+        ],
+        [
+          "Spoofing",
+          4
+        ],
+        [
+          "Benign",
+          1
+        ]
+      ]
+    }
+  },
+  "heavy-seed-1": {
+    "Benign": {
+      "correct": 15097,
+      "total": 19859,
+      "wrong_destinations": [
+        [
+          "Spoofing",
+          2418
+        ],
+        [
+          "Recon",
+          2057
+        ],
+        [
+          "Web-based",
+          245
+        ],
+        [
+          "Brute Force",
+          41
+        ],
+        [
+          "DDoS",
+          1
+        ]
+      ]
+    },
+    "Web-based": {
+      "correct": 251,
+      "total": 628,
+      "wrong_destinations": [
+        [
+          "Recon",
+          193
+        ],
+        [
+          "Spoofing",
+          168
+        ],
+        [
+          "Benign",
+          14
+        ],
+        [
+          "Brute Force",
+          2
+        ]
+      ]
+    },
+    "Brute Force": {
+      "correct": 73,
+      "total": 277,
+      "wrong_destinations": [
+        [
+          "Recon",
+          105
+        ],
+        [
+          "Spoofing",
+          67
+        ],
+        [
+          "Benign",
+          17
+        ],
+        [
+          "Web-based",
+          15
+        ]
+      ]
+    },
+    "DoS": {
+      "correct": 50513,
+      "total": 61572,
+      "wrong_destinations": [
+        [
+          "DDoS",
+          10952
+        ],
+        [
+          "Recon",
+          86
+        ],
+        [
+          "Mirai",
+          16
+        ],
+        [
+          "Spoofing",
+          4
+        ],
+        [
+          "Benign",
+          1
+        ]
+      ]
+    }
+  },
+  "heavy-seed-2": {
+    "Benign": {
+      "correct": 15572,
+      "total": 19859,
+      "wrong_destinations": [
+        [
+          "Spoofing",
+          2605
+        ],
+        [
+          "Recon",
+          1637
+        ],
+        [
+          "Web-based",
+          29
+        ],
+        [
+          "Brute Force",
+          15
+        ],
+        [
+          "DDoS",
+          1
+        ]
+      ]
+    },
+    "Web-based": {
+      "correct": 124,
+      "total": 628,
+      "wrong_destinations": [
+        [
+          "Spoofing",
+          323
+        ],
+        [
+          "Recon",
+          161
+        ],
+        [
+          "Benign",
+          18
+        ],
+        [
+          "Brute Force",
+          2
+        ]
+      ]
+    },
+    "Brute Force": {
+      "correct": 69,
+      "total": 277,
+      "wrong_destinations": [
+        [
+          "Spoofing",
+          91
+        ],
+        [
+          "Recon",
+          84
+        ],
+        [
+          "Benign",
+          28
+        ],
+        [
+          "Web-based",
+          5
+        ]
+      ]
+    },
+    "DoS": {
+      "correct": 51878,
+      "total": 61572,
+      "wrong_destinations": [
+        [
+          "DDoS",
+          9570
+        ],
+        [
+          "Recon",
+          100
+        ],
+        [
+          "Mirai",
+          20
+        ],
+        [
+          "Spoofing",
+          3
+        ],
+        [
+          "Benign",
+          1
+        ]
+      ]
+    }
+  },
+  "light-seed-0": {
+    "Benign": {
+      "correct": 15359,
+      "total": 19859,
+      "wrong_destinations": [
+        [
+          "Recon",
+          2229
+        ],
+        [
+          "Spoofing",
+          2082
+        ],
+        [
+          "Web-based",
+          189
+        ]
+      ]
+    },
+    "Web-based": {
+      "correct": 191,
+      "total": 628,
+      "wrong_destinations": [
+        [
+          "Recon",
+          242
+        ],
+        [
+          "Spoofing",
+          169
+        ],
+        [
+          "Benign",
+          26
+        ]
+      ]
+    },
+    "Brute Force": {
+      "correct": 46,
+      "total": 277,
+      "wrong_destinations": [
+        [
+          "Recon",
+          136
+        ],
+        [
+          "Spoofing",
+          48
+        ],
+        [
+          "Benign",
+          34
+        ],
+        [
+          "Web-based",
+          13
+        ]
+      ]
+    },
+    "DoS": {
+      "correct": 47506,
+      "total": 61572,
+      "wrong_destinations": [
+        [
+          "DDoS",
+          13942
+        ],
+        [
+          "Recon",
+          101
+        ],
+        [
+          "Mirai",
+          15
+        ],
+        [
+          "Spoofing",
+          6
+        ],
+        [
+          "Benign",
+          2
+        ]
+      ]
+    }
+  },
+  "light-seed-1": {
+    "Benign": {
+      "correct": 15179,
+      "total": 19859,
+      "wrong_destinations": [
+        [
+          "Spoofing",
+          2648
+        ],
+        [
+          "Recon",
+          1877
+        ],
+        [
+          "Web-based",
+          150
+        ],
+        [
+          "Brute Force",
+          5
+        ]
+      ]
+    },
+    "Web-based": {
+      "correct": 197,
+      "total": 628,
+      "wrong_destinations": [
+        [
+          "Spoofing",
+          232
+        ],
+        [
+          "Recon",
+          178
+        ],
+        [
+          "Benign",
+          21
+        ]
+      ]
+    },
+    "Brute Force": {
+      "correct": 46,
+      "total": 277,
+      "wrong_destinations": [
+        [
+          "Recon",
+          108
+        ],
+        [
+          "Spoofing",
+          78
+        ],
+        [
+          "Benign",
+          32
+        ],
+        [
+          "Web-based",
+          13
+        ]
+      ]
+    },
+    "DoS": {
+      "correct": 48389,
+      "total": 61572,
+      "wrong_destinations": [
+        [
+          "DDoS",
+          13032
+        ],
+        [
+          "Recon",
+          121
+        ],
+        [
+          "Mirai",
+          22
+        ],
+        [
+          "Spoofing",
+          6
+        ],
+        [
+          "Benign",
+          1
+        ],
+        [
+          "Web-based",
+          1
+        ]
+      ]
+    }
+  },
+  "light-seed-2": {
+    "Benign": {
+      "correct": 14997,
+      "total": 19859,
+      "wrong_destinations": [
+        [
+          "Recon",
+          2646
+        ],
+        [
+          "Spoofing",
+          2073
+        ],
+        [
+          "Web-based",
+          139
+        ],
+        [
+          "Brute Force",
+          4
+        ]
+      ]
+    },
+    "Web-based": {
+      "correct": 173,
+      "total": 628,
+      "wrong_destinations": [
+        [
+          "Recon",
+          268
+        ],
+        [
+          "Spoofing",
+          167
+        ],
+        [
+          "Benign",
+          20
+        ]
+      ]
+    },
+    "Brute Force": {
+      "correct": 45,
+      "total": 277,
+      "wrong_destinations": [
+        [
+          "Recon",
+          153
+        ],
+        [
+          "Spoofing",
+          46
+        ],
+        [
+          "Benign",
+          26
+        ],
+        [
+          "Web-based",
+          7
+        ]
+      ]
+    },
+    "DoS": {
+      "correct": 50460,
+      "total": 61572,
+      "wrong_destinations": [
+        [
+          "DDoS",
+          10943
+        ],
+        [
+          "Recon",
+          135
+        ],
+        [
+          "Mirai",
+          22
+        ],
+        [
+          "Spoofing",
+          8
+        ],
+        [
+          "Web-based",
+          3
+        ],
+        [
+          "Benign",
+          1
+        ]
+      ]
+    }
+  },
+  "iid-seed-0": {
+    "Benign": {
+      "correct": 15117,
+      "total": 19859,
+      "wrong_destinations": [
+        [
+          "Recon",
+          2605
+        ],
+        [
+          "Spoofing",
+          2089
+        ],
+        [
+          "Web-based",
+          44
+        ],
+        [
+          "DoS",
+          3
+        ],
+        [
+          "DDoS",
+          1
+        ]
+      ]
+    },
+    "Web-based": {
+      "correct": 77,
+      "total": 628,
+      "wrong_destinations": [
+        [
+          "Recon",
+          347
+        ],
+        [
+          "Spoofing",
+          169
+        ],
+        [
+          "Benign",
+          35
+        ]
+      ]
+    },
+    "Brute Force": {
+      "correct": 41,
+      "total": 277,
+      "wrong_destinations": [
+        [
+          "Recon",
+          155
+        ],
+        [
+          "Benign",
+          46
+        ],
+        [
+          "Spoofing",
+          31
+        ],
+        [
+          "Web-based",
+          4
+        ]
+      ]
+    },
+    "DoS": {
+      "correct": 46707,
+      "total": 61572,
+      "wrong_destinations": [
+        [
+          "DDoS",
+          14721
+        ],
+        [
+          "Recon",
+          97
+        ],
+        [
+          "Spoofing",
+          25
+        ],
+        [
+          "Mirai",
+          20
+        ],
+        [
+          "Benign",
+          2
+        ]
+      ]
+    }
+  },
+  "iid-seed-1": {
+    "Benign": {
+      "correct": 14751,
+      "total": 19859,
+      "wrong_destinations": [
+        [
+          "Recon",
+          2620
+        ],
+        [
+          "Spoofing",
+          2407
+        ],
+        [
+          "Web-based",
+          76
+        ],
+        [
+          "DoS",
+          3
+        ],
+        [
+          "DDoS",
+          1
+        ],
+        [
+          "Brute Force",
+          1
+        ]
+      ]
+    },
+    "Web-based": {
+      "correct": 115,
+      "total": 628,
+      "wrong_destinations": [
+        [
+          "Recon",
+          282
+        ],
+        [
+          "Spoofing",
+          198
+        ],
+        [
+          "Benign",
+          33
+        ]
+      ]
+    },
+    "Brute Force": {
+      "correct": 41,
+      "total": 277,
+      "wrong_destinations": [
+        [
+          "Recon",
+          141
+        ],
+        [
+          "Spoofing",
+          47
+        ],
+        [
+          "Benign",
+          39
+        ],
+        [
+          "Web-based",
+          9
+        ]
+      ]
+    },
+    "DoS": {
+      "correct": 46978,
+      "total": 61572,
+      "wrong_destinations": [
+        [
+          "DDoS",
+          14447
+        ],
+        [
+          "Recon",
+          119
+        ],
+        [
+          "Mirai",
+          16
+        ],
+        [
+          "Spoofing",
+          11
+        ],
+        [
+          "Benign",
+          1
+        ]
+      ]
+    }
+  },
+  "iid-seed-2": {
+    "Benign": {
+      "correct": 15276,
+      "total": 19859,
+      "wrong_destinations": [
+        [
+          "Spoofing",
+          2321
+        ],
+        [
+          "Recon",
+          2206
+        ],
+        [
+          "Web-based",
+          53
+        ],
+        [
+          "DoS",
+          3
+        ]
+      ]
+    },
+    "Web-based": {
+      "correct": 49,
+      "total": 628,
+      "wrong_destinations": [
+        [
+          "Recon",
+          334
+        ],
+        [
+          "Spoofing",
+          198
+        ],
+        [
+          "Benign",
+          47
+        ]
+      ]
+    },
+    "Brute Force": {
+      "correct": 41,
+      "total": 277,
+      "wrong_destinations": [
+        [
+          "Recon",
+          143
+        ],
+        [
+          "Benign",
+          52
+        ],
+        [
+          "Spoofing",
+          41
+        ]
+      ]
+    },
+    "DoS": {
+      "correct": 46840,
+      "total": 61572,
+      "wrong_destinations": [
+        [
+          "DDoS",
+          14598
+        ],
+        [
+          "Recon",
+          97
+        ],
+        [
+          "Spoofing",
+          18
+        ],
+        [
+          "Mirai",
+          18
+        ],
+        [
+          "Benign",
+          1
+        ]
+      ]
+    }
+  },
+  "dirichlet-seed-0": {
+    "Benign": {
+      "correct": 18909,
+      "total": 19859,
+      "wrong_destinations": [
+        [
+          "Spoofing",
+          530
+        ],
+        [
+          "Recon",
+          400
+        ],
+        [
+          "Web-based",
+          12
+        ],
+        [
+          "DDoS",
+          4
+        ],
+        [
+          "DoS",
+          4
+        ]
+      ]
+    },
+    "Web-based": {
+      "correct": 27,
+      "total": 628,
+      "wrong_destinations": [
+        [
+          "Benign",
+          354
+        ],
+        [
+          "Spoofing",
+          149
+        ],
+        [
+          "Recon",
+          98
+        ]
+      ]
+    },
+    "Brute Force": {
+      "correct": 41,
+      "total": 277,
+      "wrong_destinations": [
+        [
+          "Benign",
+          166
+        ],
+        [
+          "Recon",
+          50
+        ],
+        [
+          "Spoofing",
+          18
+        ],
+        [
+          "Web-based",
+          2
+        ]
+      ]
+    },
+    "DoS": {
+      "correct": 13862,
+      "total": 61572,
+      "wrong_destinations": [
+        [
+          "DDoS",
+          47614
+        ],
+        [
+          "Recon",
+          64
+        ],
+        [
+          "Spoofing",
+          20
+        ],
+        [
+          "Mirai",
+          8
+        ],
+        [
+          "Benign",
+          4
+        ]
+      ]
+    }
+  },
+  "dirichlet-seed-1": {
+    "Benign": {
+      "correct": 18985,
+      "total": 19859,
+      "wrong_destinations": [
+        [
+          "Spoofing",
+          573
+        ],
+        [
+          "Recon",
+          294
+        ],
+        [
+          "DDoS",
+          4
+        ],
+        [
+          "DoS",
+          3
+        ]
+      ]
+    },
+    "Web-based": {
+      "correct": 0,
+      "total": 628,
+      "wrong_destinations": [
+        [
+          "Benign",
+          358
+        ],
+        [
+          "Spoofing",
+          186
+        ],
+        [
+          "Recon",
+          84
+        ]
+      ]
+    },
+    "Brute Force": {
+      "correct": 41,
+      "total": 277,
+      "wrong_destinations": [
+        [
+          "Benign",
+          183
+        ],
+        [
+          "Recon",
+          37
+        ],
+        [
+          "Spoofing",
+          15
+        ],
+        [
+          "DDoS",
+          1
+        ]
+      ]
+    },
+    "DoS": {
+      "correct": 9401,
+      "total": 61572,
+      "wrong_destinations": [
+        [
+          "DDoS",
+          52107
+        ],
+        [
+          "Recon",
+          42
+        ],
+        [
+          "Spoofing",
+          9
+        ],
+        [
+          "Mirai",
+          9
+        ],
+        [
+          "Benign",
+          4
+        ]
+      ]
+    }
+  },
+  "dirichlet-seed-2": {
+    "Benign": {
+      "correct": 19122,
+      "total": 19859,
+      "wrong_destinations": [
+        [
+          "Spoofing",
+          509
+        ],
+        [
+          "Recon",
+          224
+        ],
+        [
+          "DDoS",
+          2
+        ],
+        [
+          "DoS",
+          2
+        ]
+      ]
+    },
+    "Web-based": {
+      "correct": 0,
+      "total": 628,
+      "wrong_destinations": [
+        [
+          "Benign",
+          443
+        ],
+        [
+          "Recon",
+          114
+        ],
+        [
+          "Spoofing",
+          70
+        ],
+        [
+          "DDoS",
+          1
+        ]
+      ]
+    },
+    "Brute Force": {
+      "correct": 41,
+      "total": 277,
+      "wrong_destinations": [
+        [
+          "Benign",
+          188
+        ],
+        [
+          "Recon",
+          43
+        ],
+        [
+          "Spoofing",
+          5
+        ]
+      ]
+    },
+    "DoS": {
+      "correct": 8768,
+      "total": 61572,
+      "wrong_destinations": [
+        [
+          "DDoS",
+          52738
+        ],
+        [
+          "Recon",
+          33
+        ],
+        [
+          "Spoofing",
+          19
+        ],
+        [
+          "Mirai",
+          10
+        ],
+        [
+          "Benign",
+          4
+        ]
+      ]
+    }
+  }
+}

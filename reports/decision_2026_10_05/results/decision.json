@@ -1,0 +1,2080 @@
+{
+  "scope": "configured-model validation research decision",
+  "deployment_authorized": false,
+  "test_evaluated": false,
+  "decision": {
+    "status": "ready",
+    "recommended_lane": "centralized-heavy",
+    "provisional_recommendation": "centralized-heavy",
+    "criteria": {
+      "loss": "sqrt_weighted_ce",
+      "min_macro_f1": 0.6,
+      "min_class_recall": 0.2,
+      "max_model_mib": 1.0,
+      "max_macro_f1_drop": 0.02,
+      "min_seeds": 3,
+      "require_federated": false,
+      "prefer_federated": false,
+      "federated_partitioner": "dirichlet"
+    },
+    "selection_metric": "mean best validation macro-F1 across seeds",
+    "comparison_metrics": "validation metrics; test metrics descriptive only when available for every seed",
+    "blocking_issues": [],
+    "warnings": [],
+    "selected_candidates": {
+      "centralized-heavy": {
+        "config": {
+          "dropout": 0.3,
+          "hidden_dims": [
+            512,
+            256,
+            128,
+            64
+          ],
+          "name": "centralized_heavy",
+          "normalization": "batch"
+        },
+        "lane": "centralized-heavy",
+        "loss": "sqrt_weighted_ce",
+        "training": {
+          "batch_size": 512,
+          "epochs": 60,
+          "lr": 0.001,
+          "patience": 0,
+          "weight_decay": 1e-05
+        },
+        "seeds": [
+          0,
+          1,
+          2
+        ],
+        "num_seeds": 3,
+        "duplicate_seeds": [],
+        "sources": [
+          "outputs/mlp-tuning/convergence/heavy",
+          "outputs/mlp-confirmation/heavy/seed-1",
+          "outputs/mlp-confirmation/heavy/seed-2"
+        ],
+        "num_parameters": 198984,
+        "parameter_bytes": 795936,
+        "model_mib": 0.759063720703125,
+        "validation_macro_f1_mean": 0.6746654900706801,
+        "validation_macro_f1_std": 0.0031096766618739636,
+        "validation_per_class_recall_mean": {
+          "Benign": 0.7802843379156386,
+          "DDoS": 0.796298636308023,
+          "DoS": 0.8257487169492627,
+          "Recon": 0.7496589092893619,
+          "Web-based": 0.31050955414012743,
+          "Brute Force": 0.25511432009626955,
+          "Spoofing": 0.8124649859943979,
+          "Mirai": 0.9949781796759267
+        },
+        "test_seed_count": 0,
+        "test_macro_f1_mean": null,
+        "test_macro_f1_std": null,
+        "test_accuracy_mean": null,
+        "test_accuracy_std": null,
+        "per_class_recall_mean": {
+          "Benign": null,
+          "DDoS": null,
+          "DoS": null,
+          "Recon": null,
+          "Web-based": null,
+          "Brute Force": null,
+          "Spoofing": null,
+          "Mirai": null
+        },
+        "per_class_recall_std": {
+          "Benign": null,
+          "DDoS": null,
+          "DoS": null,
+          "Recon": null,
+          "Web-based": null,
+          "Brute Force": null,
+          "Spoofing": null,
+          "Mirai": null
+        },
+        "worst_class_recall_mean": null,
+        "worst_validation_class_recall_mean": 0.25511432009626955,
+        "eligible": true,
+        "constraint_failures": []
+      },
+      "centralized-light": {
+        "config": {
+          "dropout": 0.2,
+          "hidden_dims": [
+            64,
+            32
+          ],
+          "name": "centralized_light",
+          "normalization": "batch"
+        },
+        "lane": "centralized-light",
+        "loss": "sqrt_weighted_ce",
+        "training": {
+          "batch_size": 512,
+          "epochs": 60,
+          "lr": 0.001,
+          "patience": 0,
+          "weight_decay": 1e-05
+        },
+        "seeds": [
+          0,
+          1,
+          2
+        ],
+        "num_seeds": 3,
+        "duplicate_seeds": [],
+        "sources": [
+          "outputs/mlp-tuning/convergence/light",
+          "outputs/mlp-confirmation/light/seed-1",
+          "outputs/mlp-confirmation/light/seed-2"
+        ],
+        "num_parameters": 5544,
+        "parameter_bytes": 22176,
+        "model_mib": 0.021148681640625,
+        "validation_macro_f1_mean": 0.6583275269614838,
+        "validation_macro_f1_std": 0.0028592396347096676,
+        "validation_per_class_recall_mean": {
+          "Benign": 0.7643050170367759,
+          "DDoS": 0.7918519454523208,
+          "DoS": 0.7923244331839148,
+          "Recon": 0.7655634818539742,
+          "Web-based": 0.29777070063694266,
+          "Brute Force": 0.16486161251504214,
+          "Spoofing": 0.7736134453781514,
+          "Mirai": 0.9943833399108885
+        },
+        "test_seed_count": 0,
+        "test_macro_f1_mean": null,
+        "test_macro_f1_std": null,
+        "test_accuracy_mean": null,
+        "test_accuracy_std": null,
+        "per_class_recall_mean": {
+          "Benign": null,
+          "DDoS": null,
+          "DoS": null,
+          "Recon": null,
+          "Web-based": null,
+          "Brute Force": null,
+          "Spoofing": null,
+          "Mirai": null
+        },
+        "per_class_recall_std": {
+          "Benign": null,
+          "DDoS": null,
+          "DoS": null,
+          "Recon": null,
+          "Web-based": null,
+          "Brute Force": null,
+          "Spoofing": null,
+          "Mirai": null
+        },
+        "worst_class_recall_mean": null,
+        "worst_validation_class_recall_mean": 0.16486161251504214,
+        "eligible": false,
+        "constraint_failures": [
+          "validation recall missing or below threshold for Brute Force"
+        ]
+      },
+      "federated-light": {
+        "alpha": 0.5,
+        "class_weights": "global",
+        "config": {
+          "dropout": 0.2,
+          "hidden_dims": [
+            64,
+            32
+          ],
+          "name": "centralized_light",
+          "normalization": "layer"
+        },
+        "fraction_train": 1.0,
+        "lane": "federated-light",
+        "local_epochs": 1,
+        "loss": "sqrt_weighted_ce",
+        "num_clients": 20,
+        "partitioner": "dirichlet",
+        "server_optimizer": {},
+        "strategy": "fedavg",
+        "training": {
+          "patience": 0
+        },
+        "seeds": [
+          0,
+          1,
+          2
+        ],
+        "num_seeds": 3,
+        "duplicate_seeds": [],
+        "sources": [
+          "outputs/mlp-tuning/normalization/dirichlet",
+          "outputs/mlp-confirmation/dirichlet/seed-1",
+          "outputs/mlp-confirmation/dirichlet/seed-2"
+        ],
+        "num_parameters": 5544,
+        "parameter_bytes": 22176,
+        "model_mib": 0.021148681640625,
+        "validation_macro_f1_mean": 0.5557232728551256,
+        "validation_macro_f1_std": 0.012824561084517327,
+        "validation_per_class_recall_mean": {
+          "Benign": 0.9570136126357487,
+          "DDoS": 0.986547606870007,
+          "DoS": 0.17340674332488792,
+          "Recon": 0.5207578061045491,
+          "Web-based": 0.014331210191082801,
+          "Brute Force": 0.148014440433213,
+          "Spoofing": 0.4847899159663866,
+          "Mirai": 0.9918266728438488
+        },
+        "test_seed_count": 0,
+        "test_macro_f1_mean": null,
+        "test_macro_f1_std": null,
+        "test_accuracy_mean": null,
+        "test_accuracy_std": null,
+        "per_class_recall_mean": {
+          "Benign": null,
+          "DDoS": null,
+          "DoS": null,
+          "Recon": null,
+          "Web-based": null,
+          "Brute Force": null,
+          "Spoofing": null,
+          "Mirai": null
+        },
+        "per_class_recall_std": {
+          "Benign": null,
+          "DDoS": null,
+          "DoS": null,
+          "Recon": null,
+          "Web-based": null,
+          "Brute Force": null,
+          "Spoofing": null,
+          "Mirai": null
+        },
+        "worst_class_recall_mean": null,
+        "worst_validation_class_recall_mean": 0.014331210191082801,
+        "eligible": false,
+        "constraint_failures": [
+          "validation macro-F1 0.5557 < 0.6000",
+          "validation recall missing or below threshold for DoS, Web-based, Brute Force"
+        ]
+      }
+    },
+    "all_candidates": [
+      {
+        "config": {
+          "dropout": 0.3,
+          "hidden_dims": [
+            512,
+            256,
+            128,
+            64
+          ],
+          "name": "centralized_heavy",
+          "normalization": "batch"
+        },
+        "lane": "centralized-heavy",
+        "loss": "sqrt_weighted_ce",
+        "training": {
+          "batch_size": 512,
+          "epochs": 60,
+          "lr": 0.001,
+          "patience": 0,
+          "weight_decay": 1e-05
+        },
+        "seeds": [
+          0,
+          1,
+          2
+        ],
+        "num_seeds": 3,
+        "duplicate_seeds": [],
+        "sources": [
+          "outputs/mlp-tuning/convergence/heavy",
+          "outputs/mlp-confirmation/heavy/seed-1",
+          "outputs/mlp-confirmation/heavy/seed-2"
+        ],
+        "num_parameters": 198984,
+        "parameter_bytes": 795936,
+        "model_mib": 0.759063720703125,
+        "validation_macro_f1_mean": 0.6746654900706801,
+        "validation_macro_f1_std": 0.0031096766618739636,
+        "validation_per_class_recall_mean": {
+          "Benign": 0.7802843379156386,
+          "DDoS": 0.796298636308023,
+          "DoS": 0.8257487169492627,
+          "Recon": 0.7496589092893619,
+          "Web-based": 0.31050955414012743,
+          "Brute Force": 0.25511432009626955,
+          "Spoofing": 0.8124649859943979,
+          "Mirai": 0.9949781796759267
+        },
+        "test_seed_count": 0,
+        "test_macro_f1_mean": null,
+        "test_macro_f1_std": null,
+        "test_accuracy_mean": null,
+        "test_accuracy_std": null,
+        "per_class_recall_mean": {
+          "Benign": null,
+          "DDoS": null,
+          "DoS": null,
+          "Recon": null,
+          "Web-based": null,
+          "Brute Force": null,
+          "Spoofing": null,
+          "Mirai": null
+        },
+        "per_class_recall_std": {
+          "Benign": null,
+          "DDoS": null,
+          "DoS": null,
+          "Recon": null,
+          "Web-based": null,
+          "Brute Force": null,
+          "Spoofing": null,
+          "Mirai": null
+        },
+        "worst_class_recall_mean": null,
+        "worst_validation_class_recall_mean": 0.25511432009626955
+      },
+      {
+        "config": {
+          "dropout": 0.2,
+          "hidden_dims": [
+            64,
+            32
+          ],
+          "name": "centralized_light",
+          "normalization": "batch"
+        },
+        "lane": "centralized-light",
+        "loss": "sqrt_weighted_ce",
+        "training": {
+          "batch_size": 512,
+          "epochs": 60,
+          "lr": 0.001,
+          "patience": 0,
+          "weight_decay": 1e-05
+        },
+        "seeds": [
+          0,
+          1,
+          2
+        ],
+        "num_seeds": 3,
+        "duplicate_seeds": [],
+        "sources": [
+          "outputs/mlp-tuning/convergence/light",
+          "outputs/mlp-confirmation/light/seed-1",
+          "outputs/mlp-confirmation/light/seed-2"
+        ],
+        "num_parameters": 5544,
+        "parameter_bytes": 22176,
+        "model_mib": 0.021148681640625,
+        "validation_macro_f1_mean": 0.6583275269614838,
+        "validation_macro_f1_std": 0.0028592396347096676,
+        "validation_per_class_recall_mean": {
+          "Benign": 0.7643050170367759,
+          "DDoS": 0.7918519454523208,
+          "DoS": 0.7923244331839148,
+          "Recon": 0.7655634818539742,
+          "Web-based": 0.29777070063694266,
+          "Brute Force": 0.16486161251504214,
+          "Spoofing": 0.7736134453781514,
+          "Mirai": 0.9943833399108885
+        },
+        "test_seed_count": 0,
+        "test_macro_f1_mean": null,
+        "test_macro_f1_std": null,
+        "test_accuracy_mean": null,
+        "test_accuracy_std": null,
+        "per_class_recall_mean": {
+          "Benign": null,
+          "DDoS": null,
+          "DoS": null,
+          "Recon": null,
+          "Web-based": null,
+          "Brute Force": null,
+          "Spoofing": null,
+          "Mirai": null
+        },
+        "per_class_recall_std": {
+          "Benign": null,
+          "DDoS": null,
+          "DoS": null,
+          "Recon": null,
+          "Web-based": null,
+          "Brute Force": null,
+          "Spoofing": null,
+          "Mirai": null
+        },
+        "worst_class_recall_mean": null,
+        "worst_validation_class_recall_mean": 0.16486161251504214
+      },
+      {
+        "alpha": 0.5,
+        "class_weights": "global",
+        "config": {
+          "dropout": 0.2,
+          "hidden_dims": [
+            64,
+            32
+          ],
+          "name": "centralized_light",
+          "normalization": "layer"
+        },
+        "fraction_train": 1.0,
+        "lane": "federated-light",
+        "local_epochs": 1,
+        "loss": "sqrt_weighted_ce",
+        "num_clients": 20,
+        "partitioner": "iid",
+        "server_optimizer": {},
+        "strategy": "fedavg",
+        "training": {
+          "patience": 0
+        },
+        "seeds": [
+          0,
+          1,
+          2
+        ],
+        "num_seeds": 3,
+        "duplicate_seeds": [],
+        "sources": [
+          "outputs/mlp-tuning/normalization/iid",
+          "outputs/mlp-confirmation/iid/seed-1",
+          "outputs/mlp-confirmation/iid/seed-2"
+        ],
+        "num_parameters": 5544,
+        "parameter_bytes": 22176,
+        "model_mib": 0.021148681640625,
+        "validation_macro_f1_mean": 0.6328048702368785,
+        "validation_macro_f1_std": 0.0024297002104447098,
+        "validation_per_class_recall_mean": {
+          "Benign": 0.7577420816758145,
+          "DDoS": 0.7999550717748454,
+          "DoS": 0.7607624677883886,
+          "Recon": 0.7734767863407788,
+          "Web-based": 0.12791932059447983,
+          "Brute Force": 0.148014440433213,
+          "Spoofing": 0.7040896358543417,
+          "Mirai": 0.9925473440976452
+        },
+        "test_seed_count": 0,
+        "test_macro_f1_mean": null,
+        "test_macro_f1_std": null,
+        "test_accuracy_mean": null,
+        "test_accuracy_std": null,
+        "per_class_recall_mean": {
+          "Benign": null,
+          "DDoS": null,
+          "DoS": null,
+          "Recon": null,
+          "Web-based": null,
+          "Brute Force": null,
+          "Spoofing": null,
+          "Mirai": null
+        },
+        "per_class_recall_std": {
+          "Benign": null,
+          "DDoS": null,
+          "DoS": null,
+          "Recon": null,
+          "Web-based": null,
+          "Brute Force": null,
+          "Spoofing": null,
+          "Mirai": null
+        },
+        "worst_class_recall_mean": null,
+        "worst_validation_class_recall_mean": 0.12791932059447983
+      },
+      {
+        "alpha": 0.5,
+        "class_weights": "global",
+        "config": {
+          "dropout": 0.2,
+          "hidden_dims": [
+            64,
+            32
+          ],
+          "name": "centralized_light",
+          "normalization": "layer"
+        },
+        "fraction_train": 1.0,
+        "lane": "federated-light",
+        "local_epochs": 1,
+        "loss": "sqrt_weighted_ce",
+        "num_clients": 20,
+        "partitioner": "dirichlet",
+        "server_optimizer": {},
+        "strategy": "fedavg",
+        "training": {
+          "patience": 0
+        },
+        "seeds": [
+          0,
+          1,
+          2
+        ],
+        "num_seeds": 3,
+        "duplicate_seeds": [],
+        "sources": [
+          "outputs/mlp-tuning/normalization/dirichlet",
+          "outputs/mlp-confirmation/dirichlet/seed-1",
+          "outputs/mlp-confirmation/dirichlet/seed-2"
+        ],
+        "num_parameters": 5544,
+        "parameter_bytes": 22176,
+        "model_mib": 0.021148681640625,
+        "validation_macro_f1_mean": 0.5557232728551256,
+        "validation_macro_f1_std": 0.012824561084517327,
+        "validation_per_class_recall_mean": {
+          "Benign": 0.9570136126357487,
+          "DDoS": 0.986547606870007,
+          "DoS": 0.17340674332488792,
+          "Recon": 0.5207578061045491,
+          "Web-based": 0.014331210191082801,
+          "Brute Force": 0.148014440433213,
+          "Spoofing": 0.4847899159663866,
+          "Mirai": 0.9918266728438488
+        },
+        "test_seed_count": 0,
+        "test_macro_f1_mean": null,
+        "test_macro_f1_std": null,
+        "test_accuracy_mean": null,
+        "test_accuracy_std": null,
+        "per_class_recall_mean": {
+          "Benign": null,
+          "DDoS": null,
+          "DoS": null,
+          "Recon": null,
+          "Web-based": null,
+          "Brute Force": null,
+          "Spoofing": null,
+          "Mirai": null
+        },
+        "per_class_recall_std": {
+          "Benign": null,
+          "DDoS": null,
+          "DoS": null,
+          "Recon": null,
+          "Web-based": null,
+          "Brute Force": null,
+          "Spoofing": null,
+          "Mirai": null
+        },
+        "worst_class_recall_mean": null,
+        "worst_validation_class_recall_mean": 0.014331210191082801
+      }
+    ]
+  },
+  "new_seed_sensitivity": {
+    "status": "incomplete",
+    "recommended_lane": null,
+    "provisional_recommendation": "centralized-heavy",
+    "criteria": {
+      "loss": "sqrt_weighted_ce",
+      "min_macro_f1": 0.6,
+      "min_class_recall": 0.2,
+      "max_model_mib": 1.0,
+      "max_macro_f1_drop": 0.02,
+      "min_seeds": 3,
+      "require_federated": false,
+      "prefer_federated": false,
+      "federated_partitioner": "dirichlet"
+    },
+    "selection_metric": "mean best validation macro-F1 across seeds",
+    "comparison_metrics": "validation metrics; test metrics descriptive only when available for every seed",
+    "blocking_issues": [
+      "centralized-heavy has 2 seed(s); need 3",
+      "centralized-light has 2 seed(s); need 3",
+      "federated-light has 2 seed(s); need 3"
+    ],
+    "warnings": [],
+    "selected_candidates": {
+      "centralized-heavy": {
+        "config": {
+          "dropout": 0.3,
+          "hidden_dims": [
+            512,
+            256,
+            128,
+            64
+          ],
+          "name": "centralized_heavy",
+          "normalization": "batch"
+        },
+        "lane": "centralized-heavy",
+        "loss": "sqrt_weighted_ce",
+        "training": {
+          "batch_size": 512,
+          "epochs": 60,
+          "lr": 0.001,
+          "patience": 0,
+          "weight_decay": 1e-05
+        },
+        "seeds": [
+          1,
+          2
+        ],
+        "num_seeds": 2,
+        "duplicate_seeds": [],
+        "sources": [
+          "outputs/mlp-confirmation/heavy/seed-1",
+          "outputs/mlp-confirmation/heavy/seed-2"
+        ],
+        "num_parameters": 198984,
+        "parameter_bytes": 795936,
+        "model_mib": 0.759063720703125,
+        "validation_macro_f1_mean": 0.6735334563876911,
+        "validation_macro_f1_std": 0.0034133819484901545,
+        "validation_per_class_recall_mean": {
+          "Benign": 0.7721687899692834,
+          "DDoS": 0.7925850376975889,
+          "DoS": 0.8314737218216073,
+          "Recon": 0.7531867617822476,
+          "Web-based": 0.29856687898089174,
+          "Brute Force": 0.2563176895306859,
+          "Spoofing": 0.8139915966386555,
+          "Mirai": 0.9947751334099761
+        },
+        "test_seed_count": 0,
+        "test_macro_f1_mean": null,
+        "test_macro_f1_std": null,
+        "test_accuracy_mean": null,
+        "test_accuracy_std": null,
+        "per_class_recall_mean": {
+          "Benign": null,
+          "DDoS": null,
+          "DoS": null,
+          "Recon": null,
+          "Web-based": null,
+          "Brute Force": null,
+          "Spoofing": null,
+          "Mirai": null
+        },
+        "per_class_recall_std": {
+          "Benign": null,
+          "DDoS": null,
+          "DoS": null,
+          "Recon": null,
+          "Web-based": null,
+          "Brute Force": null,
+          "Spoofing": null,
+          "Mirai": null
+        },
+        "worst_class_recall_mean": null,
+        "worst_validation_class_recall_mean": 0.2563176895306859,
+        "eligible": true,
+        "constraint_failures": []
+      },
+      "centralized-light": {
+        "config": {
+          "dropout": 0.2,
+          "hidden_dims": [
+            64,
+            32
+          ],
+          "name": "centralized_light",
+          "normalization": "batch"
+        },
+        "lane": "centralized-light",
+        "loss": "sqrt_weighted_ce",
+        "training": {
+          "batch_size": 512,
+          "epochs": 60,
+          "lr": 0.001,
+          "patience": 0,
+          "weight_decay": 1e-05
+        },
+        "seeds": [
+          1,
+          2
+        ],
+        "num_seeds": 2,
+        "duplicate_seeds": [],
+        "sources": [
+          "outputs/mlp-confirmation/light/seed-1",
+          "outputs/mlp-confirmation/light/seed-2"
+        ],
+        "num_parameters": 5544,
+        "parameter_bytes": 22176,
+        "model_mib": 0.021148681640625,
+        "validation_macro_f1_mean": 0.6586789399928992,
+        "validation_macro_f1_std": 0.003950893046577991,
+        "validation_per_class_recall_mean": {
+          "Benign": 0.7597562817865955,
+          "DDoS": 0.7849251764535985,
+          "DoS": 0.8027106476970052,
+          "Recon": 0.7621915565430943,
+          "Web-based": 0.2945859872611465,
+          "Brute Force": 0.16425992779783394,
+          "Spoofing": 0.7812605042016807,
+          "Mirai": 0.994431956622454
+        },
+        "test_seed_count": 0,
+        "test_macro_f1_mean": null,
+        "test_macro_f1_std": null,
+        "test_accuracy_mean": null,
+        "test_accuracy_std": null,
+        "per_class_recall_mean": {
+          "Benign": null,
+          "DDoS": null,
+          "DoS": null,
+          "Recon": null,
+          "Web-based": null,
+          "Brute Force": null,
+          "Spoofing": null,
+          "Mirai": null
+        },
+        "per_class_recall_std": {
+          "Benign": null,
+          "DDoS": null,
+          "DoS": null,
+          "Recon": null,
+          "Web-based": null,
+          "Brute Force": null,
+          "Spoofing": null,
+          "Mirai": null
+        },
+        "worst_class_recall_mean": null,
+        "worst_validation_class_recall_mean": 0.16425992779783394,
+        "eligible": false,
+        "constraint_failures": [
+          "validation recall missing or below threshold for Brute Force"
+        ]
+      },
+      "federated-light": {
+        "alpha": 0.5,
+        "class_weights": "global",
+        "config": {
+          "dropout": 0.2,
+          "hidden_dims": [
+            64,
+            32
+          ],
+          "name": "centralized_light",
+          "normalization": "layer"
+        },
+        "fraction_train": 1.0,
+        "lane": "federated-light",
+        "local_epochs": 1,
+        "loss": "sqrt_weighted_ce",
+        "num_clients": 20,
+        "partitioner": "dirichlet",
+        "server_optimizer": {},
+        "strategy": "fedavg",
+        "training": {
+          "patience": 0
+        },
+        "seeds": [
+          1,
+          2
+        ],
+        "num_seeds": 2,
+        "duplicate_seeds": [],
+        "sources": [
+          "outputs/mlp-confirmation/dirichlet/seed-1",
+          "outputs/mlp-confirmation/dirichlet/seed-2"
+        ],
+        "num_parameters": 5544,
+        "parameter_bytes": 22176,
+        "model_mib": 0.021148681640625,
+        "validation_macro_f1_mean": 0.5483481755258919,
+        "validation_macro_f1_std": 0.0016082196140497795,
+        "validation_per_class_recall_mean": {
+          "Benign": 0.9594390452691475,
+          "DDoS": 0.9938354062494359,
+          "DoS": 0.1475427142207497,
+          "Recon": 0.5125716290492339,
+          "Web-based": 0.0,
+          "Brute Force": 0.148014440433213,
+          "Spoofing": 0.481890756302521,
+          "Mirai": 0.9917037011616534
+        },
+        "test_seed_count": 0,
+        "test_macro_f1_mean": null,
+        "test_macro_f1_std": null,
+        "test_accuracy_mean": null,
+        "test_accuracy_std": null,
+        "per_class_recall_mean": {
+          "Benign": null,
+          "DDoS": null,
+          "DoS": null,
+          "Recon": null,
+          "Web-based": null,
+          "Brute Force": null,
+          "Spoofing": null,
+          "Mirai": null
+        },
+        "per_class_recall_std": {
+          "Benign": null,
+          "DDoS": null,
+          "DoS": null,
+          "Recon": null,
+          "Web-based": null,
+          "Brute Force": null,
+          "Spoofing": null,
+          "Mirai": null
+        },
+        "worst_class_recall_mean": null,
+        "worst_validation_class_recall_mean": 0.0,
+        "eligible": false,
+        "constraint_failures": [
+          "validation macro-F1 0.5483 < 0.6000",
+          "validation recall missing or below threshold for DoS, Web-based, Brute Force"
+        ]
+      }
+    },
+    "all_candidates": [
+      {
+        "config": {
+          "dropout": 0.3,
+          "hidden_dims": [
+            512,
+            256,
+            128,
+            64
+          ],
+          "name": "centralized_heavy",
+          "normalization": "batch"
+        },
+        "lane": "centralized-heavy",
+        "loss": "sqrt_weighted_ce",
+        "training": {
+          "batch_size": 512,
+          "epochs": 60,
+          "lr": 0.001,
+          "patience": 0,
+          "weight_decay": 1e-05
+        },
+        "seeds": [
+          1,
+          2
+        ],
+        "num_seeds": 2,
+        "duplicate_seeds": [],
+        "sources": [
+          "outputs/mlp-confirmation/heavy/seed-1",
+          "outputs/mlp-confirmation/heavy/seed-2"
+        ],
+        "num_parameters": 198984,
+        "parameter_bytes": 795936,
+        "model_mib": 0.759063720703125,
+        "validation_macro_f1_mean": 0.6735334563876911,
+        "validation_macro_f1_std": 0.0034133819484901545,
+        "validation_per_class_recall_mean": {
+          "Benign": 0.7721687899692834,
+          "DDoS": 0.7925850376975889,
+          "DoS": 0.8314737218216073,
+          "Recon": 0.7531867617822476,
+          "Web-based": 0.29856687898089174,
+          "Brute Force": 0.2563176895306859,
+          "Spoofing": 0.8139915966386555,
+          "Mirai": 0.9947751334099761
+        },
+        "test_seed_count": 0,
+        "test_macro_f1_mean": null,
+        "test_macro_f1_std": null,
+        "test_accuracy_mean": null,
+        "test_accuracy_std": null,
+        "per_class_recall_mean": {
+          "Benign": null,
+          "DDoS": null,
+          "DoS": null,
+          "Recon": null,
+          "Web-based": null,
+          "Brute Force": null,
+          "Spoofing": null,
+          "Mirai": null
+        },
+        "per_class_recall_std": {
+          "Benign": null,
+          "DDoS": null,
+          "DoS": null,
+          "Recon": null,
+          "Web-based": null,
+          "Brute Force": null,
+          "Spoofing": null,
+          "Mirai": null
+        },
+        "worst_class_recall_mean": null,
+        "worst_validation_class_recall_mean": 0.2563176895306859
+      },
+      {
+        "config": {
+          "dropout": 0.2,
+          "hidden_dims": [
+            64,
+            32
+          ],
+          "name": "centralized_light",
+          "normalization": "batch"
+        },
+        "lane": "centralized-light",
+        "loss": "sqrt_weighted_ce",
+        "training": {
+          "batch_size": 512,
+          "epochs": 60,
+          "lr": 0.001,
+          "patience": 0,
+          "weight_decay": 1e-05
+        },
+        "seeds": [
+          1,
+          2
+        ],
+        "num_seeds": 2,
+        "duplicate_seeds": [],
+        "sources": [
+          "outputs/mlp-confirmation/light/seed-1",
+          "outputs/mlp-confirmation/light/seed-2"
+        ],
+        "num_parameters": 5544,
+        "parameter_bytes": 22176,
+        "model_mib": 0.021148681640625,
+        "validation_macro_f1_mean": 0.6586789399928992,
+        "validation_macro_f1_std": 0.003950893046577991,
+        "validation_per_class_recall_mean": {
+          "Benign": 0.7597562817865955,
+          "DDoS": 0.7849251764535985,
+          "DoS": 0.8027106476970052,
+          "Recon": 0.7621915565430943,
+          "Web-based": 0.2945859872611465,
+          "Brute Force": 0.16425992779783394,
+          "Spoofing": 0.7812605042016807,
+          "Mirai": 0.994431956622454
+        },
+        "test_seed_count": 0,
+        "test_macro_f1_mean": null,
+        "test_macro_f1_std": null,
+        "test_accuracy_mean": null,
+        "test_accuracy_std": null,
+        "per_class_recall_mean": {
+          "Benign": null,
+          "DDoS": null,
+          "DoS": null,
+          "Recon": null,
+          "Web-based": null,
+          "Brute Force": null,
+          "Spoofing": null,
+          "Mirai": null
+        },
+        "per_class_recall_std": {
+          "Benign": null,
+          "DDoS": null,
+          "DoS": null,
+          "Recon": null,
+          "Web-based": null,
+          "Brute Force": null,
+          "Spoofing": null,
+          "Mirai": null
+        },
+        "worst_class_recall_mean": null,
+        "worst_validation_class_recall_mean": 0.16425992779783394
+      },
+      {
+        "alpha": 0.5,
+        "class_weights": "global",
+        "config": {
+          "dropout": 0.2,
+          "hidden_dims": [
+            64,
+            32
+          ],
+          "name": "centralized_light",
+          "normalization": "layer"
+        },
+        "fraction_train": 1.0,
+        "lane": "federated-light",
+        "local_epochs": 1,
+        "loss": "sqrt_weighted_ce",
+        "num_clients": 20,
+        "partitioner": "iid",
+        "server_optimizer": {},
+        "strategy": "fedavg",
+        "training": {
+          "patience": 0
+        },
+        "seeds": [
+          1,
+          2
+        ],
+        "num_seeds": 2,
+        "duplicate_seeds": [],
+        "sources": [
+          "outputs/mlp-confirmation/iid/seed-1",
+          "outputs/mlp-confirmation/iid/seed-2"
+        ],
+        "num_parameters": 5544,
+        "parameter_bytes": 22176,
+        "model_mib": 0.021148681640625,
+        "validation_macro_f1_mean": 0.6322425844791225,
+        "validation_macro_f1_std": 0.0031479985046087514,
+        "validation_per_class_recall_mean": {
+          "Benign": 0.7560048340802659,
+          "DDoS": 0.7985510647387645,
+          "DoS": 0.7618560384590398,
+          "Recon": 0.7662261723774997,
+          "Web-based": 0.1305732484076433,
+          "Brute Force": 0.148014440433213,
+          "Spoofing": 0.711764705882353,
+          "Mirai": 0.9926045402288989
+        },
+        "test_seed_count": 0,
+        "test_macro_f1_mean": null,
+        "test_macro_f1_std": null,
+        "test_accuracy_mean": null,
+        "test_accuracy_std": null,
+        "per_class_recall_mean": {
+          "Benign": null,
+          "DDoS": null,
+          "DoS": null,
+          "Recon": null,
+          "Web-based": null,
+          "Brute Force": null,
+          "Spoofing": null,
+          "Mirai": null
+        },
+        "per_class_recall_std": {
+          "Benign": null,
+          "DDoS": null,
+          "DoS": null,
+          "Recon": null,
+          "Web-based": null,
+          "Brute Force": null,
+          "Spoofing": null,
+          "Mirai": null
+        },
+        "worst_class_recall_mean": null,
+        "worst_validation_class_recall_mean": 0.1305732484076433
+      },
+      {
+        "alpha": 0.5,
+        "class_weights": "global",
+        "config": {
+          "dropout": 0.2,
+          "hidden_dims": [
+            64,
+            32
+          ],
+          "name": "centralized_light",
+          "normalization": "layer"
+        },
+        "fraction_train": 1.0,
+        "lane": "federated-light",
+        "local_epochs": 1,
+        "loss": "sqrt_weighted_ce",
+        "num_clients": 20,
+        "partitioner": "dirichlet",
+        "server_optimizer": {},
+        "strategy": "fedavg",
+        "training": {
+          "patience": 0
+        },
+        "seeds": [
+          1,
+          2
+        ],
+        "num_seeds": 2,
+        "duplicate_seeds": [],
+        "sources": [
+          "outputs/mlp-confirmation/dirichlet/seed-1",
+          "outputs/mlp-confirmation/dirichlet/seed-2"
+        ],
+        "num_parameters": 5544,
+        "parameter_bytes": 22176,
+        "model_mib": 0.021148681640625,
+        "validation_macro_f1_mean": 0.5483481755258919,
+        "validation_macro_f1_std": 0.0016082196140497795,
+        "validation_per_class_recall_mean": {
+          "Benign": 0.9594390452691475,
+          "DDoS": 0.9938354062494359,
+          "DoS": 0.1475427142207497,
+          "Recon": 0.5125716290492339,
+          "Web-based": 0.0,
+          "Brute Force": 0.148014440433213,
+          "Spoofing": 0.481890756302521,
+          "Mirai": 0.9917037011616534
+        },
+        "test_seed_count": 0,
+        "test_macro_f1_mean": null,
+        "test_macro_f1_std": null,
+        "test_accuracy_mean": null,
+        "test_accuracy_std": null,
+        "per_class_recall_mean": {
+          "Benign": null,
+          "DDoS": null,
+          "DoS": null,
+          "Recon": null,
+          "Web-based": null,
+          "Brute Force": null,
+          "Spoofing": null,
+          "Mirai": null
+        },
+        "per_class_recall_std": {
+          "Benign": null,
+          "DDoS": null,
+          "DoS": null,
+          "Recon": null,
+          "Web-based": null,
+          "Brute Force": null,
+          "Spoofing": null,
+          "Mirai": null
+        },
+        "worst_class_recall_mean": null,
+        "worst_validation_class_recall_mean": 0.0
+      }
+    ]
+  },
+  "error_breakdown_by_seed": {
+    "heavy-seed-0": {
+      "Benign": {
+        "support": 19859,
+        "correct": 15818,
+        "false_alerts": 4041,
+        "false_alert_rate": 0.20348456619165115
+      },
+      "DDoS": {
+        "support": 166191,
+        "correct_category": 133572,
+        "predicted_benign": 1,
+        "wrong_attack_category": 32618,
+        "category_recall": 0.8037258335288915,
+        "attack_to_benign_rate": 6.017173011775608e-06,
+        "wrong_attack_category_rate": 0.19626814929809677
+      },
+      "DoS": {
+        "support": 61572,
+        "correct_category": 50138,
+        "predicted_benign": 1,
+        "wrong_attack_category": 11433,
+        "category_recall": 0.8142987072045735,
+        "attack_to_benign_rate": 1.6241148574027155e-05,
+        "wrong_attack_category_rate": 0.18568505164685248
+      },
+      "Recon": {
+        "support": 8551,
+        "correct_category": 6350,
+        "predicted_benign": 771,
+        "wrong_attack_category": 1430,
+        "category_recall": 0.7426032043035902,
+        "attack_to_benign_rate": 0.09016489299497135,
+        "wrong_attack_category_rate": 0.16723190270143842
+      },
+      "Web-based": {
+        "support": 628,
+        "correct_category": 210,
+        "predicted_benign": 21,
+        "wrong_attack_category": 397,
+        "category_recall": 0.3343949044585987,
+        "attack_to_benign_rate": 0.03343949044585987,
+        "wrong_attack_category_rate": 0.6321656050955414
+      },
+      "Brute Force": {
+        "support": 277,
+        "correct_category": 70,
+        "predicted_benign": 25,
+        "wrong_attack_category": 182,
+        "category_recall": 0.2527075812274368,
+        "attack_to_benign_rate": 0.09025270758122744,
+        "wrong_attack_category_rate": 0.6570397111913358
+      },
+      "Spoofing": {
+        "support": 11900,
+        "correct_category": 9632,
+        "predicted_benign": 1076,
+        "wrong_attack_category": 1192,
+        "category_recall": 0.8094117647058824,
+        "attack_to_benign_rate": 0.09042016806722689,
+        "wrong_attack_category_rate": 0.10016806722689076
+      },
+      "Mirai": {
+        "support": 58279,
+        "correct_category": 58010,
+        "predicted_benign": 0,
+        "wrong_attack_category": 269,
+        "category_recall": 0.9953842722078279,
+        "attack_to_benign_rate": 0.0,
+        "wrong_attack_category_rate": 0.004615727792172138
+      }
+    },
+    "heavy-seed-1": {
+      "Benign": {
+        "support": 19859,
+        "correct": 15097,
+        "false_alerts": 4762,
+        "false_alert_rate": 0.23979052318847877
+      },
+      "DDoS": {
+        "support": 166191,
+        "correct_category": 133190,
+        "predicted_benign": 1,
+        "wrong_attack_category": 33000,
+        "category_recall": 0.8014272734383932,
+        "attack_to_benign_rate": 6.017173011775608e-06,
+        "wrong_attack_category_rate": 0.19856670938859505
+      },
+      "DoS": {
+        "support": 61572,
+        "correct_category": 50513,
+        "predicted_benign": 1,
+        "wrong_attack_category": 11058,
+        "category_recall": 0.8203891379198337,
+        "attack_to_benign_rate": 1.6241148574027155e-05,
+        "wrong_attack_category_rate": 0.17959462093159229
+      },
+      "Recon": {
+        "support": 8551,
+        "correct_category": 6625,
+        "predicted_benign": 604,
+        "wrong_attack_category": 1322,
+        "category_recall": 0.7747631855923284,
+        "attack_to_benign_rate": 0.07063501344871945,
+        "wrong_attack_category_rate": 0.15460180095895218
+      },
+      "Web-based": {
+        "support": 628,
+        "correct_category": 251,
+        "predicted_benign": 14,
+        "wrong_attack_category": 363,
+        "category_recall": 0.3996815286624204,
+        "attack_to_benign_rate": 0.022292993630573247,
+        "wrong_attack_category_rate": 0.5780254777070064
+      },
+      "Brute Force": {
+        "support": 277,
+        "correct_category": 73,
+        "predicted_benign": 17,
+        "wrong_attack_category": 187,
+        "category_recall": 0.26353790613718414,
+        "attack_to_benign_rate": 0.061371841155234655,
+        "wrong_attack_category_rate": 0.6750902527075813
+      },
+      "Spoofing": {
+        "support": 11900,
+        "correct_category": 9358,
+        "predicted_benign": 964,
+        "wrong_attack_category": 1578,
+        "category_recall": 0.7863865546218487,
+        "attack_to_benign_rate": 0.08100840336134454,
+        "wrong_attack_category_rate": 0.13260504201680673
+      },
+      "Mirai": {
+        "support": 58279,
+        "correct_category": 57985,
+        "predicted_benign": 0,
+        "wrong_attack_category": 294,
+        "category_recall": 0.9949553012234252,
+        "attack_to_benign_rate": 0.0,
+        "wrong_attack_category_rate": 0.005044698776574753
+      }
+    },
+    "heavy-seed-2": {
+      "Benign": {
+        "support": 19859,
+        "correct": 15572,
+        "false_alerts": 4287,
+        "false_alert_rate": 0.21587189687295433
+      },
+      "DDoS": {
+        "support": 166191,
+        "correct_category": 130251,
+        "predicted_benign": 1,
+        "wrong_attack_category": 35939,
+        "category_recall": 0.7837428019567847,
+        "attack_to_benign_rate": 6.017173011775608e-06,
+        "wrong_attack_category_rate": 0.21625118087020356
+      },
+      "DoS": {
+        "support": 61572,
+        "correct_category": 51878,
+        "predicted_benign": 1,
+        "wrong_attack_category": 9693,
+        "category_recall": 0.8425583057233808,
+        "attack_to_benign_rate": 1.6241148574027155e-05,
+        "wrong_attack_category_rate": 0.1574254531280452
+      },
+      "Recon": {
+        "support": 8551,
+        "correct_category": 6256,
+        "predicted_benign": 755,
+        "wrong_attack_category": 1540,
+        "category_recall": 0.731610337972167,
+        "attack_to_benign_rate": 0.08829376681089932,
+        "wrong_attack_category_rate": 0.1800958952169337
+      },
+      "Web-based": {
+        "support": 628,
+        "correct_category": 124,
+        "predicted_benign": 18,
+        "wrong_attack_category": 486,
+        "category_recall": 0.19745222929936307,
+        "attack_to_benign_rate": 0.028662420382165606,
+        "wrong_attack_category_rate": 0.7738853503184714
+      },
+      "Brute Force": {
+        "support": 277,
+        "correct_category": 69,
+        "predicted_benign": 28,
+        "wrong_attack_category": 180,
+        "category_recall": 0.2490974729241877,
+        "attack_to_benign_rate": 0.10108303249097472,
+        "wrong_attack_category_rate": 0.6498194945848376
+      },
+      "Spoofing": {
+        "support": 11900,
+        "correct_category": 10015,
+        "predicted_benign": 1040,
+        "wrong_attack_category": 845,
+        "category_recall": 0.8415966386554622,
+        "attack_to_benign_rate": 0.08739495798319327,
+        "wrong_attack_category_rate": 0.07100840336134454
+      },
+      "Mirai": {
+        "support": 58279,
+        "correct_category": 57964,
+        "predicted_benign": 0,
+        "wrong_attack_category": 315,
+        "category_recall": 0.994594965596527,
+        "attack_to_benign_rate": 0.0,
+        "wrong_attack_category_rate": 0.005405034403472949
+      }
+    },
+    "light-seed-0": {
+      "Benign": {
+        "support": 19859,
+        "correct": 15359,
+        "false_alerts": 4500,
+        "false_alert_rate": 0.2265975124628632
+      },
+      "DDoS": {
+        "support": 166191,
+        "correct_category": 133901,
+        "predicted_benign": 1,
+        "wrong_attack_category": 32289,
+        "category_recall": 0.8057054834497657,
+        "attack_to_benign_rate": 6.017173011775608e-06,
+        "wrong_attack_category_rate": 0.1942884993772226
+      },
+      "DoS": {
+        "support": 61572,
+        "correct_category": 47506,
+        "predicted_benign": 2,
+        "wrong_attack_category": 14064,
+        "category_recall": 0.7715520041577341,
+        "attack_to_benign_rate": 3.248229714805431e-05,
+        "wrong_attack_category_rate": 0.2284155135451179
+      },
+      "Recon": {
+        "support": 8551,
+        "correct_category": 6604,
+        "predicted_benign": 880,
+        "wrong_attack_category": 1067,
+        "category_recall": 0.7723073324757338,
+        "attack_to_benign_rate": 0.10291194012396211,
+        "wrong_attack_category_rate": 0.12478072740030406
+      },
+      "Web-based": {
+        "support": 628,
+        "correct_category": 191,
+        "predicted_benign": 26,
+        "wrong_attack_category": 411,
+        "category_recall": 0.304140127388535,
+        "attack_to_benign_rate": 0.041401273885350316,
+        "wrong_attack_category_rate": 0.6544585987261147
+      },
+      "Brute Force": {
+        "support": 277,
+        "correct_category": 46,
+        "predicted_benign": 34,
+        "wrong_attack_category": 197,
+        "category_recall": 0.16606498194945848,
+        "attack_to_benign_rate": 0.12274368231046931,
+        "wrong_attack_category_rate": 0.7111913357400722
+      },
+      "Spoofing": {
+        "support": 11900,
+        "correct_category": 9024,
+        "predicted_benign": 1122,
+        "wrong_attack_category": 1754,
+        "category_recall": 0.7583193277310925,
+        "attack_to_benign_rate": 0.09428571428571429,
+        "wrong_attack_category_rate": 0.14739495798319327
+      },
+      "Mirai": {
+        "support": 58279,
+        "correct_category": 57946,
+        "predicted_benign": 0,
+        "wrong_attack_category": 333,
+        "category_recall": 0.9942861064877572,
+        "attack_to_benign_rate": 0.0,
+        "wrong_attack_category_rate": 0.005713893512242832
+      }
+    },
+    "light-seed-1": {
+      "Benign": {
+        "support": 19859,
+        "correct": 15179,
+        "false_alerts": 4680,
+        "false_alert_rate": 0.23566141296137771
+      },
+      "DDoS": {
+        "support": 166191,
+        "correct_category": 132317,
+        "predicted_benign": 1,
+        "wrong_attack_category": 33873,
+        "category_recall": 0.7961742813991131,
+        "attack_to_benign_rate": 6.017173011775608e-06,
+        "wrong_attack_category_rate": 0.20381970142787514
+      },
+      "DoS": {
+        "support": 61572,
+        "correct_category": 48389,
+        "predicted_benign": 1,
+        "wrong_attack_category": 13182,
+        "category_recall": 0.7858929383486,
+        "attack_to_benign_rate": 1.6241148574027155e-05,
+        "wrong_attack_category_rate": 0.21409082050282596
+      },
+      "Recon": {
+        "support": 8551,
+        "correct_category": 6209,
+        "predicted_benign": 844,
+        "wrong_attack_category": 1498,
+        "category_recall": 0.7261139048064554,
+        "attack_to_benign_rate": 0.09870190620980002,
+        "wrong_attack_category_rate": 0.1751841889837446
+      },
+      "Web-based": {
+        "support": 628,
+        "correct_category": 197,
+        "predicted_benign": 21,
+        "wrong_attack_category": 410,
+        "category_recall": 0.31369426751592355,
+        "attack_to_benign_rate": 0.03343949044585987,
+        "wrong_attack_category_rate": 0.6528662420382165
+      },
+      "Brute Force": {
+        "support": 277,
+        "correct_category": 46,
+        "predicted_benign": 32,
+        "wrong_attack_category": 199,
+        "category_recall": 0.16606498194945848,
+        "attack_to_benign_rate": 0.11552346570397112,
+        "wrong_attack_category_rate": 0.7184115523465704
+      },
+      "Spoofing": {
+        "support": 11900,
+        "correct_category": 9628,
+        "predicted_benign": 1024,
+        "wrong_attack_category": 1248,
+        "category_recall": 0.8090756302521008,
+        "attack_to_benign_rate": 0.08605042016806723,
+        "wrong_attack_category_rate": 0.10487394957983193
+      },
+      "Mirai": {
+        "support": 58279,
+        "correct_category": 57954,
+        "predicted_benign": 0,
+        "wrong_attack_category": 325,
+        "category_recall": 0.994423377202766,
+        "attack_to_benign_rate": 0.0,
+        "wrong_attack_category_rate": 0.005576622797233995
+      }
+    },
+    "light-seed-2": {
+      "Benign": {
+        "support": 19859,
+        "correct": 14997,
+        "false_alerts": 4862,
+        "false_alert_rate": 0.24482602346543128
+      },
+      "DDoS": {
+        "support": 166191,
+        "correct_category": 128578,
+        "predicted_benign": 2,
+        "wrong_attack_category": 37611,
+        "category_recall": 0.773676071508084,
+        "attack_to_benign_rate": 1.2034346023551216e-05,
+        "wrong_attack_category_rate": 0.22631189414589237
+      },
+      "DoS": {
+        "support": 61572,
+        "correct_category": 50460,
+        "predicted_benign": 1,
+        "wrong_attack_category": 11111,
+        "category_recall": 0.8195283570454103,
+        "attack_to_benign_rate": 1.6241148574027155e-05,
+        "wrong_attack_category_rate": 0.18045540180601571
+      },
+      "Recon": {
+        "support": 8551,
+        "correct_category": 6826,
+        "predicted_benign": 816,
+        "wrong_attack_category": 909,
+        "category_recall": 0.7982692082797334,
+        "attack_to_benign_rate": 0.09542743538767395,
+        "wrong_attack_category_rate": 0.10630335633259268
+      },
+      "Web-based": {
+        "support": 628,
+        "correct_category": 173,
+        "predicted_benign": 20,
+        "wrong_attack_category": 435,
+        "category_recall": 0.2754777070063694,
+        "attack_to_benign_rate": 0.03184713375796178,
+        "wrong_attack_category_rate": 0.6926751592356688
+      },
+      "Brute Force": {
+        "support": 277,
+        "correct_category": 45,
+        "predicted_benign": 26,
+        "wrong_attack_category": 206,
+        "category_recall": 0.1624548736462094,
+        "attack_to_benign_rate": 0.09386281588447654,
+        "wrong_attack_category_rate": 0.7436823104693141
+      },
+      "Spoofing": {
+        "support": 11900,
+        "correct_category": 8966,
+        "predicted_benign": 1035,
+        "wrong_attack_category": 1899,
+        "category_recall": 0.7534453781512606,
+        "attack_to_benign_rate": 0.08697478991596638,
+        "wrong_attack_category_rate": 0.15957983193277311
+      },
+      "Mirai": {
+        "support": 58279,
+        "correct_category": 57955,
+        "predicted_benign": 1,
+        "wrong_attack_category": 323,
+        "category_recall": 0.9944405360421421,
+        "attack_to_benign_rate": 1.71588393761046e-05,
+        "wrong_attack_category_rate": 0.005542305118481786
+      }
+    },
+    "iid-seed-0": {
+      "Benign": {
+        "support": 19859,
+        "correct": 15117,
+        "false_alerts": 4742,
+        "false_alert_rate": 0.23878342313308829
+      },
+      "DDoS": {
+        "support": 166191,
+        "correct_category": 133412,
+        "predicted_benign": 25,
+        "wrong_attack_category": 32754,
+        "category_recall": 0.8027630858470074,
+        "attack_to_benign_rate": 0.00015042932529439019,
+        "wrong_attack_category_rate": 0.19708648482769825
+      },
+      "DoS": {
+        "support": 61572,
+        "correct_category": 46707,
+        "predicted_benign": 2,
+        "wrong_attack_category": 14863,
+        "category_recall": 0.7585753264470864,
+        "attack_to_benign_rate": 3.248229714805431e-05,
+        "wrong_attack_category_rate": 0.2413921912557656
+      },
+      "Recon": {
+        "support": 8551,
+        "correct_category": 6738,
+        "predicted_benign": 1023,
+        "wrong_attack_category": 790,
+        "category_recall": 0.7879780142673372,
+        "attack_to_benign_rate": 0.11963513039410595,
+        "wrong_attack_category_rate": 0.0923868553385569
+      },
+      "Web-based": {
+        "support": 628,
+        "correct_category": 77,
+        "predicted_benign": 35,
+        "wrong_attack_category": 516,
+        "category_recall": 0.12261146496815287,
+        "attack_to_benign_rate": 0.05573248407643312,
+        "wrong_attack_category_rate": 0.821656050955414
+      },
+      "Brute Force": {
+        "support": 277,
+        "correct_category": 41,
+        "predicted_benign": 46,
+        "wrong_attack_category": 190,
+        "category_recall": 0.148014440433213,
+        "attack_to_benign_rate": 0.16606498194945848,
+        "wrong_attack_category_rate": 0.6859205776173285
+      },
+      "Spoofing": {
+        "support": 11900,
+        "correct_category": 8196,
+        "predicted_benign": 1560,
+        "wrong_attack_category": 2144,
+        "category_recall": 0.6887394957983193,
+        "attack_to_benign_rate": 0.13109243697478992,
+        "wrong_attack_category_rate": 0.18016806722689074
+      },
+      "Mirai": {
+        "support": 58279,
+        "correct_category": 57838,
+        "predicted_benign": 4,
+        "wrong_attack_category": 437,
+        "category_recall": 0.9924329518351379,
+        "attack_to_benign_rate": 6.86353575044184e-05,
+        "wrong_attack_category_rate": 0.0074984128073577105
+      }
+    },
+    "iid-seed-1": {
+      "Benign": {
+        "support": 19859,
+        "correct": 14751,
+        "false_alerts": 5108,
+        "false_alert_rate": 0.25721335414673446
+      },
+      "DDoS": {
+        "support": 166191,
+        "correct_category": 132444,
+        "predicted_benign": 19,
+        "wrong_attack_category": 33728,
+        "category_recall": 0.7969384623716086,
+        "attack_to_benign_rate": 0.00011432628722373654,
+        "wrong_attack_category_rate": 0.2029472113411677
+      },
+      "DoS": {
+        "support": 61572,
+        "correct_category": 46978,
+        "predicted_benign": 1,
+        "wrong_attack_category": 14593,
+        "category_recall": 0.7629766777106477,
+        "attack_to_benign_rate": 1.6241148574027155e-05,
+        "wrong_attack_category_rate": 0.2370070811407783
+      },
+      "Recon": {
+        "support": 8551,
+        "correct_category": 6536,
+        "predicted_benign": 940,
+        "wrong_attack_category": 1075,
+        "category_recall": 0.7643550461934276,
+        "attack_to_benign_rate": 0.10992866331423225,
+        "wrong_attack_category_rate": 0.12571629049234007
+      },
+      "Web-based": {
+        "support": 628,
+        "correct_category": 115,
+        "predicted_benign": 33,
+        "wrong_attack_category": 480,
+        "category_recall": 0.18312101910828024,
+        "attack_to_benign_rate": 0.052547770700636945,
+        "wrong_attack_category_rate": 0.7643312101910829
+      },
+      "Brute Force": {
+        "support": 277,
+        "correct_category": 41,
+        "predicted_benign": 39,
+        "wrong_attack_category": 197,
+        "category_recall": 0.148014440433213,
+        "attack_to_benign_rate": 0.1407942238267148,
+        "wrong_attack_category_rate": 0.7111913357400722
+      },
+      "Spoofing": {
+        "support": 11900,
+        "correct_category": 8500,
+        "predicted_benign": 1409,
+        "wrong_attack_category": 1991,
+        "category_recall": 0.7142857142857143,
+        "attack_to_benign_rate": 0.11840336134453781,
+        "wrong_attack_category_rate": 0.1673109243697479
+      },
+      "Mirai": {
+        "support": 58279,
+        "correct_category": 57857,
+        "predicted_benign": 2,
+        "wrong_attack_category": 420,
+        "category_recall": 0.9927589697832838,
+        "attack_to_benign_rate": 3.43176787522092e-05,
+        "wrong_attack_category_rate": 0.007206712537963932
+      }
+    },
+    "iid-seed-2": {
+      "Benign": {
+        "support": 19859,
+        "correct": 15276,
+        "false_alerts": 4583,
+        "false_alert_rate": 0.23077697769273378
+      },
+      "DDoS": {
+        "support": 166191,
+        "correct_category": 132980,
+        "predicted_benign": 21,
+        "wrong_attack_category": 33190,
+        "category_recall": 0.8001636671059204,
+        "attack_to_benign_rate": 0.00012636063324728775,
+        "wrong_attack_category_rate": 0.19970997226083242
+      },
+      "DoS": {
+        "support": 61572,
+        "correct_category": 46840,
+        "predicted_benign": 1,
+        "wrong_attack_category": 14731,
+        "category_recall": 0.7607353992074319,
+        "attack_to_benign_rate": 1.6241148574027155e-05,
+        "wrong_attack_category_rate": 0.23924835964399402
+      },
+      "Recon": {
+        "support": 8551,
+        "correct_category": 6568,
+        "predicted_benign": 1073,
+        "wrong_attack_category": 910,
+        "category_recall": 0.7680972985615717,
+        "attack_to_benign_rate": 0.12548239971933106,
+        "wrong_attack_category_rate": 0.10642030171909718
+      },
+      "Web-based": {
+        "support": 628,
+        "correct_category": 49,
+        "predicted_benign": 47,
+        "wrong_attack_category": 532,
+        "category_recall": 0.07802547770700637,
+        "attack_to_benign_rate": 0.07484076433121019,
+        "wrong_attack_category_rate": 0.8471337579617835
+      },
+      "Brute Force": {
+        "support": 277,
+        "correct_category": 41,
+        "predicted_benign": 52,
+        "wrong_attack_category": 184,
+        "category_recall": 0.148014440433213,
+        "attack_to_benign_rate": 0.18772563176895307,
+        "wrong_attack_category_rate": 0.6642599277978339
+      },
+      "Spoofing": {
+        "support": 11900,
+        "correct_category": 8440,
+        "predicted_benign": 1634,
+        "wrong_attack_category": 1826,
+        "category_recall": 0.7092436974789916,
+        "attack_to_benign_rate": 0.1373109243697479,
+        "wrong_attack_category_rate": 0.1534453781512605
+      },
+      "Mirai": {
+        "support": 58279,
+        "correct_category": 57839,
+        "predicted_benign": 2,
+        "wrong_attack_category": 438,
+        "category_recall": 0.9924501106745139,
+        "attack_to_benign_rate": 3.43176787522092e-05,
+        "wrong_attack_category_rate": 0.007515571646733815
+      }
+    },
+    "dirichlet-seed-0": {
+      "Benign": {
+        "support": 19859,
+        "correct": 18909,
+        "false_alerts": 950,
+        "false_alert_rate": 0.0478372526310489
+      },
+      "DDoS": {
+        "support": 166191,
+        "correct_category": 161533,
+        "predicted_benign": 26,
+        "wrong_attack_category": 4632,
+        "category_recall": 0.9719720081111493,
+        "attack_to_benign_rate": 0.0001564464983061658,
+        "wrong_attack_category_rate": 0.027871545390544615
+      },
+      "DoS": {
+        "support": 61572,
+        "correct_category": 13862,
+        "predicted_benign": 4,
+        "wrong_attack_category": 47706,
+        "category_recall": 0.22513480153316442,
+        "attack_to_benign_rate": 6.496459429610862e-05,
+        "wrong_attack_category_rate": 0.7748002338725395
+      },
+      "Recon": {
+        "support": 8551,
+        "correct_category": 4593,
+        "predicted_benign": 3308,
+        "wrong_attack_category": 650,
+        "category_recall": 0.5371301602151796,
+        "attack_to_benign_rate": 0.3868553385568939,
+        "wrong_attack_category_rate": 0.07601450122792656
+      },
+      "Web-based": {
+        "support": 628,
+        "correct_category": 27,
+        "predicted_benign": 354,
+        "wrong_attack_category": 247,
+        "category_recall": 0.042993630573248405,
+        "attack_to_benign_rate": 0.5636942675159236,
+        "wrong_attack_category_rate": 0.39331210191082805
+      },
+      "Brute Force": {
+        "support": 277,
+        "correct_category": 41,
+        "predicted_benign": 166,
+        "wrong_attack_category": 70,
+        "category_recall": 0.148014440433213,
+        "attack_to_benign_rate": 0.5992779783393501,
+        "wrong_attack_category_rate": 0.2527075812274368
+      },
+      "Spoofing": {
+        "support": 11900,
+        "correct_category": 5838,
+        "predicted_benign": 5538,
+        "wrong_attack_category": 524,
+        "category_recall": 0.49058823529411766,
+        "attack_to_benign_rate": 0.4653781512605042,
+        "wrong_attack_category_rate": 0.04403361344537815
+      },
+      "Mirai": {
+        "support": 58279,
+        "correct_category": 57817,
+        "predicted_benign": 34,
+        "wrong_attack_category": 428,
+        "category_recall": 0.9920726162082397,
+        "attack_to_benign_rate": 0.0005834005387875564,
+        "wrong_attack_category_rate": 0.007343983252972769
+      }
+    },
+    "dirichlet-seed-1": {
+      "Benign": {
+        "support": 19859,
+        "correct": 18985,
+        "false_alerts": 874,
+        "false_alert_rate": 0.04401027242056498
+      },
+      "DDoS": {
+        "support": 166191,
+        "correct_category": 164891,
+        "predicted_benign": 34,
+        "wrong_attack_category": 1266,
+        "category_recall": 0.9921776750846917,
+        "attack_to_benign_rate": 0.00020458388240037067,
+        "wrong_attack_category_rate": 0.007617741032907919
+      },
+      "DoS": {
+        "support": 61572,
+        "correct_category": 9401,
+        "predicted_benign": 4,
+        "wrong_attack_category": 52167,
+        "category_recall": 0.1526830377444293,
+        "attack_to_benign_rate": 6.496459429610862e-05,
+        "wrong_attack_category_rate": 0.8472519976612746
+      },
+      "Recon": {
+        "support": 8551,
+        "correct_category": 4364,
+        "predicted_benign": 3453,
+        "wrong_attack_category": 734,
+        "category_recall": 0.5103496667056484,
+        "attack_to_benign_rate": 0.40381241960004677,
+        "wrong_attack_category_rate": 0.08583791369430475
+      },
+      "Web-based": {
+        "support": 628,
+        "correct_category": 0,
+        "predicted_benign": 358,
+        "wrong_attack_category": 270,
+        "category_recall": 0.0,
+        "attack_to_benign_rate": 0.5700636942675159,
+        "wrong_attack_category_rate": 0.4299363057324841
+      },
+      "Brute Force": {
+        "support": 277,
+        "correct_category": 41,
+        "predicted_benign": 183,
+        "wrong_attack_category": 53,
+        "category_recall": 0.148014440433213,
+        "attack_to_benign_rate": 0.6606498194945848,
+        "wrong_attack_category_rate": 0.19133574007220217
+      },
+      "Spoofing": {
+        "support": 11900,
+        "correct_category": 5866,
+        "predicted_benign": 5641,
+        "wrong_attack_category": 393,
+        "category_recall": 0.4929411764705882,
+        "attack_to_benign_rate": 0.47403361344537814,
+        "wrong_attack_category_rate": 0.03302521008403361
+      },
+      "Mirai": {
+        "support": 58279,
+        "correct_category": 57790,
+        "predicted_benign": 40,
+        "wrong_attack_category": 449,
+        "category_recall": 0.9916093275450848,
+        "attack_to_benign_rate": 0.000686353575044184,
+        "wrong_attack_category_rate": 0.007704318879870966
+      }
+    },
+    "dirichlet-seed-2": {
+      "Benign": {
+        "support": 19859,
+        "correct": 19122,
+        "false_alerts": 737,
+        "false_alert_rate": 0.03711163704114004
+      },
+      "DDoS": {
+        "support": 166191,
+        "correct_category": 165442,
+        "predicted_benign": 29,
+        "wrong_attack_category": 720,
+        "category_recall": 0.9954931374141801,
+        "attack_to_benign_rate": 0.00017449801734149262,
+        "wrong_attack_category_rate": 0.004332364568478437
+      },
+      "DoS": {
+        "support": 61572,
+        "correct_category": 8768,
+        "predicted_benign": 4,
+        "wrong_attack_category": 52800,
+        "category_recall": 0.14240239069707009,
+        "attack_to_benign_rate": 6.496459429610862e-05,
+        "wrong_attack_category_rate": 0.8575326447086338
+      },
+      "Recon": {
+        "support": 8551,
+        "correct_category": 4402,
+        "predicted_benign": 3653,
+        "wrong_attack_category": 496,
+        "category_recall": 0.5147935913928195,
+        "attack_to_benign_rate": 0.4272014969009473,
+        "wrong_attack_category_rate": 0.05800491170623319
+      },
+      "Web-based": {
+        "support": 628,
+        "correct_category": 0,
+        "predicted_benign": 443,
+        "wrong_attack_category": 185,
+        "category_recall": 0.0,
+        "attack_to_benign_rate": 0.7054140127388535,
+        "wrong_attack_category_rate": 0.2945859872611465
+      },
+      "Brute Force": {
+        "support": 277,
+        "correct_category": 41,
+        "predicted_benign": 188,
+        "wrong_attack_category": 48,
+        "category_recall": 0.148014440433213,
+        "attack_to_benign_rate": 0.6787003610108303,
+        "wrong_attack_category_rate": 0.17328519855595667
+      },
+      "Spoofing": {
+        "support": 11900,
+        "correct_category": 5603,
+        "predicted_benign": 5874,
+        "wrong_attack_category": 423,
+        "category_recall": 0.4708403361344538,
+        "attack_to_benign_rate": 0.49361344537815127,
+        "wrong_attack_category_rate": 0.035546218487394955
+      },
+      "Mirai": {
+        "support": 58279,
+        "correct_category": 57801,
+        "predicted_benign": 2,
+        "wrong_attack_category": 476,
+        "category_recall": 0.991798074778222,
+        "attack_to_benign_rate": 3.43176787522092e-05,
+        "wrong_attack_category_rate": 0.00816760754302579
+      }
+    }
+  },
+  "frozen_plan": {
+    "status": "frozen_before_new_seed_runs",
+    "decision_date": "2026-10-05",
+    "authorization": "User selected option 1: confirm shortlisted configurations",
+    "claim": "Configured-model comparison, not isolated capacity or federation effects",
+    "source_screening_plan": "configs/local_tuning_plan.json",
+    "training_seeds": [
+      0,
+      1,
+      2
+    ],
+    "new_training_seeds": [
+      1,
+      2
+    ],
+    "new_run_count": 8,
+    "seed_zero_reused_count": 4,
+    "common": {
+      "partition_seed": 0,
+      "clients": 20,
+      "alpha": 0.5,
+      "epochs": 60,
+      "patience": 0,
+      "batch_size": 512,
+      "lr": 0.001,
+      "weight_decay": 1e-05,
+      "loss": "sqrt_weighted_ce",
+      "device": "cpu",
+      "threads": 2
+    },
+    "lanes": {
+      "heavy": {
+        "normalization": "batch",
+        "dropout": 0.3,
+        "seed_zero_path": "outputs/mlp-tuning/convergence/heavy"
+      },
+      "light": {
+        "normalization": "batch",
+        "dropout": 0.2,
+        "seed_zero_path": "outputs/mlp-tuning/convergence/light"
+      },
+      "iid": {
+        "normalization": "layer",
+        "dropout": 0.2,
+        "seed_zero_path": "outputs/mlp-tuning/normalization/iid"
+      },
+      "dirichlet": {
+        "normalization": "layer",
+        "dropout": 0.2,
+        "seed_zero_path": "outputs/mlp-tuning/normalization/dirichlet"
+      }
+    },
+    "output_root": "outputs/mlp-confirmation",
+    "checkpoint_selection": "First strict maximum validation macro-F1 within 60 steps; no cross-seed winner selection",
+    "reporting": "Every seed and every class; mean and sample SD for seeds 0/1/2 and separately new seeds 1/2. SD is not a confidence interval.",
+    "test_policy": "No test evaluation. Previously inspected historical test cannot become fresh confirmation.",
+    "limitations": [
+      "Seed 0 influenced screening and is not independent confirmation.",
+      "All seeds reuse the same validation set; these are training-seed stability checks, not independent data confirmation.",
+      "Fixed partition seed measures no variability across client partitions.",
+      "Normalization differs between central-light and federated-light; dropout differs between heavy and light.",
+      "No deployment or physical edge claim; no cloud resources."
+    ],
+    "execution_policy": "Run only the eight authorized new-seed jobs; do not tune after observing them. Preserve seed-zero artifacts in place."
+  },
+  "warnings": [
+    "Seed 0 influenced screening and is not independent confirmation.",
+    "All seeds reuse the same validation set; these are training-seed stability checks, not independent data confirmation.",
+    "Fixed partition seed measures no variability across client partitions.",
+    "Normalization differs between central-light and federated-light; dropout differs between heavy and light.",
+    "No deployment or physical edge claim; no cloud resources.",
+    "heavy-seed-2: individual-seed recall below 0.20 for Web-based. Existing gates use means, not per-seed minima.",
+    "light-seed-0: individual-seed recall below 0.20 for Brute Force. Existing gates use means, not per-seed minima.",
+    "light-seed-1: individual-seed recall below 0.20 for Brute Force. Existing gates use means, not per-seed minima.",
+    "light-seed-2: individual-seed recall below 0.20 for Brute Force. Existing gates use means, not per-seed minima.",
+    "iid-seed-0: individual-seed recall below 0.20 for Web-based, Brute Force. Existing gates use means, not per-seed minima.",
+    "iid-seed-1: individual-seed recall below 0.20 for Web-based, Brute Force. Existing gates use means, not per-seed minima.",
+    "iid-seed-2: individual-seed recall below 0.20 for Web-based, Brute Force. Existing gates use means, not per-seed minima.",
+    "dirichlet-seed-0: individual-seed recall below 0.20 for Web-based, Brute Force. Existing gates use means, not per-seed minima.",
+    "dirichlet-seed-1: individual-seed recall below 0.20 for DoS, Web-based, Brute Force. Existing gates use means, not per-seed minima.",
+    "dirichlet-seed-2: individual-seed recall below 0.20 for DoS, Web-based, Brute Force. Existing gates use means, not per-seed minima.",
+    "Decision gates are unchanged illustrative research preferences, not operational standards.",
+    "No false-alert-rate ceiling exists in the inherited gates; high false alerts remain a warning, not a hidden new gate.",
+    "All-seed eligibility includes reused screening seed 0; new-seed sensitivity retains the three-seed requirement and is incomplete.",
+    "IID remains a diagnostic control and cannot replace the non-IID target.",
+    "Model MiB describes saved float32 parameter tensors, not runtime RAM or edge feasibility."
+  ],
+  "provenance": {
+    "confirmation_sha256": "5abb339532f682118c088371d06ac13f78c3de260e228a47aa98ce6237d1ce79",
+    "plan_sha256": "44f1e6b7a8d043f8d06e2e6d5a9d6714cd46ce4ccb945ac72fc489136539faff",
+    "adapter_sha256": "0ae801da47ca0f4cb37edc6614b1074c9b06bec00c5d6cce2e0da62432c80819",
+    "engine_sha256": "b67f2782eb016ced8339680ccf235136cf0136a920d79244dbc588188adb84b6"
+  }
+}

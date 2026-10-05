@@ -93,10 +93,15 @@ def _validate_report(report: dict[str, Any], source: Path) -> None:
     if missing:
         raise ValueError(f"{source.name} is missing keys: {missing}")
     test_metrics = report["test_metrics"]
-    for key in ("accuracy", "macro_f1", "per_class_recall"):
-        if key not in test_metrics:
-            raise ValueError(f"{source.name} test_metrics is missing {key!r}")
-    missing_classes = set(CLASSES) - set(test_metrics["per_class_recall"])
+    # Validation-only studies must not fabricate test scores to fit this schema.
+    # Legacy evaluated reports still receive the same test-field validation.
+    available = test_metrics if test_metrics is not None else report.get("validation_metrics", {})
+    for key in ("macro_f1", "per_class_recall"):
+        if key not in available:
+            raise ValueError(f"{source.name} available metrics are missing {key!r}")
+    if test_metrics is not None and "accuracy" not in test_metrics:
+        raise ValueError(f"{source.name} test_metrics is missing 'accuracy'")
+    missing_classes = set(CLASSES) - set(available["per_class_recall"])
     if missing_classes:
         raise ValueError(f"{source.name} has no recall for: {sorted(missing_classes)}")
     if int(report["num_parameters"]) <= 0:
@@ -205,12 +210,15 @@ def aggregate_candidates(reports: list[dict[str, Any]]) -> list[dict[str, Any]]:
             )
 
         validation = [_best_validation_macro_f1(report) for report in group]
-        test_macro = [float(report["test_metrics"]["macro_f1"]) for report in group]
-        test_accuracy = [float(report["test_metrics"]["accuracy"]) for report in group]
+        tested = [r for r in group if r.get("test_metrics") is not None]
+        # A partial test subset is not comparable with the complete seed set.
+        complete_test = len(tested) == len(group)
+        test_macro = [float(report["test_metrics"]["macro_f1"]) for report in tested]
+        test_accuracy = [float(report["test_metrics"]["accuracy"]) for report in tested]
         recalls = {
             class_name: [
                 float(report["test_metrics"]["per_class_recall"][class_name])
-                for report in group
+                for report in tested
             ]
             for class_name in CLASSES
         }
@@ -242,20 +250,24 @@ def aggregate_candidates(reports: list[dict[str, Any]]) -> list[dict[str, Any]]:
                     name: _mean(values) if len(values) == len(group) else None
                     for name, values in val_recalls.items()
                 },
-                "test_macro_f1_mean": _mean(test_macro),
-                "test_macro_f1_std": _sample_std(test_macro),
-                "test_accuracy_mean": _mean(test_accuracy),
-                "test_accuracy_std": _sample_std(test_accuracy),
+                "test_seed_count": len(tested),
+                "test_macro_f1_mean": _mean(test_macro) if complete_test else None,
+                "test_macro_f1_std": _sample_std(test_macro) if complete_test else None,
+                "test_accuracy_mean": _mean(test_accuracy) if complete_test else None,
+                "test_accuracy_std": _sample_std(test_accuracy) if complete_test else None,
                 "per_class_recall_mean": {
-                    class_name: _mean(values) for class_name, values in recalls.items()
+                    class_name: _mean(values) if complete_test else None for class_name, values in recalls.items()
                 },
                 "per_class_recall_std": {
-                    class_name: _sample_std(values)
+                    class_name: _sample_std(values) if complete_test else None
                     for class_name, values in recalls.items()
                 },
                 "worst_class_recall_mean": min(
                     _mean(values) for values in recalls.values()
-                ),
+                ) if complete_test else None,
+                "worst_validation_class_recall_mean": min(
+                    _mean(values) for values in val_recalls.values()
+                ) if all(len(values) == len(group) for values in val_recalls.values()) else None,
             }
         )
     return sorted(
@@ -412,7 +424,7 @@ def build_decision(reports: list[dict[str, Any]], criteria: Criteria) -> dict[st
             "federated_partitioner": criteria.federated_partitioner,
         },
         "selection_metric": "mean best validation macro-F1 across seeds",
-        "comparison_metrics": "test metrics of validation-selected checkpoints",
+        "comparison_metrics": "validation metrics; test metrics descriptive only when available for every seed",
         "blocking_issues": blockers,
         "warnings": warnings,
         "selected_candidates": {
@@ -444,7 +456,7 @@ def render_markdown(decision: dict[str, Any]) -> str:
         [
             "",
             "Configurations are selected by validation macro-F1. Test metrics are used "
-            "only for the final comparison.",
+            "only for descriptive comparison when available; N/A means not evaluated.",
             "",
             "Illustrative research gates (not operational security requirements), applied on validation: "
             "loss={loss}, macro-F1 ≥ {macro:.3f}, every class recall "
@@ -458,7 +470,7 @@ def render_markdown(decision: dict[str, Any]) -> str:
                 drop=decision["criteria"]["max_macro_f1_drop"],
             ),
             "",
-            "| lane | seeds | val macro-F1 | test macro-F1 | worst recall | model MiB | eligible |",
+            "| lane | seeds | val macro-F1 | test macro-F1 | worst val recall | model MiB | eligible |",
             "| --- | ---: | ---: | ---: | ---: | ---: | --- |",
         ]
     )
@@ -469,14 +481,15 @@ def render_markdown(decision: dict[str, Any]) -> str:
             continue
         lines.append(
             "| {lane} | {num_seeds} | {val:.4f} ± {val_std:.4f} | "
-            "{test:.4f} ± {test_std:.4f} | {worst:.4f} | {size:.4f} | {eligible} |".format(
+            "{test} | {worst} | {size:.4f} | {eligible} |".format(
                 lane=lane,
                 num_seeds=candidate["num_seeds"],
                 val=candidate["validation_macro_f1_mean"],
                 val_std=candidate["validation_macro_f1_std"],
-                test=candidate["test_macro_f1_mean"],
-                test_std=candidate["test_macro_f1_std"],
-                worst=candidate["worst_class_recall_mean"],
+                test=(f"{candidate['test_macro_f1_mean']:.4f} ± {candidate['test_macro_f1_std']:.4f}"
+                      if candidate["test_macro_f1_mean"] is not None else "N/A"),
+                worst=(f"{candidate['worst_validation_class_recall_mean']:.4f}"
+                       if candidate["worst_validation_class_recall_mean"] is not None else "N/A"),
                 size=candidate["model_mib"],
                 eligible="yes" if candidate["eligible"] else "no",
             )

@@ -22,7 +22,36 @@ automatically launch experiments or cloud resources.
 The [local readiness results](reports/local_readiness_2026_10_03/README.md) record
 the completed baseline screen, training-parity checks and CPU recovery pilots.
 
+The [60-step convergence controls](reports/convergence_2026_10_03/README.md)
+compare longer training across all four lanes, including class-recall guardrails.
+
+The [loss-function comparison](reports/loss_2026_10_05/README.md) records the four
+unweighted-CE screens and why weighted loss is retained for the next experiment.
+
+The [normalization comparison](reports/normalization_2026_10_05/README.md) records
+LayerNorm's federated improvements and the remaining class-recall trade-offs.
+
+The [completed 12-run screening report](reports/screening_2026_10_05/README.md)
+includes the final heavy-dropout comparison and the confirmation-design handoff.
+
+The [option-1 confirmation report](reports/confirmation_2026_10_05/README.md)
+compares the frozen configurations across seeds, separating reused screening
+results from the eight new runs and flagging persistent rare-class failures.
+
+The [failure-focused SHAP audit](reports/explanations_2026_10_05/README.md)
+checks all 12 frozen checkpoints, distinguishes category errors from benign
+acceptance, and records explanation uncertainty and cautious policy hypotheses.
+
+The [validation-only decision integration](reports/decision_2026_10_05/README.md)
+applies unchanged research gates to the frozen study. Use
+`python -m src.eval.research_decision --output outputs/decision --strict`;
+no test dataset is needed, and a research recommendation is not deployment approval.
+
 ## Setup
+
+The [pre-cloud checkpoint and study synthesis](reports/pre_cloud_2026_10_05/README.md)
+records the final local checks and links to the cloud-pilot handoff. This is readiness
+for a bounded pilot, not clearance for full-scale training or security deployment.
 
 Use the shared `requirements.txt` on **macOS, Linux or Windows**. It is not a
 macOS lock file: pip resolves the appropriate platform wheels. Python 3.11–3.13

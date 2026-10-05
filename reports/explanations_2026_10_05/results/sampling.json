@@ -1,0 +1,1615 @@
+{
+  "sample_seed": 4266,
+  "core_rows": [
+    249924,
+    250776,
+    246110,
+    259043,
+    258182,
+    248972,
+    240888,
+    256677,
+    280623,
+    210569,
+    199490,
+    299130,
+    54695,
+    117166,
+    59353,
+    199497,
+    265378,
+    509,
+    9520,
+    13552,
+    265859,
+    189982,
+    264632,
+    189969,
+    175614,
+    240054,
+    177043,
+    240058,
+    176898,
+    239939,
+    239877,
+    239453,
+    179356,
+    66560,
+    178917,
+    178943,
+    179301,
+    179342,
+    240440,
+    179305,
+    179034,
+    179121,
+    179123,
+    179101,
+    179113,
+    179177,
+    178977,
+    179239,
+    126397,
+    60665,
+    121147,
+    119803,
+    124386,
+    122473,
+    121712,
+    124409,
+    134992,
+    237085,
+    129208,
+    224843,
+    130450,
+    132159,
+    22384,
+    236596
+  ],
+  "rows": [
+    {
+      "row": 249924,
+      "class": "Benign",
+      "source_file": "/Users/haydn/Documents/DSA4266Proj/data/raw/CICIOT23/validation/validation.csv",
+      "raw_label": "BenignTraffic",
+      "cohort": "balanced_core",
+      "selection_reasons": []
+    },
+    {
+      "row": 250776,
+      "class": "Benign",
+      "source_file": "/Users/haydn/Documents/DSA4266Proj/data/raw/CICIOT23/validation/validation.csv",
+      "raw_label": "BenignTraffic",
+      "cohort": "balanced_core",
+      "selection_reasons": []
+    },
+    {
+      "row": 246110,
+      "class": "Benign",
+      "source_file": "/Users/haydn/Documents/DSA4266Proj/data/raw/CICIOT23/validation/validation.csv",
+      "raw_label": "BenignTraffic",
+      "cohort": "balanced_core",
+      "selection_reasons": []
+    },
+    {
+      "row": 259043,
+      "class": "Benign",
+      "source_file": "/Users/haydn/Documents/DSA4266Proj/data/raw/CICIOT23/validation/validation.csv",
+      "raw_label": "BenignTraffic",
+      "cohort": "balanced_core",
+      "selection_reasons": []
+    },
+    {
+      "row": 258182,
+      "class": "Benign",
+      "source_file": "/Users/haydn/Documents/DSA4266Proj/data/raw/CICIOT23/validation/validation.csv",
+      "raw_label": "BenignTraffic",
+      "cohort": "balanced_core",
+      "selection_reasons": []
+    },
+    {
+      "row": 248972,
+      "class": "Benign",
+      "source_file": "/Users/haydn/Documents/DSA4266Proj/data/raw/CICIOT23/validation/validation.csv",
+      "raw_label": "BenignTraffic",
+      "cohort": "balanced_core",
+      "selection_reasons": []
+    },
+    {
+      "row": 240888,
+      "class": "Benign",
+      "source_file": "/Users/haydn/Documents/DSA4266Proj/data/raw/CICIOT23/validation/validation.csv",
+      "raw_label": "BenignTraffic",
+      "cohort": "balanced_core",
+      "selection_reasons": []
+    },
+    {
+      "row": 256677,
+      "class": "Benign",
+      "source_file": "/Users/haydn/Documents/DSA4266Proj/data/raw/CICIOT23/validation/validation.csv",
+      "raw_label": "BenignTraffic",
+      "cohort": "balanced_core",
+      "selection_reasons": []
+    },
+    {
+      "row": 280623,
+      "class": "DDoS",
+      "source_file": "/Users/haydn/Documents/DSA4266Proj/data/raw/CICIOT23/validation/validation.csv",
+      "raw_label": "DDoS-UDP_Fragmentation",
+      "cohort": "balanced_core",
+      "selection_reasons": []
+    },
+    {
+      "row": 210569,
+      "class": "DDoS",
+      "source_file": "/Users/haydn/Documents/DSA4266Proj/data/raw/CICIOT23/validation/validation.csv",
+      "raw_label": "DDoS-SYN_Flood",
+      "cohort": "balanced_core",
+      "selection_reasons": []
+    },
+    {
+      "row": 199490,
+      "class": "DDoS",
+      "source_file": "/Users/haydn/Documents/DSA4266Proj/data/raw/CICIOT23/validation/validation.csv",
+      "raw_label": "DDoS-SYN_Flood",
+      "cohort": "balanced_core",
+      "selection_reasons": []
+    },
+    {
+      "row": 299130,
+      "class": "DDoS",
+      "source_file": "/Users/haydn/Documents/DSA4266Proj/data/raw/CICIOT23/validation/validation.csv",
+      "raw_label": "DDoS-ICMP_Flood",
+      "cohort": "balanced_core",
+      "selection_reasons": []
+    },
+    {
+      "row": 54695,
+      "class": "DDoS",
+      "source_file": "/Users/haydn/Documents/DSA4266Proj/data/raw/CICIOT23/validation/validation.csv",
+      "raw_label": "DDoS-PSHACK_Flood",
+      "cohort": "balanced_core",
+      "selection_reasons": []
+    },
+    {
+      "row": 117166,
+      "class": "DDoS",
+      "source_file": "/Users/haydn/Documents/DSA4266Proj/data/raw/CICIOT23/validation/validation.csv",
+      "raw_label": "DDoS-UDP_Flood",
+      "cohort": "balanced_core",
+      "selection_reasons": []
+    },
+    {
+      "row": 59353,
+      "class": "DDoS",
+      "source_file": "/Users/haydn/Documents/DSA4266Proj/data/raw/CICIOT23/validation/validation.csv",
+      "raw_label": "DDoS-PSHACK_Flood",
+      "cohort": "balanced_core",
+      "selection_reasons": []
+    },
+    {
+      "row": 199497,
+      "class": "DDoS",
+      "source_file": "/Users/haydn/Documents/DSA4266Proj/data/raw/CICIOT23/validation/validation.csv",
+      "raw_label": "DDoS-SYN_Flood",
+      "cohort": "balanced_core",
+      "selection_reasons": []
+    },
+    {
+      "row": 265378,
+      "class": "DoS",
+      "source_file": "/Users/haydn/Documents/DSA4266Proj/data/raw/CICIOT23/validation/validation.csv",
+      "raw_label": "DoS-TCP_Flood",
+      "cohort": "balanced_core",
+      "selection_reasons": []
+    },
+    {
+      "row": 509,
+      "class": "DoS",
+      "source_file": "/Users/haydn/Documents/DSA4266Proj/data/raw/CICIOT23/validation/validation.csv",
+      "raw_label": "DoS-SYN_Flood",
+      "cohort": "balanced_core",
+      "selection_reasons": []
+    },
+    {
+      "row": 9520,
+      "class": "DoS",
+      "source_file": "/Users/haydn/Documents/DSA4266Proj/data/raw/CICIOT23/validation/validation.csv",
+      "raw_label": "DoS-SYN_Flood",
+      "cohort": "balanced_core",
+      "selection_reasons": []
+    },
+    {
+      "row": 13552,
+      "class": "DoS",
+      "source_file": "/Users/haydn/Documents/DSA4266Proj/data/raw/CICIOT23/validation/validation.csv",
+      "raw_label": "DoS-SYN_Flood",
+      "cohort": "balanced_core",
+      "selection_reasons": []
+    },
+    {
+      "row": 265859,
+      "class": "DoS",
+      "source_file": "/Users/haydn/Documents/DSA4266Proj/data/raw/CICIOT23/validation/validation.csv",
+      "raw_label": "DoS-TCP_Flood",
+      "cohort": "balanced_core",
+      "selection_reasons": []
+    },
+    {
+      "row": 189982,
+      "class": "DoS",
+      "source_file": "/Users/haydn/Documents/DSA4266Proj/data/raw/CICIOT23/validation/validation.csv",
+      "raw_label": "DoS-UDP_Flood",
+      "cohort": "balanced_core",
+      "selection_reasons": []
+    },
+    {
+      "row": 264632,
+      "class": "DoS",
+      "source_file": "/Users/haydn/Documents/DSA4266Proj/data/raw/CICIOT23/validation/validation.csv",
+      "raw_label": "DoS-TCP_Flood",
+      "cohort": "balanced_core",
+      "selection_reasons": []
+    },
+    {
+      "row": 189969,
+      "class": "DoS",
+      "source_file": "/Users/haydn/Documents/DSA4266Proj/data/raw/CICIOT23/validation/validation.csv",
+      "raw_label": "DoS-UDP_Flood",
+      "cohort": "balanced_core",
+      "selection_reasons": []
+    },
+    {
+      "row": 175614,
+      "class": "Recon",
+      "source_file": "/Users/haydn/Documents/DSA4266Proj/data/raw/CICIOT23/validation/validation.csv",
+      "raw_label": "Recon-HostDiscovery",
+      "cohort": "balanced_core",
+      "selection_reasons": []
+    },
+    {
+      "row": 240054,
+      "class": "Recon",
+      "source_file": "/Users/haydn/Documents/DSA4266Proj/data/raw/CICIOT23/validation/validation.csv",
+      "raw_label": "Recon-OSScan",
+      "cohort": "balanced_core",
+      "selection_reasons": []
+    },
+    {
+      "row": 177043,
+      "class": "Recon",
+      "source_file": "/Users/haydn/Documents/DSA4266Proj/data/raw/CICIOT23/validation/validation.csv",
+      "raw_label": "Recon-HostDiscovery",
+      "cohort": "balanced_core",
+      "selection_reasons": []
+    },
+    {
+      "row": 240058,
+      "class": "Recon",
+      "source_file": "/Users/haydn/Documents/DSA4266Proj/data/raw/CICIOT23/validation/validation.csv",
+      "raw_label": "Recon-OSScan",
+      "cohort": "balanced_core",
+      "selection_reasons": []
+    },
+    {
+      "row": 176898,
+      "class": "Recon",
+      "source_file": "/Users/haydn/Documents/DSA4266Proj/data/raw/CICIOT23/validation/validation.csv",
+      "raw_label": "Recon-HostDiscovery",
+      "cohort": "balanced_core",
+      "selection_reasons": []
+    },
+    {
+      "row": 239939,
+      "class": "Recon",
+      "source_file": "/Users/haydn/Documents/DSA4266Proj/data/raw/CICIOT23/validation/validation.csv",
+      "raw_label": "Recon-OSScan",
+      "cohort": "balanced_core",
+      "selection_reasons": []
+    },
+    {
+      "row": 239877,
+      "class": "Recon",
+      "source_file": "/Users/haydn/Documents/DSA4266Proj/data/raw/CICIOT23/validation/validation.csv",
+      "raw_label": "Recon-OSScan",
+      "cohort": "balanced_core",
+      "selection_reasons": []
+    },
+    {
+      "row": 239453,
+      "class": "Recon",
+      "source_file": "/Users/haydn/Documents/DSA4266Proj/data/raw/CICIOT23/validation/validation.csv",
+      "raw_label": "Recon-OSScan",
+      "cohort": "balanced_core",
+      "selection_reasons": []
+    },
+    {
+      "row": 179356,
+      "class": "Web-based",
+      "source_file": "/Users/haydn/Documents/DSA4266Proj/data/raw/CICIOT23/validation/validation.csv",
+      "raw_label": "CommandInjection",
+      "cohort": "balanced_core",
+      "selection_reasons": []
+    },
+    {
+      "row": 66560,
+      "class": "Web-based",
+      "source_file": "/Users/haydn/Documents/DSA4266Proj/data/raw/CICIOT23/validation/validation.csv",
+      "raw_label": "Uploading_Attack",
+      "cohort": "balanced_core",
+      "selection_reasons": []
+    },
+    {
+      "row": 178917,
+      "class": "Web-based",
+      "source_file": "/Users/haydn/Documents/DSA4266Proj/data/raw/CICIOT23/validation/validation.csv",
+      "raw_label": "BrowserHijacking",
+      "cohort": "balanced_core",
+      "selection_reasons": []
+    },
+    {
+      "row": 178943,
+      "class": "Web-based",
+      "source_file": "/Users/haydn/Documents/DSA4266Proj/data/raw/CICIOT23/validation/validation.csv",
+      "raw_label": "BrowserHijacking",
+      "cohort": "balanced_core",
+      "selection_reasons": []
+    },
+    {
+      "row": 179301,
+      "class": "Web-based",
+      "source_file": "/Users/haydn/Documents/DSA4266Proj/data/raw/CICIOT23/validation/validation.csv",
+      "raw_label": "CommandInjection",
+      "cohort": "balanced_core",
+      "selection_reasons": []
+    },
+    {
+      "row": 179342,
+      "class": "Web-based",
+      "source_file": "/Users/haydn/Documents/DSA4266Proj/data/raw/CICIOT23/validation/validation.csv",
+      "raw_label": "CommandInjection",
+      "cohort": "balanced_core",
+      "selection_reasons": []
+    },
+    {
+      "row": 240440,
+      "class": "Web-based",
+      "source_file": "/Users/haydn/Documents/DSA4266Proj/data/raw/CICIOT23/validation/validation.csv",
+      "raw_label": "Backdoor_Malware",
+      "cohort": "balanced_core",
+      "selection_reasons": []
+    },
+    {
+      "row": 179305,
+      "class": "Web-based",
+      "source_file": "/Users/haydn/Documents/DSA4266Proj/data/raw/CICIOT23/validation/validation.csv",
+      "raw_label": "CommandInjection",
+      "cohort": "balanced_core",
+      "selection_reasons": []
+    },
+    {
+      "row": 179034,
+      "class": "Brute Force",
+      "source_file": "/Users/haydn/Documents/DSA4266Proj/data/raw/CICIOT23/validation/validation.csv",
+      "raw_label": "DictionaryBruteForce",
+      "cohort": "balanced_core",
+      "selection_reasons": []
+    },
+    {
+      "row": 179121,
+      "class": "Brute Force",
+      "source_file": "/Users/haydn/Documents/DSA4266Proj/data/raw/CICIOT23/validation/validation.csv",
+      "raw_label": "DictionaryBruteForce",
+      "cohort": "balanced_core",
+      "selection_reasons": []
+    },
+    {
+      "row": 179123,
+      "class": "Brute Force",
+      "source_file": "/Users/haydn/Documents/DSA4266Proj/data/raw/CICIOT23/validation/validation.csv",
+      "raw_label": "DictionaryBruteForce",
+      "cohort": "balanced_core",
+      "selection_reasons": []
+    },
+    {
+      "row": 179101,
+      "class": "Brute Force",
+      "source_file": "/Users/haydn/Documents/DSA4266Proj/data/raw/CICIOT23/validation/validation.csv",
+      "raw_label": "DictionaryBruteForce",
+      "cohort": "balanced_core",
+      "selection_reasons": []
+    },
+    {
+      "row": 179113,
+      "class": "Brute Force",
+      "source_file": "/Users/haydn/Documents/DSA4266Proj/data/raw/CICIOT23/validation/validation.csv",
+      "raw_label": "DictionaryBruteForce",
+      "cohort": "balanced_core",
+      "selection_reasons": []
+    },
+    {
+      "row": 179177,
+      "class": "Brute Force",
+      "source_file": "/Users/haydn/Documents/DSA4266Proj/data/raw/CICIOT23/validation/validation.csv",
+      "raw_label": "DictionaryBruteForce",
+      "cohort": "balanced_core",
+      "selection_reasons": []
+    },
+    {
+      "row": 178977,
+      "class": "Brute Force",
+      "source_file": "/Users/haydn/Documents/DSA4266Proj/data/raw/CICIOT23/validation/validation.csv",
+      "raw_label": "DictionaryBruteForce",
+      "cohort": "balanced_core",
+      "selection_reasons": []
+    },
+    {
+      "row": 179239,
+      "class": "Brute Force",
+      "source_file": "/Users/haydn/Documents/DSA4266Proj/data/raw/CICIOT23/validation/validation.csv",
+      "raw_label": "DictionaryBruteForce",
+      "cohort": "balanced_core",
+      "selection_reasons": []
+    },
+    {
+      "row": 126397,
+      "class": "Spoofing",
+      "source_file": "/Users/haydn/Documents/DSA4266Proj/data/raw/CICIOT23/validation/validation.csv",
+      "raw_label": "MITM-ArpSpoofing",
+      "cohort": "balanced_core",
+      "selection_reasons": []
+    },
+    {
+      "row": 60665,
+      "class": "Spoofing",
+      "source_file": "/Users/haydn/Documents/DSA4266Proj/data/raw/CICIOT23/validation/validation.csv",
+      "raw_label": "DNS_Spoofing",
+      "cohort": "balanced_core",
+      "selection_reasons": []
+    },
+    {
+      "row": 121147,
+      "class": "Spoofing",
+      "source_file": "/Users/haydn/Documents/DSA4266Proj/data/raw/CICIOT23/validation/validation.csv",
+      "raw_label": "MITM-ArpSpoofing",
+      "cohort": "balanced_core",
+      "selection_reasons": []
+    },
+    {
+      "row": 119803,
+      "class": "Spoofing",
+      "source_file": "/Users/haydn/Documents/DSA4266Proj/data/raw/CICIOT23/validation/validation.csv",
+      "raw_label": "MITM-ArpSpoofing",
+      "cohort": "balanced_core",
+      "selection_reasons": []
+    },
+    {
+      "row": 124386,
+      "class": "Spoofing",
+      "source_file": "/Users/haydn/Documents/DSA4266Proj/data/raw/CICIOT23/validation/validation.csv",
+      "raw_label": "MITM-ArpSpoofing",
+      "cohort": "balanced_core",
+      "selection_reasons": []
+    },
+    {
+      "row": 122473,
+      "class": "Spoofing",
+      "source_file": "/Users/haydn/Documents/DSA4266Proj/data/raw/CICIOT23/validation/validation.csv",
+      "raw_label": "MITM-ArpSpoofing",
+      "cohort": "balanced_core",
+      "selection_reasons": []
+    },
+    {
+      "row": 121712,
+      "class": "Spoofing",
+      "source_file": "/Users/haydn/Documents/DSA4266Proj/data/raw/CICIOT23/validation/validation.csv",
+      "raw_label": "MITM-ArpSpoofing",
+      "cohort": "balanced_core",
+      "selection_reasons": []
+    },
+    {
+      "row": 124409,
+      "class": "Spoofing",
+      "source_file": "/Users/haydn/Documents/DSA4266Proj/data/raw/CICIOT23/validation/validation.csv",
+      "raw_label": "MITM-ArpSpoofing",
+      "cohort": "balanced_core",
+      "selection_reasons": []
+    },
+    {
+      "row": 134992,
+      "class": "Mirai",
+      "source_file": "/Users/haydn/Documents/DSA4266Proj/data/raw/CICIOT23/validation/validation.csv",
+      "raw_label": "Mirai-udpplain",
+      "cohort": "balanced_core",
+      "selection_reasons": []
+    },
+    {
+      "row": 237085,
+      "class": "Mirai",
+      "source_file": "/Users/haydn/Documents/DSA4266Proj/data/raw/CICIOT23/validation/validation.csv",
+      "raw_label": "Mirai-greip_flood",
+      "cohort": "balanced_core",
+      "selection_reasons": []
+    },
+    {
+      "row": 129208,
+      "class": "Mirai",
+      "source_file": "/Users/haydn/Documents/DSA4266Proj/data/raw/CICIOT23/validation/validation.csv",
+      "raw_label": "Mirai-udpplain",
+      "cohort": "balanced_core",
+      "selection_reasons": []
+    },
+    {
+      "row": 224843,
+      "class": "Mirai",
+      "source_file": "/Users/haydn/Documents/DSA4266Proj/data/raw/CICIOT23/validation/validation.csv",
+      "raw_label": "Mirai-greip_flood",
+      "cohort": "balanced_core",
+      "selection_reasons": []
+    },
+    {
+      "row": 130450,
+      "class": "Mirai",
+      "source_file": "/Users/haydn/Documents/DSA4266Proj/data/raw/CICIOT23/validation/validation.csv",
+      "raw_label": "Mirai-udpplain",
+      "cohort": "balanced_core",
+      "selection_reasons": []
+    },
+    {
+      "row": 132159,
+      "class": "Mirai",
+      "source_file": "/Users/haydn/Documents/DSA4266Proj/data/raw/CICIOT23/validation/validation.csv",
+      "raw_label": "Mirai-udpplain",
+      "cohort": "balanced_core",
+      "selection_reasons": []
+    },
+    {
+      "row": 22384,
+      "class": "Mirai",
+      "source_file": "/Users/haydn/Documents/DSA4266Proj/data/raw/CICIOT23/validation/validation.csv",
+      "raw_label": "Mirai-greeth_flood",
+      "cohort": "balanced_core",
+      "selection_reasons": []
+    },
+    {
+      "row": 236596,
+      "class": "Mirai",
+      "source_file": "/Users/haydn/Documents/DSA4266Proj/data/raw/CICIOT23/validation/validation.csv",
+      "raw_label": "Mirai-greip_flood",
+      "cohort": "balanced_core",
+      "selection_reasons": []
+    },
+    {
+      "row": 1954,
+      "class": "DoS",
+      "source_file": "/Users/haydn/Documents/DSA4266Proj/data/raw/CICIOT23/validation/validation.csv",
+      "raw_label": "DoS-SYN_Flood",
+      "cohort": "error_supplement",
+      "selection_reasons": [
+        "heavy-seed-2:miss_DoS"
+      ]
+    },
+    {
+      "row": 4545,
+      "class": "DoS",
+      "source_file": "/Users/haydn/Documents/DSA4266Proj/data/raw/CICIOT23/validation/validation.csv",
+      "raw_label": "DoS-SYN_Flood",
+      "cohort": "error_supplement",
+      "selection_reasons": [
+        "iid-seed-0:miss_DoS"
+      ]
+    },
+    {
+      "row": 8580,
+      "class": "DoS",
+      "source_file": "/Users/haydn/Documents/DSA4266Proj/data/raw/CICIOT23/validation/validation.csv",
+      "raw_label": "DoS-SYN_Flood",
+      "cohort": "error_supplement",
+      "selection_reasons": [
+        "iid-seed-1:miss_DoS"
+      ]
+    },
+    {
+      "row": 9933,
+      "class": "DoS",
+      "source_file": "/Users/haydn/Documents/DSA4266Proj/data/raw/CICIOT23/validation/validation.csv",
+      "raw_label": "DoS-SYN_Flood",
+      "cohort": "error_supplement",
+      "selection_reasons": [
+        "light-seed-0:miss_DoS"
+      ]
+    },
+    {
+      "row": 11919,
+      "class": "DoS",
+      "source_file": "/Users/haydn/Documents/DSA4266Proj/data/raw/CICIOT23/validation/validation.csv",
+      "raw_label": "DoS-SYN_Flood",
+      "cohort": "error_supplement",
+      "selection_reasons": [
+        "heavy-seed-1:miss_DoS"
+      ]
+    },
+    {
+      "row": 14720,
+      "class": "DoS",
+      "source_file": "/Users/haydn/Documents/DSA4266Proj/data/raw/CICIOT23/validation/validation.csv",
+      "raw_label": "DoS-SYN_Flood",
+      "cohort": "error_supplement",
+      "selection_reasons": [
+        "iid-seed-2:miss_DoS"
+      ]
+    },
+    {
+      "row": 17717,
+      "class": "DoS",
+      "source_file": "/Users/haydn/Documents/DSA4266Proj/data/raw/CICIOT23/validation/validation.csv",
+      "raw_label": "DoS-SYN_Flood",
+      "cohort": "error_supplement",
+      "selection_reasons": [
+        "light-seed-1:miss_DoS"
+      ]
+    },
+    {
+      "row": 23076,
+      "class": "Mirai",
+      "source_file": "/Users/haydn/Documents/DSA4266Proj/data/raw/CICIOT23/validation/validation.csv",
+      "raw_label": "Mirai-greeth_flood",
+      "cohort": "error_supplement",
+      "selection_reasons": [
+        "light-seed-2:correct"
+      ]
+    },
+    {
+      "row": 34969,
+      "class": "Mirai",
+      "source_file": "/Users/haydn/Documents/DSA4266Proj/data/raw/CICIOT23/validation/validation.csv",
+      "raw_label": "Mirai-greeth_flood",
+      "cohort": "error_supplement",
+      "selection_reasons": [
+        "heavy-seed-0:correct"
+      ]
+    },
+    {
+      "row": 40413,
+      "class": "Web-based",
+      "source_file": "/Users/haydn/Documents/DSA4266Proj/data/raw/CICIOT23/validation/validation.csv",
+      "raw_label": "SqlInjection",
+      "cohort": "error_supplement",
+      "selection_reasons": [
+        "iid-seed-0:miss_Web-based"
+      ]
+    },
+    {
+      "row": 40415,
+      "class": "Web-based",
+      "source_file": "/Users/haydn/Documents/DSA4266Proj/data/raw/CICIOT23/validation/validation.csv",
+      "raw_label": "SqlInjection",
+      "cohort": "error_supplement",
+      "selection_reasons": [
+        "light-seed-0:miss_Web-based"
+      ]
+    },
+    {
+      "row": 40421,
+      "class": "Web-based",
+      "source_file": "/Users/haydn/Documents/DSA4266Proj/data/raw/CICIOT23/validation/validation.csv",
+      "raw_label": "SqlInjection",
+      "cohort": "error_supplement",
+      "selection_reasons": [
+        "iid-seed-2:miss_Web-based"
+      ]
+    },
+    {
+      "row": 40432,
+      "class": "Web-based",
+      "source_file": "/Users/haydn/Documents/DSA4266Proj/data/raw/CICIOT23/validation/validation.csv",
+      "raw_label": "SqlInjection",
+      "cohort": "error_supplement",
+      "selection_reasons": [
+        "heavy-seed-1:miss_Web-based"
+      ]
+    },
+    {
+      "row": 50761,
+      "class": "DDoS",
+      "source_file": "/Users/haydn/Documents/DSA4266Proj/data/raw/CICIOT23/validation/validation.csv",
+      "raw_label": "DDoS-PSHACK_Flood",
+      "cohort": "error_supplement",
+      "selection_reasons": [
+        "heavy-seed-2:correct"
+      ]
+    },
+    {
+      "row": 68272,
+      "class": "DDoS",
+      "source_file": "/Users/haydn/Documents/DSA4266Proj/data/raw/CICIOT23/validation/validation.csv",
+      "raw_label": "DDoS-SynonymousIP_Flood",
+      "cohort": "error_supplement",
+      "selection_reasons": [
+        "light-seed-0:correct"
+      ]
+    },
+    {
+      "row": 91744,
+      "class": "DDoS",
+      "source_file": "/Users/haydn/Documents/DSA4266Proj/data/raw/CICIOT23/validation/validation.csv",
+      "raw_label": "DDoS-ICMP_Fragmentation",
+      "cohort": "error_supplement",
+      "selection_reasons": [
+        "iid-seed-0:correct"
+      ]
+    },
+    {
+      "row": 109411,
+      "class": "DDoS",
+      "source_file": "/Users/haydn/Documents/DSA4266Proj/data/raw/CICIOT23/validation/validation.csv",
+      "raw_label": "DDoS-UDP_Flood",
+      "cohort": "error_supplement",
+      "selection_reasons": [
+        "light-seed-1:correct"
+      ]
+    },
+    {
+      "row": 110454,
+      "class": "DDoS",
+      "source_file": "/Users/haydn/Documents/DSA4266Proj/data/raw/CICIOT23/validation/validation.csv",
+      "raw_label": "DDoS-UDP_Flood",
+      "cohort": "error_supplement",
+      "selection_reasons": [
+        "dirichlet-seed-2:correct"
+      ]
+    },
+    {
+      "row": 111447,
+      "class": "DDoS",
+      "source_file": "/Users/haydn/Documents/DSA4266Proj/data/raw/CICIOT23/validation/validation.csv",
+      "raw_label": "DDoS-UDP_Flood",
+      "cohort": "error_supplement",
+      "selection_reasons": [
+        "dirichlet-seed-0:correct"
+      ]
+    },
+    {
+      "row": 142573,
+      "class": "Mirai",
+      "source_file": "/Users/haydn/Documents/DSA4266Proj/data/raw/CICIOT23/validation/validation.csv",
+      "raw_label": "Mirai-udpplain",
+      "cohort": "error_supplement",
+      "selection_reasons": [
+        "heavy-seed-1:correct"
+      ]
+    },
+    {
+      "row": 178825,
+      "class": "Web-based",
+      "source_file": "/Users/haydn/Documents/DSA4266Proj/data/raw/CICIOT23/validation/validation.csv",
+      "raw_label": "BrowserHijacking",
+      "cohort": "error_supplement",
+      "selection_reasons": [
+        "light-seed-2:miss_Web-based"
+      ]
+    },
+    {
+      "row": 178837,
+      "class": "Web-based",
+      "source_file": "/Users/haydn/Documents/DSA4266Proj/data/raw/CICIOT23/validation/validation.csv",
+      "raw_label": "BrowserHijacking",
+      "cohort": "error_supplement",
+      "selection_reasons": [
+        "heavy-seed-0:miss_Web-based"
+      ]
+    },
+    {
+      "row": 178866,
+      "class": "Web-based",
+      "source_file": "/Users/haydn/Documents/DSA4266Proj/data/raw/CICIOT23/validation/validation.csv",
+      "raw_label": "BrowserHijacking",
+      "cohort": "error_supplement",
+      "selection_reasons": [
+        "heavy-seed-2:miss_Web-based"
+      ]
+    },
+    {
+      "row": 178967,
+      "class": "Brute Force",
+      "source_file": "/Users/haydn/Documents/DSA4266Proj/data/raw/CICIOT23/validation/validation.csv",
+      "raw_label": "DictionaryBruteForce",
+      "cohort": "error_supplement",
+      "selection_reasons": [
+        "iid-seed-2:miss_Brute Force"
+      ]
+    },
+    {
+      "row": 179007,
+      "class": "Brute Force",
+      "source_file": "/Users/haydn/Documents/DSA4266Proj/data/raw/CICIOT23/validation/validation.csv",
+      "raw_label": "DictionaryBruteForce",
+      "cohort": "error_supplement",
+      "selection_reasons": [
+        "iid-seed-1:miss_Brute Force"
+      ]
+    },
+    {
+      "row": 179010,
+      "class": "Brute Force",
+      "source_file": "/Users/haydn/Documents/DSA4266Proj/data/raw/CICIOT23/validation/validation.csv",
+      "raw_label": "DictionaryBruteForce",
+      "cohort": "error_supplement",
+      "selection_reasons": [
+        "dirichlet-seed-1:miss_Brute Force"
+      ]
+    },
+    {
+      "row": 179012,
+      "class": "Brute Force",
+      "source_file": "/Users/haydn/Documents/DSA4266Proj/data/raw/CICIOT23/validation/validation.csv",
+      "raw_label": "DictionaryBruteForce",
+      "cohort": "error_supplement",
+      "selection_reasons": [
+        "dirichlet-seed-2:miss_Brute Force"
+      ]
+    },
+    {
+      "row": 179041,
+      "class": "Brute Force",
+      "source_file": "/Users/haydn/Documents/DSA4266Proj/data/raw/CICIOT23/validation/validation.csv",
+      "raw_label": "DictionaryBruteForce",
+      "cohort": "error_supplement",
+      "selection_reasons": [
+        "light-seed-2:miss_Brute Force"
+      ]
+    },
+    {
+      "row": 179050,
+      "class": "Brute Force",
+      "source_file": "/Users/haydn/Documents/DSA4266Proj/data/raw/CICIOT23/validation/validation.csv",
+      "raw_label": "DictionaryBruteForce",
+      "cohort": "error_supplement",
+      "selection_reasons": [
+        "dirichlet-seed-0:miss_Brute Force"
+      ]
+    },
+    {
+      "row": 179089,
+      "class": "Brute Force",
+      "source_file": "/Users/haydn/Documents/DSA4266Proj/data/raw/CICIOT23/validation/validation.csv",
+      "raw_label": "DictionaryBruteForce",
+      "cohort": "error_supplement",
+      "selection_reasons": [
+        "iid-seed-0:miss_Brute Force"
+      ]
+    },
+    {
+      "row": 179165,
+      "class": "Brute Force",
+      "source_file": "/Users/haydn/Documents/DSA4266Proj/data/raw/CICIOT23/validation/validation.csv",
+      "raw_label": "DictionaryBruteForce",
+      "cohort": "error_supplement",
+      "selection_reasons": [
+        "light-seed-0:miss_Brute Force"
+      ]
+    },
+    {
+      "row": 179176,
+      "class": "Brute Force",
+      "source_file": "/Users/haydn/Documents/DSA4266Proj/data/raw/CICIOT23/validation/validation.csv",
+      "raw_label": "DictionaryBruteForce",
+      "cohort": "error_supplement",
+      "selection_reasons": [
+        "heavy-seed-1:miss_Brute Force"
+      ]
+    },
+    {
+      "row": 179182,
+      "class": "Brute Force",
+      "source_file": "/Users/haydn/Documents/DSA4266Proj/data/raw/CICIOT23/validation/validation.csv",
+      "raw_label": "DictionaryBruteForce",
+      "cohort": "error_supplement",
+      "selection_reasons": [
+        "light-seed-1:miss_Brute Force"
+      ]
+    },
+    {
+      "row": 179190,
+      "class": "Brute Force",
+      "source_file": "/Users/haydn/Documents/DSA4266Proj/data/raw/CICIOT23/validation/validation.csv",
+      "raw_label": "DictionaryBruteForce",
+      "cohort": "error_supplement",
+      "selection_reasons": [
+        "heavy-seed-2:miss_Brute Force"
+      ]
+    },
+    {
+      "row": 179210,
+      "class": "Brute Force",
+      "source_file": "/Users/haydn/Documents/DSA4266Proj/data/raw/CICIOT23/validation/validation.csv",
+      "raw_label": "DictionaryBruteForce",
+      "cohort": "error_supplement",
+      "selection_reasons": [
+        "heavy-seed-0:miss_Brute Force"
+      ]
+    },
+    {
+      "row": 179304,
+      "class": "Web-based",
+      "source_file": "/Users/haydn/Documents/DSA4266Proj/data/raw/CICIOT23/validation/validation.csv",
+      "raw_label": "CommandInjection",
+      "cohort": "error_supplement",
+      "selection_reasons": [
+        "dirichlet-seed-1:miss_Web-based"
+      ]
+    },
+    {
+      "row": 179320,
+      "class": "Web-based",
+      "source_file": "/Users/haydn/Documents/DSA4266Proj/data/raw/CICIOT23/validation/validation.csv",
+      "raw_label": "CommandInjection",
+      "cohort": "error_supplement",
+      "selection_reasons": [
+        "dirichlet-seed-2:miss_Web-based"
+      ]
+    },
+    {
+      "row": 179362,
+      "class": "Web-based",
+      "source_file": "/Users/haydn/Documents/DSA4266Proj/data/raw/CICIOT23/validation/validation.csv",
+      "raw_label": "CommandInjection",
+      "cohort": "error_supplement",
+      "selection_reasons": [
+        "dirichlet-seed-0:miss_Web-based"
+      ]
+    },
+    {
+      "row": 179448,
+      "class": "Web-based",
+      "source_file": "/Users/haydn/Documents/DSA4266Proj/data/raw/CICIOT23/validation/validation.csv",
+      "raw_label": "XSS",
+      "cohort": "error_supplement",
+      "selection_reasons": [
+        "light-seed-1:miss_Web-based"
+      ]
+    },
+    {
+      "row": 180977,
+      "class": "DoS",
+      "source_file": "/Users/haydn/Documents/DSA4266Proj/data/raw/CICIOT23/validation/validation.csv",
+      "raw_label": "DoS-UDP_Flood",
+      "cohort": "error_supplement",
+      "selection_reasons": [
+        "light-seed-2:miss_DoS"
+      ]
+    },
+    {
+      "row": 182626,
+      "class": "DoS",
+      "source_file": "/Users/haydn/Documents/DSA4266Proj/data/raw/CICIOT23/validation/validation.csv",
+      "raw_label": "DoS-UDP_Flood",
+      "cohort": "error_supplement",
+      "selection_reasons": [
+        "dirichlet-seed-1:miss_DoS"
+      ]
+    },
+    {
+      "row": 185467,
+      "class": "DoS",
+      "source_file": "/Users/haydn/Documents/DSA4266Proj/data/raw/CICIOT23/validation/validation.csv",
+      "raw_label": "DoS-UDP_Flood",
+      "cohort": "error_supplement",
+      "selection_reasons": [
+        "heavy-seed-0:miss_DoS"
+      ]
+    },
+    {
+      "row": 197808,
+      "class": "DoS",
+      "source_file": "/Users/haydn/Documents/DSA4266Proj/data/raw/CICIOT23/validation/validation.csv",
+      "raw_label": "DoS-UDP_Flood",
+      "cohort": "error_supplement",
+      "selection_reasons": [
+        "dirichlet-seed-0:miss_DoS"
+      ]
+    },
+    {
+      "row": 226731,
+      "class": "Mirai",
+      "source_file": "/Users/haydn/Documents/DSA4266Proj/data/raw/CICIOT23/validation/validation.csv",
+      "raw_label": "Mirai-greip_flood",
+      "cohort": "error_supplement",
+      "selection_reasons": [
+        "dirichlet-seed-1:correct"
+      ]
+    },
+    {
+      "row": 240493,
+      "class": "Web-based",
+      "source_file": "/Users/haydn/Documents/DSA4266Proj/data/raw/CICIOT23/validation/validation.csv",
+      "raw_label": "Backdoor_Malware",
+      "cohort": "error_supplement",
+      "selection_reasons": [
+        "iid-seed-1:miss_Web-based"
+      ]
+    },
+    {
+      "row": 241382,
+      "class": "Benign",
+      "source_file": "/Users/haydn/Documents/DSA4266Proj/data/raw/CICIOT23/validation/validation.csv",
+      "raw_label": "BenignTraffic",
+      "cohort": "error_supplement",
+      "selection_reasons": [
+        "dirichlet-seed-1:false_alert"
+      ]
+    },
+    {
+      "row": 244150,
+      "class": "Benign",
+      "source_file": "/Users/haydn/Documents/DSA4266Proj/data/raw/CICIOT23/validation/validation.csv",
+      "raw_label": "BenignTraffic",
+      "cohort": "error_supplement",
+      "selection_reasons": [
+        "light-seed-1:false_alert"
+      ]
+    },
+    {
+      "row": 245020,
+      "class": "Benign",
+      "source_file": "/Users/haydn/Documents/DSA4266Proj/data/raw/CICIOT23/validation/validation.csv",
+      "raw_label": "BenignTraffic",
+      "cohort": "error_supplement",
+      "selection_reasons": [
+        "iid-seed-0:false_alert"
+      ]
+    },
+    {
+      "row": 245395,
+      "class": "Benign",
+      "source_file": "/Users/haydn/Documents/DSA4266Proj/data/raw/CICIOT23/validation/validation.csv",
+      "raw_label": "BenignTraffic",
+      "cohort": "error_supplement",
+      "selection_reasons": [
+        "light-seed-2:false_alert"
+      ]
+    },
+    {
+      "row": 245733,
+      "class": "Benign",
+      "source_file": "/Users/haydn/Documents/DSA4266Proj/data/raw/CICIOT23/validation/validation.csv",
+      "raw_label": "BenignTraffic",
+      "cohort": "error_supplement",
+      "selection_reasons": [
+        "dirichlet-seed-0:false_alert"
+      ]
+    },
+    {
+      "row": 247654,
+      "class": "Benign",
+      "source_file": "/Users/haydn/Documents/DSA4266Proj/data/raw/CICIOT23/validation/validation.csv",
+      "raw_label": "BenignTraffic",
+      "cohort": "error_supplement",
+      "selection_reasons": [
+        "iid-seed-2:false_alert"
+      ]
+    },
+    {
+      "row": 250357,
+      "class": "Benign",
+      "source_file": "/Users/haydn/Documents/DSA4266Proj/data/raw/CICIOT23/validation/validation.csv",
+      "raw_label": "BenignTraffic",
+      "cohort": "error_supplement",
+      "selection_reasons": [
+        "heavy-seed-0:false_alert"
+      ]
+    },
+    {
+      "row": 251590,
+      "class": "Benign",
+      "source_file": "/Users/haydn/Documents/DSA4266Proj/data/raw/CICIOT23/validation/validation.csv",
+      "raw_label": "BenignTraffic",
+      "cohort": "error_supplement",
+      "selection_reasons": [
+        "heavy-seed-1:false_alert"
+      ]
+    },
+    {
+      "row": 255039,
+      "class": "Benign",
+      "source_file": "/Users/haydn/Documents/DSA4266Proj/data/raw/CICIOT23/validation/validation.csv",
+      "raw_label": "BenignTraffic",
+      "cohort": "error_supplement",
+      "selection_reasons": [
+        "iid-seed-1:false_alert"
+      ]
+    },
+    {
+      "row": 258288,
+      "class": "Benign",
+      "source_file": "/Users/haydn/Documents/DSA4266Proj/data/raw/CICIOT23/validation/validation.csv",
+      "raw_label": "BenignTraffic",
+      "cohort": "error_supplement",
+      "selection_reasons": [
+        "heavy-seed-2:false_alert"
+      ]
+    },
+    {
+      "row": 258830,
+      "class": "Benign",
+      "source_file": "/Users/haydn/Documents/DSA4266Proj/data/raw/CICIOT23/validation/validation.csv",
+      "raw_label": "BenignTraffic",
+      "cohort": "error_supplement",
+      "selection_reasons": [
+        "dirichlet-seed-2:false_alert"
+      ]
+    },
+    {
+      "row": 258857,
+      "class": "Benign",
+      "source_file": "/Users/haydn/Documents/DSA4266Proj/data/raw/CICIOT23/validation/validation.csv",
+      "raw_label": "BenignTraffic",
+      "cohort": "error_supplement",
+      "selection_reasons": [
+        "light-seed-0:false_alert"
+      ]
+    },
+    {
+      "row": 268329,
+      "class": "DoS",
+      "source_file": "/Users/haydn/Documents/DSA4266Proj/data/raw/CICIOT23/validation/validation.csv",
+      "raw_label": "DoS-TCP_Flood",
+      "cohort": "error_supplement",
+      "selection_reasons": [
+        "iid-seed-2:correct"
+      ]
+    },
+    {
+      "row": 271069,
+      "class": "DoS",
+      "source_file": "/Users/haydn/Documents/DSA4266Proj/data/raw/CICIOT23/validation/validation.csv",
+      "raw_label": "DoS-TCP_Flood",
+      "cohort": "error_supplement",
+      "selection_reasons": [
+        "dirichlet-seed-2:miss_DoS"
+      ]
+    },
+    {
+      "row": 278691,
+      "class": "DoS",
+      "source_file": "/Users/haydn/Documents/DSA4266Proj/data/raw/CICIOT23/validation/validation.csv",
+      "raw_label": "DoS-TCP_Flood",
+      "cohort": "error_supplement",
+      "selection_reasons": [
+        "iid-seed-1:correct"
+      ]
+    }
+  ],
+  "background_train_rows": [
+    245396,
+    208705,
+    410992,
+    68119,
+    8554,
+    358541,
+    349478,
+    213641,
+    421529,
+    411313,
+    423457,
+    275546,
+    197779,
+    51608,
+    90423,
+    351561,
+    42873,
+    292443,
+    254387,
+    60699,
+    292658,
+    162581,
+    438691,
+    18621,
+    193515,
+    144391,
+    102584,
+    230076,
+    299711,
+    116417,
+    232327,
+    55545,
+    392018,
+    143272,
+    328313,
+    324184,
+    391954,
+    162055,
+    390611,
+    343528,
+    316889,
+    394796,
+    229964,
+    19673,
+    299477,
+    374347,
+    188380,
+    161170,
+    145046,
+    433209,
+    69421,
+    63179,
+    250358,
+    280668,
+    241496,
+    225284,
+    389677,
+    377381,
+    140594,
+    352285,
+    360746,
+    336738,
+    374847,
+    232249,
+    340659,
+    111112,
+    124145,
+    231605,
+    186295,
+    59919,
+    421497,
+    198936,
+    32485,
+    347715,
+    177087,
+    389877,
+    272187,
+    216964,
+    412290,
+    153186,
+    252450,
+    333661,
+    48878,
+    217750,
+    413835,
+    227653,
+    241109,
+    196907,
+    310454,
+    3647,
+    357749,
+    164619,
+    187643,
+    425864,
+    216003,
+    337095,
+    45549,
+    155687,
+    181767,
+    252368,
+    42518,
+    39263,
+    151735,
+    199392,
+    76692,
+    219701,
+    310407,
+    435767,
+    96959,
+    8292,
+    96276,
+    127997,
+    388279,
+    81530,
+    341604,
+    365941,
+    371135,
+    262838,
+    263311,
+    827,
+    429496,
+    225226,
+    370854,
+    415659,
+    263289,
+    175482,
+    192677,
+    286307
+  ],
+  "groups": {
+    "heavy-seed-0": {
+      "false_alert": {
+        "eligible_validation_count": 4041,
+        "selected_row": 250357
+      },
+      "correct": {
+        "eligible_validation_count": 273800,
+        "selected_row": 34969
+      },
+      "miss_Web-based": {
+        "eligible_validation_count": 418,
+        "selected_row": 178837
+      },
+      "miss_Brute Force": {
+        "eligible_validation_count": 207,
+        "selected_row": 179210
+      },
+      "miss_DoS": {
+        "eligible_validation_count": 11434,
+        "selected_row": 185467
+      }
+    },
+    "heavy-seed-1": {
+      "false_alert": {
+        "eligible_validation_count": 4762,
+        "selected_row": 251590
+      },
+      "correct": {
+        "eligible_validation_count": 273092,
+        "selected_row": 142573
+      },
+      "miss_Web-based": {
+        "eligible_validation_count": 377,
+        "selected_row": 40432
+      },
+      "miss_Brute Force": {
+        "eligible_validation_count": 204,
+        "selected_row": 179176
+      },
+      "miss_DoS": {
+        "eligible_validation_count": 11059,
+        "selected_row": 11919
+      }
+    },
+    "heavy-seed-2": {
+      "false_alert": {
+        "eligible_validation_count": 4287,
+        "selected_row": 258288
+      },
+      "correct": {
+        "eligible_validation_count": 272129,
+        "selected_row": 50761
+      },
+      "miss_Web-based": {
+        "eligible_validation_count": 504,
+        "selected_row": 178866
+      },
+      "miss_Brute Force": {
+        "eligible_validation_count": 208,
+        "selected_row": 179190
+      },
+      "miss_DoS": {
+        "eligible_validation_count": 9694,
+        "selected_row": 1954
+      }
+    },
+    "light-seed-0": {
+      "false_alert": {
+        "eligible_validation_count": 4500,
+        "selected_row": 258857
+      },
+      "correct": {
+        "eligible_validation_count": 270577,
+        "selected_row": 68272
+      },
+      "miss_Web-based": {
+        "eligible_validation_count": 437,
+        "selected_row": 40415
+      },
+      "miss_Brute Force": {
+        "eligible_validation_count": 231,
+        "selected_row": 179165
+      },
+      "miss_DoS": {
+        "eligible_validation_count": 14066,
+        "selected_row": 9933
+      }
+    },
+    "light-seed-1": {
+      "false_alert": {
+        "eligible_validation_count": 4680,
+        "selected_row": 244150
+      },
+      "correct": {
+        "eligible_validation_count": 269919,
+        "selected_row": 109411
+      },
+      "miss_Web-based": {
+        "eligible_validation_count": 431,
+        "selected_row": 179448
+      },
+      "miss_Brute Force": {
+        "eligible_validation_count": 231,
+        "selected_row": 179182
+      },
+      "miss_DoS": {
+        "eligible_validation_count": 13183,
+        "selected_row": 17717
+      }
+    },
+    "light-seed-2": {
+      "false_alert": {
+        "eligible_validation_count": 4862,
+        "selected_row": 245395
+      },
+      "correct": {
+        "eligible_validation_count": 268000,
+        "selected_row": 23076
+      },
+      "miss_Web-based": {
+        "eligible_validation_count": 455,
+        "selected_row": 178825
+      },
+      "miss_Brute Force": {
+        "eligible_validation_count": 232,
+        "selected_row": 179041
+      },
+      "miss_DoS": {
+        "eligible_validation_count": 11112,
+        "selected_row": 180977
+      }
+    },
+    "iid-seed-0": {
+      "false_alert": {
+        "eligible_validation_count": 4742,
+        "selected_row": 245020
+      },
+      "correct": {
+        "eligible_validation_count": 268126,
+        "selected_row": 91744
+      },
+      "miss_Web-based": {
+        "eligible_validation_count": 551,
+        "selected_row": 40413
+      },
+      "miss_Brute Force": {
+        "eligible_validation_count": 236,
+        "selected_row": 179089
+      },
+      "miss_DoS": {
+        "eligible_validation_count": 14865,
+        "selected_row": 4545
+      }
+    },
+    "iid-seed-1": {
+      "false_alert": {
+        "eligible_validation_count": 5108,
+        "selected_row": 255039
+      },
+      "correct": {
+        "eligible_validation_count": 267222,
+        "selected_row": 278691
+      },
+      "miss_Web-based": {
+        "eligible_validation_count": 513,
+        "selected_row": 240493
+      },
+      "miss_Brute Force": {
+        "eligible_validation_count": 236,
+        "selected_row": 179007
+      },
+      "miss_DoS": {
+        "eligible_validation_count": 14594,
+        "selected_row": 8580
+      }
+    },
+    "iid-seed-2": {
+      "false_alert": {
+        "eligible_validation_count": 4583,
+        "selected_row": 247654
+      },
+      "correct": {
+        "eligible_validation_count": 268033,
+        "selected_row": 268329
+      },
+      "miss_Web-based": {
+        "eligible_validation_count": 579,
+        "selected_row": 40421
+      },
+      "miss_Brute Force": {
+        "eligible_validation_count": 236,
+        "selected_row": 178967
+      },
+      "miss_DoS": {
+        "eligible_validation_count": 14732,
+        "selected_row": 14720
+      }
+    },
+    "dirichlet-seed-0": {
+      "false_alert": {
+        "eligible_validation_count": 950,
+        "selected_row": 245733
+      },
+      "correct": {
+        "eligible_validation_count": 262620,
+        "selected_row": 111447
+      },
+      "miss_Web-based": {
+        "eligible_validation_count": 601,
+        "selected_row": 179362
+      },
+      "miss_Brute Force": {
+        "eligible_validation_count": 236,
+        "selected_row": 179050
+      },
+      "miss_DoS": {
+        "eligible_validation_count": 47710,
+        "selected_row": 197808
+      }
+    },
+    "dirichlet-seed-1": {
+      "false_alert": {
+        "eligible_validation_count": 874,
+        "selected_row": 241382
+      },
+      "correct": {
+        "eligible_validation_count": 261338,
+        "selected_row": 226731
+      },
+      "miss_Web-based": {
+        "eligible_validation_count": 628,
+        "selected_row": 179304
+      },
+      "miss_Brute Force": {
+        "eligible_validation_count": 236,
+        "selected_row": 179010
+      },
+      "miss_DoS": {
+        "eligible_validation_count": 52171,
+        "selected_row": 182626
+      }
+    },
+    "dirichlet-seed-2": {
+      "false_alert": {
+        "eligible_validation_count": 737,
+        "selected_row": 258830
+      },
+      "correct": {
+        "eligible_validation_count": 261179,
+        "selected_row": 110454
+      },
+      "miss_Web-based": {
+        "eligible_validation_count": 628,
+        "selected_row": 179320
+      },
+      "miss_Brute Force": {
+        "eligible_validation_count": 236,
+        "selected_row": 179012
+      },
+      "miss_DoS": {
+        "eligible_validation_count": 52804,
+        "selected_row": 271069
+      }
+    }
+  },
+  "background_class_counts": [
+    {
+      "class": "Benign",
+      "len": 4
+    },
+    {
+      "class": "Spoofing",
+      "len": 12
+    },
+    {
+      "class": "Mirai",
+      "len": 14
+    },
+    {
+      "class": "Recon",
+      "len": 16
+    },
+    {
+      "class": "DoS",
+      "len": 20
+    },
+    {
+      "class": "DDoS",
+      "len": 62
+    }
+  ],
+  "full_validation_class_counts": {
+    "Benign": 19859,
+    "DDoS": 166191,
+    "DoS": 61572,
+    "Recon": 8551,
+    "Web-based": 628,
+    "Brute Force": 277,
+    "Spoofing": 11900,
+    "Mirai": 58279
+  }
+}

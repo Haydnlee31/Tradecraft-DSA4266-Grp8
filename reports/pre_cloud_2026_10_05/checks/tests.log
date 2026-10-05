@@ -1,0 +1,131 @@
+logistic seed=0 step=1 val_macro_f1=0.1165
+logistic seed=0 step=2 val_macro_f1=0.1165
+logistic-iid seed=0 step=1 val_macro_f1=0.1165
+logistic-iid seed=0 step=2 val_macro_f1=0.1165
+logistic-dirichlet seed=0 step=1 val_macro_f1=0.1165
+logistic-dirichlet seed=0 step=2 val_macro_f1=0.1165
+logistic seed=0 step=1 val_macro_f1=0.1165
+logistic seed=0 step=2 val_macro_f1=0.1165
+logistic-iid seed=0 step=1 val_macro_f1=0.1165
+logistic-iid seed=0 step=2 val_macro_f1=0.1165
+logistic-dirichlet seed=0 step=1 val_macro_f1=0.1165
+logistic-dirichlet seed=0 step=2 val_macro_f1=0.1165
+light step=1 val_macro_f1=0.12342 device=cpu
+light step=1 val_macro_f1=0.13641 device=cpu
+epoch   1  train_loss=2.3886 train_f1=0.1207  val_loss=2.3712 val_f1=0.0908
+light step=1 val_macro_f1=0.13641 device=cpu
+heavy step=1 val_macro_f1=0.19175 device=cpu
+heavy step=2 val_macro_f1=0.08344 device=cpu
+heavy step=3 val_macro_f1=0.09474 device=cpu
+heavy step=1 val_macro_f1=0.19175 device=cpu
+heavy step=2 val_macro_f1=0.08344 device=cpu
+heavy step=3 val_macro_f1=0.09474 device=cpu
+light step=1 val_macro_f1=0.12342 device=cpu
+light step=2 val_macro_f1=0.12789 device=cpu
+light step=3 val_macro_f1=0.12789 device=cpu
+light step=1 val_macro_f1=0.12342 device=cpu
+light step=2 val_macro_f1=0.12789 device=cpu
+light step=3 val_macro_f1=0.12789 device=cpu
+iid step=1 val_macro_f1=0.09792 device=cpu
+iid step=2 val_macro_f1=0.12342 device=cpu
+iid step=3 val_macro_f1=0.12342 device=cpu
+iid step=1 val_macro_f1=0.09792 device=cpu
+iid step=2 val_macro_f1=0.12342 device=cpu
+iid step=3 val_macro_f1=0.12342 device=cpu
+dirichlet step=1 val_macro_f1=0.12342 device=cpu
+dirichlet step=2 val_macro_f1=0.12342 device=cpu
+dirichlet step=3 val_macro_f1=0.12569 device=cpu
+dirichlet step=1 val_macro_f1=0.12342 device=cpu
+dirichlet step=2 val_macro_f1=0.12342 device=cpu
+dirichlet step=3 val_macro_f1=0.12569 device=cpu
+test_all_logistic_lanes_validation_only_and_reproducible (tests.test_baselines.BaselineTests.test_all_logistic_lanes_validation_only_and_reproducible) ... ok
+test_linear_model_and_identical_update_paths (tests.test_baselines.BaselineTests.test_linear_model_and_identical_update_paths) ... ok
+test_rejects_bad_inputs_before_output (tests.test_baselines.BaselineTests.test_rejects_bad_inputs_before_output) ... ok
+test_xgboost_checkpoint_and_explicit_test (tests.test_baselines.BaselineTests.test_xgboost_checkpoint_and_explicit_test) ... ok
+test_adagrad_hyperparameters_are_not_grouped_together (tests.test_branch_merge.MergeTests.test_adagrad_hyperparameters_are_not_grouped_together) ... ok
+test_baseline_stays_fedavg_and_alternative_is_real_adagrad (tests.test_branch_merge.MergeTests.test_baseline_stays_fedavg_and_alternative_is_real_adagrad) ... WARNING :   fraction_evaluate is set to 0.0. Federated evaluation will be skipped.
+WARNING :   fraction_evaluate is set to 0.0. Federated evaluation will be skipped.
+ok
+test_client_cache_reuses_tensors_but_not_shuffle_state (tests.test_branch_merge.MergeTests.test_client_cache_reuses_tensors_but_not_shuffle_state) ... ok
+test_client_f1_spread_not_weighted_global_f1 (tests.test_branch_merge.MergeTests.test_client_f1_spread_not_weighted_global_f1) ... INFO :      aggregate_evaluate: Received 2 results and 0 failures
+ok
+test_failed_run_keeps_history_and_closes_optional_logger (tests.test_branch_merge.MergeTests.test_failed_run_keeps_history_and_closes_optional_logger) ... WARNING :   fraction_evaluate is set to 0.0. Federated evaluation will be skipped.
+INFO :      Starting CustomFedAvg strategy:
+INFO :      	├── Number of rounds: 1
+INFO :      	├── ArrayRecord (0.00 MB)
+INFO :      	├── ConfigRecord (train): (empty!)
+INFO :      	├── ConfigRecord (evaluate): (empty!)
+INFO :      	├──> Sampling:
+INFO :      	│	├──Fraction: train (1.00) | evaluate ( 0.00)
+INFO :      	│	├──Minimum nodes: train (2) | evaluate (0)
+INFO :      	│	└──Minimum available nodes: 2
+INFO :      	└──> Keys in records:
+INFO :      		├── Weighted by: 'num-examples'
+INFO :      		├── ArrayRecord key: 'arrays'
+INFO :      		└── ConfigRecord key: 'config'
+INFO :
+INFO :      Initial global evaluation: {'val_macro_f1': 0.2}
+INFO :      New best global model: round=0 val_macro_f1=0.200000
+INFO :
+INFO :      [ROUND 1/1]
+ok
+test_invalid_strategy_does_not_silently_fall_back (tests.test_branch_merge.MergeTests.test_invalid_strategy_does_not_silently_fall_back) ... ok
+test_schedule_changes_only_when_explicitly_enabled (tests.test_branch_merge.MergeTests.test_schedule_changes_only_when_explicitly_enabled) ... INFO :      Client learning rate decreased to 0.5
+ok
+test_study_labels_distinguish_optimizers (tests.test_branch_merge.MergeTests.test_study_labels_distinguish_optimizers) ... ok
+test_complete_decision_can_prefer_equal_size_federated_model (tests.test_decision.DecisionTests.test_complete_decision_can_prefer_equal_size_federated_model) ... ok
+test_configuration_selection_uses_validation_not_test (tests.test_decision.DecisionTests.test_configuration_selection_uses_validation_not_test) ... ok
+test_gates_ignore_test_recall (tests.test_decision.DecisionTests.test_gates_ignore_test_recall) ... ok
+test_iid_control_cannot_replace_non_iid_target (tests.test_decision.DecisionTests.test_iid_control_cannot_replace_non_iid_target) ... ok
+test_missing_lane_blocks_final_recommendation (tests.test_decision.DecisionTests.test_missing_lane_blocks_final_recommendation) ... ok
+test_baseline_extra_matches_optional_requirements (tests.test_dependencies.DependencyTests.test_baseline_extra_matches_optional_requirements) ... ok
+test_shared_dependencies_match_package_metadata (tests.test_dependencies.DependencyTests.test_shared_dependencies_match_package_metadata) ... ok
+test_simulation_extra_matches_optional_requirements (tests.test_dependencies.DependencyTests.test_simulation_extra_matches_optional_requirements) ... ok
+test_both_normalizations_reproduce_predictions_and_reject_hash_drift (tests.test_explain_research.ExplanationTests.test_both_normalizations_reproduce_predictions_and_reject_hash_drift) ... ok
+test_expected_gradients_linear_contract (tests.test_explain_research.ExplanationTests.test_expected_gradients_linear_contract) ... /Users/haydn/Documents/DSA4266Proj/.venv/lib/python3.13/site-packages/shap/plots/colors/_colors.py:47: PendingDeprecationWarning: The set_bad function will be deprecated in a future version. Use cmap.with_extremes(bad=...) or Colormap(bad=...) instead.
+  red_blue.set_bad(gray_rgb.tolist(), 1.0)
+/Users/haydn/Documents/DSA4266Proj/.venv/lib/python3.13/site-packages/shap/plots/colors/_colors.py:48: PendingDeprecationWarning: The set_over function will be deprecated in a future version. Use cmap.with_extremes(over=...) or Colormap(over=...) instead.
+  red_blue.set_over(gray_rgb.tolist(), 1.0)
+/Users/haydn/Documents/DSA4266Proj/.venv/lib/python3.13/site-packages/shap/plots/colors/_colors.py:49: PendingDeprecationWarning: The set_under function will be deprecated in a future version. Use cmap.with_extremes(under=...) or Colormap(under=...) instead.
+  red_blue.set_under(gray_rgb.tolist(), 1.0)  # "under" is incorrectly used instead of "bad" in the scatter plot
+ok
+test_sampling_shared_deterministic_and_missing_errors (tests.test_explain_research.ExplanationTests.test_sampling_shared_deterministic_and_missing_errors) ... ok
+test_mismatched_lengths_fail (tests.test_metrics.MetricsTests.test_mismatched_lengths_fail) ... ok
+test_missing_classes_are_not_silently_dropped (tests.test_metrics.MetricsTests.test_missing_classes_are_not_silently_dropped) ... ok
+test_perfect_predictions_include_every_class (tests.test_metrics.MetricsTests.test_perfect_predictions_include_every_class) ... ok
+test_training_aggregation_and_shared_scaler (tests.test_pipeline.PipelineTests.test_training_aggregation_and_shared_scaler) ... ok
+test_failed_atomic_save_preserves_last_checkpoint (tests.test_research.ResearchTests.test_failed_atomic_save_preserves_last_checkpoint) ... ok
+test_layernorm_and_reject_unavailable_cuda (tests.test_research.ResearchTests.test_layernorm_and_reject_unavailable_cuda) ... ok
+test_legacy_manifest_does_not_require_ray (tests.test_research.ResearchTests.test_legacy_manifest_does_not_require_ray) ... ok
+test_plan_is_bounded_and_all_commands_parse (tests.test_research.ResearchTests.test_plan_is_bounded_and_all_commands_parse) ... ok
+test_real_central_and_client_loop_parity (tests.test_research.ResearchTests.test_real_central_and_client_loop_parity) ... ok
+test_recovery_exact_all_lanes_and_test_never_loaded (tests.test_research.ResearchTests.test_recovery_exact_all_lanes_and_test_never_loaded) ... ok
+test_attack_error_partition_distinguishes_benign_from_wrong_attack (tests.test_research_decision.ResearchDecisionTests.test_attack_error_partition_distinguishes_benign_from_wrong_attack) ... ok
+test_counts_and_summary_must_agree (tests.test_research_decision.ResearchDecisionTests.test_counts_and_summary_must_agree) ... ok
+test_frozen_comparison_uses_same_gates_and_keeps_iid_diagnostic (tests.test_research_decision.ResearchDecisionTests.test_frozen_comparison_uses_same_gates_and_keeps_iid_diagnostic) ... ok
+test_legacy_validation_only_and_mixed_test_metrics (tests.test_research_decision.ResearchDecisionTests.test_legacy_validation_only_and_mixed_test_metrics) ... ok
+test_reject_missing_seeds_drift_and_nonfinite_metrics (tests.test_research_decision.ResearchDecisionTests.test_reject_missing_seeds_drift_and_nonfinite_metrics) ... ok
+test_require_federated_does_not_fall_back_to_iid (tests.test_research_decision.ResearchDecisionTests.test_require_federated_does_not_fall_back_to_iid) ... ok
+test_missing_client_reply_fails_closed (tests.test_strategy.StrategyTests.test_missing_client_reply_fails_closed) ... WARNING :   fraction_evaluate is set to 0.0. Federated evaluation will be skipped.
+INFO :      Starting CustomFedAvg strategy:
+INFO :      	├── Number of rounds: 1
+INFO :      	├── ArrayRecord (0.00 MB)
+INFO :      	├── ConfigRecord (train): (empty!)
+INFO :      	├── ConfigRecord (evaluate): (empty!)
+INFO :      	├──> Sampling:
+INFO :      	│	├──Fraction: train (1.00) | evaluate ( 0.00)
+INFO :      	│	├──Minimum nodes: train (2) | evaluate (0)
+INFO :      	│	└──Minimum available nodes: 1
+INFO :      	└──> Keys in records:
+INFO :      		├── Weighted by: 'num-examples'
+INFO :      		├── ArrayRecord key: 'arrays'
+INFO :      		└── ConfigRecord key: 'config'
+INFO :
+INFO :
+INFO :      [ROUND 1/1]
+ok
+
+----------------------------------------------------------------------
+Ran 40 tests in 4.339s
+
+OK

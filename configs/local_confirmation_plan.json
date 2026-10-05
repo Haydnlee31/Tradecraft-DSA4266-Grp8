@@ -1,0 +1,42 @@
+{
+  "status": "frozen_before_new_seed_runs",
+  "decision_date": "2026-10-05",
+  "authorization": "User selected option 1: confirm shortlisted configurations",
+  "claim": "Configured-model comparison, not isolated capacity or federation effects",
+  "source_screening_plan": "configs/local_tuning_plan.json",
+  "training_seeds": [0, 1, 2],
+  "new_training_seeds": [1, 2],
+  "new_run_count": 8,
+  "seed_zero_reused_count": 4,
+  "common": {
+    "partition_seed": 0,
+    "clients": 20,
+    "alpha": 0.5,
+    "epochs": 60,
+    "patience": 0,
+    "batch_size": 512,
+    "lr": 0.001,
+    "weight_decay": 0.00001,
+    "loss": "sqrt_weighted_ce",
+    "device": "cpu",
+    "threads": 2
+  },
+  "lanes": {
+    "heavy": {"normalization": "batch", "dropout": 0.3, "seed_zero_path": "outputs/mlp-tuning/convergence/heavy"},
+    "light": {"normalization": "batch", "dropout": 0.2, "seed_zero_path": "outputs/mlp-tuning/convergence/light"},
+    "iid": {"normalization": "layer", "dropout": 0.2, "seed_zero_path": "outputs/mlp-tuning/normalization/iid"},
+    "dirichlet": {"normalization": "layer", "dropout": 0.2, "seed_zero_path": "outputs/mlp-tuning/normalization/dirichlet"}
+  },
+  "output_root": "outputs/mlp-confirmation",
+  "checkpoint_selection": "First strict maximum validation macro-F1 within 60 steps; no cross-seed winner selection",
+  "reporting": "Every seed and every class; mean and sample SD for seeds 0/1/2 and separately new seeds 1/2. SD is not a confidence interval.",
+  "test_policy": "No test evaluation. Previously inspected historical test cannot become fresh confirmation.",
+  "limitations": [
+    "Seed 0 influenced screening and is not independent confirmation.",
+    "All seeds reuse the same validation set; these are training-seed stability checks, not independent data confirmation.",
+    "Fixed partition seed measures no variability across client partitions.",
+    "Normalization differs between central-light and federated-light; dropout differs between heavy and light.",
+    "No deployment or physical edge claim; no cloud resources."
+  ],
+  "execution_policy": "Run only the eight authorized new-seed jobs; do not tune after observing them. Preserve seed-zero artifacts in place."
+}
