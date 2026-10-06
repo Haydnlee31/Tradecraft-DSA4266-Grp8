@@ -54,6 +54,8 @@ class Trainer:
         l1_lambda: float = 0.0,
         patience: int = 5,
         device: str | None = None,
+        proximal_mu: float = 0.0,
+        proximal_reference: dict[str, torch.Tensor] | None = None,
     ):
         self.device = device or ("cuda" if torch.cuda.is_available() else "cpu")
         self.model = model.to(self.device)
@@ -63,6 +65,35 @@ class Trainer:
         )
         self.l1_lambda = l1_lambda
         self.patience = patience
+        if not np.isfinite(proximal_mu) or proximal_mu < 0:
+            raise ValueError("proximal_mu must be finite and nonnegative")
+        self.proximal_mu = proximal_mu
+        self.proximal_reference = {}
+        if proximal_mu > 0:
+            parameters = {k: p for k, p in self.model.named_parameters() if p.requires_grad}
+            if proximal_reference is None or parameters.keys() != proximal_reference.keys():
+                raise ValueError("FedProx requires a reference for every trainable parameter")
+            for name, parameter in parameters.items():
+                anchor = proximal_reference[name]
+                if anchor.shape != parameter.shape or not torch.isfinite(anchor).all():
+                    raise ValueError(f"Invalid proximal reference: {name}")
+                # The round-start global model is a fixed target, not a second
+                # trainable model. Clone to prevent aliasing with local updates.
+                self.proximal_reference[name] = anchor.detach().to(
+                    device=self.device, dtype=parameter.dtype
+                ).clone()
+        self.last_epoch_proximal_penalty = 0.0
+
+    def _proximal_penalty(self) -> torch.Tensor:
+        """mu/2 * sum ||local - round_start_global||^2 (not a parameter mean).
+
+        Includes biases and trainable normalization parameters; excludes buffers.
+        This is separate from Adam's existing weight decay and the task loss.
+        """
+        return (self.proximal_mu / 2) * sum(
+            (parameter - self.proximal_reference[name]).square().sum()
+            for name, parameter in self.model.named_parameters() if parameter.requires_grad
+        )
 
     def _l1_penalty(self) -> torch.Tensor:
         """L1 norm of every Linear weight matrix (`p.dim() > 1` excludes biases and
@@ -77,6 +108,7 @@ class Trainer:
     def _run_epoch(self, loader: DataLoader, train: bool) -> tuple[float, float]:
         self.model.train(train)
         total_loss = 0.0
+        proximal_total = 0.0
         all_preds, all_targets = [], []
         with torch.set_grad_enabled(train):
             for X, y in loader:
@@ -89,6 +121,12 @@ class Trainer:
                         if self.l1_lambda > 0
                         else task_loss
                     )
+                    # Skip even the arithmetic when mu=0, preserving FedAvg's
+                    # original optimizer trajectory and RNG consumption exactly.
+                    if self.proximal_mu > 0:
+                        penalty = self._proximal_penalty()
+                        loss = loss + penalty
+                        proximal_total += penalty.detach().item() * X.size(0)
                     self.optimizer.zero_grad()
                     loss.backward()
                     self.optimizer.step()
@@ -98,11 +136,13 @@ class Trainer:
                 # count; it is NOT the unweighted validation CE in task.predict.
                 # New research runs explicitly label it and share task.predict
                 # for validation loss across centralized and federated lanes.
+                # FedProx is also excluded here and is logged separately below.
                 total_loss += task_loss.item() * X.size(0)
                 all_preds.append(logits.argmax(dim=1).detach().cpu().numpy())
                 all_targets.append(y.detach().cpu().numpy())
         preds = np.concatenate(all_preds)
         targets = np.concatenate(all_targets)
+        self.last_epoch_proximal_penalty = proximal_total / len(targets)
         macro_f1 = f1_score(
             targets,
             preds,

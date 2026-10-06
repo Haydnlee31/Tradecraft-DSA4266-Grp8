@@ -1,0 +1,22 @@
+{
+  "date": "2026-10-06",
+  "branch": "experiment/fedprox-controlled",
+  "unittest_command": ".venv/bin/python -m unittest discover -v",
+  "tests_passed": 46,
+  "pip_check": "No broken requirements found",
+  "cloud_archive_runs_audited": 19,
+  "cloud_archives_audited": 7,
+  "actual_data_cpu_pilot": {
+    "command": ".venv/bin/python -m src.eval.fedprox_pilot --device cpu --output outputs/fedprox-final-review-2026-10-06",
+    "fedavg_mu0_exact": true,
+    "positive_mu_resume_exact": true,
+    "nonzero_penalty_observed": true,
+    "test_evaluated": false,
+    "historical_comparison": "outputs/pre-cloud-2026-10-05/dirichlet-full",
+    "historical_default_fedavg_final_weights_and_validation_metrics_exact": true
+  },
+  "additional_check": "Default Trainer matches git revision 3ef7202 Trainer exactly for three synthetic CPU epochs including dropout",
+  "fedprox_cuda_verified": false,
+  "new_cloud_jobs_launched": false,
+  "notes": "CPU correctness evidence, not evidence of FedProx model-quality improvement. Local pilot weights remain Git-ignored. Full CUDA pilot and same-code FedAvg bridge are required before screening."
+}

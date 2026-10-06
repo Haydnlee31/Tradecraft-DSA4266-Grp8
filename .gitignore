@@ -10,6 +10,7 @@ data/splits/*
 __pycache__/
 *.pyc
 .venv/
+.venv-cloud/
 venv/
 *.egg-info/
 

@@ -1,0 +1,30 @@
+{
+  "purpose": "Bounded optional FedProx screen after repeated FedAvg non-IID rare-class failure; not deployment approval",
+  "max_screen_runs": 3,
+  "max_confirmation_runs": 0,
+  "common": {
+    "seed": 7, "partition_seed": 0, "clients": 20, "alpha": 0.5,
+    "epochs": 60, "patience": 0, "batch_size": 512, "lr": 0.001,
+    "weight_decay": 0.00001, "loss": "sqrt_weighted_ce",
+    "normalization": "layer", "dropout": 0.2, "device": "cuda", "threads": 2
+  },
+  "stages": [
+    {"name": "fedavg_bridge", "lanes": ["dirichlet"], "overrides": {"federated_method": "fedavg", "proximal_mu": 0.0}},
+    {"name": "fedprox_mu001", "lanes": ["dirichlet"], "overrides": {"federated_method": "fedprox", "proximal_mu": 0.01}},
+    {"name": "fedprox_mu01", "lanes": ["dirichlet"], "overrides": {"federated_method": "fedprox", "proximal_mu": 0.1}}
+  ],
+  "preconditions": [
+    "Local tests including mu=0 equivalence and positive-mu recovery pass",
+    "Cloud two-round positive-mu and zero-mu pilots pass before any 60-round launch",
+    "Record CUBLAS_WORKSPACE_CONFIG=:4096:8 and retain the existing cloud package versions",
+    "Fresh same-code FedAvg bridge reproduces historical partition-0 seed-7 metrics before candidates launch"
+  ],
+  "promotion": {
+    "option_a": {"macro_f1_gain_min": 0.01, "benign_false_alert_increase_max": 0.02, "any_class_recall_drop_max": 0.02},
+    "option_b": {"benign_false_alert_reduction_min": 0.05, "macro_f1_drop_max": 0.01, "web_and_brute_force_recall_drop_max": 0.02}
+  },
+  "selection": "Compare each candidate to the same-code bridge. Eligible candidate with highest validation macro-F1 wins; exact tie uses smaller mu. No gate changes after results.",
+  "stop_rule": "If neither candidate passes, stop this extension. Confirmation on partitions 1/2 and model seeds 8/9 requires a separate approved plan. No coefficient expansion.",
+  "test_policy": "Validation only; no test split needed or permitted for tuning",
+  "budget": "Three full-length runs maximum (one bridge, two candidates), plus bounded two-round correctness pilots. Monitor within one hour; runtime/cost are not guaranteed. User controls cloud launch and stopping."
+}

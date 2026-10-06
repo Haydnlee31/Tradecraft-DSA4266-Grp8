@@ -118,6 +118,7 @@ def provenance(args, device):
             "split_sha256": {s: sha256(args.splits / f"{s}.parquet") for s in ("train", "val")},
             "platform": platform.platform(), "python": sys.version,
             "cuda_available": torch.cuda.is_available(),
+            "cublas_workspace_config": os.environ.get("CUBLAS_WORKSPACE_CONFIG"),
             "device_name": torch.cuda.get_device_name() if device == "cuda" else platform.processor(),
             "edge_hardware_measurements": False}
 
@@ -141,6 +142,9 @@ def parse(argv):
     p.add_argument("--dropout", type=float, default=None)
     p.add_argument("--device", choices=["auto", "cpu", "cuda"], default="cpu")
     p.add_argument("--threads", type=int, default=2)
+    p.add_argument("--federated-method", choices=["fedavg", "fedprox"], default="fedavg")
+    p.add_argument("--proximal-mu", type=float, default=0.0,
+                   help="FedProx coefficient; mu=0 is an explicit FedAvg-equivalence control")
     p.add_argument("--resume", action="store_true")
     p.add_argument("--stop-after", type=int, default=0, help="Controlled pause after this absolute epoch/round; 0 runs normally")
     args = p.parse_args(argv)
@@ -154,6 +158,12 @@ def parse(argv):
         raise ValueError("weight decay must be finite and nonnegative")
     if args.dropout is not None and not 0 <= args.dropout < 1:
         raise ValueError("dropout must be in [0,1)")
+    if not np.isfinite(args.proximal_mu) or args.proximal_mu < 0:
+        raise ValueError("proximal mu must be finite and nonnegative")
+    if args.federated_method == "fedavg" and args.proximal_mu != 0:
+        raise ValueError("Nonzero proximal mu requires --federated-method fedprox")
+    if args.lane not in {"iid", "dirichlet"} and args.federated_method != "fedavg":
+        raise ValueError("FedProx applies only to federated lanes")
     return args
 
 
@@ -166,7 +176,7 @@ def main(argv=None):
     manifest = provenance(args, device)
     if args.resume:
         previous = json.loads((args.output / "environment.json").read_text())
-        for key in ("settings", "packages", "source_sha256", "split_sha256"):
+        for key in ("settings", "packages", "source_sha256", "split_sha256", "cublas_workspace_config"):
             if previous[key] != manifest[key]:
                 raise ValueError(f"Refusing resume: {key} changed")
         manifest = previous
@@ -258,6 +268,7 @@ def main(argv=None):
         if stopped():
             break
         begun = time.perf_counter()
+        proximal_mean = 0.0
         if parts is None:
             train_loss, _ = trainer._run_epoch(train_loader, train=True)
             examples = len(train_loader.dataset) - (1 if train_loader.drop_last else 0)
@@ -266,13 +277,19 @@ def main(argv=None):
             from flwr.app import ArrayRecord, MetricRecord, RecordDict
             from flwr.serverapp.strategy.strategy_utils import aggregate_arrayrecords
             replies, examples, updates, loss_sum = [], 0, 0, 0.
+            # One immutable anchor per round, shared as the starting target for
+            # every client. FedAvg and FedProx(mu=0) avoid allocating anchors.
+            anchor = ({name: p.detach().clone() for name, p in model.named_parameters()
+                       if p.requires_grad} if args.proximal_mu > 0 else None)
+            proximal_sum = 0.0
             for client, rows in enumerate(parts):
                 local_seed = client_seed(args.seed, client, step)
                 set_seed(local_seed)
                 local_model = MLPClassifier(len(features), len(CLASSES), config)
                 local_model.load_state_dict(model.state_dict())
                 local = Trainer(local_model, build_criterion(args.loss, counts), lr=args.lr,
-                                weight_decay=args.weight_decay, device=device)
+                                weight_decay=args.weight_decay, device=device,
+                                proximal_mu=args.proximal_mu, proximal_reference=anchor)
                 local_loader = make_loader(Subset(datasets["train"], rows.tolist()), args.batch_size,
                                            local_seed, args.normalization == "batch")
                 loss, _ = local._run_epoch(local_loader, train=True)
@@ -280,18 +297,21 @@ def main(argv=None):
                 examples += processed
                 updates += len(local_loader)
                 loss_sum += loss * processed
+                proximal_sum += local.last_epoch_proximal_penalty * processed
                 replies.append(RecordDict({"arrays": ArrayRecord(local_model.cpu().state_dict()),
                                            "metrics": MetricRecord({"num-examples": len(rows)})}))
             # Dataset-count weighting preserves the historical FedAvg policy;
             # actual processed examples are reported separately for BN tails.
             model.load_state_dict(aggregate_arrayrecords(replies, "num-examples").to_torch_state_dict())
             train_loss = loss_sum / examples
+            proximal_mean = proximal_sum / examples
         val_loss, truth, prediction = predict(model, val_loader, device)
         val = metrics(truth, prediction)
         if device == "cuda":
             torch.cuda.synchronize()
         history.append({"step": step, "val_loss": val_loss, "validation_metrics": val,
                         "train_batch_mean_task_loss": train_loss, "examples_processed": examples,
+                        "train_batch_mean_proximal_penalty": proximal_mean,
                         "optimizer_steps": updates, "elapsed_seconds": time.perf_counter()-begun,
                         **memory_metrics(device)})
         if val["macro_f1"] > best_score:
@@ -319,6 +339,8 @@ def main(argv=None):
                  "num_classes": len(CLASSES), "feature_columns": features, "classes": CLASSES,
                  "seed": args.seed, "loss": args.loss, "best_step": best_step}, best_path)
     report = {"lane": args.lane, "seed": args.seed, "best_step": best_step, "steps": len(history),
+              "federated_method": args.federated_method if parts is not None else None,
+              "proximal_mu": args.proximal_mu,
               "validation_metrics": metrics(truth, prediction), "val_loss": val_loss, "test_metrics": None,
               "history": history, "checkpoint": "best.pt", "checkpoint_sha256": sha256(best_path),
               "manifest": "environment.json", "num_parameters": model.num_parameters(),
