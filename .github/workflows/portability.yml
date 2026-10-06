@@ -30,6 +30,28 @@ jobs:
           cache-dependency-path: |
             requirements.txt
             requirements-baselines.txt
+      # XGBoost's macOS wheel needs the native OpenMP runtime, which pip
+      # cannot install. Linux and Windows wheels do not need this brew step.
+      - name: Install macOS OpenMP runtime
+        if: runner.os == 'macOS'
+        run: brew install libomp
+      # Hosted runners contain unrelated tools (such as pipx). Keep their
+      # dependencies outside our environment instead of suppressing pip check.
+      # GITHUB_PATH makes later steps AND Python subprocesses use this venv.
+      - name: Create isolated CI environment
+        shell: python
+        run: |
+          import os
+          from pathlib import Path
+          import venv
+
+          environment = Path(os.environ["RUNNER_TEMP"]) / "tradecraft-ci-venv"
+          venv.create(environment, with_pip=True)
+          scripts = environment / ("Scripts" if os.name == "nt" else "bin")
+          with open(os.environ["GITHUB_PATH"], "a", encoding="utf-8") as path_file:
+              path_file.write(str(scripts) + "\n")
+      - name: Verify environment isolation
+        run: python -c "import sys; print(sys.executable); assert sys.prefix != sys.base_prefix, 'CI must use its isolated virtual environment'"
       - run: python -m pip install --upgrade pip
       # Include optional centralized XGBoost so its subprocess/reload test is
       # exercised on each OS, not silently skipped in the core-only install.
