@@ -46,8 +46,16 @@ def load_model(folder):
     if sha(folder / 'best.pt') != r['checkpoint_sha256'] or sha(folder / 'scaler.joblib') != m['scaler_sha256']:
         raise ValueError('Checkpoint/scaler hash mismatch')
     # Explanation code is new, but inference-critical source must remain exact.
+    # Historical Windows manifests use backslashes; Unix manifests use slashes.
+    # Normalize only the lookup keys, never the hashes or source file contents.
+    source_hashes = {}
+    for name, digest in m['source_sha256'].items():
+        canonical = name.replace('\\', '/')
+        if canonical in source_hashes and source_hashes[canonical] != digest:
+            raise ValueError(f'Conflicting inference source hashes: {canonical}')
+        source_hashes[canonical] = digest
     for file in ('src/models/architectures.py', 'src/models/dataset.py', 'src/data/label_map.py'):
-        if sha(file) != m['source_sha256'][file]:
+        if sha(file) != source_hashes.get(file):
             raise ValueError(f'Inference source changed: {file}')
     saved = torch.load(folder / 'best.pt', map_location='cpu', weights_only=True)
     if (saved['classes'] != CLASSES or saved['feature_columns'] != m['feature_columns']

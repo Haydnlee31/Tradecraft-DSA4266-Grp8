@@ -1,5 +1,6 @@
 """Explanation safety, sampling and numerical-contract checks."""
 
+import json
 import tempfile
 from pathlib import Path
 import unittest
@@ -39,6 +40,25 @@ class ExplanationTests(unittest.TestCase):
                 model, scaler, m, r = load_model(folder)
                 x, y = to_arrays(pl.read_parquet(root / 'splits/val.parquet'), scaler, m['feature_columns'])
                 self.assertEqual(confusion(y, logits(model, x).argmax(1)).tolist(), r['validation_metrics']['confusion_matrix'])
+                # Manifests from either OS must retain the same strict hash checks.
+                manifest = folder / 'environment.json'
+                for separator in ('/', '\\'):
+                    m['source_sha256'] = {name.replace('\\', '/').replace('/', separator): digest
+                                          for name, digest in m['source_sha256'].items()}
+                    manifest.write_text(json.dumps(m))
+                    load_model(folder)
+                original = dict(m['source_sha256'])
+                m['source_sha256']['src/models/architectures.py'] = 'changed'
+                manifest.write_text(json.dumps(m))
+                with self.assertRaisesRegex(ValueError, 'Conflicting inference source hashes'):
+                    load_model(folder)
+                m['source_sha256'] = {name: digest for name, digest in original.items()
+                                      if name != 'src\\models\\architectures.py'}
+                manifest.write_text(json.dumps(m))
+                with self.assertRaisesRegex(ValueError, 'Inference source changed'):
+                    load_model(folder)
+                m['source_sha256'] = original
+                manifest.write_text(json.dumps(m))
                 # A changed artifact must fail before deserialization is attempted.
                 with (folder / 'best.pt').open('ab') as file:
                     file.write(b'changed')
