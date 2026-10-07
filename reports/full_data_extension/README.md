@@ -25,7 +25,10 @@ files and the eligible counts for every class. All derived shards have now been
 materialized and read-back verified: 16,474,212 training, 2,059,284 validation and
 2,060,864 test vectors. Exact feature digests are unique across the collection and
 disjoint across splits. Training/recovery checks have run on small synthetic
-fixtures; no model has yet been trained on the official-data extension cohort.
+fixtures. The 500k cohort has since completed cloud reference, normalization and
+loss controls. The [client diagnostic](client-diagnostic.md) summarizes those
+results, and the [bounded-update plan](bounded-updates.md) defines the next gated
+experiment. The larger learning curve has not been launched.
 
 The [full local loader check](loader-check.json) passed on all 16,474,212 training
 and 2,059,284 validation vectors. On this Mac, fitting the diagnostic train-only
@@ -282,9 +285,12 @@ sweep or a reason to promote a model. Review its `checks.json` and measured runt
 and memory before running the learning curve. CUDA determinism is strict: an
 unsupported operation should fail rather than silently weaken the check.
 
-The runner currently supports full epochs/rounds, not a fixed-update budget. Before
-the full 500k/2M/5M comparison, freeze the matched-update control and stopping policy;
-otherwise more data also buys more optimization. Keep the test split sealed.
+The runner now offers an opt-in federated local-batch cap and exact aggregate
+update budget; full epochs/rounds remain the default. See the
+[bounded-update plan](bounded-updates.md) for budget restrictions, CPU recovery
+checks and the required CUDA gate. This does not yet authorize the 500k/2M/5M
+comparison: its data-scale budgets and stopping policy still need a separate
+freeze. Keep the test split sealed.
 
 ## Split interpretation and cleaning policy
 
@@ -351,8 +357,9 @@ $40 for targeted controls, $40 for confirmation and $20 contingency. These are c
 not measured costs or authorization to exhaust the balance. Confirm actual RONIN
 rates and storage costs before launching. No instances or downloads are automated.
 
-Next checkpoint: commit/review the packed adapter, then run the limited GPU
-compatibility and recovery pilot after transferring the code and 500k cohort.
+Next checkpoint: review and commit the client diagnostics and bounded-update
+extension, then transfer a fixed snapshot and pass its CUDA recovery gate before
+running the planned same-code bridges and capped comparison.
 Do not run full-scale training yet. The branch
 `experiment/full-data-scaling` remains local until the user chooses to publish it.
 

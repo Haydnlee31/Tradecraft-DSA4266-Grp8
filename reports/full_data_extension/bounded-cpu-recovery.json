@@ -1,0 +1,12 @@
+{
+  "status": "complete",
+  "device": "cpu",
+  "test_evaluated": false,
+  "purpose": "Capped full-participation recovery including a shorter final round; not model selection",
+  "packed_manifest_sha256": "157afa2426c3319d14fc34aef36007f08ae830603ffde210f20cac30c8035aac",
+  "pilot_sha256": "753fd19470afe79ba06d2063941d62b13f5d0ccf2728716074ac50889b024f16",
+  "lanes": {
+    "iid": {"recovery_exact": true, "optimizer_steps": 60, "final_round_cap": 1, "full_participation": true},
+    "dirichlet": {"recovery_exact": true, "optimizer_steps": 60, "final_round_cap": 1, "full_participation": true}
+  }
+}

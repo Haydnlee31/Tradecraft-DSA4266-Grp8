@@ -1,0 +1,61 @@
+{
+  "schema_version": 1,
+  "stage": "official39-500k-reference-v1",
+  "status": "planned_not_executed",
+  "purpose": "Establish a longer 500k-row reference and IID diagnostic before data scaling; not a convergence claim or hyperparameter sweep.",
+  "training_code_commit": "1fecacc5b3ee4f0432c841ca1eb46ee3fd05546c",
+  "packed_manifest_sha256": "157afa2426c3319d14fc34aef36007f08ae830603ffde210f20cac30c8035aac",
+  "data_root": "outputs/official39-packed-500k-v1",
+  "output_root": "outputs/official39-reference-500k-v1",
+  "lanes": ["light", "iid", "dirichlet"],
+  "settings": {
+    "epochs": 20,
+    "seed": 7,
+    "clients": 20,
+    "partition_seed": 7,
+    "alpha": 0.5,
+    "batch_size": 512,
+    "lr": 0.001,
+    "weight_decay": 0.00001,
+    "loss": "sqrt_weighted_ce",
+    "normalization": "batch",
+    "device": "cuda",
+    "threads": 2
+  },
+  "cublas_workspace_config": ":4096:8",
+  "budget": {
+    "unit": "20 full epochs centrally or 20 full-participation rounds with one local epoch per client",
+    "training_examples_processed_per_lane": 10000000,
+    "matched_optimizer_updates": false,
+    "explanation": "Client-specific batch tails change the aggregate update count; local Adam resets and aggregation also differ from centralized optimization.",
+    "early_stopping": false,
+    "automatic_extension": false
+  },
+  "evaluation": {
+    "primary": "Validation metrics in result.history[-1] at the fixed final budget",
+    "secondary": "Validation-best metrics in result.validation_metrics, selected by strict maximum macro-F1",
+    "required": ["macro_f1", "per_class_recall", "benign_false_alert_rate", "examples_processed", "optimizer_steps", "elapsed_seconds", "process_peak_rss_bytes", "cuda_peak_allocated_bytes"],
+    "test_evaluated": false,
+    "single_seed_exploratory_only": true,
+    "no_cross_feature_study_data_size_claim": true
+  },
+  "entry_evidence": {
+    "source": "User-pasted cloud pilot checks and runtime summary; full artifacts not independently inspected locally",
+    "recovery_exact": {"light": true, "dirichlet": true},
+    "pilot_steps": 2,
+    "purpose": "Compatibility and recovery only; pilot metrics do not select settings for a sweep"
+  },
+  "execution": {
+    "sequential_lanes": true,
+    "fresh_output_directories_required": true,
+    "stop_on_first_error": true,
+    "resume": "After interruption, inspect status and last.pt; resume only the affected lane with identical settings and --resume. Do not rerun the entire block blindly.",
+    "no_dependencies_or_training_source_changes": true
+  },
+  "next_gate": {
+    "review": "Inspect all three completed histories, final and best metrics, rare-class recall, false alerts and resource usage; preserve all runs.",
+    "larger_cohorts_authorized_by_this_plan": false,
+    "before_2m_5m": "Implement and test the matched-update control, freeze evaluation opportunities and stopping policy, and verify larger packed cohorts before launching.",
+    "confirmation": "Use additional predefined seeds after the exploratory design is fixed; do not report this single seed as a robust winner."
+  }
+}

@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "status": "planned_not_launched",
+  "purpose": "Test the bounded-local-update policy at fixed rounds and matched aggregate optimizer updates",
+  "data_root": "outputs/official39-packed-500k-v1",
+  "packed_manifest_sha256": "157afa2426c3319d14fc34aef36007f08ae830603ffde210f20cac30c8035aac",
+  "common_settings": {
+    "seed": 7,
+    "partition_seed": 7,
+    "clients": 20,
+    "alpha": 0.5,
+    "batch_size": 512,
+    "lr": 0.001,
+    "weight_decay": 0.00001,
+    "loss": "sqrt_weighted_ce",
+    "normalization": "layer",
+    "device": "cuda",
+    "threads": 2
+  },
+  "runs": [
+    {"name": "iid-full", "lane": "iid", "epochs": 20, "local_max_batches": 0, "total_update_budget": 0, "expected_optimizer_steps": 19600, "expected_examples_processed": 10000000},
+    {"name": "dirichlet-full", "lane": "dirichlet", "epochs": 20, "local_max_batches": 0, "total_update_budget": 0, "expected_optimizer_steps": 19680, "expected_examples_processed": 10000000},
+    {"name": "iid-capped", "lane": "iid", "epochs": 196, "local_max_batches": 5, "total_update_budget": 19600, "expected_optimizer_steps": 19600, "expected_examples_processed": 10035200},
+    {"name": "dirichlet-capped", "lane": "dirichlet", "epochs": 197, "local_max_batches": 5, "total_update_budget": 19680, "expected_optimizer_steps": 19680, "expected_examples_processed": 10076160}
+  ],
+  "primary_comparison": "Final full-validation metrics at matched aggregate optimizer steps, within each partition lane",
+  "secondary_comparison": "Round 20 metrics from each run, including the existing prefix of each longer capped run",
+  "best_checkpoint_metrics": "Descriptive only; unequal validation opportunities must not select the comparison endpoint",
+  "stopping_policy": "Fixed schedule, no early stopping or automatic extension",
+  "aggregation": "Original partition-size weights; all clients participate in every round including the shorter final round",
+  "sampling": "Fresh seeded permutation each client-round; only capped prefix is used, no guaranteed full data coverage",
+  "limitations": [
+    "Aggregate updates match within each lane, not per-client updates, examples, wall time, validation work or communication",
+    "Capped training redistributes local update counts across clients and resets Adam more frequently",
+    "This is a combined training-policy intervention, not proof of a pure client-drift mechanism",
+    "Single training seed and partition seed; confirmation requires additional predefined seeds",
+    "No test evaluation and no 2M/5M scaling authorization"
+  ],
+  "gates": [
+    "Commit a reviewed snapshot and transfer it without overwriting old cloud outputs",
+    "Run CPU fixture tests on the cloud environment",
+    "Run official_bounded_recovery on CUDA and inspect checks.json before proceeding",
+    "Run same-code full-epoch bridges and compare model tensors and non-timing history with archived LayerNorm reference, allowing only documented new history fields",
+    "Verify bridge counts, data and assignment hashes before launching capped runs",
+    "If any gate fails, stop rather than relaxing checks or changing settings"
+  ]
+}

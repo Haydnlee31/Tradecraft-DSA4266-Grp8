@@ -4,10 +4,16 @@ One central step is an epoch; one FL step is a full-participation round with one
 local epoch and freshly initialized local Adam state. These are NOT matched update
 budgets. Recovery is at completed epoch/round boundaries, not mid-batch. This new
 39-feature study never opens test data or alters the historical runner.
+
+An opt-in local batch cap supports shorter client updates. An optional aggregate
+optimizer-step budget makes the final round shorter for ALL clients equally.
+Matching update counts does not match examples, communication, Adam resets or
+per-client exposure; report those differences rather than claiming equivalence.
 """
 import argparse
 from dataclasses import asdict, replace
 import importlib.metadata
+import itertools
 import json
 import os
 from pathlib import Path
@@ -65,6 +71,33 @@ def train_epoch(model, optimizer, criterion, batches, device):
     return total/examples, examples, updates
 
 
+def local_round_limits(sizes, batch_size, cap, budget, epochs):
+    """Freeze a full-participation schedule before training.
+
+    Zero cap is the historical full local epoch. A positive exact budget must
+    divide by the client count: no client is silently omitted from the last
+    round. Every client must have enough batches for the requested cap. Shuffling
+    restarts each round; capped training is sampling, not guaranteed row coverage.
+    """
+    if cap < 0 or budget < 0:
+        raise ValueError('Local batch cap and update budget must be nonnegative')
+    if not budget:
+        return [cap] * epochs
+    if not cap or budget % len(sizes):
+        raise ValueError('Exact update budget requires a cap and divisibility by client count')
+    # PackedData merges a singleton tail into the preceding batch.
+    available = [(n+batch_size-1)//batch_size - int(n > batch_size and n % batch_size == 1)
+                 for n in sizes]
+    if min(available) < cap:
+        raise ValueError('Client has too few batches for the exact-budget cap')
+    per_client = budget // len(sizes)
+    full_rounds, remainder = divmod(per_client, cap)
+    limits = [cap] * full_rounds + ([remainder] if remainder else [])
+    if len(limits) != epochs:
+        raise ValueError(f'Exact update budget requires epochs={len(limits)} (rounds), got {epochs}')
+    return limits
+
+
 def confusion_metrics(cm):
     # Fixed eight-class reduction, including classes with no correct predictions.
     support, predicted = cm.sum(axis=1), cm.sum(axis=0)
@@ -101,13 +134,17 @@ def evaluate(model, batches, device):
 def run(data_root, output, lane='light', epochs=2, seed=7, clients=20,
         partition_seed=7, alpha=.5, batch_size=512, lr=.001, weight_decay=1e-5,
         loss='sqrt_weighted_ce', normalization='batch', device='cpu', threads=2,
-        resume=False, stop_after=0):
+        resume=False, stop_after=0, local_max_batches=0, total_update_budget=0):
     if lane not in ('light', 'heavy', 'iid', 'dirichlet') or epochs < 1 or batch_size < 2 or threads < 1:
         raise ValueError('Invalid lane, epochs, batch size or threads')
     if min(seed, partition_seed, stop_after) < 0 or not np.isfinite(alpha) or alpha <= 0:
         raise ValueError('Invalid seed or alpha')
     if not np.isfinite(lr) or lr <= 0 or not np.isfinite(weight_decay) or weight_decay < 0:
         raise ValueError('Invalid optimizer settings')
+    if min(local_max_batches, total_update_budget) < 0:
+        raise ValueError('Local batch cap and update budget must be nonnegative')
+    if (local_max_batches or total_update_budget) and lane not in ('iid', 'dirichlet'):
+        raise ValueError('Local batch cap and update budget are federated-only')
     device = resolve_device(device)
     data, output = PackedData(data_root), Path(output)
     if data.manifest['train_rows'] > 5000000:
@@ -119,7 +156,8 @@ def run(data_root, output, lane='light', epochs=2, seed=7, clients=20,
     config = replace(config_for_variant('heavy' if lane == 'heavy' else 'light'), normalization=normalization)
     settings = dict(lane=lane, epochs=epochs, seed=seed, clients=clients, partition_seed=partition_seed,
                     alpha=alpha, batch_size=batch_size, lr=lr, weight_decay=weight_decay,
-                    loss=loss, normalization=normalization, device=device, threads=threads)
+                    loss=loss, normalization=normalization, device=device, threads=threads,
+                    local_max_batches=local_max_batches, total_update_budget=total_update_budget)
     source_root = Path(__file__).parents[1]
     env = {'settings': settings, 'packed_manifest_sha256': sha256(Path(data_root)/'manifest.json'),
            'source_sha256': {str(p.relative_to(source_root)): sha256(p) for p in sorted(source_root.rglob('*.py'))},
@@ -130,6 +168,8 @@ def run(data_root, output, lane='light', epochs=2, seed=7, clients=20,
            'classes': CLASSES, 'features': data.manifest['features'], 'test_evaluated': False,
            'optimizer_policy': 'persistent central; reset each client-round',
            'tail_policy': 'merge singleton tail; all selected rows processed',
+           'local_sampling_policy': 'fresh seeded client shuffle per round; cap takes prefix, no guaranteed full coverage' if local_max_batches else 'full local epoch',
+           'aggregation_policy': 'original assigned client row counts, even when capped',
            'checkpoint_selection': 'strict maximum validation macro-F1, beginning at step 1'}
     # JSON normalizes tuples to lists before comparing recovery provenance.
     env = json.loads(json.dumps(env))
@@ -154,6 +194,8 @@ def run(data_root, output, lane='light', epochs=2, seed=7, clients=20,
             atomic_json({'sha256': sha256(output/'assignments.npz'), 'attempts': attempts,
                          'simulated_clients_not_physical_devices': True,
                          'counts': [np.bincount(data.arrays['train'][1][rows], minlength=8).tolist() for rows in parts]}, output/'partition.json')
+    round_limits = local_round_limits([len(p) for p in parts], batch_size, local_max_batches,
+                                     total_update_budget, epochs) if parts is not None else [0]*epochs
     model = MLPClassifier(39, 8, config).to(device)
     counts = data.manifest['train_class_counts']
     criterion = build_criterion(loss, counts).to(device)
@@ -182,6 +224,7 @@ def run(data_root, output, lane='light', epochs=2, seed=7, clients=20,
             from flwr.app import ArrayRecord, MetricRecord, RecordDict
             from flwr.serverapp.strategy.strategy_utils import aggregate_arrayrecords
             replies, examples, updates, total = [], 0, 0, 0.
+            client_work = []
             for client, rows in enumerate(parts):
                 local_seed = client_seed(seed, client, step)
                 set_seed(local_seed)
@@ -189,11 +232,18 @@ def run(data_root, output, lane='light', epochs=2, seed=7, clients=20,
                 local = MLPClassifier(39, 8, config).to(device)
                 local.load_state_dict(model.state_dict())
                 local_optimizer = torch.optim.Adam(local.parameters(), lr=lr, weight_decay=weight_decay)
-                local_loss, n, steps = train_epoch(local, local_optimizer, criterion,
-                    data.batches('train', batch_size, local_seed, rows), device)
+                batches = data.batches('train', batch_size, local_seed, rows)
+                if round_limits[step-1]:
+                    batches = itertools.islice(batches, round_limits[step-1])
+                local_loss, n, steps = train_epoch(local, local_optimizer, criterion, batches, device)
                 examples, updates, total = examples+n, updates+steps, total+local_loss*n
+                client_work.append({'client': client, 'assigned_rows': len(rows),
+                                    'examples_processed': n, 'optimizer_steps': steps})
+                # Full-epoch behavior is unchanged because n == len(rows). With
+                # a cap, using n would introduce a second treatment by changing
+                # the aggregation weights toward uniform client weighting.
                 replies.append(RecordDict({'arrays': ArrayRecord(local.cpu().state_dict()),
-                                            'metrics': MetricRecord({'num-examples': n})}))
+                                            'metrics': MetricRecord({'num-examples': len(rows)})}))
             model.load_state_dict(aggregate_arrayrecords(replies, 'num-examples').to_torch_state_dict())
             train_loss = total/examples
         val_loss, metrics = evaluate(model, data.batches('val', batch_size), device)
@@ -202,6 +252,9 @@ def run(data_root, output, lane='light', epochs=2, seed=7, clients=20,
         history.append({'step': step, 'validation_metrics': metrics, 'val_loss': val_loss,
                         'train_batch_mean_task_loss': train_loss, 'examples_processed': examples,
                         'optimizer_steps': updates, 'elapsed_seconds': time.perf_counter()-started})
+        if parts is not None:
+            history[-1]['client_work'] = client_work
+            history[-1]['local_batch_cap'] = round_limits[step-1]
         if metrics['macro_f1'] > best_score:
             best_score, best_step = metrics['macro_f1'], step
             best = {k: v.detach().cpu().clone() for k, v in model.state_dict().items()}
@@ -215,8 +268,12 @@ def run(data_root, output, lane='light', epochs=2, seed=7, clients=20,
             return
     atomic_save({'model': best, 'config': asdict(config), 'features': data.manifest['features'],
                  'classes': CLASSES, 'best_step': best_step}, output/'best.pt')
+    if total_update_budget and sum(h['optimizer_steps'] for h in history) != total_update_budget:
+        raise ValueError('Executed optimizer steps do not match the exact budget')
     result = {'lane': lane, 'best_step': best_step, 'history': history,
               'validation_metrics': history[best_step-1]['validation_metrics'], 'test_metrics': None,
+              'final_validation_metrics': history[-1]['validation_metrics'],
+              'total_update_budget': total_update_budget,
               'examples_processed': sum(h['examples_processed'] for h in history),
               'optimizer_steps': sum(h['optimizer_steps'] for h in history),
               'num_parameters': model.num_parameters(), 'edge_hardware_measurements': False,
@@ -240,6 +297,10 @@ def main():
     p.add_argument('--normalization', choices=['batch', 'layer'], default='batch')
     p.add_argument('--device', choices=['cpu', 'cuda'], default='cpu')
     p.add_argument('--resume', action='store_true')
+    p.add_argument('--local-max-batches', type=int, default=0,
+                   help='Federated-only local batch cap; zero preserves full epochs')
+    p.add_argument('--total-update-budget', type=int, default=0,
+                   help='Exact sum of client optimizer steps; requires cap, full participation and matching round count')
     run(**vars(p.parse_args()))
 
 
