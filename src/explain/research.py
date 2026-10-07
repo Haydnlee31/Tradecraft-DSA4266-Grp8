@@ -247,11 +247,16 @@ def main(argv=None):
     stability = {}
     for lane in study['lanes']:
         stability[lane] = {}
+        # Cloud confirmations use seeds 7/8/9; older local studies use 0/1/2.
+        # A single-seed diagnostic cannot establish between-seed stability.
+        seeds = sorted(study['lanes'][lane]['runs'], key=int)
         for name in CLASSES:
             pairs = [overlap(np.array(results[f'{lane}-seed-{a}']['classes'][name]['mean_abs_attributions']),
                              np.array(results[f'{lane}-seed-{b}']['classes'][name]['mean_abs_attributions']))
-                     for a, b in itertools.combinations((0, 1, 2), 2)]
-            stability[lane][name] = {'pairwise_top5_overlap_01_02_12': pairs, 'mean_top5_overlap': float(np.mean(pairs))}
+                     for a, b in itertools.combinations(seeds, 2)]
+            stability[lane][name] = {'seed_pairs': list(itertools.combinations(seeds, 2)),
+                                    'pairwise_top5_overlap': pairs,
+                                    'mean_top5_overlap': float(np.mean(pairs)) if pairs else None}
     payload = {'method': 'SHAP GradientExplainer expected gradients on logits', 'classes': CLASSES,
                'feature_columns': features, 'nsamples_per_repeat': args.nsamples, 'mc_seeds': [0, 1],
                'core_count': len(core), 'supplement_count': len(rows) - len(core), 'background_count': len(background),

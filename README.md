@@ -52,6 +52,10 @@ no test dataset is needed, and a research recommendation is not deployment appro
 The [cloud study synthesis](reports/cloud_study_2026_10_06/README.md) audits the
 completed GPU experiments. The [optional FedProx extension](src/models/FEDPROX.md)
 preserves FedAvg by default and defines a bounded, separately verified next screen.
+That screen is now complete: the [post-cloud diagnostic analysis](reports/cloud_analysis_2026_10_06/results/README.md)
+records both non-promoted candidates, exact baseline recovery, and local SHAP/error
+diagnostics. Keep cloud training paused while the documented diagnostic questions
+are investigated; these results are not deployment approval.
 
 The [pre-cloud checkpoint and study synthesis](reports/pre_cloud_2026_10_05/README.md)
 records the final local checks and links to the cloud-pilot handoff. This is readiness
