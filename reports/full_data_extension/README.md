@@ -24,7 +24,8 @@ The [completed audit and frozen split counts](results/README.md) report all 309
 files and the eligible counts for every class. All derived shards have now been
 materialized and read-back verified: 16,474,212 training, 2,059,284 validation and
 2,060,864 test vectors. Exact feature digests are unique across the collection and
-disjoint across splits. No extension model has been trained.
+disjoint across splits. Training/recovery checks have run on small synthetic
+fixtures; no model has yet been trained on the official-data extension cohort.
 
 The [full local loader check](loader-check.json) passed on all 16,474,212 training
 and 2,059,284 validation vectors. On this Mac, fitting the diagnostic train-only
@@ -35,7 +36,7 @@ training throughput, a cloud speedup or an edge-device measurement. The loader
 check did not open the test split. The materializer separately read test shards
 only to verify their integrity, coverage and split assignment.
 
-All 70 local repository tests passed after these additions, including fixture
+All 75 local repository tests passed, including the recovery-pilot wrapper and fixture
 checks for cross-file duplicates, conflicting targets, nonfinite/malformed rows,
 interrupted materialization recovery, checksum rejection, deterministic bounded
 shuffling and parity with an in-memory scaler. The 3,541 derived shards and their
@@ -137,8 +138,8 @@ and is not saved: future learning-curve subsets must fit their own scalers.
 
 With a seed, the loader shuffles shard order and each bounded 65,536-row buffer.
 This is deterministic, but not a uniform shuffle of all rows. Class-heavy windows
-can remain. Client sampling and model checkpoint recovery still need separate
-implementation and parity tests. Restarting the basic
+can remain. The newer packed adapter below addresses global batch mixing and
+adds client assignments and checkpoint-recovery tests. Restarting the basic
 loader with the same seed restarts an epoch; it does not resume mid-epoch. A verified
 materialization therefore deliberately keeps `training_ready` false.
 
@@ -197,16 +198,93 @@ It neither trains a model nor calculates validation performance. Test data is no
 opened. The subset loader exposes selected class counts so future loss weights
 cannot accidentally use the full-training counts.
 
-The exact tiers currently occupy 8,040 small Parquet shards (five million stored
-vectors in total). This layout prioritizes traceable selection and read-back checks.
-Before a throughput-focused GPU pilot, the training adapter should address small-file
-overhead and class-correlated batches, for example through verified repacking and
-mixed batch sampling. The current data checks are not an optimized training benchmark.
+The exact tiers occupy 8,040 small Parquet shards (five million stored vectors in
+total). This layout prioritizes traceable selection and read-back checks. The packed
+adapter below removes these repeated file opens from the training loop. Data checks
+alone are not a GPU training benchmark.
 
 These are proportional learning-curve subsets, not a rare-class balancing treatment.
 Any later oversampling or loss change needs a separate control. More examples also
 mean more optimizer updates at a fixed epoch count; retain the planned matched-update
 control when comparing sizes.
+
+## Disk backed training adapter
+
+`official_packed` converts a selected cohort and its shared validation set into four
+NumPy arrays: training features/labels and validation features/labels. Features are
+already standardized using that cohort's verified train-only scaler. Every packed
+row is checked against a second source replay, and the arrays and scaler are hashed.
+Training uses read-only memory maps and copies only selected batches, rather than
+loading the entire feature matrix into RAM. Shuffle/client indices still take O(N)
+memory; one int64 index per five-million-row cohort costs 40 MB, with additional
+temporary arrays during partition construction. The operating system also caches
+mapped pages, so this is not a constant-RAM or edge-memory claim.
+
+The 500,000-row cohort has been packed locally in
+`outputs/official39-packed-500k-v1/` (about 400 MiB including validation). The
+larger cohorts remain in their verified tier format until needed. Packing commands
+for a fresh output are:
+
+```bash
+python -m src.data.official_packed --parent outputs/official39-shards-v1 --subsets outputs/official39-subsets-v1 --checks outputs/official39-subset-check --size 500000 --output outputs/official39-packed-500k-v1
+python -m src.eval.official_packed_check --data outputs/official39-packed-500k-v1 --output outputs/official39-packed-check.json
+```
+
+The [real-cohort packed check](packed-check.json) covered every training and
+validation row without training. With 20 clients, seed 7 and alpha 0.5, the IID
+partition has 25,000 rows per client; the non-IID partition ranges from 5,200 to
+49,561. Both cover the training data exactly once. Brute Force occurs in 9/20
+non-IID clients and Web-based in 11/20, versus 20/20 for both classes in IID.
+These are simulated client groups, not physical IoT devices.
+
+`src.models.official_streaming` supports heavy, light, IID FedAvg and non-IID
+FedAvg. It reuses the shared architectures/losses, the existing Dirichlet algorithm
+and Flower's weighted aggregation. Central Adam state persists across epochs;
+local Adam resets each client-round. Global index shuffling mixes each selected
+training view; every row is processed once per epoch or full-participation round.
+A final singleton is merged into the preceding batch for BatchNorm, allowing a
+batch of size `batch_size + 1`. Unlike the legacy loader's singleton drop, this
+retains every row; treat it as an explicit new-protocol policy.
+
+Evaluation accumulates an eight-class confusion matrix and sample-mean unweighted
+cross entropy, without retaining all predictions. Reports include macro-F1, every
+class's precision/recall/F1/support, benign false-alert rate, examples processed and
+optimizer steps. Checkpoint selection is strict maximum validation macro-F1 starting
+at step one. There is no test-data path in the runner.
+
+CPU fixtures verified exact optimizer/model parity with the existing in-memory
+trainer on identical batches, and interrupted-versus-uninterrupted recovery for
+all four lanes. Checkpoints include model/optimizer/RNG state and best-model history;
+resume rejects changed settings, source code, environment, packed data or client
+assignments. Recovery repeats an interrupted epoch/round from the last completed
+boundary; it does not resume mid-batch. CPU exactness does not certify CUDA exactness.
+
+## Next GPU compatibility pilot
+
+Before starting the cloud machine, decide whether to publish this local extension
+branch or transfer a fixed code snapshot. Transfer the packed 500,000-row directory
+separately; data arrays must not be committed. Freeze the code and environment
+throughout each recovery test. No cloud execution or push was performed here.
+
+After the code and packed data are present in the cloud repository and the intended
+environment has verified CUDA access, run inside a persistent terminal session:
+
+```bash
+export CUBLAS_WORKSPACE_CONFIG=:4096:8
+python -m src.eval.official_packed_check --data outputs/official39-packed-500k-v1 --output outputs/official39-cloud-packed-check.json
+python -m src.eval.official_streaming_recovery --data outputs/official39-packed-500k-v1 --device cuda --output outputs/official39-gpu-recovery
+```
+
+The recovery pilot performs two central-light epochs and two non-IID FedAvg rounds,
+each both uninterrupted and paused/resumed, then compares model, optimizer, RNG,
+best checkpoint and non-timing history exactly. It is a compatibility test, not a
+sweep or a reason to promote a model. Review its `checks.json` and measured runtime
+and memory before running the learning curve. CUDA determinism is strict: an
+unsupported operation should fail rather than silently weaken the check.
+
+The runner currently supports full epochs/rounds, not a fixed-update budget. Before
+the full 500k/2M/5M comparison, freeze the matched-update control and stopping policy;
+otherwise more data also buys more optimization. Keep the test split sealed.
 
 ## Split interpretation and cleaning policy
 
@@ -273,10 +351,9 @@ $40 for targeted controls, $40 for confirmation and $20 contingency. These are c
 not measured costs or authorization to exhaust the balance. Confirm actual RONIN
 rates and storage costs before launching. No instances or downloads are automated.
 
-Next engineering task: implement matched centralized and federated streaming
-training with client assignments, and verify optimization
-and checkpoint-recovery parity on a small local fixture. Only then prepare a short
-cloud pilot. Do not run full-scale training yet. The branch
+Next checkpoint: commit/review the packed adapter, then run the limited GPU
+compatibility and recovery pilot after transferring the code and 500k cohort.
+Do not run full-scale training yet. The branch
 `experiment/full-data-scaling` remains local until the user chooses to publish it.
 
 The audited source-shard milestone was committed locally as `3773e51`.
