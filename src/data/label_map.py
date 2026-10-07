@@ -77,3 +77,15 @@ def to_class(raw_label: str) -> str:
     before adding new keys, per CLAUDE.md's Kaggle-mirror caveat).
     """
     return LABEL_TO_CLASS[raw_label]
+
+
+def official_raw_label(value: str) -> str:
+    """Normalize only observed official-39 folder/merged-label spellings.
+
+    Keep the legacy 46-feature label contract strict and unchanged. Official
+    attack names differ in case; benign is Benign_Final (folder) or BENIGN
+    (merged column). Do not infer labels from arbitrary filename substrings.
+    """
+    aliases = {name.casefold(): name for name in LABEL_TO_CLASS}
+    aliases.update({'benign_final': 'BenignTraffic', 'benign': 'BenignTraffic'})
+    return aliases[value.casefold()]

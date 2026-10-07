@@ -1,0 +1,129 @@
+{
+  "version": "official39-within-collection-v1",
+  "status": "frozen_recipe",
+  "training_ready": false,
+  "data_materialized": false,
+  "test_evaluated": false,
+  "scope": "within-collection; not capture/session independent",
+  "mirror_overlap_excluded": false,
+  "near_duplicate_independence_claimed": false,
+  "audit_summary_sha256": "2c384682751bc2db0fa818c54181e4757260f4fe6635c89a110b92f56303283c",
+  "duplicate_index_sha256": "a84bf09d9e2c4ff90a8de2348e9a315eef15f7b24ea43066e798f130e60ab222",
+  "protocol_builder_sha256": "23556b6ce31f8347d1b972c6e21e4009f773c34831ebab03a15c3402d066a083",
+  "features": [
+    "Header_Length",
+    "Protocol Type",
+    "Time_To_Live",
+    "Rate",
+    "fin_flag_number",
+    "syn_flag_number",
+    "rst_flag_number",
+    "psh_flag_number",
+    "ack_flag_number",
+    "ece_flag_number",
+    "cwr_flag_number",
+    "ack_count",
+    "syn_count",
+    "fin_count",
+    "rst_count",
+    "HTTP",
+    "HTTPS",
+    "DNS",
+    "Telnet",
+    "SMTP",
+    "SSH",
+    "IRC",
+    "TCP",
+    "UDP",
+    "DHCP",
+    "ARP",
+    "ICMP",
+    "IGMP",
+    "IPv",
+    "LLC",
+    "Tot sum",
+    "Min",
+    "Max",
+    "AVG",
+    "Std",
+    "Tot size",
+    "IAT",
+    "Number",
+    "Variance"
+  ],
+  "classes": [
+    "Benign",
+    "DDoS",
+    "DoS",
+    "Recon",
+    "Web-based",
+    "Brute Force",
+    "Spoofing",
+    "Mirai"
+  ],
+  "split_algorithm": "SHA256(domain||feature_digest), first 8 bytes unsigned big-endian modulo 10000",
+  "domain_utf8": "tradecraft-official39-v1:426639:",
+  "cutoffs": {
+    "train": [
+      0,
+      8000
+    ],
+    "val": [
+      8000,
+      9000
+    ],
+    "test": [
+      9000,
+      10000
+    ]
+  },
+  "ratios_are_approximate": true,
+  "seed_search_performed": false,
+  "sampling_unit": "one unique finite float64 39-feature vector, not repeated flow frequency",
+  "malformed_policy": "exclude from derived data; retain untouched raw sources and audit counts",
+  "nonfinite_policy": "exclude any row with a missing/infinite feature; no imputation",
+  "duplicate_policy": "retain one representative per feature digest; all copies share the same split",
+  "class_conflict_policy": "exclude entire digest group when eight-class targets disagree",
+  "raw_conflict_within_class_policy": "retain one vector with eight-class target; preserve raw-label mask",
+  "scaler_policy": "fit new scaler on selected training subset only; never reuse legacy scaler",
+  "test_policy": "sealed for model selection; only provenance and coverage audited before final evaluation",
+  "counts_by_split_and_class": {
+    "train": {
+      "Benign": 874352,
+      "DDoS": 9707930,
+      "DoS": 2985317,
+      "Recon": 545933,
+      "Web-based": 19699,
+      "Brute Force": 10450,
+      "Spoofing": 363217,
+      "Mirai": 1967314
+    },
+    "val": {
+      "Benign": 109482,
+      "DDoS": 1213890,
+      "DoS": 373093,
+      "Recon": 68008,
+      "Web-based": 2475,
+      "Brute Force": 1284,
+      "Spoofing": 44949,
+      "Mirai": 246103
+    },
+    "test": {
+      "Benign": 109137,
+      "DDoS": 1213933,
+      "DoS": 373680,
+      "Recon": 68364,
+      "Web-based": 2437,
+      "Brute Force": 1310,
+      "Spoofing": 45485,
+      "Mirai": 246518
+    }
+  },
+  "unique_vectors_by_split": {
+    "train": 16474212,
+    "val": 2059284,
+    "test": 2060864
+  },
+  "legacy_46_feature_data_modified": false,
+  "next_gate": "materialize derived shards and verify hashes, exclusion counts, split disjointness, then loader parity"
+}

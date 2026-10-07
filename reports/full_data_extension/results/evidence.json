@@ -1,0 +1,102 @@
+{
+  "audit_sha256": "2c384682751bc2db0fa818c54181e4757260f4fe6635c89a110b92f56303283c",
+  "protocol_sha256": "283e73fa6e6e00405fe55aa3c80572a8592f500ec43ce07dbade28d1bc69d769",
+  "totals": {
+    "rows": 46776697,
+    "malformed": 3,
+    "nonfinite_rows": 1037,
+    "float32_overflow_rows": 0
+  },
+  "duplicates": {
+    "unique_vectors": 21055707,
+    "finite_rows": 46775660,
+    "duplicate_excess_rows": 25719953,
+    "cross_file_vectors": 1759701,
+    "raw_label_conflict_vectors": 542900,
+    "class_conflict_vectors": 461347,
+    "unambiguous_unique_per_class": {
+      "Benign": 1092971,
+      "DDoS": 12135753,
+      "DoS": 3732090,
+      "Recon": 682305,
+      "Web-based": 24611,
+      "Brute Force": 13044,
+      "Spoofing": 453651,
+      "Mirai": 2459935
+    }
+  },
+  "parseable_rows_by_class": {
+    "Web-based": 24829,
+    "Benign": 1098191,
+    "DDoS": 33984450,
+    "Spoofing": 486458,
+    "Brute Force": 13064,
+    "DoS": 7845117,
+    "Mirai": 2634054,
+    "Recon": 690534
+  },
+  "nonfinite_rows_by_class": {
+    "Web-based": 1,
+    "Benign": 65,
+    "DDoS": 528,
+    "Spoofing": 23,
+    "Brute Force": 0,
+    "DoS": 223,
+    "Mirai": 184,
+    "Recon": 13
+  },
+  "single_file_raw_labels": [
+    "Backdoor_Malware",
+    "BrowserHijacking",
+    "CommandInjection",
+    "DDoS-HTTP_Flood",
+    "DDoS-SlowLoris",
+    "DNS_Spoofing",
+    "DictionaryBruteForce",
+    "Recon-HostDiscovery",
+    "Recon-OSScan",
+    "Recon-PingSweep",
+    "Recon-PortScan",
+    "SqlInjection",
+    "Uploading_Attack",
+    "VulnerabilityScan",
+    "XSS"
+  ],
+  "counts_by_split_and_class": {
+    "train": {
+      "Benign": 874352,
+      "DDoS": 9707930,
+      "DoS": 2985317,
+      "Recon": 545933,
+      "Web-based": 19699,
+      "Brute Force": 10450,
+      "Spoofing": 363217,
+      "Mirai": 1967314
+    },
+    "val": {
+      "Benign": 109482,
+      "DDoS": 1213890,
+      "DoS": 373093,
+      "Recon": 68008,
+      "Web-based": 2475,
+      "Brute Force": 1284,
+      "Spoofing": 44949,
+      "Mirai": 246103
+    },
+    "test": {
+      "Benign": 109137,
+      "DDoS": 1213933,
+      "DoS": 373680,
+      "Recon": 68364,
+      "Web-based": 2437,
+      "Brute Force": 1310,
+      "Spoofing": 45485,
+      "Mirai": 246518
+    }
+  },
+  "elapsed_reported_seconds": 609.1691224579699,
+  "timing_scope": "final execution segment only",
+  "training_ready": false,
+  "test_evaluated": false,
+  "model_performance_measured": false
+}

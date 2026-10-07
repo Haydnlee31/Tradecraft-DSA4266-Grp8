@@ -1,0 +1,86 @@
+{
+  "manifest_sha256": "1f35e1c29599e056e0758554094425b2d3f744c4853928bafc44bc2f800a1ed3",
+  "checker_sha256": "28a11ddebcdf15db5c6ff3fd6e51df80215ebc54ba3dabe018f2ab343d6cc346",
+  "protocol_sha256": "283e73fa6e6e00405fe55aa3c80572a8592f500ec43ce07dbade28d1bc69d769",
+  "materialized_source_files": 309,
+  "materialized_shards": 3541,
+  "materialized_counts": {
+    "train": {
+      "Benign": 874352,
+      "DDoS": 9707930,
+      "DoS": 2985317,
+      "Recon": 545933,
+      "Web-based": 19699,
+      "Brute Force": 10450,
+      "Spoofing": 363217,
+      "Mirai": 1967314
+    },
+    "val": {
+      "Benign": 109482,
+      "DDoS": 1213890,
+      "DoS": 373093,
+      "Recon": 68008,
+      "Web-based": 2475,
+      "Brute Force": 1284,
+      "Spoofing": 44949,
+      "Mirai": 246103
+    },
+    "test": {
+      "Benign": 109137,
+      "DDoS": 1213933,
+      "DoS": 373680,
+      "Recon": 68364,
+      "Web-based": 2437,
+      "Brute Force": 1310,
+      "Spoofing": 45485,
+      "Mirai": 246518
+    }
+  },
+  "exact_digest_disjointness_verified": true,
+  "loader_sha256": "1ca5b6d48df7b4980cdd04a3eac7d9b2c112afb56000505193aa18ec07dfe431",
+  "status": "complete",
+  "test_opened": false,
+  "test_evaluated": false,
+  "model_trained": false,
+  "batch_size": 8192,
+  "shuffle_buffer_rows": 65536,
+  "diagnostic_scaler_saved": false,
+  "scaler_fit_rows": 16474212,
+  "scaler_fit_seconds": 7.339901417028159,
+  "splits": {
+    "train": {
+      "counts": {
+        "Benign": 874352,
+        "DDoS": 9707930,
+        "DoS": 2985317,
+        "Recon": 545933,
+        "Web-based": 19699,
+        "Brute Force": 10450,
+        "Spoofing": 363217,
+        "Mirai": 1967314
+      },
+      "rows": 16474212,
+      "max_batch_rows": 8192,
+      "seconds": 8.085072084097192
+    },
+    "val": {
+      "counts": {
+        "Benign": 109482,
+        "DDoS": 1213890,
+        "DoS": 373093,
+        "Recon": 68008,
+        "Web-based": 2475,
+        "Brute Force": 1284,
+        "Spoofing": 44949,
+        "Mirai": 246103
+      },
+      "rows": 2059284,
+      "max_batch_rows": 8192,
+      "seconds": 1.7535371668636799
+    }
+  },
+  "process_peak_rss_bytes": 358481920,
+  "elapsed_seconds": 17.218286624876782,
+  "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
+  "python": "3.13.9"
+}
