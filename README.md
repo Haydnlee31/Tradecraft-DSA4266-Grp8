@@ -56,6 +56,9 @@ That screen is now complete: the [post-cloud diagnostic analysis](reports/cloud_
 records both non-promoted candidates, exact baseline recovery, and local SHAP/error
 diagnostics. Keep cloud training paused while the documented diagnostic questions
 are investigated; these results are not deployment approval.
+The [7 October local follow-up](reports/local_diagnostics_2026_10_07/results/README.md)
+traces the apparent feature-median jumps to two-mode mixtures already present in
+the raw data and measures SHAP sensitivity to integration budget and background.
 
 The [pre-cloud checkpoint and study synthesis](reports/pre_cloud_2026_10_05/README.md)
 records the final local checks and links to the cloud-pilot handoff. This is readiness
