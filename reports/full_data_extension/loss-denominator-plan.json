@@ -1,0 +1,37 @@
+{
+  "status": "planned_not_launched",
+  "data_root": "outputs/official39-packed-500k-v1",
+  "packed_manifest_sha256": "157afa2426c3319d14fc34aef36007f08ae830603ffde210f20cac30c8035aac",
+  "lanes": ["light", "iid", "dirichlet"],
+  "paired_reductions": ["batch_weight_sum", "fixed_train_mean"],
+  "settings": {
+    "epochs": 20,
+    "seed": 7,
+    "partition_seed": 7,
+    "clients": 20,
+    "alpha": 0.5,
+    "batch_size": 512,
+    "lr": 0.001,
+    "weight_decay": 0.00001,
+    "loss": "sqrt_weighted_ce",
+    "normalization": "layer",
+    "local_max_batches": 0,
+    "total_update_budget": 0,
+    "device": "cuda",
+    "threads": 2
+  },
+  "examples_processed_per_arm": 10000000,
+  "optimizer_steps_by_lane": {"light": 19540, "iid": 19600, "dirichlet": 19680},
+  "primary_endpoint": "Final step 20 full validation, not validation-best selection",
+  "required_metrics": ["macro_f1", "per_class_recall", "per_class_precision", "benign_false_alert_rate"],
+  "early_stopping": false,
+  "test_evaluated": false,
+  "limits": [
+    "Change only the denominator, not class-weight power, learning rate or local update policy",
+    "The fixed denominator is fitted from the selected training cohort only",
+    "Gradient identity applies at identical parameters, not after multi-step local Adam",
+    "Single seed and partition; additional predefined seeds required before promotion",
+    "No automatic sweep or extension if the result is negative"
+  ],
+  "gates": ["reviewed committed snapshot", "cloud fixture tests", "CUDA recovery", "exact same-code baseline bridges"]
+}

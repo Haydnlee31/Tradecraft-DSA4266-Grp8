@@ -29,6 +29,7 @@ from src.data.official_packed import PackedData
 from src.federated.partition import dirichlet_split, check_exact_cover
 from src.models.architectures import MLPClassifier, config_for_variant
 from src.models.losses import build_criterion
+from src.models.official_losses import build_official_criterion
 from src.models.research import atomic_save, atomic_json, resolve_device, rng_state, restore_rng, memory_metrics
 from src.utils.seed import client_seed, set_seed
 
@@ -134,7 +135,8 @@ def evaluate(model, batches, device):
 def run(data_root, output, lane='light', epochs=2, seed=7, clients=20,
         partition_seed=7, alpha=.5, batch_size=512, lr=.001, weight_decay=1e-5,
         loss='sqrt_weighted_ce', normalization='batch', device='cpu', threads=2,
-        resume=False, stop_after=0, local_max_batches=0, total_update_budget=0):
+        resume=False, stop_after=0, local_max_batches=0, total_update_budget=0,
+        loss_reduction='batch_weight_sum'):
     if lane not in ('light', 'heavy', 'iid', 'dirichlet') or epochs < 1 or batch_size < 2 or threads < 1:
         raise ValueError('Invalid lane, epochs, batch size or threads')
     if min(seed, partition_seed, stop_after) < 0 or not np.isfinite(alpha) or alpha <= 0:
@@ -157,7 +159,8 @@ def run(data_root, output, lane='light', epochs=2, seed=7, clients=20,
     settings = dict(lane=lane, epochs=epochs, seed=seed, clients=clients, partition_seed=partition_seed,
                     alpha=alpha, batch_size=batch_size, lr=lr, weight_decay=weight_decay,
                     loss=loss, normalization=normalization, device=device, threads=threads,
-                    local_max_batches=local_max_batches, total_update_budget=total_update_budget)
+                    local_max_batches=local_max_batches, total_update_budget=total_update_budget,
+                    loss_reduction=loss_reduction)
     source_root = Path(__file__).parents[1]
     env = {'settings': settings, 'packed_manifest_sha256': sha256(Path(data_root)/'manifest.json'),
            'source_sha256': {str(p.relative_to(source_root)): sha256(p) for p in sorted(source_root.rglob('*.py'))},
@@ -198,7 +201,7 @@ def run(data_root, output, lane='light', epochs=2, seed=7, clients=20,
                                      total_update_budget, epochs) if parts is not None else [0]*epochs
     model = MLPClassifier(39, 8, config).to(device)
     counts = data.manifest['train_class_counts']
-    criterion = build_criterion(loss, counts).to(device)
+    criterion = build_official_criterion(loss, counts, loss_reduction).to(device)
     optimizer = torch.optim.Adam(model.parameters(), lr=lr, weight_decay=weight_decay)
     history, best, best_score, best_step, start = [], None, -1., 0, 1
     if resume:
@@ -295,6 +298,8 @@ def main():
     p.add_argument('--weight-decay', type=float, default=1e-5)
     p.add_argument('--loss', choices=['ce', 'sqrt_weighted_ce', 'weighted_ce'], default='sqrt_weighted_ce')
     p.add_argument('--normalization', choices=['batch', 'layer'], default='batch')
+    p.add_argument('--loss-reduction', choices=['batch_weight_sum', 'fixed_train_mean'],
+                   default='batch_weight_sum', help='Opt-in training-only denominator control')
     p.add_argument('--device', choices=['cpu', 'cuda'], default='cpu')
     p.add_argument('--resume', action='store_true')
     p.add_argument('--local-max-batches', type=int, default=0,

@@ -179,6 +179,24 @@ class OfficialStreamingTests(unittest.TestCase):
         self.assertFalse(result['test_evaluated'])
         self.assertTrue(all(r['recovery_exact'] for r in result['lanes'].values()))
 
+    def test_fixed_denominator_recovery_and_changed_reduction_rejected(self):
+        from src.eval.official_streaming_recovery import same
+        for lane in ('light', 'iid', 'dirichlet'):
+            options = dict(data_root=self.root/'packed', lane=lane, epochs=2, clients=4,
+                           batch_size=128, normalization='layer', loss_reduction='fixed_train_mean')
+            a, b = self.root/f'fixed-{lane}-full', self.root/f'fixed-{lane}-resume'
+            full = run(output=a, **options)
+            run(output=b, stop_after=1, **options)
+            with self.assertRaisesRegex(ValueError, 'changed'):
+                run(output=b, resume=True, **(options | {'loss_reduction': 'batch_weight_sum'}))
+            resumed = run(output=b, resume=True, **options)
+            for x,y in zip(full['history'], resumed['history']):
+                self.assertEqual({k:v for k,v in x.items() if k!='elapsed_seconds'},
+                                 {k:v for k,v in y.items() if k!='elapsed_seconds'})
+            left,right = [torch.load(p/'last.pt',weights_only=True) for p in (a,b)]
+            for key in ('model','optimizer','rng','best','best_step'):
+                self.assertTrue(same(left[key],right[key]))
+
 
 if __name__ == '__main__':
     unittest.main()
