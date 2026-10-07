@@ -1,0 +1,66 @@
+{
+  "status": "complete",
+  "subset_recipe_sha256": "7d2a25957f23965c849bb63c4aff5cb17df3b2a73761d960839ddb2550b20a72",
+  "subset_manifest_sha256": "348abf9f1cab3f9adf333ce3b201a1c55a920ed038f931319855ba5fa725fefd",
+  "parent_manifest_sha256": "1f35e1c29599e056e0758554094425b2d3f744c4853928bafc44bc2f800a1ed3",
+  "checker_sha256": "781e631cdb79e6469ef7874809f20bb9b13e91d59c5f54dfe56086454e2af763",
+  "sklearn_version": "1.9.1",
+  "test_opened": false,
+  "model_trained": false,
+  "training_ready": false,
+  "sizes": {
+    "500000": {
+      "class_counts": {
+        "Benign": 26537,
+        "DDoS": 294640,
+        "DoS": 90606,
+        "Recon": 16569,
+        "Web-based": 598,
+        "Brute Force": 317,
+        "Spoofing": 11024,
+        "Mirai": 59709
+      },
+      "scaler_fit_rows": 500000,
+      "scaler_path": "scaler-500000.json",
+      "scaler_sha256": "e8c5e0ea2969c525d3919487115271162b621db1b350355051f878ee1268e52a",
+      "validation_rows_checked": 2059284,
+      "seconds": 6.504794999957085
+    },
+    "2000000": {
+      "class_counts": {
+        "Benign": 106148,
+        "DDoS": 1178561,
+        "DoS": 362423,
+        "Recon": 66277,
+        "Web-based": 2391,
+        "Brute Force": 1269,
+        "Spoofing": 44095,
+        "Mirai": 238836
+      },
+      "scaler_fit_rows": 2000000,
+      "scaler_path": "scaler-2000000.json",
+      "scaler_sha256": "6731ce8c113fa568006ef551bb40b00e027169598d16f9b96e02f491ca681b9e",
+      "validation_rows_checked": 2059284,
+      "seconds": 12.000658209202811
+    },
+    "5000000": {
+      "class_counts": {
+        "Benign": 265370,
+        "DDoS": 2946402,
+        "DoS": 906057,
+        "Recon": 165693,
+        "Web-based": 5979,
+        "Brute Force": 3172,
+        "Spoofing": 110238,
+        "Mirai": 597089
+      },
+      "scaler_fit_rows": 5000000,
+      "scaler_path": "scaler-5000000.json",
+      "scaler_sha256": "d03e227b7903523582fd62f55c40581705cab98a792138867ab11fe10f0a58df",
+      "validation_rows_checked": 2059284,
+      "seconds": 18.650403583189473
+    }
+  },
+  "process_peak_rss_bytes": 355483648,
+  "next_gate": "matched streaming trainers, client partitions and checkpoint recovery"
+}

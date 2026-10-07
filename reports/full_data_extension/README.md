@@ -35,12 +35,12 @@ training throughput, a cloud speedup or an edge-device measurement. The loader
 check did not open the test split. The materializer separately read test shards
 only to verify their integrity, coverage and split assignment.
 
-All 68 local repository tests passed after these additions, including fixture
+All 70 local repository tests passed after these additions, including fixture
 checks for cross-file duplicates, conflicting targets, nonfinite/malformed rows,
 interrupted materialization recovery, checksum rejection, deterministic bounded
 shuffling and parity with an in-memory scaler. The 3,541 derived shards and their
-selection files remain under ignored `outputs/official39-shards-v1/`; only the small
-loader receipt accompanies this guide. No new dependencies were added.
+selection files remain under ignored `outputs/official39-shards-v1/`; only small
+evidence receipts accompany this guide. No new dependencies were added.
 
 ## Obtain the extracted CSV release
 
@@ -137,10 +137,76 @@ and is not saved: future learning-curve subsets must fit their own scalers.
 
 With a seed, the loader shuffles shard order and each bounded 65,536-row buffer.
 This is deterministic, but not a uniform shuffle of all rows. Class-heavy windows
-can remain. Training subset construction, client sampling, and model checkpoint
-recovery still need separate implementation and parity tests. Restarting the basic
+can remain. Client sampling and model checkpoint recovery still need separate
+implementation and parity tests. Restarting the basic
 loader with the same seed restarts an epoch; it does not resume mid-epoch. A verified
 materialization therefore deliberately keeps `training_ready` false.
+
+## Nested training subsets
+
+The learning-curve design uses exactly 500,000, 2,000,000 and 5,000,000 unique
+training vectors. Each smaller subset is contained in every larger subset. A fixed
+hash ranking selects rows within each class, with proportional quotas rounded by
+the largest-remainder rule. This preserves the cleaned training distribution up to
+rounding instead of introducing an oversampling policy at the same time as scaling.
+The ranking does not depend on source-file order or validation performance.
+
+All three subsets have been materialized and verified. Their exact class counts are:
+
+| Class | 500,000 rows | 2,000,000 rows | 5,000,000 rows |
+|---|---:|---:|---:|
+| Benign | 26,537 | 106,148 | 265,370 |
+| DDoS | 294,640 | 1,178,561 | 2,946,402 |
+| DoS | 90,606 | 362,423 | 906,057 |
+| Recon | 16,569 | 66,277 | 165,693 |
+| Web-based | 598 | 2,391 | 5,979 |
+| Brute Force | 317 | 1,269 | 3,172 |
+| Spoofing | 11,024 | 44,095 | 110,238 |
+| Mirai | 59,709 | 238,836 | 597,089 |
+
+The smallest subset still has limited rare-class training coverage. Interpret its
+results as an initial learning-curve point, not evidence that those classes have
+been adequately learned. The larger subsets increase rare examples as well as
+common examples without changing the intended class proportions.
+
+The [frozen subset recipe](subset-recipe.json) records the exact quotas and hash
+thresholds. The [completed subset check](subset-check.json) confirms all three
+training views and all three transformations of the shared validation set. Peak
+process RSS for that local check was 355,483,648 bytes (about 339 MiB). Scaler files
+named in the receipt live in ignored `outputs/official39-subset-check/`, not beside
+the shareable report. These checks do not evaluate model quality.
+
+```bash
+python -m src.data.official_subsets --parent outputs/official39-shards-v1 --output outputs/official39-subsets-v1
+python -m src.eval.official_subset_check --parent outputs/official39-shards-v1 --subsets outputs/official39-subsets-v1 --output outputs/official39-subset-check
+```
+
+The builder counts 4,096 hash buckets per class, then sorts only keys in the quota
+boundary buckets. A hard cap of 131,072 boundary keys limits this working set;
+the full-data recipe needed 12,060 keys. It stores disjoint tiers so a row included
+at 500,000 is reused, not duplicated, in the larger views. Read-back checks compare
+every retained column with its parent row and recompute feature fingerprints.
+An interrupted subset build remains incomplete and cannot be loaded; restart it
+under a new output name. Unlike source-shard materialization, this builder does
+not currently offer resume.
+
+Each size fits its own train-only scaler. The checker streams the selected training
+rows and the same complete 2,059,284-row validation set through that scaler, verifies
+counts and finite inputs, and saves a scaler receipt tied to the exact selection.
+It neither trains a model nor calculates validation performance. Test data is not
+opened. The subset loader exposes selected class counts so future loss weights
+cannot accidentally use the full-training counts.
+
+The exact tiers currently occupy 8,040 small Parquet shards (five million stored
+vectors in total). This layout prioritizes traceable selection and read-back checks.
+Before a throughput-focused GPU pilot, the training adapter should address small-file
+overhead and class-correlated batches, for example through verified repacking and
+mixed batch sampling. The current data checks are not an optimized training benchmark.
+
+These are proportional learning-curve subsets, not a rare-class balancing treatment.
+Any later oversampling or loss change needs a separate control. More examples also
+mean more optimizer updates at a fixed epoch count; retain the planned matched-update
+control when comparing sizes.
 
 ## Split interpretation and cleaning policy
 
@@ -182,8 +248,8 @@ of the old models.
 4. Implement bounded training batches, train-only incremental scaling, reproducible
    shuffle/sampling, disk-backed client assignments and exact resume tests. Run a
    small parity check against the existing in-memory trainer before cloud execution.
-5. Freeze nested training subsets and one validation set. Proposed sizes are roughly
-   0.5M, 2M and 5M, subject to audited availability; log both raw counts and unique
+5. Use the frozen nested training subsets and shared validation set. Sizes are exactly
+   0.5M, 2M and 5M; log both source counts and unique
    rare-class coverage. Refit preprocessing only on each training subset and record
    it. Use consistent cleaning, loss and partition rules across matched lanes.
 6. Benchmark one short T4 run before considering a stronger GPU. Measure ingestion,
@@ -207,13 +273,13 @@ $40 for targeted controls, $40 for confirmation and $20 contingency. These are c
 not measured costs or authorization to exhaust the balance. Confirm actual RONIN
 rates and storage costs before launching. No instances or downloads are automated.
 
-Next engineering task: freeze nested training subsets, implement matched centralized
-and federated streaming training with client assignments, and verify optimization
+Next engineering task: implement matched centralized and federated streaming
+training with client assignments, and verify optimization
 and checkpoint-recovery parity on a small local fixture. Only then prepare a short
 cloud pilot. Do not run full-scale training yet. The branch
 `experiment/full-data-scaling` remains local until the user chooses to publish it.
 
-This verified data-engineering milestone is a suitable local commit checkpoint.
+The audited source-shard milestone was committed locally as `3773e51`.
 Keep raw data, derived shards, environments and audit databases out of that commit.
 Review the existing synthesis/demo changes separately when staging, because they
 pre-date this extension work. A push remains a separate decision; passing data
