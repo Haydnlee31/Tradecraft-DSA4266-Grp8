@@ -1,0 +1,51 @@
+{
+  "version": 1,
+  "status": "prepared_not_launched",
+  "training_seeds": [7, 17, 27],
+  "existing_seed": 7,
+  "new_seeds": [17, 27],
+  "lanes": ["light", "iid"],
+  "new_runs": 8,
+  "epochs": 20,
+  "settings": {
+    "partition_seed": 7, "clients": 20, "alpha": 0.5,
+    "batch_size": 512, "lr": 0.001, "weight_decay": 0.00001,
+    "normalization": "layer", "loss": "sqrt_weighted_ce",
+    "loss_reduction": "batch_weight_sum", "local_max_batches": 0,
+    "total_update_budget": 0, "threads": 2, "device": "cuda"
+  },
+  "cohorts": {
+    "500k": {
+      "data_root": "outputs/official39-packed-500k-v1",
+      "manifest_sha256": "157afa2426c3319d14fc34aef36007f08ae830603ffde210f20cac30c8035aac",
+      "rows": 500000, "matched_examples_step": 20,
+      "final_examples": 10000000,
+      "final_updates": {"light": 19540, "iid": 19600}
+    },
+    "2m": {
+      "data_root": "outputs/official39-packed-2m-v1",
+      "manifest_sha256": "dfd1caf01cbe233b52ce55083941001f390ec251dd89b37543630a2bc53935be",
+      "rows": 2000000, "matched_examples_step": 5,
+      "final_examples": 40000000,
+      "final_updates": {"light": 78140, "iid": 78400},
+      "step5_updates": {"light": 19535, "iid": 19600}
+    }
+  },
+  "output_template": "outputs/official39-scaling-confirmation-v1/{cohort}/{lane}-seed{seed}",
+  "snapshot_policy": "Pause each 2M run at step 5; verify and copy the entire run directory to a new step5 snapshot before resuming the original directory to step 20",
+  "reuse_seed7": {
+    "500k_archive": "tradecraft-official39-fixed-loss-backup.tgz",
+    "500k_root": "outputs/official39-loss-bridge-v1",
+    "500k_archive_sha256": "c5616700ed19c33ce7bb2c5be76d3351409aa9fc2884550c32bd644a46d5aa8f",
+    "2m_archive": "tradecraft-official39-2m-reference-backup.tgz",
+    "2m_root": "outputs/official39-2m-reference-v1",
+    "2m_archive_sha256": "189e9bc8d9370711e83ccd7f01da0b0913dc5946af9bc4f5651be8fb0037da22"
+  },
+  "primary_comparison": "Within each lane and seed: 2M step 5 minus 500k step 20",
+  "secondary_comparison": "Within each lane and seed: 2M step 20 minus 500k step 20",
+  "reporting": "All seeds and paired differences; mean, sample standard deviation and range; all eight class recalls and precision, macro-F1 and benign false-alert rate; seed 7 exploratory, seeds 17/27 prospective",
+  "selection": "Final-at-budget endpoints; best checkpoints descriptive only; no best-seed selection",
+  "test_evaluation": false,
+  "automatic_extension": false,
+  "deferred": ["dirichlet", "heavy", "5M", "hyperparameter tuning"]
+}
