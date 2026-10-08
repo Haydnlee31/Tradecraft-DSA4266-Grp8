@@ -27,6 +27,7 @@ from src.data.label_map import CLASSES
 from src.data.official_inventory import sha256
 from src.data.official_packed import PackedData
 from src.federated.partition import dirichlet_split, check_exact_cover
+from src.federated.official_frozen import load_frozen
 from src.models.architectures import MLPClassifier, config_for_variant
 from src.models.losses import build_criterion
 from src.models.official_losses import build_official_criterion
@@ -136,7 +137,7 @@ def run(data_root, output, lane='light', epochs=2, seed=7, clients=20,
         partition_seed=7, alpha=.5, batch_size=512, lr=.001, weight_decay=1e-5,
         loss='sqrt_weighted_ce', normalization='batch', device='cpu', threads=2,
         resume=False, stop_after=0, local_max_batches=0, total_update_budget=0,
-        loss_reduction='batch_weight_sum'):
+        loss_reduction='batch_weight_sum', partition_root=None):
     if lane not in ('light', 'heavy', 'iid', 'dirichlet') or epochs < 1 or batch_size < 2 or threads < 1:
         raise ValueError('Invalid lane, epochs, batch size or threads')
     if min(seed, partition_seed, stop_after) < 0 or not np.isfinite(alpha) or alpha <= 0:
@@ -147,10 +148,17 @@ def run(data_root, output, lane='light', epochs=2, seed=7, clients=20,
         raise ValueError('Local batch cap and update budget must be nonnegative')
     if (local_max_batches or total_update_budget) and lane not in ('iid', 'dirichlet'):
         raise ValueError('Local batch cap and update budget are federated-only')
+    if partition_root is not None and (lane != 'dirichlet' or local_max_batches or total_update_budget
+                                      or partition_seed != 7 or alpha != .5):
+        raise ValueError('Frozen control requires dirichlet, full epochs, partition seed 7 and alpha 0.5')
     device = resolve_device(device)
     data, output = PackedData(data_root), Path(output)
     if data.manifest['train_rows'] > 5000000:
         raise ValueError('Reviewed index-memory cap exceeded')
+    # Validate imported assignments before creating a run or loading a checkpoint.
+    # Loading uses no training RNG and preserves each client's original row order.
+    frozen_parts, frozen_control = (load_frozen(partition_root, data, clients)
+                                    if partition_root is not None else (None, None))
     torch.set_num_threads(threads)
     set_seed(seed)
     # Fail rather than silently using a nondeterministic operation in this runner.
@@ -174,6 +182,9 @@ def run(data_root, output, lane='light', epochs=2, seed=7, clients=20,
            'local_sampling_policy': 'fresh seeded client shuffle per round; cap takes prefix, no guaranteed full coverage' if local_max_batches else 'full local epoch',
            'aggregation_policy': 'original assigned client row counts, even when capped',
            'checkpoint_selection': 'strict maximum validation macro-F1, beginning at step 1'}
+    if frozen_control is not None:
+        # Omit this key entirely on the default path to preserve its metadata.
+        env['partition_control'] = frozen_control
     # JSON normalizes tuples to lists before comparing recovery provenance.
     env = json.loads(json.dumps(env))
     if resume:
@@ -191,8 +202,13 @@ def run(data_root, output, lane='light', epochs=2, seed=7, clients=20,
             with np.load(output/'assignments.npz', allow_pickle=False) as saved:
                 parts = [saved[f'client_{i}'] for i in range(clients)]
             check_exact_cover(parts, data.manifest['train_rows'])
+            if frozen_parts is not None and any(not np.array_equal(a, b) for a, b in zip(parts, frozen_parts)):
+                raise ValueError('Saved assignments differ from the frozen plan')
         else:
-            parts, attempts = partitions(data.arrays['train'][1], lane, clients, partition_seed, alpha)
+            if frozen_parts is None:
+                parts, attempts = partitions(data.arrays['train'][1], lane, clients, partition_seed, alpha)
+            else:
+                parts, attempts = frozen_parts, 0  # Imported: no new partition draw.
             np.savez_compressed(output/'assignments.npz', **{f'client_{i}': rows for i, rows in enumerate(parts)})
             atomic_json({'sha256': sha256(output/'assignments.npz'), 'attempts': attempts,
                          'simulated_clients_not_physical_devices': True,
@@ -302,6 +318,8 @@ def main():
                    default='batch_weight_sum', help='Opt-in training-only denominator control')
     p.add_argument('--device', choices=['cpu', 'cuda'], default='cpu')
     p.add_argument('--resume', action='store_true')
+    p.add_argument('--partition-root', type=Path,
+                   help='Opt-in reviewed nested partition directory; default partitioning is unchanged')
     p.add_argument('--local-max-batches', type=int, default=0,
                    help='Federated-only local batch cap; zero preserves full epochs')
     p.add_argument('--total-update-budget', type=int, default=0,
