@@ -1,5 +1,10 @@
 # Scaling findings and the controlled non IID comparison
 
+The controlled non-IID cloud run and a subsequent local aggregation diagnostic
+are now complete. See [controlled results and aggregation diagnosis](aggregation-mechanism-probe.md)
+for the findings and current next step. The protocol and original gates below
+record the plan used before those runs.
+
 The 2M cohort improves overall validation macro-F1 consistently when given 20
 passes, but does not consistently beat 500k at equal processed examples. Rare-class
 failures persist even on training examples. Keep these as two separate questions:

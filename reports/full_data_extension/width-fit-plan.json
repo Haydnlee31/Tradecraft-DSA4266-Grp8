@@ -1,0 +1,23 @@
+{
+  "protocol": "official39-width-only-training-fit-v1",
+  "purpose": "Fixed 64/32 versus 128/64 hidden widths on the training panel, not validation or model promotion",
+  "reference_receipt_sha256": "8181757ef1eb86c284d680dca0befc982918b187128f502a5c9ece6a93eac9f3",
+  "reference_plan_sha256": "92a1ada84c8b0299f3fcb7bf240b437e6a8f641978d8b822d9e647f955ea00b5",
+  "previous_fitter_sha256": "35f720052a08e052efcea452d08200282a6f15dac4ce2d8c8e70ec51021b74c8",
+  "panel_sha256": "eeb0da60b60a6af56c7a66920dd2877a59b3f5aa768fb79f27bca079b8afab52",
+  "reference_hidden_dims": [64, 32],
+  "treatment_hidden_dims": [128, 64],
+  "dropout_values": [0.2, 0.0],
+  "epochs": 300,
+  "require_all_exact_baseline_bridges_before_treatment": true,
+  "validation_opened": false,
+  "test_opened": false,
+  "selection_rule": "Final epoch 300 for all four width/dropout conditions and seeds 7, 17, 27; no best-epoch selection",
+  "limits": [
+    "Inherit the panel, scaler, feature order, normalization, losses, optimizer, batch size, seeds and observation schedule",
+    "Match example exposure and optimizer updates, not parameter count, FLOPs or wall time",
+    "Same initialization policy across widths; identical initial tensors only within each width's dropout pair",
+    "No tree refit, production change, cloud use or held-out evaluation",
+    "Follow with a fixed natural-prevalence validation comparison, not further open-ended training-fit tuning"
+  ]
+}

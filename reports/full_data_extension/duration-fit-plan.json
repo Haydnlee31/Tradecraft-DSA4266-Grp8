@@ -1,0 +1,22 @@
+{
+  "protocol": "official39-duration-only-training-fit-v1",
+  "purpose": "Fixed 100 versus 300 epoch training-fit comparison, not validation or deployment selection",
+  "reference_receipt_sha256": "fa36aac0816e5e184e706ff04d02f258026cd89b90523c4f06f233ae3322a5b4",
+  "reference_plan_sha256": "bfaf3274b681e41c50ee2807b3b4ffe4a8456028c85df9e3dba672dc99dd7d02",
+  "previous_fitter_sha256": "bc395eaa452b7728a79bf9868b575f7e110ae122ffeb4ab2377680d514dcda99",
+  "panel_sha256": "eeb0da60b60a6af56c7a66920dd2877a59b3f5aa768fb79f27bca079b8afab52",
+  "reference_epochs": 100,
+  "epochs": 300,
+  "additional_report_epochs": [200, 300],
+  "dropout_values": [0.2, 0.0],
+  "validation_opened": false,
+  "test_opened": false,
+  "require_exact_prefix": true,
+  "selection_rule": "Final epoch 300 for each of the same six fits; no best-checkpoint selection or early stopping",
+  "limits": [
+    "Inherit the exact panel, features, scaler, model widths, normalization, class weights and all optimizer settings",
+    "Only extend duration; preserve Adam state and epoch-specific shuffling through epoch 100",
+    "Stop a fit before epoch 101 if its full 100-epoch prefix does not match",
+    "No tree refit, production change, cloud training or held-out evaluation"
+  ]
+}

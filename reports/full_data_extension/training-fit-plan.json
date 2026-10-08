@@ -1,0 +1,47 @@
+{
+  "protocol": "official39-balanced-training-fit-v1",
+  "purpose": "Bounded in-sample fitting diagnostic, not generalization or production model selection",
+  "packed_manifest_sha256": "dfd1caf01cbe233b52ce55083941001f390ec251dd89b37543630a2bc53935be",
+  "expected_training_rows": 2000000,
+  "panel": {"per_class": 1269, "seed": 426639, "replacement": false},
+  "mlp": {
+    "seeds": [7, 17, 27],
+    "epochs": 100,
+    "report_epochs": [1, 5, 20, 50, 100],
+    "batch_size": 512,
+    "lr": 0.001,
+    "weight_decay": 0.00001,
+    "loss": "sqrt_weighted_ce",
+    "class_weight_counts": "balanced_panel_only",
+    "loss_reduction": "batch_weight_sum",
+    "normalization": "layer"
+  },
+  "hist_gradient_boosting": {
+    "loss": "log_loss",
+    "learning_rate": 0.1,
+    "max_iter": 100,
+    "max_leaf_nodes": 31,
+    "max_depth": null,
+    "min_samples_leaf": 20,
+    "l2_regularization": 1.0,
+    "max_features": 1.0,
+    "max_bins": 255,
+    "categorical_features": null,
+    "early_stopping": false,
+    "validation_fraction": null,
+    "random_state": 7,
+    "class_weight": null
+  },
+  "threads": 2,
+  "validation_opened": false,
+  "test_opened": false,
+  "selection_rule": "Report final fixed-budget fits and predeclared learning-curve points; no best-checkpoint selection",
+  "limits": [
+    "Same already train-fitted scaler and 39 features; no additional feature engineering",
+    "MLP starts from scratch with existing light widths and dropout",
+    "Balanced panel changes exposure and objective; not an isolated weighting ablation",
+    "Training metrics on a balanced panel are not natural-prevalence validation metrics",
+    "Tree and neural fits are not capacity-, update-, or time-matched",
+    "No model promotion, cloud training, hyperparameter search, or federated tree implementation"
+  ]
+}

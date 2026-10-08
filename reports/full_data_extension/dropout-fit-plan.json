@@ -1,0 +1,21 @@
+{
+  "protocol": "official39-dropout-only-training-fit-v1",
+  "purpose": "Paired dropout-only training-fit diagnostic, not validation model selection",
+  "reference_receipt_sha256": "7a2f4f2ec871c1c2586729ca1f97bf887ad125485a06e687a475faea8066b679",
+  "reference_plan_sha256": "f3c7686c5c18bb4e7409f1726eaa2a96699b762336b56b55609b06d8bdbb69ff",
+  "previous_fitter_sha256": "25dd5190236c27d35fd94de66b6e1d442f08c9d315eb143eff46df15b6cfc720",
+  "panel_sha256": "eeb0da60b60a6af56c7a66920dd2877a59b3f5aa768fb79f27bca079b8afab52",
+  "dropout_values": [0.2, 0.0],
+  "inherit_panel_and_neural_settings_from_reference": true,
+  "require_exact_baseline_bridge": true,
+  "require_identical_initial_weights": true,
+  "validation_opened": false,
+  "test_opened": false,
+  "selection_rule": "Compare final epoch 100 for all paired seeds; retain predeclared learning curves, no best-epoch selection",
+  "limits": [
+    "No changes to widths, normalization, Adam, batch size, epochs, scaler, panel, class weights or shuffle policy",
+    "Only dropout changes; its removal intentionally changes stochastic masking during training",
+    "Training-only fits cannot establish generalization or justify removing production dropout",
+    "Do not rerun or tune the tree baseline; no cloud training or model promotion"
+  ]
+}
