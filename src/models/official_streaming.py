@@ -137,7 +137,8 @@ def run(data_root, output, lane='light', epochs=2, seed=7, clients=20,
         partition_seed=7, alpha=.5, batch_size=512, lr=.001, weight_decay=1e-5,
         loss='sqrt_weighted_ce', normalization='batch', device='cpu', threads=2,
         resume=False, stop_after=0, local_max_batches=0, total_update_budget=0,
-        loss_reduction='batch_weight_sum', partition_root=None):
+        loss_reduction='batch_weight_sum', partition_root=None,
+        ablation_arm=None, validation_panel=None):
     if lane not in ('light', 'heavy', 'iid', 'dirichlet') or epochs < 1 or batch_size < 2 or threads < 1:
         raise ValueError('Invalid lane, epochs, batch size or threads')
     if min(seed, partition_seed, stop_after) < 0 or not np.isfinite(alpha) or alpha <= 0:
@@ -151,8 +152,20 @@ def run(data_root, output, lane='light', epochs=2, seed=7, clients=20,
     if partition_root is not None and (lane != 'dirichlet' or local_max_batches or total_update_budget
                                       or partition_seed != 7 or alpha != .5):
         raise ValueError('Frozen control requires dirichlet, full epochs, partition seed 7 and alpha 0.5')
+    # The opt-in experiment is deliberately separate from the historical path.
+    # Never accept a partial mask/panel request or redraw controlled non-IID.
+    if (ablation_arm is None) != (validation_panel is None):
+        raise ValueError('Ablation requires both an arm and a validation panel')
+    if ablation_arm is not None:
+        from src.models.official_ablation import ARMS, AblationData, evaluate_views, initial_state, error_counts
+        if (ablation_arm not in ARMS or lane not in ('light', 'iid', 'dirichlet')
+                or normalization != 'layer' or local_max_batches or total_update_budget
+                or (lane == 'dirichlet' and partition_root is None)):
+            raise ValueError('Ablation requires a reviewed arm, light LayerNorm, full epochs and frozen non-IID assignments')
     device = resolve_device(device)
     data, output = PackedData(data_root), Path(output)
+    if ablation_arm is not None:
+        data = AblationData(data, ablation_arm, validation_panel)
     if data.manifest['train_rows'] > 5000000:
         raise ValueError('Reviewed index-memory cap exceeded')
     # Validate imported assignments before creating a run or loading a checkpoint.
@@ -185,6 +198,10 @@ def run(data_root, output, lane='light', epochs=2, seed=7, clients=20,
     if frozen_control is not None:
         # Omit this key entirely on the default path to preserve its metadata.
         env['partition_control'] = frozen_control
+    if ablation_arm is not None:
+        env['input_transform'] = data.metadata
+        env['primary_endpoint'] = 'final_at_budget_on_shared_panel'
+        env['timing_scope'] = 'training plus single-forward full/panel validation; excludes setup/checkpoint IO'
     # JSON normalizes tuples to lists before comparing recovery provenance.
     env = json.loads(json.dumps(env))
     if resume:
@@ -216,6 +233,8 @@ def run(data_root, output, lane='light', epochs=2, seed=7, clients=20,
     round_limits = local_round_limits([len(p) for p in parts], batch_size, local_max_batches,
                                      total_update_budget, epochs) if parts is not None else [0]*epochs
     model = MLPClassifier(39, 8, config).to(device)
+    if ablation_arm is not None:
+        initial_state(model, output, resume)
     counts = data.manifest['train_class_counts']
     criterion = build_official_criterion(loss, counts, loss_reduction).to(device)
     optimizer = torch.optim.Adam(model.parameters(), lr=lr, weight_decay=weight_decay)
@@ -265,12 +284,19 @@ def run(data_root, output, lane='light', epochs=2, seed=7, clients=20,
                                             'metrics': MetricRecord({'num-examples': len(rows)})}))
             model.load_state_dict(aggregate_arrayrecords(replies, 'num-examples').to_torch_state_dict())
             train_loss = total/examples
-        val_loss, metrics = evaluate(model, data.batches('val', batch_size), device)
+        if ablation_arm is None:
+            val_loss, metrics = evaluate(model, data.batches('val', batch_size), device)
+        else:
+            val_loss, metrics, panel_loss, panel_metrics = evaluate_views(
+                model, data.batches('val', batch_size), device, data.panel_mask)
         if device == 'cuda':
             torch.cuda.synchronize()
         history.append({'step': step, 'validation_metrics': metrics, 'val_loss': val_loss,
                         'train_batch_mean_task_loss': train_loss, 'examples_processed': examples,
                         'optimizer_steps': updates, 'elapsed_seconds': time.perf_counter()-started})
+        if ablation_arm is not None:
+            history[-1]['panel_validation_metrics'] = panel_metrics
+            history[-1]['panel_val_loss'] = panel_loss
         if parts is not None:
             history[-1]['client_work'] = client_work
             history[-1]['local_batch_cap'] = round_limits[step-1]
@@ -280,13 +306,20 @@ def run(data_root, output, lane='light', epochs=2, seed=7, clients=20,
         atomic_save({'step': step, 'model': model.state_dict(), 'optimizer': optimizer.state_dict(),
                      'rng': rng_state(), 'history': history, 'best': best, 'best_score': best_score,
                      'partition_sha256': sha256(output/'assignments.npz') if parts is not None else None,
-                     'best_step': best_step, 'environment_sha256': sha256(output/'environment.json')}, output/'last.pt')
-        print(f'{lane} step={step} val_macro_f1={metrics["macro_f1"]:.5f}', flush=True)
+                     'best_step': best_step, 'environment_sha256': sha256(output/'environment.json'),
+                     **({'input_transform': data.metadata} if ablation_arm is not None else {})}, output/'last.pt')
+        if ablation_arm is None:
+            print(f'{lane} step={step} val_macro_f1={metrics["macro_f1"]:.5f}', flush=True)
+        else:
+            print(f'{lane} arm={ablation_arm} step={step} '
+                  f'all_val_macro_f1={metrics["macro_f1"]:.5f} '
+                  f'panel_val_macro_f1={panel_metrics["macro_f1"]:.5f}', flush=True)
         if stop_after and step >= stop_after and step < epochs:
             atomic_json({'status': 'paused', 'step': step}, output/'status.json')
             return
     atomic_save({'model': best, 'config': asdict(config), 'features': data.manifest['features'],
-                 'classes': CLASSES, 'best_step': best_step}, output/'best.pt')
+                 'classes': CLASSES, 'best_step': best_step,
+                 **({'input_transform': data.metadata} if ablation_arm is not None else {})}, output/'best.pt')
     if total_update_budget and sum(h['optimizer_steps'] for h in history) != total_update_budget:
         raise ValueError('Executed optimizer steps do not match the exact budget')
     result = {'lane': lane, 'best_step': best_step, 'history': history,
@@ -297,6 +330,15 @@ def run(data_root, output, lane='light', epochs=2, seed=7, clients=20,
               'optimizer_steps': sum(h['optimizer_steps'] for h in history),
               'num_parameters': model.num_parameters(), 'edge_hardware_measurements': False,
               **memory_metrics(device)}
+    if ablation_arm is not None:
+        # Preserve legacy validation_metrics (best on all validation) for an
+        # exact bridge, but name the prospective final-panel endpoint explicitly.
+        result.update(input_transform=data.metadata, primary_checkpoint='last.pt',
+                      primary_validation_metrics=history[-1]['panel_validation_metrics'],
+                      final_panel_validation_metrics=history[-1]['panel_validation_metrics'],
+                      final_panel_val_loss=history[-1]['panel_val_loss'],
+                      final_panel_error_counts=error_counts(history[-1]['panel_validation_metrics']),
+                      final_all_validation_error_counts=error_counts(history[-1]['validation_metrics']))
     atomic_json(result, output/'result.json')
     atomic_json({'status': 'complete', 'step': len(history)}, output/'status.json')
     return result
@@ -320,6 +362,10 @@ def main():
     p.add_argument('--resume', action='store_true')
     p.add_argument('--partition-root', type=Path,
                    help='Opt-in reviewed nested partition directory; default partitioning is unchanged')
+    p.add_argument('--ablation-arm', choices=['full39', 'number_masked', 'number_total_masked'],
+                   help='Opt-in standardized-input mask; requires --validation-panel')
+    p.add_argument('--validation-panel', type=Path,
+                   help='Verified shared row-index panel; never replaces the historical all-validation view')
     p.add_argument('--local-max-batches', type=int, default=0,
                    help='Federated-only local batch cap; zero preserves full epochs')
     p.add_argument('--total-update-budget', type=int, default=0,

@@ -1,0 +1,119 @@
+{
+  "protocol": "official39-ablation-panel-v1",
+  "status": "prepared_not_scored",
+  "plan_sha256": "1f807e81a076357b13da7ebcaefe81727fe94749a5268715e597b5a47e12a197",
+  "builder_sha256": "a7efade572a71f10b972025b7b98d1b8f5008b48b5cc9fdfd44c51b20a285f25",
+  "canonical_reader_sha256": "9472605b1effccf0b17691f3990845f5d50d83b5f860cc577401b232ed0cc0d1",
+  "packed_manifest_sha256": "dfd1caf01cbe233b52ce55083941001f390ec251dd89b37543630a2bc53935be",
+  "input_files_sha256": {
+    "train_x.npy": "1d0b40de405351010d62001037e60ce952b5bc6db0657173755072cab340caf4",
+    "train_y.npy": "3a6fdc8ebaae7aa504e85f1aadbba5268d7bd818b2cd038a4c4e520da35633ea",
+    "val_x.npy": "6e9c8e3370b99e492dc3eb2c7e74fa47003dbaafc57e26dc2807f2f82fa96fa0",
+    "val_y.npy": "52735fe75f463fac8230b9ad0fe4cff43cd35c64848d9b98dd23d380e12c745d"
+  },
+  "scaler_sha256": "6731ce8c113fa568006ef551bb40b00e027169598d16f9b96e02f491ca681b9e",
+  "drop_features": [
+    "Number",
+    "Tot sum"
+  ],
+  "classes": [
+    "Benign",
+    "DDoS",
+    "DoS",
+    "Recon",
+    "Web-based",
+    "Brute Force",
+    "Spoofing",
+    "Mirai"
+  ],
+  "source_validation_rows": 2059284,
+  "primary_endpoint": "final_at_budget_on_shared_panel",
+  "test_opened": false,
+  "model_trained": false,
+  "model_scored": false,
+  "split_changed": false,
+  "cloud_authorized": false,
+  "joint_projection": {
+    "unique_vectors": 4037316,
+    "train_rows": 2000000,
+    "val_rows": 2059284,
+    "train_unique_vectors": 1994046,
+    "val_unique_vectors": 2053108,
+    "cross_split_groups": 9838,
+    "cross_split_row_pairs": 13657,
+    "cross_split_train_rows": 11462,
+    "cross_split_val_rows": 11479,
+    "conflicting_label_groups": 4903,
+    "cross_split_conflicting_label_groups": 2792,
+    "cross_split_different_label_pairs": 3242,
+    "cross_split_rows_by_class": {
+      "Benign": {
+        "train": 3,
+        "val": 2
+      },
+      "DDoS": {
+        "train": 5856,
+        "val": 5870
+      },
+      "DoS": {
+        "train": 5473,
+        "val": 5478
+      },
+      "Recon": {
+        "train": 2,
+        "val": 2
+      },
+      "Web-based": {
+        "train": 0,
+        "val": 0
+      },
+      "Brute Force": {
+        "train": 0,
+        "val": 0
+      },
+      "Spoofing": {
+        "train": 3,
+        "val": 4
+      },
+      "Mirai": {
+        "train": 125,
+        "val": 123
+      }
+    },
+    "train_duplicate_excess_rows": 5954,
+    "val_duplicate_excess_rows": 6176
+  },
+  "retained_rows": 2047805,
+  "excluded_rows": 11479,
+  "retained_class_counts": {
+    "Benign": 109480,
+    "DDoS": 1208020,
+    "DoS": 367615,
+    "Recon": 68006,
+    "Web-based": 2475,
+    "Brute Force": 1284,
+    "Spoofing": 44945,
+    "Mirai": 245980
+  },
+  "excluded_class_counts": {
+    "Benign": 2,
+    "DDoS": 5870,
+    "DoS": 5478,
+    "Recon": 2,
+    "Web-based": 0,
+    "Brute Force": 0,
+    "Spoofing": 4,
+    "Mirai": 123
+  },
+  "all_classes_retained": true,
+  "files": {
+    "retained_rows.npy": "eba67c88aca9ff1ecfb5aea724c926ca247b7228289eab31fc8f3854a9859adf",
+    "excluded_rows.npy": "64b7c6817e6db9e7beaac14221679fa552e6d194dfc9a08205b2ef220ac278e7"
+  },
+  "additional_overlap_rows_vs_full39": {
+    "train": 8,
+    "val": 8
+  },
+  "source_receipt_sha256": "d2ae8eb1cdbd37974dd2e1c5c880e56858adc69181121760b16ea2f641309e77",
+  "independent_replay_receipt_sha256": "d2ae8eb1cdbd37974dd2e1c5c880e56858adc69181121760b16ea2f641309e77"
+}

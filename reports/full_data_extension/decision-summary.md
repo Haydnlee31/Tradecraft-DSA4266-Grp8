@@ -182,10 +182,19 @@ The [matched three-arm design](shortcut-ablation-plan.json) preserves the full
 reference, separates Number-only masking from Number-plus-Tot-sum masking, and
 holds architecture, cohorts, partitions and work fixed. The joint mask breaks
 the two demonstrated ratio routes but also removes legitimate size information;
-it is not a guarantee of shortcut-free learning. Before training, audit that
-projection, review a shared collision-excluded validation panel, implement opt-in
-masks and pass exact recovery/historical bridges. Keep RONIN stopped. No broad
-hyperparameter search or automatic model promotion is justified.
+it is not a guarantee of shortcut-free learning. The subsequent
+[local preparation](ablation-readiness.md) audited that projection and froze a
+shared 2,047,805-row validation panel, excluding 11,479 matching inputs while
+retaining every Web-based and Brute Force validation case. The source cohorts
+remain unchanged. Original all-validation and shared-panel metrics will be
+reported separately from the same forward predictions.
+
+The opt-in runner passes all nine synthetic CPU recovery checks and exact
+three-lane parity against the archived pre-change runner. These are software
+checks, not ablation performance results. Review the panel counts, then run the
+bounded CUDA compatibility pilot before the historical bridges and masked
+comparisons. Keep RONIN stopped during review. No broad hyperparameter search,
+test access or automatic model promotion is justified.
 
 The question is what feature patterns distinguish a correct prediction from a
 mistake. SHAP describes model behavior, not model quality, vulnerable device

@@ -2,15 +2,25 @@
 
 ## Latest research status on 9 October 2026
 
+The [shared-panel and ablation runner preparation](ablation-readiness.md) is now
+complete locally. The two-column projection excludes 11,479 overlapping validation
+rows and retains 2,047,805 rows with all eight classes, including every Web-based
+and Brute Force case. Independent panel rebuilds match exactly. All nine arm/lane
+CPU recovery checks pass on synthetic data, and the full-feature path matches
+the archived pre-change runner in all three lanes. No official-data model was
+trained or scored in this preparation; CUDA recovery and full historical bridges
+remain pending. Review the shared panel before starting the small GPU gate.
+
 The [shortcut preflight](shortcut-preflight.md) confirms that `Tot sum / AVG`
 reconstructs Number on every audited training and validation row. Dropping
 Number alone does not remove that information. It also finds 11,471 validation
 rows (0.5570%) matching training inputs at float32 model precision, despite the
 earlier float64-level grouping. Number removal adds no new overlaps. Existing
 scores are preserved, but model-input disjointness must not be claimed.
-The [three-arm ablation design](shortcut-ablation-plan.json) is frozen with
-additional collision, shared-panel and runner/recovery gates; no cloud training
-is authorized by this preparation.
+The [three-arm ablation design](shortcut-ablation-plan.json) remains the frozen
+prospective specification. Its preparation-time pending statements are followed
+by the completed local gates above, not retroactively edited. No cloud instance
+or full experiment has been launched.
 
 The [background and redundancy audit](explanation-sensitivity.md) identifies a
 strong scenario/windowing shortcut concern: Number is near 10 for almost all
@@ -44,9 +54,9 @@ These are not 72 independent training runs. Teammates can audit the metrics with
 `python -m src.eval.official_evidence --audit reports/full_data_extension/decision-evidence.json`
 without the dataset, models or a GPU.
 
-Next: audit the Number-plus-Tot-sum projection, prepare a common collision-excluded
-validation panel for review, then implement the opt-in masks and recovery checks.
-Keep RONIN off until those gates pass. No broad training sweep is recommended. The official-39
+Next: review the prepared shared panel, then schedule the bounded CUDA recovery
+pilot. Keep RONIN off during that review; do not launch the 20-step comparison
+before CUDA recovery and the historical bridges pass. No broad training sweep is recommended. The official-39
 final test remains unused for model/threshold evaluation, and the original
 46-feature study stays separate. Raw data, checkpoints and per-row scores remain
 outside Git. The [prior correction](prior-correction-findings.md) and

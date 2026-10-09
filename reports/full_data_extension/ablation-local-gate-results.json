@@ -1,0 +1,136 @@
+{
+  "status": "complete",
+  "purpose": "two-step compatibility and recovery only; no mask selection",
+  "device": "cpu",
+  "test_evaluated": false,
+  "comparison_training_launched": false,
+  "packed_manifest_sha256": "3c220ddefc7bebb8eb9492fcd20a88701a2904b2a3da226a4613d940d561c5c2",
+  "panel": {
+    "receipt_sha256": "afe6a7126a1f8fa5bbe006622dd2643c60643b92fd389553bc8cec2fd796e305",
+    "files": {
+      "retained_rows.npy": "9fe9efc867fe1524b5e3ba82cd2af4f614d4a7553a43ab1be81e3fe21e477243",
+      "excluded_rows.npy": "41ab14437a68231a24825086c1458c38d7f2273fa6143b754ee58336d4df46e1"
+    },
+    "retained_rows": 64,
+    "excluded_rows": 16,
+    "retained_class_counts": {
+      "Benign": 8,
+      "DDoS": 8,
+      "DoS": 8,
+      "Recon": 8,
+      "Web-based": 8,
+      "Brute Force": 8,
+      "Spoofing": 8,
+      "Mirai": 8
+    }
+  },
+  "partition_control": {
+    "policy": "nested-anchor-class-shares-v1",
+    "cohort": "500k",
+    "plan_sha256": "65f65c9b8ed7d2b8a8684c3bb6b202b23bfba313be8c04924d206ed5b92241ac",
+    "assignment_sha256": "8b74e5b2e2c01a89631baa9b08a4988e5c810dd102ce1e6d44667370c1c2ab54"
+  },
+  "pilot_sha256": "1f22cae123382e3978cf246d894375a0ec1063c881d2eb8e3ee33a59d5756168",
+  "runner_sha256": "cf7085916f6794867485802236662131c3465d1f40564d692a398c64b7ffe496",
+  "reference_runner_sha256": "82eebe2e342c727fb79811278c9847e9debd0daeb9c2ff7debf7c29988a29646",
+  "expected_total_examples_processed": 6720,
+  "lanes": {
+    "light": {
+      "default_path_bridge_exact": true,
+      "paired_initial_state": {
+        "model_state_sha256": "f5b9fcf0f4aa2f2fd7779eacff86614e1a0702ce2136277a58747eae41004710",
+        "num_parameters": 5096
+      },
+      "assignment_sha256": null,
+      "arms": {
+        "full39": {
+          "recovery_exact": true,
+          "examples_processed": 320,
+          "optimizer_steps": 10,
+          "primary_rows": 64
+        },
+        "number_masked": {
+          "recovery_exact": true,
+          "examples_processed": 320,
+          "optimizer_steps": 10,
+          "primary_rows": 64
+        },
+        "number_total_masked": {
+          "recovery_exact": true,
+          "examples_processed": 320,
+          "optimizer_steps": 10,
+          "primary_rows": 64
+        }
+      }
+    },
+    "iid": {
+      "default_path_bridge_exact": true,
+      "paired_initial_state": {
+        "model_state_sha256": "f5b9fcf0f4aa2f2fd7779eacff86614e1a0702ce2136277a58747eae41004710",
+        "num_parameters": 5096
+      },
+      "assignment_sha256": "6cd558734cf8f3e9ada6ead1f6be1c32db7d9454e9237f3740356830b72cd639",
+      "arms": {
+        "full39": {
+          "recovery_exact": true,
+          "examples_processed": 320,
+          "optimizer_steps": 16,
+          "primary_rows": 64
+        },
+        "number_masked": {
+          "recovery_exact": true,
+          "examples_processed": 320,
+          "optimizer_steps": 16,
+          "primary_rows": 64
+        },
+        "number_total_masked": {
+          "recovery_exact": true,
+          "examples_processed": 320,
+          "optimizer_steps": 16,
+          "primary_rows": 64
+        }
+      }
+    },
+    "dirichlet": {
+      "default_path_bridge_exact": true,
+      "paired_initial_state": {
+        "model_state_sha256": "f5b9fcf0f4aa2f2fd7779eacff86614e1a0702ce2136277a58747eae41004710",
+        "num_parameters": 5096
+      },
+      "assignment_sha256": "8b74e5b2e2c01a89631baa9b08a4988e5c810dd102ce1e6d44667370c1c2ab54",
+      "arms": {
+        "full39": {
+          "recovery_exact": true,
+          "examples_processed": 320,
+          "optimizer_steps": 14,
+          "primary_rows": 64
+        },
+        "number_masked": {
+          "recovery_exact": true,
+          "examples_processed": 320,
+          "optimizer_steps": 14,
+          "primary_rows": 64
+        },
+        "number_total_masked": {
+          "recovery_exact": true,
+          "examples_processed": 320,
+          "optimizer_steps": 14,
+          "primary_rows": 64
+        }
+      }
+    }
+  },
+  "total_examples_processed": 6720,
+  "next": "Review this pilot; historical 20-step bridges and six ablations have NOT been launched",
+  "source_receipt_sha256": "d192f024a001b935f83186e177f3925d3e5c6728e555232132af620e04835cd6",
+  "fixture_scope": "Synthetic: 160 training, 80 validation, 4 simulated clients; no official-data model scoring or training.",
+  "reference_commit": "f6e0bc3",
+  "fixture_sources_sha256": {
+    "tests/test_official_ablation_panel.py": "f145796e9e55d67943f5ee135610bd8b37672b90c2bcebdec113deb30fa1a8b9",
+    "tests/test_official_ablation.py": "8e97bd21983f38d0b864bfc5e141d984119a69ed7fc1835c36a66d5946baa3d9"
+  },
+  "supporting_sources_sha256": {
+    "models/official_ablation.py": "9b330ca2cf042da961bf76ec43e6a6265252d0664e818ea6b5bbf31859fc1e71",
+    "data/official_ablation_panel.py": "a7efade572a71f10b972025b7b98d1b8f5008b48b5cc9fdfd44c51b20a285f25"
+  }
+}

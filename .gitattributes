@@ -7,3 +7,10 @@ reports/full_data_extension/*.json text eol=lf
 
 # This audit's published receipt pins the exact implementation bytes too.
 src/data/official_shortcut_audit.py text eol=lf
+src/data/official_ablation_panel.py text eol=lf
+src/models/official_streaming.py text eol=lf
+src/models/official_ablation.py text eol=lf
+src/eval/official_ablation_recovery.py text eol=lf
+# The synthetic gate also records its fixture implementations.
+tests/test_official_ablation.py text eol=lf
+tests/test_official_ablation_panel.py text eol=lf
