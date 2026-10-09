@@ -1,5 +1,6 @@
 """Official-39 explanation preparation uses fixtures, never downloaded data."""
 import copy
+import gc
 import hashlib
 import io
 import json
@@ -7,6 +8,7 @@ from pathlib import Path
 import tarfile
 import tempfile
 import unittest
+import weakref
 from unittest.mock import patch
 
 import numpy as np
@@ -201,12 +203,19 @@ class OfficialExplanationTests(unittest.TestCase):
                 pred, cm = scan_validation(model, data, size)
                 cm[0, 0] += 1
                 return pred, cm
-            with patch('src.explain.official.scan_validation', side_effect=broken), \
+            with patch('src.explain.official.scan_validation', side_effect=broken) as scanner, \
                  patch('src.explain.official.pilot') as explainer:
                 with self.assertRaisesRegex(ValueError, 'bridge failed'):
                     prepare(root/'packed', root, root/'plan.json', root/'failure')
                 explainer.assert_not_called()
                 self.assertFalse((root/'failure').exists())
+            # Mock call history owns the PackedData argument even after the
+            # patch ends. Release it before TemporaryDirectory cleanup: Windows
+            # cannot unlink an .npy file while its memory map is still open.
+            retained_data = weakref.ref(scanner.call_args.args[1])
+            scanner.reset_mock()
+            gc.collect()
+            self.assertIsNone(retained_data())
 
     def test_numerical_failure_is_not_marked_ready(self):
         with tempfile.TemporaryDirectory() as folder:
