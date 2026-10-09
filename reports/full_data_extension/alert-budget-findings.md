@@ -1,5 +1,10 @@
 # False alert budgets reveal the remaining detection trade-off
 
+The subsequent [matched-work training-diversity experiment](diversity-findings.md)
+is complete. Broader coverage did not solve the alert burden: false alerts rose
+in all three seeds. The gate evidence and original next-step rationale below
+are retained as the history of this diagnostic sequence.
+
 The fixed alert gate reduces benign false alerts, but it does not solve rare
 attack detection. For the predeclared primary model, the small network with
 dropout, a 1% empirical false-alert budget retains only 11.49% Web-based recall

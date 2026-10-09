@@ -1,0 +1,1108 @@
+{
+  "scope": "Exploratory natural-prevalence validation; matched-work centrally pooled training, not deployment or federated training",
+  "source_receipt_sha256": "0d1d36434c4ba4921d80a4f0c155cf4a49de7918a54c384bd5d239fcadbf36f4",
+  "plan_sha256": "15dc34b4334d3dca15341f204a9ac921891d961e237fef384fdd10c3c34eeffb",
+  "packed_manifest_sha256": "dfd1caf01cbe233b52ce55083941001f390ec251dd89b37543630a2bc53935be",
+  "classes": [
+    "Benign",
+    "DDoS",
+    "DoS",
+    "Recon",
+    "Web-based",
+    "Brute Force",
+    "Spoofing",
+    "Mirai"
+  ],
+  "test_opened": false,
+  "model_promoted": false,
+  "all_control_bridges_exact": true,
+  "all_pairs_matched": true,
+  "runs": [
+    {
+      "name": "panel_control_seed7",
+      "condition": "panel_control",
+      "seed": 7,
+      "validation_cross_entropy": 0.4780071858097341,
+      "confusion_matrix": [
+        [
+          78294,
+          2,
+          0,
+          8919,
+          12247,
+          5278,
+          4742,
+          0
+        ],
+        [
+          28,
+          753779,
+          456808,
+          390,
+          80,
+          81,
+          217,
+          2507
+        ],
+        [
+          10,
+          23217,
+          348754,
+          98,
+          7,
+          40,
+          156,
+          811
+        ],
+        [
+          9657,
+          4,
+          78,
+          37019,
+          12629,
+          5800,
+          2821,
+          0
+        ],
+        [
+          349,
+          0,
+          0,
+          445,
+          1219,
+          221,
+          241,
+          0
+        ],
+        [
+          238,
+          0,
+          0,
+          94,
+          199,
+          679,
+          74,
+          0
+        ],
+        [
+          7765,
+          7,
+          0,
+          1818,
+          6264,
+          2545,
+          26550,
+          0
+        ],
+        [
+          8,
+          337,
+          751,
+          31,
+          5,
+          0,
+          230,
+          244741
+        ]
+      ],
+      "training_fit": {
+        "model_config": {
+          "name": "centralized_light",
+          "hidden_dims": [
+            64,
+            32
+          ],
+          "dropout": 0.2,
+          "normalization": "layer"
+        },
+        "num_parameters": 5096,
+        "initial_state_sha256": "16742ab7ac2428322d1c551ae455276f1fb015bb6511e8ef072c8f8e47eb1b5e",
+        "final_state_sha256": "925c4592a06d527f06dfbe3e86512508147666320a00cdaee5de93d473d77b63",
+        "examples_processed": 3045600,
+        "optimizer_steps": 6000,
+        "class_weights": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ]
+      },
+      "original_panel_final_macro_f1": 0.7185379925181392,
+      "exposure": {
+        "label_sequence_sha256": "d9fe41fc904c23249339cbf9b5b40200666cfeb6f074ccfa70b5aae223b09e77",
+        "rare_position_sequence_sha256": "e73877a0a312fd22b65d28ca8d9f751d0f4eb330302edea70867ac07127ce011",
+        "row_sequence_sha256": "0a5a76510822824c8d27fcbcfb95651b5a4a7216b14f38312e397914295dcf2f",
+        "optimizer_steps": 6000,
+        "per_class": {
+          "Benign": {
+            "available_rows": 106148,
+            "unique_rows_seen": 1269,
+            "examples_processed": 380700,
+            "min_exposure_among_seen": 300,
+            "max_exposure": 300
+          },
+          "DDoS": {
+            "available_rows": 1178561,
+            "unique_rows_seen": 1269,
+            "examples_processed": 380700,
+            "min_exposure_among_seen": 300,
+            "max_exposure": 300
+          },
+          "DoS": {
+            "available_rows": 362423,
+            "unique_rows_seen": 1269,
+            "examples_processed": 380700,
+            "min_exposure_among_seen": 300,
+            "max_exposure": 300
+          },
+          "Recon": {
+            "available_rows": 66277,
+            "unique_rows_seen": 1269,
+            "examples_processed": 380700,
+            "min_exposure_among_seen": 300,
+            "max_exposure": 300
+          },
+          "Web-based": {
+            "available_rows": 2391,
+            "unique_rows_seen": 1269,
+            "examples_processed": 380700,
+            "min_exposure_among_seen": 300,
+            "max_exposure": 300
+          },
+          "Brute Force": {
+            "available_rows": 1269,
+            "unique_rows_seen": 1269,
+            "examples_processed": 380700,
+            "min_exposure_among_seen": 300,
+            "max_exposure": 300
+          },
+          "Spoofing": {
+            "available_rows": 44095,
+            "unique_rows_seen": 1269,
+            "examples_processed": 380700,
+            "min_exposure_among_seen": 300,
+            "max_exposure": 300
+          },
+          "Mirai": {
+            "available_rows": 238836,
+            "unique_rows_seen": 1269,
+            "examples_processed": 380700,
+            "min_exposure_among_seen": 300,
+            "max_exposure": 300
+          }
+        }
+      },
+      "exposure_sha256": "fcae03d52b0bb2c3a261e4d1fa099bfec589140be10d3534db16664c87b5948e",
+      "checkpoint_sha256": "a78048b8320cc6c9de6e4e2959990364814305626e1270cf8e4c61e0b6942fa5"
+    },
+    {
+      "name": "panel_control_seed17",
+      "condition": "panel_control",
+      "seed": 17,
+      "validation_cross_entropy": 0.4868164338786593,
+      "confusion_matrix": [
+        [
+          78014,
+          0,
+          0,
+          9582,
+          11051,
+          6254,
+          4581,
+          0
+        ],
+        [
+          19,
+          726529,
+          484132,
+          503,
+          19,
+          52,
+          420,
+          2216
+        ],
+        [
+          5,
+          16752,
+          355302,
+          133,
+          3,
+          7,
+          160,
+          731
+        ],
+        [
+          9542,
+          0,
+          93,
+          36651,
+          12740,
+          6313,
+          2669,
+          0
+        ],
+        [
+          331,
+          0,
+          0,
+          443,
+          1237,
+          253,
+          211,
+          0
+        ],
+        [
+          223,
+          0,
+          0,
+          83,
+          210,
+          694,
+          74,
+          0
+        ],
+        [
+          7837,
+          4,
+          0,
+          2029,
+          5911,
+          3034,
+          26134,
+          0
+        ],
+        [
+          3,
+          232,
+          1006,
+          16,
+          2,
+          1,
+          205,
+          244638
+        ]
+      ],
+      "training_fit": {
+        "model_config": {
+          "name": "centralized_light",
+          "hidden_dims": [
+            64,
+            32
+          ],
+          "dropout": 0.2,
+          "normalization": "layer"
+        },
+        "num_parameters": 5096,
+        "initial_state_sha256": "17a426ea37dcf3e8eada4717ccf108dfadd9ea034e498e03221cee63c4e04815",
+        "final_state_sha256": "2eeb27fe3e1c75127d0229099b3e26a57837ee70c6711680f6b85e8b565a9269",
+        "examples_processed": 3045600,
+        "optimizer_steps": 6000,
+        "class_weights": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ]
+      },
+      "original_panel_final_macro_f1": 0.719079118493351,
+      "exposure": {
+        "label_sequence_sha256": "40dd82dc212450c37bd3ef699bdd8b423db26ee1d8c7bfe4911e4bccc5759d2f",
+        "rare_position_sequence_sha256": "cbb39b34c860ada96146482425e862b5a92ef346f188dd97f3c15f58b09c4dc3",
+        "row_sequence_sha256": "feb333098e73583fd45f7143bf6da6965edacfaad3e82888ac07dae7184b7419",
+        "optimizer_steps": 6000,
+        "per_class": {
+          "Benign": {
+            "available_rows": 106148,
+            "unique_rows_seen": 1269,
+            "examples_processed": 380700,
+            "min_exposure_among_seen": 300,
+            "max_exposure": 300
+          },
+          "DDoS": {
+            "available_rows": 1178561,
+            "unique_rows_seen": 1269,
+            "examples_processed": 380700,
+            "min_exposure_among_seen": 300,
+            "max_exposure": 300
+          },
+          "DoS": {
+            "available_rows": 362423,
+            "unique_rows_seen": 1269,
+            "examples_processed": 380700,
+            "min_exposure_among_seen": 300,
+            "max_exposure": 300
+          },
+          "Recon": {
+            "available_rows": 66277,
+            "unique_rows_seen": 1269,
+            "examples_processed": 380700,
+            "min_exposure_among_seen": 300,
+            "max_exposure": 300
+          },
+          "Web-based": {
+            "available_rows": 2391,
+            "unique_rows_seen": 1269,
+            "examples_processed": 380700,
+            "min_exposure_among_seen": 300,
+            "max_exposure": 300
+          },
+          "Brute Force": {
+            "available_rows": 1269,
+            "unique_rows_seen": 1269,
+            "examples_processed": 380700,
+            "min_exposure_among_seen": 300,
+            "max_exposure": 300
+          },
+          "Spoofing": {
+            "available_rows": 44095,
+            "unique_rows_seen": 1269,
+            "examples_processed": 380700,
+            "min_exposure_among_seen": 300,
+            "max_exposure": 300
+          },
+          "Mirai": {
+            "available_rows": 238836,
+            "unique_rows_seen": 1269,
+            "examples_processed": 380700,
+            "min_exposure_among_seen": 300,
+            "max_exposure": 300
+          }
+        }
+      },
+      "exposure_sha256": "fcae03d52b0bb2c3a261e4d1fa099bfec589140be10d3534db16664c87b5948e",
+      "checkpoint_sha256": "1bb3b9b770c70c97c07249232dbd8257444faa83132b673e251b537e6a1ab0a5"
+    },
+    {
+      "name": "panel_control_seed27",
+      "condition": "panel_control",
+      "seed": 27,
+      "validation_cross_entropy": 0.46039499407401374,
+      "confusion_matrix": [
+        [
+          75195,
+          4,
+          0,
+          8870,
+          13314,
+          7915,
+          4184,
+          0
+        ],
+        [
+          105,
+          815649,
+          395662,
+          448,
+          36,
+          49,
+          200,
+          1741
+        ],
+        [
+          11,
+          41035,
+          331150,
+          96,
+          5,
+          14,
+          173,
+          609
+        ],
+        [
+          8394,
+          2,
+          91,
+          35662,
+          14259,
+          7386,
+          2214,
+          0
+        ],
+        [
+          288,
+          0,
+          0,
+          392,
+          1336,
+          293,
+          166,
+          0
+        ],
+        [
+          208,
+          0,
+          0,
+          75,
+          231,
+          737,
+          33,
+          0
+        ],
+        [
+          6620,
+          3,
+          0,
+          1466,
+          6996,
+          2915,
+          26949,
+          0
+        ],
+        [
+          26,
+          390,
+          792,
+          14,
+          4,
+          0,
+          225,
+          244652
+        ]
+      ],
+      "training_fit": {
+        "model_config": {
+          "name": "centralized_light",
+          "hidden_dims": [
+            64,
+            32
+          ],
+          "dropout": 0.2,
+          "normalization": "layer"
+        },
+        "num_parameters": 5096,
+        "initial_state_sha256": "fcfd2f9bde736db723b788c627b8773622eb10f1fb1c6b4facca6b0f1552e2a0",
+        "final_state_sha256": "f7a1273f395ebac638dc6276dd96a257c1652590e68c19b396b5537cbd3a1632",
+        "examples_processed": 3045600,
+        "optimizer_steps": 6000,
+        "class_weights": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ]
+      },
+      "original_panel_final_macro_f1": 0.7239707133110371,
+      "exposure": {
+        "label_sequence_sha256": "9988d99731b3feaf46aba4657183b749e2a70d3d7728ab9b48fe56d613540312",
+        "rare_position_sequence_sha256": "98092613b30a71706cae9914888ead16336efedb550a2df6dc9fd2d7a8ba7118",
+        "row_sequence_sha256": "6321ad456724f9ed60546422326306b76da09d37621e5d3806974743655cb165",
+        "optimizer_steps": 6000,
+        "per_class": {
+          "Benign": {
+            "available_rows": 106148,
+            "unique_rows_seen": 1269,
+            "examples_processed": 380700,
+            "min_exposure_among_seen": 300,
+            "max_exposure": 300
+          },
+          "DDoS": {
+            "available_rows": 1178561,
+            "unique_rows_seen": 1269,
+            "examples_processed": 380700,
+            "min_exposure_among_seen": 300,
+            "max_exposure": 300
+          },
+          "DoS": {
+            "available_rows": 362423,
+            "unique_rows_seen": 1269,
+            "examples_processed": 380700,
+            "min_exposure_among_seen": 300,
+            "max_exposure": 300
+          },
+          "Recon": {
+            "available_rows": 66277,
+            "unique_rows_seen": 1269,
+            "examples_processed": 380700,
+            "min_exposure_among_seen": 300,
+            "max_exposure": 300
+          },
+          "Web-based": {
+            "available_rows": 2391,
+            "unique_rows_seen": 1269,
+            "examples_processed": 380700,
+            "min_exposure_among_seen": 300,
+            "max_exposure": 300
+          },
+          "Brute Force": {
+            "available_rows": 1269,
+            "unique_rows_seen": 1269,
+            "examples_processed": 380700,
+            "min_exposure_among_seen": 300,
+            "max_exposure": 300
+          },
+          "Spoofing": {
+            "available_rows": 44095,
+            "unique_rows_seen": 1269,
+            "examples_processed": 380700,
+            "min_exposure_among_seen": 300,
+            "max_exposure": 300
+          },
+          "Mirai": {
+            "available_rows": 238836,
+            "unique_rows_seen": 1269,
+            "examples_processed": 380700,
+            "min_exposure_among_seen": 300,
+            "max_exposure": 300
+          }
+        }
+      },
+      "exposure_sha256": "fcae03d52b0bb2c3a261e4d1fa099bfec589140be10d3534db16664c87b5948e",
+      "checkpoint_sha256": "7c130da727599b125dee2e48278eabb774f60a9522bee363377169995a2d1a5c"
+    },
+    {
+      "name": "majority_diversity_seed7",
+      "condition": "majority_diversity",
+      "seed": 7,
+      "validation_cross_entropy": 0.43126622901047235,
+      "confusion_matrix": [
+        [
+          75359,
+          0,
+          0,
+          10838,
+          11486,
+          5978,
+          5821,
+          0
+        ],
+        [
+          25,
+          814267,
+          397613,
+          286,
+          79,
+          47,
+          274,
+          1299
+        ],
+        [
+          7,
+          39009,
+          333489,
+          68,
+          3,
+          13,
+          137,
+          367
+        ],
+        [
+          8307,
+          0,
+          1,
+          39825,
+          11012,
+          5900,
+          2963,
+          0
+        ],
+        [
+          273,
+          0,
+          0,
+          464,
+          1284,
+          226,
+          228,
+          0
+        ],
+        [
+          198,
+          0,
+          0,
+          97,
+          191,
+          713,
+          85,
+          0
+        ],
+        [
+          6415,
+          2,
+          0,
+          2237,
+          5901,
+          2607,
+          27787,
+          0
+        ],
+        [
+          3,
+          277,
+          755,
+          1,
+          4,
+          0,
+          176,
+          244887
+        ]
+      ],
+      "training_fit": {
+        "model_config": {
+          "name": "centralized_light",
+          "hidden_dims": [
+            64,
+            32
+          ],
+          "dropout": 0.2,
+          "normalization": "layer"
+        },
+        "num_parameters": 5096,
+        "initial_state_sha256": "16742ab7ac2428322d1c551ae455276f1fb015bb6511e8ef072c8f8e47eb1b5e",
+        "final_state_sha256": "6f7519ee42b991bc3ffeff8462d9bca2bfc248d32d6bb18f906652fd58f4f8c0",
+        "examples_processed": 3045600,
+        "optimizer_steps": 6000,
+        "class_weights": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ]
+      },
+      "original_panel_final_macro_f1": 0.703384571925905,
+      "exposure": {
+        "label_sequence_sha256": "d9fe41fc904c23249339cbf9b5b40200666cfeb6f074ccfa70b5aae223b09e77",
+        "rare_position_sequence_sha256": "e73877a0a312fd22b65d28ca8d9f751d0f4eb330302edea70867ac07127ce011",
+        "row_sequence_sha256": "60075e7068205a6d7faeef43b96eb14c94f4f71447afee47fb2af2d27cffc78e",
+        "optimizer_steps": 6000,
+        "per_class": {
+          "Benign": {
+            "available_rows": 106148,
+            "unique_rows_seen": 106148,
+            "examples_processed": 380700,
+            "min_exposure_among_seen": 3,
+            "max_exposure": 4
+          },
+          "DDoS": {
+            "available_rows": 1178561,
+            "unique_rows_seen": 380700,
+            "examples_processed": 380700,
+            "min_exposure_among_seen": 1,
+            "max_exposure": 1
+          },
+          "DoS": {
+            "available_rows": 362423,
+            "unique_rows_seen": 362423,
+            "examples_processed": 380700,
+            "min_exposure_among_seen": 1,
+            "max_exposure": 2
+          },
+          "Recon": {
+            "available_rows": 66277,
+            "unique_rows_seen": 66277,
+            "examples_processed": 380700,
+            "min_exposure_among_seen": 5,
+            "max_exposure": 6
+          },
+          "Web-based": {
+            "available_rows": 2391,
+            "unique_rows_seen": 1269,
+            "examples_processed": 380700,
+            "min_exposure_among_seen": 300,
+            "max_exposure": 300
+          },
+          "Brute Force": {
+            "available_rows": 1269,
+            "unique_rows_seen": 1269,
+            "examples_processed": 380700,
+            "min_exposure_among_seen": 300,
+            "max_exposure": 300
+          },
+          "Spoofing": {
+            "available_rows": 44095,
+            "unique_rows_seen": 44095,
+            "examples_processed": 380700,
+            "min_exposure_among_seen": 8,
+            "max_exposure": 9
+          },
+          "Mirai": {
+            "available_rows": 238836,
+            "unique_rows_seen": 238836,
+            "examples_processed": 380700,
+            "min_exposure_among_seen": 1,
+            "max_exposure": 2
+          }
+        }
+      },
+      "exposure_sha256": "c00450ac2d1677805d34593665699eda48a36882f64af4bb2bbbdd272a875a90",
+      "checkpoint_sha256": "ba30a37db1fa9015eaeb7a8498af4a81de772e5140aaad46ad942875f6488336"
+    },
+    {
+      "name": "majority_diversity_seed17",
+      "condition": "majority_diversity",
+      "seed": 17,
+      "validation_cross_entropy": 0.4437956751923607,
+      "confusion_matrix": [
+        [
+          77426,
+          1,
+          0,
+          8590,
+          10496,
+          7077,
+          5892,
+          0
+        ],
+        [
+          31,
+          767043,
+          443727,
+          288,
+          2,
+          13,
+          309,
+          2477
+        ],
+        [
+          13,
+          28854,
+          343122,
+          79,
+          5,
+          3,
+          141,
+          876
+        ],
+        [
+          9668,
+          1,
+          3,
+          35547,
+          12543,
+          7528,
+          2718,
+          0
+        ],
+        [
+          360,
+          0,
+          0,
+          364,
+          1269,
+          271,
+          211,
+          0
+        ],
+        [
+          213,
+          0,
+          0,
+          54,
+          203,
+          739,
+          75,
+          0
+        ],
+        [
+          7368,
+          3,
+          0,
+          1402,
+          5599,
+          3413,
+          27164,
+          0
+        ],
+        [
+          3,
+          103,
+          738,
+          10,
+          1,
+          2,
+          168,
+          245078
+        ]
+      ],
+      "training_fit": {
+        "model_config": {
+          "name": "centralized_light",
+          "hidden_dims": [
+            64,
+            32
+          ],
+          "dropout": 0.2,
+          "normalization": "layer"
+        },
+        "num_parameters": 5096,
+        "initial_state_sha256": "17a426ea37dcf3e8eada4717ccf108dfadd9ea034e498e03221cee63c4e04815",
+        "final_state_sha256": "c42f4e1835b3c1a1828caf064b2d46b6274374ac48901df8bf347d47c7f72e39",
+        "examples_processed": 3045600,
+        "optimizer_steps": 6000,
+        "class_weights": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ]
+      },
+      "original_panel_final_macro_f1": 0.6978821488006223,
+      "exposure": {
+        "label_sequence_sha256": "40dd82dc212450c37bd3ef699bdd8b423db26ee1d8c7bfe4911e4bccc5759d2f",
+        "rare_position_sequence_sha256": "cbb39b34c860ada96146482425e862b5a92ef346f188dd97f3c15f58b09c4dc3",
+        "row_sequence_sha256": "bbde283199a3f00a680003f2d9f62aa99f1c497572286fe71a70cd9aa52c9881",
+        "optimizer_steps": 6000,
+        "per_class": {
+          "Benign": {
+            "available_rows": 106148,
+            "unique_rows_seen": 106148,
+            "examples_processed": 380700,
+            "min_exposure_among_seen": 3,
+            "max_exposure": 4
+          },
+          "DDoS": {
+            "available_rows": 1178561,
+            "unique_rows_seen": 380700,
+            "examples_processed": 380700,
+            "min_exposure_among_seen": 1,
+            "max_exposure": 1
+          },
+          "DoS": {
+            "available_rows": 362423,
+            "unique_rows_seen": 362423,
+            "examples_processed": 380700,
+            "min_exposure_among_seen": 1,
+            "max_exposure": 2
+          },
+          "Recon": {
+            "available_rows": 66277,
+            "unique_rows_seen": 66277,
+            "examples_processed": 380700,
+            "min_exposure_among_seen": 5,
+            "max_exposure": 6
+          },
+          "Web-based": {
+            "available_rows": 2391,
+            "unique_rows_seen": 1269,
+            "examples_processed": 380700,
+            "min_exposure_among_seen": 300,
+            "max_exposure": 300
+          },
+          "Brute Force": {
+            "available_rows": 1269,
+            "unique_rows_seen": 1269,
+            "examples_processed": 380700,
+            "min_exposure_among_seen": 300,
+            "max_exposure": 300
+          },
+          "Spoofing": {
+            "available_rows": 44095,
+            "unique_rows_seen": 44095,
+            "examples_processed": 380700,
+            "min_exposure_among_seen": 8,
+            "max_exposure": 9
+          },
+          "Mirai": {
+            "available_rows": 238836,
+            "unique_rows_seen": 238836,
+            "examples_processed": 380700,
+            "min_exposure_among_seen": 1,
+            "max_exposure": 2
+          }
+        }
+      },
+      "exposure_sha256": "0096f50e384311c74d6da3517265b8073dd721968843f1ff1126d4c719379115",
+      "checkpoint_sha256": "d17035c7ff920c62626c67c93d1dd0213105332a42e35cf82aa00cb351c793cd"
+    },
+    {
+      "name": "majority_diversity_seed27",
+      "condition": "majority_diversity",
+      "seed": 27,
+      "validation_cross_entropy": 0.4382929602393911,
+      "confusion_matrix": [
+        [
+          74335,
+          0,
+          0,
+          7987,
+          13379,
+          7497,
+          6284,
+          0
+        ],
+        [
+          44,
+          832464,
+          379258,
+          274,
+          79,
+          12,
+          198,
+          1561
+        ],
+        [
+          7,
+          44178,
+          328213,
+          72,
+          4,
+          12,
+          138,
+          469
+        ],
+        [
+          8371,
+          0,
+          1,
+          34328,
+          15221,
+          7224,
+          2863,
+          0
+        ],
+        [
+          292,
+          0,
+          0,
+          342,
+          1360,
+          270,
+          211,
+          0
+        ],
+        [
+          196,
+          0,
+          0,
+          55,
+          229,
+          728,
+          76,
+          0
+        ],
+        [
+          6490,
+          4,
+          0,
+          1249,
+          6382,
+          3254,
+          27570,
+          0
+        ],
+        [
+          7,
+          301,
+          775,
+          10,
+          2,
+          0,
+          175,
+          244833
+        ]
+      ],
+      "training_fit": {
+        "model_config": {
+          "name": "centralized_light",
+          "hidden_dims": [
+            64,
+            32
+          ],
+          "dropout": 0.2,
+          "normalization": "layer"
+        },
+        "num_parameters": 5096,
+        "initial_state_sha256": "fcfd2f9bde736db723b788c627b8773622eb10f1fb1c6b4facca6b0f1552e2a0",
+        "final_state_sha256": "4d5fa8bab37dc9a13556607e775fa65f0fe5c43e75496356e4d21b03171c2da4",
+        "examples_processed": 3045600,
+        "optimizer_steps": 6000,
+        "class_weights": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ]
+      },
+      "original_panel_final_macro_f1": 0.6987134103765668,
+      "exposure": {
+        "label_sequence_sha256": "9988d99731b3feaf46aba4657183b749e2a70d3d7728ab9b48fe56d613540312",
+        "rare_position_sequence_sha256": "98092613b30a71706cae9914888ead16336efedb550a2df6dc9fd2d7a8ba7118",
+        "row_sequence_sha256": "50444c3c687524cde3727c034682009414b0ec63904ae2f87eaa727bfbeddf17",
+        "optimizer_steps": 6000,
+        "per_class": {
+          "Benign": {
+            "available_rows": 106148,
+            "unique_rows_seen": 106148,
+            "examples_processed": 380700,
+            "min_exposure_among_seen": 3,
+            "max_exposure": 4
+          },
+          "DDoS": {
+            "available_rows": 1178561,
+            "unique_rows_seen": 380700,
+            "examples_processed": 380700,
+            "min_exposure_among_seen": 1,
+            "max_exposure": 1
+          },
+          "DoS": {
+            "available_rows": 362423,
+            "unique_rows_seen": 362423,
+            "examples_processed": 380700,
+            "min_exposure_among_seen": 1,
+            "max_exposure": 2
+          },
+          "Recon": {
+            "available_rows": 66277,
+            "unique_rows_seen": 66277,
+            "examples_processed": 380700,
+            "min_exposure_among_seen": 5,
+            "max_exposure": 6
+          },
+          "Web-based": {
+            "available_rows": 2391,
+            "unique_rows_seen": 1269,
+            "examples_processed": 380700,
+            "min_exposure_among_seen": 300,
+            "max_exposure": 300
+          },
+          "Brute Force": {
+            "available_rows": 1269,
+            "unique_rows_seen": 1269,
+            "examples_processed": 380700,
+            "min_exposure_among_seen": 300,
+            "max_exposure": 300
+          },
+          "Spoofing": {
+            "available_rows": 44095,
+            "unique_rows_seen": 44095,
+            "examples_processed": 380700,
+            "min_exposure_among_seen": 8,
+            "max_exposure": 9
+          },
+          "Mirai": {
+            "available_rows": 238836,
+            "unique_rows_seen": 238836,
+            "examples_processed": 380700,
+            "min_exposure_among_seen": 1,
+            "max_exposure": 2
+          }
+        }
+      },
+      "exposure_sha256": "1a1db521d3660a22d1bc667f23389e4dd5895cf87f29577c5bbc678e1c1d4d55",
+      "checkpoint_sha256": "d53f81d1e9b6a0396eff3295853c461be8bf7487c0c5f587b3a6e65845050e26"
+    }
+  ]
+}

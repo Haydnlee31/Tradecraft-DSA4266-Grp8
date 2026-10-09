@@ -2,17 +2,18 @@
 
 ## Latest research status on 9 October 2026
 
-The 2M scaling comparisons, training-fit controls, frozen validation comparison
-and alert-budget diagnostic are complete. Start with the
-[validation findings](panel-validation-findings.md) and
-[false-alert trade-off](alert-budget-findings.md). Better training fit did not
-justify promoting the wider model; a strict alert gate sacrifices substantial
-rare-class recall. No model or decision policy is promoted, and the final test
-has not been used for model or threshold evaluation.
+The 2M scaling comparisons, training-fit controls, frozen validation comparison,
+alert-budget diagnostic and [matched-work training-diversity control](diversity-findings.md)
+are complete. Broader coverage gives only a small, inconsistent macro-F1 gain
+while increasing false alerts in all three seeds. The
+[validation findings](panel-validation-findings.md) did not justify a wider
+model, and the [false-alert trade-off](alert-budget-findings.md) shows why a strict
+gate is not a complete repair. No model or decision policy is promoted, and the
+final test has not been used for model or threshold evaluation.
 
-The next proposed experiment is a matched-work majority-diversity control, not
-another architecture sweep or cloud scale-up. This branch preserves the original
-study and publishes reproducible experimental code and findings for review.
+The next proposed check is a fixed training-prior score adjustment on saved
+models, not another training sweep or cloud scale-up. This branch preserves the
+original study and publishes reproducible experimental code and findings for review.
 Raw data, checkpoints and per-row score arrays remain outside Git.
 
 ## Purpose and data preparation background

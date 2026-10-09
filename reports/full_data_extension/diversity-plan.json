@@ -1,0 +1,29 @@
+{
+  "protocol": "official39-matched-majority-diversity-v1",
+  "purpose": "Test broader nonrare training coverage at fixed rare-row exposure, class sequence and neural work",
+  "reference_receipt_sha256": "b5767472daeb19218e2a704c1c3d6edf54a129c96ac8da0a88f8d20698c6df99",
+  "reference_plan_sha256": "91bb9f0a5825c2edc4215baee181bc686a1cf88664dd679554d281e9b48bb979",
+  "training_reference_sha256": "a40161a169cfc277c1e9fc3912859c90844c0623f15524f1838743e08a7d8919",
+  "conditions": ["panel_control", "majority_diversity"],
+  "frozen_rare_classes": ["Web-based", "Brute Force"],
+  "sampling": "independent_seeded_class_cycles_without_replacement_until_exhausted",
+  "sampling_seed_namespace": 426639,
+  "require_all_control_bridges_before_treatment": true,
+  "require_all_training_before_validation": true,
+  "prediction_rule": "argmax",
+  "evaluation_batch_size": 8192,
+  "test_opened": false,
+  "model_promoted": false,
+  "selection_rule": "All three seeds at fixed epoch 300; no best-epoch or best-seed selection",
+  "limits": [
+    "Inherit small 64/32 LayerNorm MLP, dropout 0.2, Adam, loss, scaler, features, seeds 7/17/27 and 300-epoch budget",
+    "Every run processes 3045600 examples and 6000 updates; every class receives 380700 draws",
+    "Preserve exact rare training row identities and their positions in each batch, including repeats",
+    "Replace only the other six classes with draws from the existing 2M training cohort; all six change together",
+    "Match label and rare-row sequence hashes, initial parameters and work; record every training row exposure count",
+    "Control must reproduce historical learning curves, prefix and final parameters before any treatment training",
+    "Validation follows all six fits, and each control must reproduce its historical validation confusion matrix before treatment scoring",
+    "Report all eight class recalls, precisions and macro-F1 at raw argmax only; no new thresholds or loss changes",
+    "Validation is reused exploratory evidence, not independent confirmation; no final test, cloud use or production policy change"
+  ]
+}
