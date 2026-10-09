@@ -1,5 +1,9 @@
 # Class prior correction improves aggregate scores but sacrifices attack recall
 
+The subsequent [experiment ledger and decision summary](decision-summary.md)
+now consolidate these findings with the full-cohort comparisons. The fixed
+prior experiment and its original recommendation are preserved below.
+
 The fixed class-prior correction improves macro-F1 and substantially reduces
 benign false alerts for all six saved models. It also collapses Web-based and
 DoS category recall. This is a clearer trade-off, not a satisfactory replacement

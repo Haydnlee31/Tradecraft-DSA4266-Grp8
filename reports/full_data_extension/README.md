@@ -2,18 +2,25 @@
 
 ## Latest research status on 9 October 2026
 
-The [fixed class-prior correction](prior-correction-findings.md) is complete:
-macro-F1 improves and false alerts fall, but Web-based and DoS recall collapse.
-The [training-diversity control](diversity-findings.md) and preceding width and
-alert-budget controls also failed to provide a satisfactory replacement. Close
-this balanced-panel tuning sequence without promoting a model or decision rule.
-The official-39 final test has not been used for model or threshold evaluation.
+The [experiment ledger and decision summary](decision-summary.md) consolidate
+the cloud controls, scaling confirmation and local diagnostics. The balanced-panel
+tuning sequence is closed without promoting a model or decision rule. The best
+scaled light reference still has weak rare-attack recall and substantial false
+alerts; the controlled non-IID model misses almost all examples from several
+attack categories. These are informative research findings, not deployment readiness.
 
-The next stage is to consolidate the experiment ledger and decision-layer
-evidence around the existing full-cohort centralized and federated references,
-not launch another training sweep or cloud session. Keep the original 46-feature
-study separate. This branch publishes reproducible experimental code and findings for review.
-Raw data, checkpoints and per-row score arrays remain outside Git.
+The [portable evidence receipt](decision-evidence.json) retains 72 validation
+endpoints in separate comparison groups, including all eight class recalls.
+These are not 72 independent training runs. Teammates can audit the metrics with
+`python -m src.eval.official_evidence --audit reports/full_data_extension/decision-evidence.json`
+without the dataset, models or a GPU.
+
+Next: freeze a bounded, error-focused explainability protocol for the existing
+references. No new cloud session or training sweep is recommended. The official-39
+final test remains unused for model/threshold evaluation, and the original
+46-feature study stays separate. Raw data, checkpoints and per-row scores remain
+outside Git. The [prior correction](prior-correction-findings.md) and
+[diversity control](diversity-findings.md) retain the preceding detailed findings.
 
 ## Purpose and data preparation background
 

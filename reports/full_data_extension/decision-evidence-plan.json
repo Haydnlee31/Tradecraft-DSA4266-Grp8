@@ -1,0 +1,1973 @@
+{
+  "scope": "official39_validation_only",
+  "classes": [
+    "Benign",
+    "DDoS",
+    "DoS",
+    "Recon",
+    "Web-based",
+    "Brute Force",
+    "Spoofing",
+    "Mirai"
+  ],
+  "validation_class_counts": {
+    "Benign": 109482,
+    "DDoS": 1213890,
+    "DoS": 373093,
+    "Recon": 68008,
+    "Web-based": 2475,
+    "Brute Force": 1284,
+    "Spoofing": 44949,
+    "Mirai": 246103
+  },
+  "sources": {
+    "scaling_plan": {
+      "path": "reports/full_data_extension/scaling-confirmation-plan.json",
+      "sha256": "bf4bc49e911a1b66534910a1dc8db32b3347bf679655a675f3c1c25155d665d2",
+      "guards": {
+        "/training_seeds": [
+          7,
+          17,
+          27
+        ],
+        "/test_evaluation": false,
+        "/selection": "Final-at-budget endpoints; best checkpoints descriptive only; no best-seed selection"
+      }
+    },
+    "scaling": {
+      "path": "reports/full_data_extension/scaling-confirmation-results.json",
+      "sha256": "47af3607974c09d209f793ceced99d58d8a9b46d5a585615e0bc7c83f75dbbc2",
+      "guards": {
+        "/status": "complete",
+        "/test_opened": false,
+        "/model_trained": false,
+        "/plan_sha256": "bf4bc49e911a1b66534910a1dc8db32b3347bf679655a675f3c1c25155d665d2",
+        "/seed_order": [
+          7,
+          17,
+          27
+        ]
+      }
+    },
+    "reference_light": {
+      "path": "tradecraft-official39-reference-backup.tgz",
+      "sha256": "a8e88f3a53236ab33b53ff589ebcfe45e528e2c380066f0af03edc3d47e63590",
+      "guards": {
+        "/test_metrics": null,
+        "/lane": "light"
+      },
+      "member": "outputs/official39-reference-500k-v1/light/result.json"
+    },
+    "reference_light_status": {
+      "path": "tradecraft-official39-reference-backup.tgz",
+      "sha256": "a8e88f3a53236ab33b53ff589ebcfe45e528e2c380066f0af03edc3d47e63590",
+      "guards": {
+        "": {
+          "status": "complete",
+          "step": 20
+        }
+      },
+      "member": "outputs/official39-reference-500k-v1/light/status.json"
+    },
+    "reference_light_environment": {
+      "path": "tradecraft-official39-reference-backup.tgz",
+      "sha256": "a8e88f3a53236ab33b53ff589ebcfe45e528e2c380066f0af03edc3d47e63590",
+      "guards": {
+        "/test_evaluated": false,
+        "/classes": [
+          "Benign",
+          "DDoS",
+          "DoS",
+          "Recon",
+          "Web-based",
+          "Brute Force",
+          "Spoofing",
+          "Mirai"
+        ],
+        "/settings/seed": 7,
+        "/packed_manifest_sha256": "157afa2426c3319d14fc34aef36007f08ae830603ffde210f20cac30c8035aac"
+      },
+      "member": "outputs/official39-reference-500k-v1/light/environment.json"
+    },
+    "reference_iid": {
+      "path": "tradecraft-official39-reference-backup.tgz",
+      "sha256": "a8e88f3a53236ab33b53ff589ebcfe45e528e2c380066f0af03edc3d47e63590",
+      "guards": {
+        "/test_metrics": null,
+        "/lane": "iid"
+      },
+      "member": "outputs/official39-reference-500k-v1/iid/result.json"
+    },
+    "reference_iid_status": {
+      "path": "tradecraft-official39-reference-backup.tgz",
+      "sha256": "a8e88f3a53236ab33b53ff589ebcfe45e528e2c380066f0af03edc3d47e63590",
+      "guards": {
+        "": {
+          "status": "complete",
+          "step": 20
+        }
+      },
+      "member": "outputs/official39-reference-500k-v1/iid/status.json"
+    },
+    "reference_iid_environment": {
+      "path": "tradecraft-official39-reference-backup.tgz",
+      "sha256": "a8e88f3a53236ab33b53ff589ebcfe45e528e2c380066f0af03edc3d47e63590",
+      "guards": {
+        "/test_evaluated": false,
+        "/classes": [
+          "Benign",
+          "DDoS",
+          "DoS",
+          "Recon",
+          "Web-based",
+          "Brute Force",
+          "Spoofing",
+          "Mirai"
+        ],
+        "/settings/seed": 7,
+        "/packed_manifest_sha256": "157afa2426c3319d14fc34aef36007f08ae830603ffde210f20cac30c8035aac"
+      },
+      "member": "outputs/official39-reference-500k-v1/iid/environment.json"
+    },
+    "reference_dirichlet": {
+      "path": "tradecraft-official39-reference-backup.tgz",
+      "sha256": "a8e88f3a53236ab33b53ff589ebcfe45e528e2c380066f0af03edc3d47e63590",
+      "guards": {
+        "/test_metrics": null,
+        "/lane": "dirichlet"
+      },
+      "member": "outputs/official39-reference-500k-v1/dirichlet/result.json"
+    },
+    "reference_dirichlet_status": {
+      "path": "tradecraft-official39-reference-backup.tgz",
+      "sha256": "a8e88f3a53236ab33b53ff589ebcfe45e528e2c380066f0af03edc3d47e63590",
+      "guards": {
+        "": {
+          "status": "complete",
+          "step": 20
+        }
+      },
+      "member": "outputs/official39-reference-500k-v1/dirichlet/status.json"
+    },
+    "reference_dirichlet_environment": {
+      "path": "tradecraft-official39-reference-backup.tgz",
+      "sha256": "a8e88f3a53236ab33b53ff589ebcfe45e528e2c380066f0af03edc3d47e63590",
+      "guards": {
+        "/test_evaluated": false,
+        "/classes": [
+          "Benign",
+          "DDoS",
+          "DoS",
+          "Recon",
+          "Web-based",
+          "Brute Force",
+          "Spoofing",
+          "Mirai"
+        ],
+        "/settings/seed": 7,
+        "/packed_manifest_sha256": "157afa2426c3319d14fc34aef36007f08ae830603ffde210f20cac30c8035aac"
+      },
+      "member": "outputs/official39-reference-500k-v1/dirichlet/environment.json"
+    },
+    "layernorm_light": {
+      "path": "tradecraft-official39-layernorm-backup.tgz",
+      "sha256": "23df54d321468eaa4619d7d6c996de1d51f3053b4aaf66b968157af135f90ef9",
+      "guards": {
+        "/test_metrics": null,
+        "/lane": "light"
+      },
+      "member": "outputs/official39-layernorm-500k-v1/light/result.json"
+    },
+    "layernorm_light_status": {
+      "path": "tradecraft-official39-layernorm-backup.tgz",
+      "sha256": "23df54d321468eaa4619d7d6c996de1d51f3053b4aaf66b968157af135f90ef9",
+      "guards": {
+        "": {
+          "status": "complete",
+          "step": 20
+        }
+      },
+      "member": "outputs/official39-layernorm-500k-v1/light/status.json"
+    },
+    "layernorm_light_environment": {
+      "path": "tradecraft-official39-layernorm-backup.tgz",
+      "sha256": "23df54d321468eaa4619d7d6c996de1d51f3053b4aaf66b968157af135f90ef9",
+      "guards": {
+        "/test_evaluated": false,
+        "/classes": [
+          "Benign",
+          "DDoS",
+          "DoS",
+          "Recon",
+          "Web-based",
+          "Brute Force",
+          "Spoofing",
+          "Mirai"
+        ],
+        "/settings/seed": 7,
+        "/packed_manifest_sha256": "157afa2426c3319d14fc34aef36007f08ae830603ffde210f20cac30c8035aac"
+      },
+      "member": "outputs/official39-layernorm-500k-v1/light/environment.json"
+    },
+    "layernorm_iid": {
+      "path": "tradecraft-official39-layernorm-backup.tgz",
+      "sha256": "23df54d321468eaa4619d7d6c996de1d51f3053b4aaf66b968157af135f90ef9",
+      "guards": {
+        "/test_metrics": null,
+        "/lane": "iid"
+      },
+      "member": "outputs/official39-layernorm-500k-v1/iid/result.json"
+    },
+    "layernorm_iid_status": {
+      "path": "tradecraft-official39-layernorm-backup.tgz",
+      "sha256": "23df54d321468eaa4619d7d6c996de1d51f3053b4aaf66b968157af135f90ef9",
+      "guards": {
+        "": {
+          "status": "complete",
+          "step": 20
+        }
+      },
+      "member": "outputs/official39-layernorm-500k-v1/iid/status.json"
+    },
+    "layernorm_iid_environment": {
+      "path": "tradecraft-official39-layernorm-backup.tgz",
+      "sha256": "23df54d321468eaa4619d7d6c996de1d51f3053b4aaf66b968157af135f90ef9",
+      "guards": {
+        "/test_evaluated": false,
+        "/classes": [
+          "Benign",
+          "DDoS",
+          "DoS",
+          "Recon",
+          "Web-based",
+          "Brute Force",
+          "Spoofing",
+          "Mirai"
+        ],
+        "/settings/seed": 7,
+        "/packed_manifest_sha256": "157afa2426c3319d14fc34aef36007f08ae830603ffde210f20cac30c8035aac"
+      },
+      "member": "outputs/official39-layernorm-500k-v1/iid/environment.json"
+    },
+    "layernorm_dirichlet": {
+      "path": "tradecraft-official39-layernorm-backup.tgz",
+      "sha256": "23df54d321468eaa4619d7d6c996de1d51f3053b4aaf66b968157af135f90ef9",
+      "guards": {
+        "/test_metrics": null,
+        "/lane": "dirichlet"
+      },
+      "member": "outputs/official39-layernorm-500k-v1/dirichlet/result.json"
+    },
+    "layernorm_dirichlet_status": {
+      "path": "tradecraft-official39-layernorm-backup.tgz",
+      "sha256": "23df54d321468eaa4619d7d6c996de1d51f3053b4aaf66b968157af135f90ef9",
+      "guards": {
+        "": {
+          "status": "complete",
+          "step": 20
+        }
+      },
+      "member": "outputs/official39-layernorm-500k-v1/dirichlet/status.json"
+    },
+    "layernorm_dirichlet_environment": {
+      "path": "tradecraft-official39-layernorm-backup.tgz",
+      "sha256": "23df54d321468eaa4619d7d6c996de1d51f3053b4aaf66b968157af135f90ef9",
+      "guards": {
+        "/test_evaluated": false,
+        "/classes": [
+          "Benign",
+          "DDoS",
+          "DoS",
+          "Recon",
+          "Web-based",
+          "Brute Force",
+          "Spoofing",
+          "Mirai"
+        ],
+        "/settings/seed": 7,
+        "/packed_manifest_sha256": "157afa2426c3319d14fc34aef36007f08ae830603ffde210f20cac30c8035aac"
+      },
+      "member": "outputs/official39-layernorm-500k-v1/dirichlet/environment.json"
+    },
+    "weighted_light": {
+      "path": "tradecraft-official39-weighted-backup.tgz",
+      "sha256": "16f3935088840fbb834018596a2838d24c647c5e9a2aa8a08c3067aaa6405de0",
+      "guards": {
+        "/test_metrics": null,
+        "/lane": "light"
+      },
+      "member": "outputs/official39-layernorm-weighted-500k-v1/light/result.json"
+    },
+    "weighted_light_status": {
+      "path": "tradecraft-official39-weighted-backup.tgz",
+      "sha256": "16f3935088840fbb834018596a2838d24c647c5e9a2aa8a08c3067aaa6405de0",
+      "guards": {
+        "": {
+          "status": "complete",
+          "step": 20
+        }
+      },
+      "member": "outputs/official39-layernorm-weighted-500k-v1/light/status.json"
+    },
+    "weighted_light_environment": {
+      "path": "tradecraft-official39-weighted-backup.tgz",
+      "sha256": "16f3935088840fbb834018596a2838d24c647c5e9a2aa8a08c3067aaa6405de0",
+      "guards": {
+        "/test_evaluated": false,
+        "/classes": [
+          "Benign",
+          "DDoS",
+          "DoS",
+          "Recon",
+          "Web-based",
+          "Brute Force",
+          "Spoofing",
+          "Mirai"
+        ],
+        "/settings/seed": 7,
+        "/packed_manifest_sha256": "157afa2426c3319d14fc34aef36007f08ae830603ffde210f20cac30c8035aac"
+      },
+      "member": "outputs/official39-layernorm-weighted-500k-v1/light/environment.json"
+    },
+    "weighted_iid": {
+      "path": "tradecraft-official39-weighted-backup.tgz",
+      "sha256": "16f3935088840fbb834018596a2838d24c647c5e9a2aa8a08c3067aaa6405de0",
+      "guards": {
+        "/test_metrics": null,
+        "/lane": "iid"
+      },
+      "member": "outputs/official39-layernorm-weighted-500k-v1/iid/result.json"
+    },
+    "weighted_iid_status": {
+      "path": "tradecraft-official39-weighted-backup.tgz",
+      "sha256": "16f3935088840fbb834018596a2838d24c647c5e9a2aa8a08c3067aaa6405de0",
+      "guards": {
+        "": {
+          "status": "complete",
+          "step": 20
+        }
+      },
+      "member": "outputs/official39-layernorm-weighted-500k-v1/iid/status.json"
+    },
+    "weighted_iid_environment": {
+      "path": "tradecraft-official39-weighted-backup.tgz",
+      "sha256": "16f3935088840fbb834018596a2838d24c647c5e9a2aa8a08c3067aaa6405de0",
+      "guards": {
+        "/test_evaluated": false,
+        "/classes": [
+          "Benign",
+          "DDoS",
+          "DoS",
+          "Recon",
+          "Web-based",
+          "Brute Force",
+          "Spoofing",
+          "Mirai"
+        ],
+        "/settings/seed": 7,
+        "/packed_manifest_sha256": "157afa2426c3319d14fc34aef36007f08ae830603ffde210f20cac30c8035aac"
+      },
+      "member": "outputs/official39-layernorm-weighted-500k-v1/iid/environment.json"
+    },
+    "weighted_dirichlet": {
+      "path": "tradecraft-official39-weighted-backup.tgz",
+      "sha256": "16f3935088840fbb834018596a2838d24c647c5e9a2aa8a08c3067aaa6405de0",
+      "guards": {
+        "/test_metrics": null,
+        "/lane": "dirichlet"
+      },
+      "member": "outputs/official39-layernorm-weighted-500k-v1/dirichlet/result.json"
+    },
+    "weighted_dirichlet_status": {
+      "path": "tradecraft-official39-weighted-backup.tgz",
+      "sha256": "16f3935088840fbb834018596a2838d24c647c5e9a2aa8a08c3067aaa6405de0",
+      "guards": {
+        "": {
+          "status": "complete",
+          "step": 20
+        }
+      },
+      "member": "outputs/official39-layernorm-weighted-500k-v1/dirichlet/status.json"
+    },
+    "weighted_dirichlet_environment": {
+      "path": "tradecraft-official39-weighted-backup.tgz",
+      "sha256": "16f3935088840fbb834018596a2838d24c647c5e9a2aa8a08c3067aaa6405de0",
+      "guards": {
+        "/test_evaluated": false,
+        "/classes": [
+          "Benign",
+          "DDoS",
+          "DoS",
+          "Recon",
+          "Web-based",
+          "Brute Force",
+          "Spoofing",
+          "Mirai"
+        ],
+        "/settings/seed": 7,
+        "/packed_manifest_sha256": "157afa2426c3319d14fc34aef36007f08ae830603ffde210f20cac30c8035aac"
+      },
+      "member": "outputs/official39-layernorm-weighted-500k-v1/dirichlet/environment.json"
+    },
+    "bounded_iid": {
+      "path": "tradecraft-official39-bounded-backup.tgz",
+      "sha256": "295220ebc795aa2012e5ed21a5eb76840327dba0962767811532ab3b654c0b60",
+      "guards": {
+        "/test_metrics": null,
+        "/lane": "iid"
+      },
+      "member": "outputs/official39-bounded-comparison-v1/iid/result.json"
+    },
+    "bounded_iid_status": {
+      "path": "tradecraft-official39-bounded-backup.tgz",
+      "sha256": "295220ebc795aa2012e5ed21a5eb76840327dba0962767811532ab3b654c0b60",
+      "guards": {
+        "": {
+          "status": "complete",
+          "step": 196
+        }
+      },
+      "member": "outputs/official39-bounded-comparison-v1/iid/status.json"
+    },
+    "bounded_iid_environment": {
+      "path": "tradecraft-official39-bounded-backup.tgz",
+      "sha256": "295220ebc795aa2012e5ed21a5eb76840327dba0962767811532ab3b654c0b60",
+      "guards": {
+        "/test_evaluated": false,
+        "/classes": [
+          "Benign",
+          "DDoS",
+          "DoS",
+          "Recon",
+          "Web-based",
+          "Brute Force",
+          "Spoofing",
+          "Mirai"
+        ],
+        "/settings/seed": 7,
+        "/packed_manifest_sha256": "157afa2426c3319d14fc34aef36007f08ae830603ffde210f20cac30c8035aac"
+      },
+      "member": "outputs/official39-bounded-comparison-v1/iid/environment.json"
+    },
+    "bounded_dirichlet": {
+      "path": "tradecraft-official39-bounded-backup.tgz",
+      "sha256": "295220ebc795aa2012e5ed21a5eb76840327dba0962767811532ab3b654c0b60",
+      "guards": {
+        "/test_metrics": null,
+        "/lane": "dirichlet"
+      },
+      "member": "outputs/official39-bounded-comparison-v1/dirichlet/result.json"
+    },
+    "bounded_dirichlet_status": {
+      "path": "tradecraft-official39-bounded-backup.tgz",
+      "sha256": "295220ebc795aa2012e5ed21a5eb76840327dba0962767811532ab3b654c0b60",
+      "guards": {
+        "": {
+          "status": "complete",
+          "step": 197
+        }
+      },
+      "member": "outputs/official39-bounded-comparison-v1/dirichlet/status.json"
+    },
+    "bounded_dirichlet_environment": {
+      "path": "tradecraft-official39-bounded-backup.tgz",
+      "sha256": "295220ebc795aa2012e5ed21a5eb76840327dba0962767811532ab3b654c0b60",
+      "guards": {
+        "/test_evaluated": false,
+        "/classes": [
+          "Benign",
+          "DDoS",
+          "DoS",
+          "Recon",
+          "Web-based",
+          "Brute Force",
+          "Spoofing",
+          "Mirai"
+        ],
+        "/settings/seed": 7,
+        "/packed_manifest_sha256": "157afa2426c3319d14fc34aef36007f08ae830603ffde210f20cac30c8035aac"
+      },
+      "member": "outputs/official39-bounded-comparison-v1/dirichlet/environment.json"
+    },
+    "fixed-loss_light": {
+      "path": "tradecraft-official39-fixed-loss-backup.tgz",
+      "sha256": "c5616700ed19c33ce7bb2c5be76d3351409aa9fc2884550c32bd644a46d5aa8f",
+      "guards": {
+        "/test_metrics": null,
+        "/lane": "light"
+      },
+      "member": "outputs/official39-fixed-loss-comparison-v1/light/result.json"
+    },
+    "fixed-loss_light_status": {
+      "path": "tradecraft-official39-fixed-loss-backup.tgz",
+      "sha256": "c5616700ed19c33ce7bb2c5be76d3351409aa9fc2884550c32bd644a46d5aa8f",
+      "guards": {
+        "": {
+          "status": "complete",
+          "step": 20
+        }
+      },
+      "member": "outputs/official39-fixed-loss-comparison-v1/light/status.json"
+    },
+    "fixed-loss_light_environment": {
+      "path": "tradecraft-official39-fixed-loss-backup.tgz",
+      "sha256": "c5616700ed19c33ce7bb2c5be76d3351409aa9fc2884550c32bd644a46d5aa8f",
+      "guards": {
+        "/test_evaluated": false,
+        "/classes": [
+          "Benign",
+          "DDoS",
+          "DoS",
+          "Recon",
+          "Web-based",
+          "Brute Force",
+          "Spoofing",
+          "Mirai"
+        ],
+        "/settings/seed": 7,
+        "/packed_manifest_sha256": "157afa2426c3319d14fc34aef36007f08ae830603ffde210f20cac30c8035aac"
+      },
+      "member": "outputs/official39-fixed-loss-comparison-v1/light/environment.json"
+    },
+    "fixed-loss_iid": {
+      "path": "tradecraft-official39-fixed-loss-backup.tgz",
+      "sha256": "c5616700ed19c33ce7bb2c5be76d3351409aa9fc2884550c32bd644a46d5aa8f",
+      "guards": {
+        "/test_metrics": null,
+        "/lane": "iid"
+      },
+      "member": "outputs/official39-fixed-loss-comparison-v1/iid/result.json"
+    },
+    "fixed-loss_iid_status": {
+      "path": "tradecraft-official39-fixed-loss-backup.tgz",
+      "sha256": "c5616700ed19c33ce7bb2c5be76d3351409aa9fc2884550c32bd644a46d5aa8f",
+      "guards": {
+        "": {
+          "status": "complete",
+          "step": 20
+        }
+      },
+      "member": "outputs/official39-fixed-loss-comparison-v1/iid/status.json"
+    },
+    "fixed-loss_iid_environment": {
+      "path": "tradecraft-official39-fixed-loss-backup.tgz",
+      "sha256": "c5616700ed19c33ce7bb2c5be76d3351409aa9fc2884550c32bd644a46d5aa8f",
+      "guards": {
+        "/test_evaluated": false,
+        "/classes": [
+          "Benign",
+          "DDoS",
+          "DoS",
+          "Recon",
+          "Web-based",
+          "Brute Force",
+          "Spoofing",
+          "Mirai"
+        ],
+        "/settings/seed": 7,
+        "/packed_manifest_sha256": "157afa2426c3319d14fc34aef36007f08ae830603ffde210f20cac30c8035aac"
+      },
+      "member": "outputs/official39-fixed-loss-comparison-v1/iid/environment.json"
+    },
+    "fixed-loss_dirichlet": {
+      "path": "tradecraft-official39-fixed-loss-backup.tgz",
+      "sha256": "c5616700ed19c33ce7bb2c5be76d3351409aa9fc2884550c32bd644a46d5aa8f",
+      "guards": {
+        "/test_metrics": null,
+        "/lane": "dirichlet"
+      },
+      "member": "outputs/official39-fixed-loss-comparison-v1/dirichlet/result.json"
+    },
+    "fixed-loss_dirichlet_status": {
+      "path": "tradecraft-official39-fixed-loss-backup.tgz",
+      "sha256": "c5616700ed19c33ce7bb2c5be76d3351409aa9fc2884550c32bd644a46d5aa8f",
+      "guards": {
+        "": {
+          "status": "complete",
+          "step": 20
+        }
+      },
+      "member": "outputs/official39-fixed-loss-comparison-v1/dirichlet/status.json"
+    },
+    "fixed-loss_dirichlet_environment": {
+      "path": "tradecraft-official39-fixed-loss-backup.tgz",
+      "sha256": "c5616700ed19c33ce7bb2c5be76d3351409aa9fc2884550c32bd644a46d5aa8f",
+      "guards": {
+        "/test_evaluated": false,
+        "/classes": [
+          "Benign",
+          "DDoS",
+          "DoS",
+          "Recon",
+          "Web-based",
+          "Brute Force",
+          "Spoofing",
+          "Mirai"
+        ],
+        "/settings/seed": 7,
+        "/packed_manifest_sha256": "157afa2426c3319d14fc34aef36007f08ae830603ffde210f20cac30c8035aac"
+      },
+      "member": "outputs/official39-fixed-loss-comparison-v1/dirichlet/environment.json"
+    },
+    "controlled_500k": {
+      "path": "tradecraft-official39-controlled-noniid-backup.tgz",
+      "sha256": "c5b43c8d7fbdefde543b94b364c407707abe9655df081de7d31c014e55473152",
+      "guards": {
+        "/test_metrics": null,
+        "/lane": "dirichlet"
+      },
+      "member": "outputs/official39-frozen-reference-bridge-v1/dirichlet/result.json"
+    },
+    "controlled_500k_status": {
+      "path": "tradecraft-official39-controlled-noniid-backup.tgz",
+      "sha256": "c5b43c8d7fbdefde543b94b364c407707abe9655df081de7d31c014e55473152",
+      "guards": {
+        "": {
+          "status": "complete",
+          "step": 20
+        }
+      },
+      "member": "outputs/official39-frozen-reference-bridge-v1/dirichlet/status.json"
+    },
+    "controlled_500k_environment": {
+      "path": "tradecraft-official39-controlled-noniid-backup.tgz",
+      "sha256": "c5b43c8d7fbdefde543b94b364c407707abe9655df081de7d31c014e55473152",
+      "guards": {
+        "/test_evaluated": false,
+        "/classes": [
+          "Benign",
+          "DDoS",
+          "DoS",
+          "Recon",
+          "Web-based",
+          "Brute Force",
+          "Spoofing",
+          "Mirai"
+        ],
+        "/settings/seed": 7,
+        "/packed_manifest_sha256": "157afa2426c3319d14fc34aef36007f08ae830603ffde210f20cac30c8035aac",
+        "/partition_control/policy": "nested-anchor-class-shares-v1"
+      },
+      "member": "outputs/official39-frozen-reference-bridge-v1/dirichlet/environment.json"
+    },
+    "controlled_2m": {
+      "path": "tradecraft-official39-controlled-noniid-backup.tgz",
+      "sha256": "c5b43c8d7fbdefde543b94b364c407707abe9655df081de7d31c014e55473152",
+      "guards": {
+        "/test_metrics": null,
+        "/lane": "dirichlet"
+      },
+      "member": "outputs/official39-controlled-noniid-2m-v1/dirichlet-seed7/result.json"
+    },
+    "controlled_2m_status": {
+      "path": "tradecraft-official39-controlled-noniid-backup.tgz",
+      "sha256": "c5b43c8d7fbdefde543b94b364c407707abe9655df081de7d31c014e55473152",
+      "guards": {
+        "": {
+          "status": "complete",
+          "step": 20
+        }
+      },
+      "member": "outputs/official39-controlled-noniid-2m-v1/dirichlet-seed7/status.json"
+    },
+    "controlled_2m_environment": {
+      "path": "tradecraft-official39-controlled-noniid-backup.tgz",
+      "sha256": "c5b43c8d7fbdefde543b94b364c407707abe9655df081de7d31c014e55473152",
+      "guards": {
+        "/test_evaluated": false,
+        "/classes": [
+          "Benign",
+          "DDoS",
+          "DoS",
+          "Recon",
+          "Web-based",
+          "Brute Force",
+          "Spoofing",
+          "Mirai"
+        ],
+        "/settings/seed": 7,
+        "/packed_manifest_sha256": "dfd1caf01cbe233b52ce55083941001f390ec251dd89b37543630a2bc53935be",
+        "/partition_control/policy": "nested-anchor-class-shares-v1"
+      },
+      "member": "outputs/official39-controlled-noniid-2m-v1/dirichlet-seed7/environment.json"
+    },
+    "aggregation": {
+      "path": "outputs/official39-aggregation-probe-v2.json",
+      "sha256": "22e1154abc8588ad9fa98317095ca3de81c437696eea704c3ce45852ed43737d",
+      "guards": {
+        "/status": "complete",
+        "/test_evaluated": false,
+        "/starting_validation_metrics_exact": true,
+        "/source_archive_unchanged": true
+      }
+    },
+    "panel": {
+      "path": "outputs/official39-panel-validation-v1/receipt.json",
+      "sha256": "b5767472daeb19218e2a704c1c3d6edf54a129c96ac8da0a88f8d20698c6df99",
+      "guards": {
+        "/status": "complete",
+        "/test_opened": false,
+        "/model_promoted": false,
+        "/all_training_bridges_exact": true,
+        "/packed_manifest_sha256": "dfd1caf01cbe233b52ce55083941001f390ec251dd89b37543630a2bc53935be"
+      }
+    },
+    "alert": {
+      "path": "reports/full_data_extension/alert-budget-results.json",
+      "sha256": "88c2f5b382439f8ff87af77b403f5d99a5288ef3ccaec7486bfd0609b93a2a96",
+      "guards": {
+        "/classes": [
+          "Benign",
+          "DDoS",
+          "DoS",
+          "Recon",
+          "Web-based",
+          "Brute Force",
+          "Spoofing",
+          "Mirai"
+        ],
+        "/test_opened": false,
+        "/model_trained": false,
+        "/independent_assessment": false
+      }
+    },
+    "prior": {
+      "path": "reports/full_data_extension/prior-correction-results.json",
+      "sha256": "7a6880edd904c8b1c0adeb2a74e79d0888c1441a3246b7a3f33bac132cba90a5",
+      "guards": {
+        "/classes": [
+          "Benign",
+          "DDoS",
+          "DoS",
+          "Recon",
+          "Web-based",
+          "Brute Force",
+          "Spoofing",
+          "Mirai"
+        ],
+        "/test_opened": false,
+        "/model_trained": false,
+        "/model_promoted": false,
+        "/independent_assessment": false,
+        "/all_raw_bridges_exact": true,
+        "/packed_manifest_sha256": "dfd1caf01cbe233b52ce55083941001f390ec251dd89b37543630a2bc53935be"
+      }
+    }
+  },
+  "groups": {
+    "scaling_light": {
+      "scope": "Full-cohort final-at-budget validation. Seeds 7/17/27; seed 7 exploratory, 17/27 prospective. Same validation rows, cohort-specific scalers and loss weights. IID is a diagnostic control, not the non-IID target.",
+      "conditions": {
+        "500k_step20": [
+          7,
+          17,
+          27
+        ],
+        "2m_step5": [
+          7,
+          17,
+          27
+        ],
+        "2m_step20": [
+          7,
+          17,
+          27
+        ]
+      }
+    },
+    "scaling_iid": {
+      "scope": "Full-cohort final-at-budget validation. Seeds 7/17/27; seed 7 exploratory, 17/27 prospective. Same validation rows, cohort-specific scalers and loss weights. IID is a diagnostic control, not the non-IID target.",
+      "conditions": {
+        "500k_step20": [
+          7,
+          17,
+          27
+        ],
+        "2m_step5": [
+          7,
+          17,
+          27
+        ],
+        "2m_step20": [
+          7,
+          17,
+          27
+        ]
+      }
+    },
+    "controls_light": {
+      "scope": "Exploratory 500k seed-7 controls only. Fixed final budgets; a cap changes exposure, aggregation and optimizer-reset frequency together. No seed variability estimate.",
+      "conditions": {
+        "batchnorm_sqrt": [
+          7
+        ],
+        "layernorm_sqrt": [
+          7
+        ],
+        "layernorm_full_weight": [
+          7
+        ],
+        "fixed_loss_denominator": [
+          7
+        ]
+      }
+    },
+    "controls_iid": {
+      "scope": "Exploratory 500k seed-7 controls only. Fixed final budgets; a cap changes exposure, aggregation and optimizer-reset frequency together. No seed variability estimate.",
+      "conditions": {
+        "batchnorm_sqrt": [
+          7
+        ],
+        "layernorm_sqrt": [
+          7
+        ],
+        "layernorm_full_weight": [
+          7
+        ],
+        "five_batch_cap": [
+          7
+        ],
+        "fixed_loss_denominator": [
+          7
+        ]
+      }
+    },
+    "controls_dirichlet": {
+      "scope": "Exploratory 500k seed-7 controls only. Fixed final budgets; a cap changes exposure, aggregation and optimizer-reset frequency together. No seed variability estimate.",
+      "conditions": {
+        "batchnorm_sqrt": [
+          7
+        ],
+        "layernorm_sqrt": [
+          7
+        ],
+        "layernorm_full_weight": [
+          7
+        ],
+        "five_batch_cap": [
+          7
+        ],
+        "fixed_loss_denominator": [
+          7
+        ]
+      }
+    },
+    "controlled_noniid": {
+      "scope": "One anchored simulated partition and seed 7. Original 500k row ownership retained; cohort scaler, loss weights and local epoch length still differ. Not multi-seed confirmation.",
+      "conditions": {
+        "500k_step20": [
+          7
+        ],
+        "2m_step5": [
+          7
+        ],
+        "2m_step20": [
+          7
+        ]
+      }
+    },
+    "aggregation": {
+      "scope": "One extra CPU diagnostic round from the frozen global checkpoint. Both aggregations use the same 20 client models; an ensemble requires 20 evaluations per flow, not one edge model.",
+      "conditions": {
+        "saved_global": [
+          7
+        ],
+        "fedavg": [
+          7
+        ],
+        "ensemble": [
+          7
+        ]
+      }
+    },
+    "panel": {
+      "scope": "Fixed 10152-row balanced panel, 1269 per class. Neural models: 300 epochs, 3045600 examples, 6000 updates; width changes parameter count/FLOPs. Fixed tree: one seed, unmatched work/capacity. Natural validation, not a full-cohort fair-compute comparison.",
+      "conditions": {
+        "small_dropout": [
+          7,
+          17,
+          27
+        ],
+        "small_no_dropout": [
+          7,
+          17,
+          27
+        ],
+        "wide_dropout": [
+          7,
+          17,
+          27
+        ],
+        "wide_no_dropout": [
+          7,
+          17,
+          27
+        ],
+        "fixed_tree": [
+          7
+        ]
+      }
+    },
+    "alert_primary": {
+      "scope": "Predeclared primary small-dropout control only; all other architecture operating points remain in alert-budget-results.json. Thresholds chosen and assessed on the SAME validation population; caps hold by construction, not independent guarantees.",
+      "conditions": {
+        "0.001": [
+          7,
+          17,
+          27
+        ],
+        "0.01": [
+          7,
+          17,
+          27
+        ],
+        "0.05": [
+          7,
+          17,
+          27
+        ]
+      }
+    },
+    "prior": {
+      "scope": "Six frozen small-dropout models, panel control versus majority diversity at equal class exposure and work. One training-count prior correction, no retraining. Raw panel observations duplicate the panel control, not independent replications. No operational prior or calibration claim.",
+      "conditions": {
+        "panel_control_raw": [
+          7,
+          17,
+          27
+        ],
+        "majority_diversity_raw": [
+          7,
+          17,
+          27
+        ],
+        "panel_control_corrected": [
+          7,
+          17,
+          27
+        ],
+        "majority_diversity_corrected": [
+          7,
+          17,
+          27
+        ]
+      }
+    }
+  },
+  "comparisons": [
+    {
+      "id": "light_2m_step5_minus_500k_step20",
+      "group": "scaling_light",
+      "left": "2m_step5",
+      "right": "500k_step20",
+      "scope": "Equal 10M processed examples; not equal rounds, communication or exactly all optimizer updates"
+    },
+    {
+      "id": "light_2m_step20_minus_500k_step20",
+      "group": "scaling_light",
+      "left": "2m_step20",
+      "right": "500k_step20",
+      "scope": "Equal 20 passes; 2M processes 40M versus 10M examples, not equal work"
+    },
+    {
+      "id": "iid_2m_step5_minus_500k_step20",
+      "group": "scaling_iid",
+      "left": "2m_step5",
+      "right": "500k_step20",
+      "scope": "Equal 10M processed examples; not equal rounds, communication or exactly all optimizer updates"
+    },
+    {
+      "id": "iid_2m_step20_minus_500k_step20",
+      "group": "scaling_iid",
+      "left": "2m_step20",
+      "right": "500k_step20",
+      "scope": "Equal 20 passes; 2M processes 40M versus 10M examples, not equal work"
+    },
+    {
+      "id": "controlled_2m_step5_minus_500k_step20",
+      "group": "controlled_noniid",
+      "left": "2m_step5",
+      "right": "500k_step20",
+      "scope": "Single seed, equal 10M examples"
+    },
+    {
+      "id": "controlled_2m_step20_minus_500k_step20",
+      "group": "controlled_noniid",
+      "left": "2m_step20",
+      "right": "500k_step20",
+      "scope": "Single seed, equal 20 rounds and four times the processed examples"
+    }
+  ],
+  "records": [
+    {
+      "id": "scaling_light/500k_step20/seed7",
+      "group": "scaling_light",
+      "condition": "500k_step20",
+      "seed": 7,
+      "source": "scaling",
+      "pointer": "/runs/500k~1light~1seed7/final",
+      "format": "metrics",
+      "endpoint": 20,
+      "cohort_rows": 500000,
+      "examples_processed": 10000000,
+      "optimizer_steps": 19540,
+      "work_basis": "Frozen scaling protocol; raw work was checked by official_scaling_review",
+      "num_parameters": 5096
+    },
+    {
+      "id": "scaling_light/500k_step20/seed17",
+      "group": "scaling_light",
+      "condition": "500k_step20",
+      "seed": 17,
+      "source": "scaling",
+      "pointer": "/runs/500k~1light~1seed17/final",
+      "format": "metrics",
+      "endpoint": 20,
+      "cohort_rows": 500000,
+      "examples_processed": 10000000,
+      "optimizer_steps": 19540,
+      "work_basis": "Frozen scaling protocol; raw work was checked by official_scaling_review",
+      "num_parameters": 5096
+    },
+    {
+      "id": "scaling_light/500k_step20/seed27",
+      "group": "scaling_light",
+      "condition": "500k_step20",
+      "seed": 27,
+      "source": "scaling",
+      "pointer": "/runs/500k~1light~1seed27/final",
+      "format": "metrics",
+      "endpoint": 20,
+      "cohort_rows": 500000,
+      "examples_processed": 10000000,
+      "optimizer_steps": 19540,
+      "work_basis": "Frozen scaling protocol; raw work was checked by official_scaling_review",
+      "num_parameters": 5096
+    },
+    {
+      "id": "scaling_light/2m_step5/seed7",
+      "group": "scaling_light",
+      "condition": "2m_step5",
+      "seed": 7,
+      "source": "scaling",
+      "pointer": "/runs/2m~1light~1seed7/step5",
+      "format": "metrics",
+      "endpoint": 5,
+      "cohort_rows": 2000000,
+      "examples_processed": 10000000,
+      "optimizer_steps": 19535,
+      "work_basis": "Frozen scaling protocol; raw work was checked by official_scaling_review",
+      "num_parameters": 5096
+    },
+    {
+      "id": "scaling_light/2m_step5/seed17",
+      "group": "scaling_light",
+      "condition": "2m_step5",
+      "seed": 17,
+      "source": "scaling",
+      "pointer": "/runs/2m~1light~1seed17/step5",
+      "format": "metrics",
+      "endpoint": 5,
+      "cohort_rows": 2000000,
+      "examples_processed": 10000000,
+      "optimizer_steps": 19535,
+      "work_basis": "Frozen scaling protocol; raw work was checked by official_scaling_review",
+      "num_parameters": 5096
+    },
+    {
+      "id": "scaling_light/2m_step5/seed27",
+      "group": "scaling_light",
+      "condition": "2m_step5",
+      "seed": 27,
+      "source": "scaling",
+      "pointer": "/runs/2m~1light~1seed27/step5",
+      "format": "metrics",
+      "endpoint": 5,
+      "cohort_rows": 2000000,
+      "examples_processed": 10000000,
+      "optimizer_steps": 19535,
+      "work_basis": "Frozen scaling protocol; raw work was checked by official_scaling_review",
+      "num_parameters": 5096
+    },
+    {
+      "id": "scaling_light/2m_step20/seed7",
+      "group": "scaling_light",
+      "condition": "2m_step20",
+      "seed": 7,
+      "source": "scaling",
+      "pointer": "/runs/2m~1light~1seed7/final",
+      "format": "metrics",
+      "endpoint": 20,
+      "cohort_rows": 2000000,
+      "examples_processed": 40000000,
+      "optimizer_steps": 78140,
+      "work_basis": "Frozen scaling protocol; raw work was checked by official_scaling_review",
+      "num_parameters": 5096
+    },
+    {
+      "id": "scaling_light/2m_step20/seed17",
+      "group": "scaling_light",
+      "condition": "2m_step20",
+      "seed": 17,
+      "source": "scaling",
+      "pointer": "/runs/2m~1light~1seed17/final",
+      "format": "metrics",
+      "endpoint": 20,
+      "cohort_rows": 2000000,
+      "examples_processed": 40000000,
+      "optimizer_steps": 78140,
+      "work_basis": "Frozen scaling protocol; raw work was checked by official_scaling_review",
+      "num_parameters": 5096
+    },
+    {
+      "id": "scaling_light/2m_step20/seed27",
+      "group": "scaling_light",
+      "condition": "2m_step20",
+      "seed": 27,
+      "source": "scaling",
+      "pointer": "/runs/2m~1light~1seed27/final",
+      "format": "metrics",
+      "endpoint": 20,
+      "cohort_rows": 2000000,
+      "examples_processed": 40000000,
+      "optimizer_steps": 78140,
+      "work_basis": "Frozen scaling protocol; raw work was checked by official_scaling_review",
+      "num_parameters": 5096
+    },
+    {
+      "id": "scaling_iid/500k_step20/seed7",
+      "group": "scaling_iid",
+      "condition": "500k_step20",
+      "seed": 7,
+      "source": "scaling",
+      "pointer": "/runs/500k~1iid~1seed7/final",
+      "format": "metrics",
+      "endpoint": 20,
+      "cohort_rows": 500000,
+      "examples_processed": 10000000,
+      "optimizer_steps": 19600,
+      "work_basis": "Frozen scaling protocol; raw work was checked by official_scaling_review",
+      "num_parameters": 5096
+    },
+    {
+      "id": "scaling_iid/500k_step20/seed17",
+      "group": "scaling_iid",
+      "condition": "500k_step20",
+      "seed": 17,
+      "source": "scaling",
+      "pointer": "/runs/500k~1iid~1seed17/final",
+      "format": "metrics",
+      "endpoint": 20,
+      "cohort_rows": 500000,
+      "examples_processed": 10000000,
+      "optimizer_steps": 19600,
+      "work_basis": "Frozen scaling protocol; raw work was checked by official_scaling_review",
+      "num_parameters": 5096
+    },
+    {
+      "id": "scaling_iid/500k_step20/seed27",
+      "group": "scaling_iid",
+      "condition": "500k_step20",
+      "seed": 27,
+      "source": "scaling",
+      "pointer": "/runs/500k~1iid~1seed27/final",
+      "format": "metrics",
+      "endpoint": 20,
+      "cohort_rows": 500000,
+      "examples_processed": 10000000,
+      "optimizer_steps": 19600,
+      "work_basis": "Frozen scaling protocol; raw work was checked by official_scaling_review",
+      "num_parameters": 5096
+    },
+    {
+      "id": "scaling_iid/2m_step5/seed7",
+      "group": "scaling_iid",
+      "condition": "2m_step5",
+      "seed": 7,
+      "source": "scaling",
+      "pointer": "/runs/2m~1iid~1seed7/step5",
+      "format": "metrics",
+      "endpoint": 5,
+      "cohort_rows": 2000000,
+      "examples_processed": 10000000,
+      "optimizer_steps": 19600,
+      "work_basis": "Frozen scaling protocol; raw work was checked by official_scaling_review",
+      "num_parameters": 5096
+    },
+    {
+      "id": "scaling_iid/2m_step5/seed17",
+      "group": "scaling_iid",
+      "condition": "2m_step5",
+      "seed": 17,
+      "source": "scaling",
+      "pointer": "/runs/2m~1iid~1seed17/step5",
+      "format": "metrics",
+      "endpoint": 5,
+      "cohort_rows": 2000000,
+      "examples_processed": 10000000,
+      "optimizer_steps": 19600,
+      "work_basis": "Frozen scaling protocol; raw work was checked by official_scaling_review",
+      "num_parameters": 5096
+    },
+    {
+      "id": "scaling_iid/2m_step5/seed27",
+      "group": "scaling_iid",
+      "condition": "2m_step5",
+      "seed": 27,
+      "source": "scaling",
+      "pointer": "/runs/2m~1iid~1seed27/step5",
+      "format": "metrics",
+      "endpoint": 5,
+      "cohort_rows": 2000000,
+      "examples_processed": 10000000,
+      "optimizer_steps": 19600,
+      "work_basis": "Frozen scaling protocol; raw work was checked by official_scaling_review",
+      "num_parameters": 5096
+    },
+    {
+      "id": "scaling_iid/2m_step20/seed7",
+      "group": "scaling_iid",
+      "condition": "2m_step20",
+      "seed": 7,
+      "source": "scaling",
+      "pointer": "/runs/2m~1iid~1seed7/final",
+      "format": "metrics",
+      "endpoint": 20,
+      "cohort_rows": 2000000,
+      "examples_processed": 40000000,
+      "optimizer_steps": 78400,
+      "work_basis": "Frozen scaling protocol; raw work was checked by official_scaling_review",
+      "num_parameters": 5096
+    },
+    {
+      "id": "scaling_iid/2m_step20/seed17",
+      "group": "scaling_iid",
+      "condition": "2m_step20",
+      "seed": 17,
+      "source": "scaling",
+      "pointer": "/runs/2m~1iid~1seed17/final",
+      "format": "metrics",
+      "endpoint": 20,
+      "cohort_rows": 2000000,
+      "examples_processed": 40000000,
+      "optimizer_steps": 78400,
+      "work_basis": "Frozen scaling protocol; raw work was checked by official_scaling_review",
+      "num_parameters": 5096
+    },
+    {
+      "id": "scaling_iid/2m_step20/seed27",
+      "group": "scaling_iid",
+      "condition": "2m_step20",
+      "seed": 27,
+      "source": "scaling",
+      "pointer": "/runs/2m~1iid~1seed27/final",
+      "format": "metrics",
+      "endpoint": 20,
+      "cohort_rows": 2000000,
+      "examples_processed": 40000000,
+      "optimizer_steps": 78400,
+      "work_basis": "Frozen scaling protocol; raw work was checked by official_scaling_review",
+      "num_parameters": 5096
+    },
+    {
+      "id": "controls_light/batchnorm_sqrt/seed7",
+      "group": "controls_light",
+      "condition": "batchnorm_sqrt",
+      "seed": 7,
+      "source": "reference_light",
+      "pointer": "/history/19/validation_metrics",
+      "format": "metrics",
+      "endpoint": 20,
+      "cohort_rows": 500000,
+      "examples_processed": 10000000,
+      "optimizer_steps": 19540,
+      "work_basis": "Reported complete-run counters",
+      "num_parameters": 5096
+    },
+    {
+      "id": "controls_iid/batchnorm_sqrt/seed7",
+      "group": "controls_iid",
+      "condition": "batchnorm_sqrt",
+      "seed": 7,
+      "source": "reference_iid",
+      "pointer": "/history/19/validation_metrics",
+      "format": "metrics",
+      "endpoint": 20,
+      "cohort_rows": 500000,
+      "examples_processed": 10000000,
+      "optimizer_steps": 19600,
+      "work_basis": "Reported complete-run counters",
+      "num_parameters": 5096
+    },
+    {
+      "id": "controls_dirichlet/batchnorm_sqrt/seed7",
+      "group": "controls_dirichlet",
+      "condition": "batchnorm_sqrt",
+      "seed": 7,
+      "source": "reference_dirichlet",
+      "pointer": "/history/19/validation_metrics",
+      "format": "metrics",
+      "endpoint": 20,
+      "cohort_rows": 500000,
+      "examples_processed": 10000000,
+      "optimizer_steps": 19680,
+      "work_basis": "Reported complete-run counters",
+      "num_parameters": 5096
+    },
+    {
+      "id": "controls_light/layernorm_sqrt/seed7",
+      "group": "controls_light",
+      "condition": "layernorm_sqrt",
+      "seed": 7,
+      "source": "layernorm_light",
+      "pointer": "/history/19/validation_metrics",
+      "format": "metrics",
+      "endpoint": 20,
+      "cohort_rows": 500000,
+      "examples_processed": 10000000,
+      "optimizer_steps": 19540,
+      "work_basis": "Reported complete-run counters",
+      "num_parameters": 5096
+    },
+    {
+      "id": "controls_iid/layernorm_sqrt/seed7",
+      "group": "controls_iid",
+      "condition": "layernorm_sqrt",
+      "seed": 7,
+      "source": "layernorm_iid",
+      "pointer": "/history/19/validation_metrics",
+      "format": "metrics",
+      "endpoint": 20,
+      "cohort_rows": 500000,
+      "examples_processed": 10000000,
+      "optimizer_steps": 19600,
+      "work_basis": "Reported complete-run counters",
+      "num_parameters": 5096
+    },
+    {
+      "id": "controls_dirichlet/layernorm_sqrt/seed7",
+      "group": "controls_dirichlet",
+      "condition": "layernorm_sqrt",
+      "seed": 7,
+      "source": "layernorm_dirichlet",
+      "pointer": "/history/19/validation_metrics",
+      "format": "metrics",
+      "endpoint": 20,
+      "cohort_rows": 500000,
+      "examples_processed": 10000000,
+      "optimizer_steps": 19680,
+      "work_basis": "Reported complete-run counters",
+      "num_parameters": 5096
+    },
+    {
+      "id": "controls_light/layernorm_full_weight/seed7",
+      "group": "controls_light",
+      "condition": "layernorm_full_weight",
+      "seed": 7,
+      "source": "weighted_light",
+      "pointer": "/history/19/validation_metrics",
+      "format": "metrics",
+      "endpoint": 20,
+      "cohort_rows": 500000,
+      "examples_processed": 10000000,
+      "optimizer_steps": 19540,
+      "work_basis": "Reported complete-run counters",
+      "num_parameters": 5096
+    },
+    {
+      "id": "controls_iid/layernorm_full_weight/seed7",
+      "group": "controls_iid",
+      "condition": "layernorm_full_weight",
+      "seed": 7,
+      "source": "weighted_iid",
+      "pointer": "/history/19/validation_metrics",
+      "format": "metrics",
+      "endpoint": 20,
+      "cohort_rows": 500000,
+      "examples_processed": 10000000,
+      "optimizer_steps": 19600,
+      "work_basis": "Reported complete-run counters",
+      "num_parameters": 5096
+    },
+    {
+      "id": "controls_dirichlet/layernorm_full_weight/seed7",
+      "group": "controls_dirichlet",
+      "condition": "layernorm_full_weight",
+      "seed": 7,
+      "source": "weighted_dirichlet",
+      "pointer": "/history/19/validation_metrics",
+      "format": "metrics",
+      "endpoint": 20,
+      "cohort_rows": 500000,
+      "examples_processed": 10000000,
+      "optimizer_steps": 19680,
+      "work_basis": "Reported complete-run counters",
+      "num_parameters": 5096
+    },
+    {
+      "id": "controls_iid/five_batch_cap/seed7",
+      "group": "controls_iid",
+      "condition": "five_batch_cap",
+      "seed": 7,
+      "source": "bounded_iid",
+      "pointer": "/history/195/validation_metrics",
+      "format": "metrics",
+      "endpoint": 196,
+      "cohort_rows": 500000,
+      "examples_processed": 10035200,
+      "optimizer_steps": 19600,
+      "work_basis": "Reported complete-run counters",
+      "num_parameters": 5096
+    },
+    {
+      "id": "controls_dirichlet/five_batch_cap/seed7",
+      "group": "controls_dirichlet",
+      "condition": "five_batch_cap",
+      "seed": 7,
+      "source": "bounded_dirichlet",
+      "pointer": "/history/196/validation_metrics",
+      "format": "metrics",
+      "endpoint": 197,
+      "cohort_rows": 500000,
+      "examples_processed": 10076160,
+      "optimizer_steps": 19680,
+      "work_basis": "Reported complete-run counters",
+      "num_parameters": 5096
+    },
+    {
+      "id": "controls_light/fixed_loss_denominator/seed7",
+      "group": "controls_light",
+      "condition": "fixed_loss_denominator",
+      "seed": 7,
+      "source": "fixed-loss_light",
+      "pointer": "/history/19/validation_metrics",
+      "format": "metrics",
+      "endpoint": 20,
+      "cohort_rows": 500000,
+      "examples_processed": 10000000,
+      "optimizer_steps": 19540,
+      "work_basis": "Reported complete-run counters",
+      "num_parameters": 5096
+    },
+    {
+      "id": "controls_iid/fixed_loss_denominator/seed7",
+      "group": "controls_iid",
+      "condition": "fixed_loss_denominator",
+      "seed": 7,
+      "source": "fixed-loss_iid",
+      "pointer": "/history/19/validation_metrics",
+      "format": "metrics",
+      "endpoint": 20,
+      "cohort_rows": 500000,
+      "examples_processed": 10000000,
+      "optimizer_steps": 19600,
+      "work_basis": "Reported complete-run counters",
+      "num_parameters": 5096
+    },
+    {
+      "id": "controls_dirichlet/fixed_loss_denominator/seed7",
+      "group": "controls_dirichlet",
+      "condition": "fixed_loss_denominator",
+      "seed": 7,
+      "source": "fixed-loss_dirichlet",
+      "pointer": "/history/19/validation_metrics",
+      "format": "metrics",
+      "endpoint": 20,
+      "cohort_rows": 500000,
+      "examples_processed": 10000000,
+      "optimizer_steps": 19680,
+      "work_basis": "Reported complete-run counters",
+      "num_parameters": 5096
+    },
+    {
+      "id": "controlled_noniid/500k_step20/seed7",
+      "group": "controlled_noniid",
+      "condition": "500k_step20",
+      "seed": 7,
+      "source": "controlled_500k",
+      "pointer": "/history/19/validation_metrics",
+      "format": "metrics",
+      "endpoint": 20,
+      "cohort_rows": 500000,
+      "examples_processed": 10000000,
+      "optimizer_steps": 19680,
+      "work_basis": "Sum of reported history through endpoint",
+      "num_parameters": 5096,
+      "partition_control": {
+        "policy": "nested-anchor-class-shares-v1",
+        "cohort": "500k",
+        "plan_sha256": "15bdb74c37c54b194185e4c0e0d434566d827c3e30b248c059fdb95e8b7c9997",
+        "assignment_sha256": "f1d5070370ad3005ec116cd54134733b74e7b5076ee8c4e00e026774f15cb2bc"
+      }
+    },
+    {
+      "id": "controlled_noniid/2m_step5/seed7",
+      "group": "controlled_noniid",
+      "condition": "2m_step5",
+      "seed": 7,
+      "source": "controlled_2m",
+      "pointer": "/history/4/validation_metrics",
+      "format": "metrics",
+      "endpoint": 5,
+      "cohort_rows": 2000000,
+      "examples_processed": 10000000,
+      "optimizer_steps": 19585,
+      "work_basis": "Sum of reported history through endpoint",
+      "num_parameters": 5096,
+      "partition_control": {
+        "policy": "nested-anchor-class-shares-v1",
+        "cohort": "2m",
+        "plan_sha256": "15bdb74c37c54b194185e4c0e0d434566d827c3e30b248c059fdb95e8b7c9997",
+        "assignment_sha256": "057d3705863bb7c0546dfd5aa980cc35c2082da25f85ef1075ccad37e7952f46"
+      }
+    },
+    {
+      "id": "controlled_noniid/2m_step20/seed7",
+      "group": "controlled_noniid",
+      "condition": "2m_step20",
+      "seed": 7,
+      "source": "controlled_2m",
+      "pointer": "/history/19/validation_metrics",
+      "format": "metrics",
+      "endpoint": 20,
+      "cohort_rows": 2000000,
+      "examples_processed": 40000000,
+      "optimizer_steps": 78340,
+      "work_basis": "Sum of reported history through endpoint",
+      "num_parameters": 5096,
+      "partition_control": {
+        "policy": "nested-anchor-class-shares-v1",
+        "cohort": "2m",
+        "plan_sha256": "15bdb74c37c54b194185e4c0e0d434566d827c3e30b248c059fdb95e8b7c9997",
+        "assignment_sha256": "057d3705863bb7c0546dfd5aa980cc35c2082da25f85ef1075ccad37e7952f46"
+      }
+    },
+    {
+      "id": "aggregation/saved_global/seed7",
+      "group": "aggregation",
+      "condition": "saved_global",
+      "seed": 7,
+      "source": "aggregation",
+      "pointer": "/observations/full_validation_before",
+      "format": "metrics",
+      "additional_examples_processed": 0,
+      "additional_optimizer_steps": 0
+    },
+    {
+      "id": "aggregation/fedavg/seed7",
+      "group": "aggregation",
+      "condition": "fedavg",
+      "seed": 7,
+      "source": "aggregation",
+      "pointer": "/observations/full_validation_parameter_average",
+      "format": "metrics",
+      "additional_examples_processed": 2000000,
+      "additional_optimizer_steps": 3917
+    },
+    {
+      "id": "aggregation/ensemble/seed7",
+      "group": "aggregation",
+      "condition": "ensemble",
+      "seed": 7,
+      "source": "aggregation",
+      "pointer": "/observations/full_validation_probability_average",
+      "format": "metrics",
+      "additional_examples_processed": 2000000,
+      "additional_optimizer_steps": 3917
+    },
+    {
+      "id": "panel/small_dropout/seed7",
+      "group": "panel",
+      "condition": "small_dropout",
+      "seed": 7,
+      "source": "panel",
+      "pointer": "/validation_results/0/validation_metrics",
+      "format": "metrics",
+      "endpoint": "fixed fit; no validation checkpoint selection"
+    },
+    {
+      "id": "panel/small_dropout/seed17",
+      "group": "panel",
+      "condition": "small_dropout",
+      "seed": 17,
+      "source": "panel",
+      "pointer": "/validation_results/1/validation_metrics",
+      "format": "metrics",
+      "endpoint": "fixed fit; no validation checkpoint selection"
+    },
+    {
+      "id": "panel/small_dropout/seed27",
+      "group": "panel",
+      "condition": "small_dropout",
+      "seed": 27,
+      "source": "panel",
+      "pointer": "/validation_results/2/validation_metrics",
+      "format": "metrics",
+      "endpoint": "fixed fit; no validation checkpoint selection"
+    },
+    {
+      "id": "panel/small_no_dropout/seed7",
+      "group": "panel",
+      "condition": "small_no_dropout",
+      "seed": 7,
+      "source": "panel",
+      "pointer": "/validation_results/3/validation_metrics",
+      "format": "metrics",
+      "endpoint": "fixed fit; no validation checkpoint selection"
+    },
+    {
+      "id": "panel/small_no_dropout/seed17",
+      "group": "panel",
+      "condition": "small_no_dropout",
+      "seed": 17,
+      "source": "panel",
+      "pointer": "/validation_results/4/validation_metrics",
+      "format": "metrics",
+      "endpoint": "fixed fit; no validation checkpoint selection"
+    },
+    {
+      "id": "panel/small_no_dropout/seed27",
+      "group": "panel",
+      "condition": "small_no_dropout",
+      "seed": 27,
+      "source": "panel",
+      "pointer": "/validation_results/5/validation_metrics",
+      "format": "metrics",
+      "endpoint": "fixed fit; no validation checkpoint selection"
+    },
+    {
+      "id": "panel/wide_dropout/seed7",
+      "group": "panel",
+      "condition": "wide_dropout",
+      "seed": 7,
+      "source": "panel",
+      "pointer": "/validation_results/6/validation_metrics",
+      "format": "metrics",
+      "endpoint": "fixed fit; no validation checkpoint selection"
+    },
+    {
+      "id": "panel/wide_dropout/seed17",
+      "group": "panel",
+      "condition": "wide_dropout",
+      "seed": 17,
+      "source": "panel",
+      "pointer": "/validation_results/7/validation_metrics",
+      "format": "metrics",
+      "endpoint": "fixed fit; no validation checkpoint selection"
+    },
+    {
+      "id": "panel/wide_dropout/seed27",
+      "group": "panel",
+      "condition": "wide_dropout",
+      "seed": 27,
+      "source": "panel",
+      "pointer": "/validation_results/8/validation_metrics",
+      "format": "metrics",
+      "endpoint": "fixed fit; no validation checkpoint selection"
+    },
+    {
+      "id": "panel/wide_no_dropout/seed7",
+      "group": "panel",
+      "condition": "wide_no_dropout",
+      "seed": 7,
+      "source": "panel",
+      "pointer": "/validation_results/9/validation_metrics",
+      "format": "metrics",
+      "endpoint": "fixed fit; no validation checkpoint selection"
+    },
+    {
+      "id": "panel/wide_no_dropout/seed17",
+      "group": "panel",
+      "condition": "wide_no_dropout",
+      "seed": 17,
+      "source": "panel",
+      "pointer": "/validation_results/10/validation_metrics",
+      "format": "metrics",
+      "endpoint": "fixed fit; no validation checkpoint selection"
+    },
+    {
+      "id": "panel/wide_no_dropout/seed27",
+      "group": "panel",
+      "condition": "wide_no_dropout",
+      "seed": 27,
+      "source": "panel",
+      "pointer": "/validation_results/11/validation_metrics",
+      "format": "metrics",
+      "endpoint": "fixed fit; no validation checkpoint selection"
+    },
+    {
+      "id": "panel/fixed_tree/seed7",
+      "group": "panel",
+      "condition": "fixed_tree",
+      "seed": 7,
+      "source": "panel",
+      "pointer": "/validation_results/12/validation_metrics",
+      "format": "metrics",
+      "endpoint": "fixed fit; no validation checkpoint selection"
+    },
+    {
+      "id": "alert_primary/0.001/seed7",
+      "group": "alert_primary",
+      "condition": "0.001",
+      "seed": 7,
+      "source": "alert",
+      "pointer": "/operating_points/0",
+      "format": "counts",
+      "threshold": 6.630605697631836,
+      "budget": 0.001,
+      "selection": "same-validation benign scores"
+    },
+    {
+      "id": "alert_primary/0.001/seed17",
+      "group": "alert_primary",
+      "condition": "0.001",
+      "seed": 17,
+      "source": "alert",
+      "pointer": "/operating_points/1",
+      "format": "counts",
+      "threshold": 6.608694076538086,
+      "budget": 0.001,
+      "selection": "same-validation benign scores"
+    },
+    {
+      "id": "alert_primary/0.001/seed27",
+      "group": "alert_primary",
+      "condition": "0.001",
+      "seed": 27,
+      "source": "alert",
+      "pointer": "/operating_points/2",
+      "format": "counts",
+      "threshold": 6.664453029632568,
+      "budget": 0.001,
+      "selection": "same-validation benign scores"
+    },
+    {
+      "id": "alert_primary/0.01/seed7",
+      "group": "alert_primary",
+      "condition": "0.01",
+      "seed": 7,
+      "source": "alert",
+      "pointer": "/operating_points/12",
+      "format": "counts",
+      "threshold": 3.732891082763672,
+      "budget": 0.01,
+      "selection": "same-validation benign scores"
+    },
+    {
+      "id": "alert_primary/0.01/seed17",
+      "group": "alert_primary",
+      "condition": "0.01",
+      "seed": 17,
+      "source": "alert",
+      "pointer": "/operating_points/13",
+      "format": "counts",
+      "threshold": 3.5232486724853516,
+      "budget": 0.01,
+      "selection": "same-validation benign scores"
+    },
+    {
+      "id": "alert_primary/0.01/seed27",
+      "group": "alert_primary",
+      "condition": "0.01",
+      "seed": 27,
+      "source": "alert",
+      "pointer": "/operating_points/14",
+      "format": "counts",
+      "threshold": 3.6449403762817383,
+      "budget": 0.01,
+      "selection": "same-validation benign scores"
+    },
+    {
+      "id": "alert_primary/0.05/seed7",
+      "group": "alert_primary",
+      "condition": "0.05",
+      "seed": 7,
+      "source": "alert",
+      "pointer": "/operating_points/24",
+      "format": "counts",
+      "threshold": 2.074455738067627,
+      "budget": 0.05,
+      "selection": "same-validation benign scores"
+    },
+    {
+      "id": "alert_primary/0.05/seed17",
+      "group": "alert_primary",
+      "condition": "0.05",
+      "seed": 17,
+      "source": "alert",
+      "pointer": "/operating_points/25",
+      "format": "counts",
+      "threshold": 1.9799203872680664,
+      "budget": 0.05,
+      "selection": "same-validation benign scores"
+    },
+    {
+      "id": "alert_primary/0.05/seed27",
+      "group": "alert_primary",
+      "condition": "0.05",
+      "seed": 27,
+      "source": "alert",
+      "pointer": "/operating_points/26",
+      "format": "counts",
+      "threshold": 2.11763858795166,
+      "budget": 0.05,
+      "selection": "same-validation benign scores"
+    },
+    {
+      "id": "prior/panel_control_raw/seed7",
+      "group": "prior",
+      "condition": "panel_control_raw",
+      "seed": 7,
+      "source": "prior",
+      "pointer": "/runs/0",
+      "format": "counts",
+      "checkpoint_sha256": "a78048b8320cc6c9de6e4e2959990364814305626e1270cf8e4c61e0b6942fa5",
+      "examples_processed": 3045600,
+      "optimizer_steps": 6000,
+      "work_basis": "Frozen diversity protocol; correction changes inference only"
+    },
+    {
+      "id": "prior/panel_control_raw/seed17",
+      "group": "prior",
+      "condition": "panel_control_raw",
+      "seed": 17,
+      "source": "prior",
+      "pointer": "/runs/1",
+      "format": "counts",
+      "checkpoint_sha256": "1bb3b9b770c70c97c07249232dbd8257444faa83132b673e251b537e6a1ab0a5",
+      "examples_processed": 3045600,
+      "optimizer_steps": 6000,
+      "work_basis": "Frozen diversity protocol; correction changes inference only"
+    },
+    {
+      "id": "prior/panel_control_raw/seed27",
+      "group": "prior",
+      "condition": "panel_control_raw",
+      "seed": 27,
+      "source": "prior",
+      "pointer": "/runs/2",
+      "format": "counts",
+      "checkpoint_sha256": "7c130da727599b125dee2e48278eabb774f60a9522bee363377169995a2d1a5c",
+      "examples_processed": 3045600,
+      "optimizer_steps": 6000,
+      "work_basis": "Frozen diversity protocol; correction changes inference only"
+    },
+    {
+      "id": "prior/majority_diversity_raw/seed7",
+      "group": "prior",
+      "condition": "majority_diversity_raw",
+      "seed": 7,
+      "source": "prior",
+      "pointer": "/runs/3",
+      "format": "counts",
+      "checkpoint_sha256": "ba30a37db1fa9015eaeb7a8498af4a81de772e5140aaad46ad942875f6488336",
+      "examples_processed": 3045600,
+      "optimizer_steps": 6000,
+      "work_basis": "Frozen diversity protocol; correction changes inference only"
+    },
+    {
+      "id": "prior/majority_diversity_raw/seed17",
+      "group": "prior",
+      "condition": "majority_diversity_raw",
+      "seed": 17,
+      "source": "prior",
+      "pointer": "/runs/4",
+      "format": "counts",
+      "checkpoint_sha256": "d17035c7ff920c62626c67c93d1dd0213105332a42e35cf82aa00cb351c793cd",
+      "examples_processed": 3045600,
+      "optimizer_steps": 6000,
+      "work_basis": "Frozen diversity protocol; correction changes inference only"
+    },
+    {
+      "id": "prior/majority_diversity_raw/seed27",
+      "group": "prior",
+      "condition": "majority_diversity_raw",
+      "seed": 27,
+      "source": "prior",
+      "pointer": "/runs/5",
+      "format": "counts",
+      "checkpoint_sha256": "d53f81d1e9b6a0396eff3295853c461be8bf7487c0c5f587b3a6e65845050e26",
+      "examples_processed": 3045600,
+      "optimizer_steps": 6000,
+      "work_basis": "Frozen diversity protocol; correction changes inference only"
+    },
+    {
+      "id": "prior/panel_control_corrected/seed7",
+      "group": "prior",
+      "condition": "panel_control_corrected",
+      "seed": 7,
+      "source": "prior",
+      "pointer": "/runs/6",
+      "format": "counts",
+      "checkpoint_sha256": "a78048b8320cc6c9de6e4e2959990364814305626e1270cf8e4c61e0b6942fa5",
+      "examples_processed": 3045600,
+      "optimizer_steps": 6000,
+      "work_basis": "Frozen diversity protocol; correction changes inference only"
+    },
+    {
+      "id": "prior/panel_control_corrected/seed17",
+      "group": "prior",
+      "condition": "panel_control_corrected",
+      "seed": 17,
+      "source": "prior",
+      "pointer": "/runs/7",
+      "format": "counts",
+      "checkpoint_sha256": "1bb3b9b770c70c97c07249232dbd8257444faa83132b673e251b537e6a1ab0a5",
+      "examples_processed": 3045600,
+      "optimizer_steps": 6000,
+      "work_basis": "Frozen diversity protocol; correction changes inference only"
+    },
+    {
+      "id": "prior/panel_control_corrected/seed27",
+      "group": "prior",
+      "condition": "panel_control_corrected",
+      "seed": 27,
+      "source": "prior",
+      "pointer": "/runs/8",
+      "format": "counts",
+      "checkpoint_sha256": "7c130da727599b125dee2e48278eabb774f60a9522bee363377169995a2d1a5c",
+      "examples_processed": 3045600,
+      "optimizer_steps": 6000,
+      "work_basis": "Frozen diversity protocol; correction changes inference only"
+    },
+    {
+      "id": "prior/majority_diversity_corrected/seed7",
+      "group": "prior",
+      "condition": "majority_diversity_corrected",
+      "seed": 7,
+      "source": "prior",
+      "pointer": "/runs/9",
+      "format": "counts",
+      "checkpoint_sha256": "ba30a37db1fa9015eaeb7a8498af4a81de772e5140aaad46ad942875f6488336",
+      "examples_processed": 3045600,
+      "optimizer_steps": 6000,
+      "work_basis": "Frozen diversity protocol; correction changes inference only"
+    },
+    {
+      "id": "prior/majority_diversity_corrected/seed17",
+      "group": "prior",
+      "condition": "majority_diversity_corrected",
+      "seed": 17,
+      "source": "prior",
+      "pointer": "/runs/10",
+      "format": "counts",
+      "checkpoint_sha256": "d17035c7ff920c62626c67c93d1dd0213105332a42e35cf82aa00cb351c793cd",
+      "examples_processed": 3045600,
+      "optimizer_steps": 6000,
+      "work_basis": "Frozen diversity protocol; correction changes inference only"
+    },
+    {
+      "id": "prior/majority_diversity_corrected/seed27",
+      "group": "prior",
+      "condition": "majority_diversity_corrected",
+      "seed": 27,
+      "source": "prior",
+      "pointer": "/runs/11",
+      "format": "counts",
+      "checkpoint_sha256": "d53f81d1e9b6a0396eff3295853c461be8bf7487c0c5f587b3a6e65845050e26",
+      "examples_processed": 3045600,
+      "optimizer_steps": 6000,
+      "work_basis": "Frozen diversity protocol; correction changes inference only"
+    }
+  ]
+}
