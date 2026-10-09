@@ -1,8 +1,23 @@
 # Official data scaling extension
 
-## Purpose and current status
+## Latest research status on 9 October 2026
 
-This local-only extension asks whether additional unique training data improves
+The 2M scaling comparisons, training-fit controls, frozen validation comparison
+and alert-budget diagnostic are complete. Start with the
+[validation findings](panel-validation-findings.md) and
+[false-alert trade-off](alert-budget-findings.md). Better training fit did not
+justify promoting the wider model; a strict alert gate sacrifices substantial
+rare-class recall. No model or decision policy is promoted, and the final test
+has not been used for model or threshold evaluation.
+
+The next proposed experiment is a matched-work majority-diversity control, not
+another architecture sweep or cloud scale-up. This branch preserves the original
+study and publishes reproducible experimental code and findings for review.
+Raw data, checkpoints and per-row score arrays remain outside Git.
+
+## Purpose and data preparation background
+
+This experimental extension asks whether additional unique training data improves
 rare-class performance and the centralized versus federated trade-off. It preserves
 the original study, splits, scalers, models, comments and thresholds. More rows or
 more expensive hardware are not themselves evidence of a more credible result.
@@ -27,8 +42,9 @@ materialized and read-back verified: 16,474,212 training, 2,059,284 validation a
 disjoint across splits. Training/recovery checks have run on small synthetic
 fixtures. The 500k cohort has since completed cloud reference, normalization and
 loss controls. The [client diagnostic](client-diagnostic.md) summarizes those
-results, and the [bounded-update plan](bounded-updates.md) defines the next gated
-experiment. The larger learning curve has not been launched.
+results. The [bounded-update plan](bounded-updates.md) records that stage's gated
+experiment; the subsequent [2M scaling comparison](scaling-findings-and-controlled-noniid.md)
+and current diagnostic findings are linked above.
 
 The [full local loader check](loader-check.json) passed on all 16,474,212 training
 and 2,059,284 validation vectors. On this Mac, fitting the diagnostic train-only
@@ -39,7 +55,8 @@ training throughput, a cloud speedup or an edge-device measurement. The loader
 check did not open the test split. The materializer separately read test shards
 only to verify their integrity, coverage and split assignment.
 
-All 75 local repository tests passed, including the recovery-pilot wrapper and fixture
+At the initial preparation checkpoint, all 75 local repository tests passed,
+including the recovery-pilot wrapper and fixture
 checks for cross-file duplicates, conflicting targets, nonfinite/malformed rows,
 interrupted materialization recovery, checksum rejection, deterministic bounded
 shuffling and parity with an in-memory scaler. The 3,541 derived shards and their

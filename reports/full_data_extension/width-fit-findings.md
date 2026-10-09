@@ -1,5 +1,10 @@
 # Wider network training results and the validation decision
 
+The subsequent [fixed validation comparison](panel-validation-findings.md)
+is complete and does **not** support promoting the wider, zero-dropout model:
+its training improvement did not carry over to natural-prevalence validation.
+The training-only evidence and original next-step rationale below are retained.
+
 Doubling the two hidden layers from 64/32 to 128/64 improves training macro-F1
 in all six paired comparisons. At 300 epochs, the wider model without dropout
 reaches a three-seed mean of 0.8175, versus 0.7583 for the smaller model without

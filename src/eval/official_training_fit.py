@@ -110,7 +110,8 @@ def state_hash(model):
     return digest.hexdigest()
 
 
-def fit_mlp(x, y, settings, seed, *, dropout=None, prefix_reference=None, hidden_dims=None):
+def fit_mlp(x, y, settings, seed, *, dropout=None, prefix_reference=None, hidden_dims=None,
+            return_model=False):
     """Fresh initialization; balanced counts make square-root CE uniform CE.
 
     Do NOT reuse the original imbalanced cohort weights on balanced examples:
@@ -129,6 +130,10 @@ def fit_mlp(x, y, settings, seed, *, dropout=None, prefix_reference=None, hidden
     The bounded width diagnostic can request (128, 64) instead of (64, 32).
     This pairs seeds and initialization policy, NOT identical starting tensors
     across widths. Defaults and the production architecture remain unchanged.
+
+    A separate frozen validation runner may retain the final model. Returning
+    it does not evaluate new data or change training; the default receipt-only
+    interface remains identical for all historical diagnostics.
     """
     counts = dict(zip(CLASSES, map(int, np.bincount(y, minlength=len(CLASSES)))))
     if len(set(counts.values())) != 1 or min(counts.values()) <= 0:
@@ -198,10 +203,10 @@ def fit_mlp(x, y, settings, seed, *, dropout=None, prefix_reference=None, hidden
         result['prefix_bridge_exact'] = True
         result['prefix_epoch'] = prefix_epoch
         result['prefix_state_sha256'] = prefix_reference['final_state_sha256']
-    return result
+    return (result, model) if return_model else result
 
 
-def fit_tree(x, y, settings):
+def fit_tree(x, y, settings, *, return_model=False):
     """Fixed boosting budget, no internal validation holdout or early stopping."""
     if settings['early_stopping'] is not False or settings['validation_fraction'] is not None:
         raise ValueError('No validation or early stopping allowed in this fitting diagnostic')
@@ -213,11 +218,14 @@ def fit_tree(x, y, settings):
             or not np.array_equal(model.classes_, np.arange(len(CLASSES)))):
         raise ValueError('Unexpected tree budget or label mapping')
     matrix = np.bincount(y*len(CLASSES)+pred, minlength=len(CLASSES)**2).reshape(len(CLASSES), len(CLASSES))
-    return {'settings': settings, 'iterations': int(model.n_iter_),
+    result = {'settings': settings, 'iterations': int(model.n_iter_),
             'trees': int(model.n_iter_*model.n_trees_per_iteration_),
             'training_panel_metrics': confusion_metrics(matrix),
             'training_prediction_sha256': hashlib.sha256(pred.astype('<i8').tobytes()).hexdigest(),
             'elapsed_seconds': time.perf_counter()-start}
+    # As with the neural helper, retaining the fitted object is opt-in. No
+    # validation rows or new hyperparameters enter this training-only function.
+    return (result, model) if return_model else result
 
 
 def validate_plan(plan):

@@ -1,0 +1,33 @@
+{
+  "protocol": "official39-frozen-alert-budget-diagnostic-v1",
+  "purpose": "Exploratory validation-only alert suppression trade-off, not an independently assessed or deployable policy",
+  "reference_receipt_sha256": "b5767472daeb19218e2a704c1c3d6edf54a129c96ac8da0a88f8d20698c6df99",
+  "reference_plan_sha256": "91bb9f0a5825c2edc4215baee181bc686a1cf88664dd679554d281e9b48bb979",
+  "conditions": ["small_dropout", "small_no_dropout", "wide_dropout", "wide_no_dropout"],
+  "primary_condition": "small_dropout",
+  "seeds": [7, 17, 27],
+  "benign_false_alert_budgets": [0.001, 0.01, 0.05],
+  "score": "max_attack_logit_minus_benign_logit",
+  "rule": "Keep the highest-logit attack category only when its margin is strictly greater than a nonnegative threshold; otherwise predict Benign",
+  "threshold_selection": "Smallest nonnegative observed benign-score cutoff permitting at most floor(budget * benign_count) false alerts, with strict greater-than ties",
+  "threshold_fit_split": "validation",
+  "assessment_split": "same_validation_exploratory_only",
+  "rare_score_classes": ["Web-based", "Brute Force"],
+  "score_quantiles": [0.1, 0.5, 0.9, 0.99],
+  "evaluation_batch_size": 8192,
+  "threads": 2,
+  "require_all_argmax_bridges": true,
+  "test_opened": false,
+  "model_trained": false,
+  "model_promoted": false,
+  "limits": [
+    "No new model, architecture, score family, class-specific threshold search or fitted probability calibration",
+    "All twelve neural checkpoints and original argmax evaluations must verify before selecting any threshold",
+    "Thresholds use only benign validation scores; report every budget and seed, not a chosen winning threshold",
+    "Empirical same-validation false-alert caps are by construction, not out-of-sample guarantees",
+    "The gate can suppress alerts but cannot recover or relabel missed attack categories",
+    "Softmax outputs are uncalibrated scores, not established probabilities of real-world attacks",
+    "Feature matrices and saved scores are disk-backed; no test or training arrays are needed",
+    "Tree weights were not saved in the prior stage; no tree is refitted in this diagnostic"
+  ]
+}

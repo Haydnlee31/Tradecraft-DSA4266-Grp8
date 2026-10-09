@@ -1,0 +1,30 @@
+{
+  "protocol": "official39-frozen-panel-validation-v1",
+  "purpose": "Natural-prevalence validation of the four frozen neural panel fits and the existing fixed tree reference",
+  "reference_receipt_sha256": "a40161a169cfc277c1e9fc3912859c90844c0623f15524f1838743e08a7d8919",
+  "reference_plan_sha256": "7f309da3b3707a080317f5f3c5ec48adf1ff7b73c0ca7f6b6797cbfa5a818e0d",
+  "tree_reference_sha256": "7a2f4f2ec871c1c2586729ca1f97bf887ad125485a06e687a475faea8066b679",
+  "previous_fitter_sha256": "d5a6f3654861235d30250fe967312411e1c958d85b11fd4ee765d6424f256bf8",
+  "panel_sha256": "eeb0da60b60a6af56c7a66920dd2877a59b3f5aa768fb79f27bca079b8afab52",
+  "hidden_dims": [[64, 32], [128, 64]],
+  "dropout_values": [0.2, 0.0],
+  "seeds": [7, 17, 27],
+  "epochs": 300,
+  "validation_rows": 2059284,
+  "validation_class_counts": {"Benign": 109482, "DDoS": 1213890, "DoS": 373093, "Recon": 68008, "Web-based": 2475, "Brute Force": 1284, "Spoofing": 44949, "Mirai": 246103},
+  "evaluation_batch_size": 8192,
+  "prediction_rule": "argmax",
+  "require_all_training_bridges_before_validation": true,
+  "include_fixed_tree": true,
+  "test_opened": false,
+  "model_promoted": false,
+  "selection_rule": "Report every fixed final-epoch model and seed, plus the single unchanged tree reference; no automatic promotion",
+  "limits": [
+    "No tuning of architecture, optimizer, epochs, class weights, feature preprocessing, calibration or alert thresholds",
+    "Open validation arrays only after every neural fit and the fixed tree reproduce their archived training receipts",
+    "Keep the full validation matrix disk-backed; materialize only bounded batches",
+    "Validation has been used in prior exploratory work; final test remains sealed",
+    "Panel and natural validation prevalence differ; a macro-F1 gap alone is not pure overfitting evidence",
+    "These centrally pooled panel fits are not full-2M or federated training runs"
+  ]
+}
