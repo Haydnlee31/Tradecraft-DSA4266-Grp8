@@ -2,11 +2,13 @@
 
 ## Latest research status on 9 October 2026
 
-The [explanation preparation and numerical pilot](explanation-preparation.md)
-have completed. All seven frozen CPU references repeat exactly; the original
-cloud scores remain unchanged. The SHAP pilot flags individual-score reconstruction
-errors, so full feature interpretation is deferred pending a bounded local
-convergence check. No new model training or final-test evaluation is needed.
+The [bounded SHAP convergence check](explanation-convergence.md) has completed.
+Increasing integration samples from 512 to 2,048 improves passing output checks
+from 390/448 to 443/448. Four of seven models pass all original numerical screens;
+five output checks and one error-margin check still fail. Full interpretation
+remains deferred pending a local integration-method cross-check. The earlier
+[preparation and CPU reference](explanation-preparation.md) and all original
+cloud scores remain unchanged. No new training or final-test evaluation is needed.
 
 The [experiment ledger and decision summary](decision-summary.md) consolidate
 the cloud controls, scaling confirmation and local diagnostics. The balanced-panel
@@ -21,7 +23,7 @@ These are not 72 independent training runs. Teammates can audit the metrics with
 `python -m src.eval.official_evidence --audit reports/full_data_extension/decision-evidence.json`
 without the dataset, models or a GPU.
 
-Next: review numerical convergence on the eight fixed explanation-pilot cases
+Next: cross-check path integration on the eight fixed explanation-pilot cases
 before expanding attribution. No new cloud session or training sweep is recommended. The official-39
 final test remains unused for model/threshold evaluation, and the original
 46-feature study stays separate. Raw data, checkpoints and per-row scores remain

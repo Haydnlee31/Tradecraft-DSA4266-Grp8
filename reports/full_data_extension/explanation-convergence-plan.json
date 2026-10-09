@@ -1,0 +1,33 @@
+{
+  "protocol": "official39-explanation-convergence-v1",
+  "purpose": "One bounded numerical comparison on the eight frozen pilot cases, not feature interpretation or model selection",
+  "preparation_plan_sha256": "334d5eab9e425a6c801ab39d75020e498cebb3ffb30b2f2e80400551b4c22855",
+  "preparation_receipt_sha256": "0e504d2cd7bdcffffe6efa11266348a93b1c27c037e0d27631677c1cd085a976",
+  "baseline_nsamples": 512,
+  "comparison_nsamples": 2048,
+  "mc_seeds": [71, 72],
+  "pilot_rows": 8,
+  "background_rows": 128,
+  "quality_limits": {
+    "relative_mean_abs_residual": 0.1,
+    "relative_repeat_difference": 0.25,
+    "case_abs_residual": 0.25,
+    "case_relative_residual": 0.1
+  },
+  "test_evaluated": false,
+  "model_trained": false,
+  "model_promoted": false,
+  "deployment_authorized": false,
+  "full_attribution_run": false,
+  "feature_interpretation_authorized": false,
+  "comparison_scope": "All seven models and all 64 case/class outputs per model. Preserve the original 512-draw arrays and checks. Only nsamples changes; no new cases, background, weights, thresholds, seeds or smoothing.",
+  "contrast_scope": "For each misclassified pilot case, subtract true-class attributions from predicted-class attributions and check reconstruction of the corresponding centered logit margin. Correct cases are excluded, not counted as trivial passes. This diagnostic does not replace the original all-output screens.",
+  "sampling_caveat": "The same random seeds do not guarantee nested draws at each case when nsamples changes; two budgets and two repeats are a diagnostic, not a confidence interval or proof of asymptotic convergence.",
+  "stopping_rule": "Stop before SHAP on any input/checkpoint/source/package/logit mismatch. Run only the declared 2048-draw comparison. If any numerical screen still fails, retain the warnings and review integration or attribution methodology before expansion. Do not automatically increase budget, change criteria, retrain or launch the 219-case analysis.",
+  "limits": [
+    "One fixed finite background does not assess background-sampling sensitivity.",
+    "Eight pilot cases cannot establish reliability on all 219 selected cases or the validation population.",
+    "Numerical completeness does not prove feature-level correctness, causal validity or safe policies.",
+    "The CPU explanation reference remains distinct from unchanged historical GPU measurements."
+  ]
+}
