@@ -2,13 +2,13 @@
 
 ## Latest research status on 9 October 2026
 
-The [bounded SHAP convergence check](explanation-convergence.md) has completed.
-Increasing integration samples from 512 to 2,048 improves passing output checks
-from 390/448 to 443/448. Four of seven models pass all original numerical screens;
-five output checks and one error-margin check still fail. Full interpretation
-remains deferred pending a local integration-method cross-check. The earlier
-[preparation and CPU reference](explanation-preparation.md) and all original
-cloud scores remain unchanged. No new training or final-test evaluation is needed.
+The [deterministic integration cross-check](explanation-integration.md) passes
+for all seven models: 448/448 class-score checks and 29/29 error-margin checks at
+both resolutions, with stable feature contributions between resolutions. This
+supports preparing the full 219-case explanation protocol. The earlier
+[Monte Carlo warnings](explanation-convergence.md), [CPU reference](explanation-preparation.md)
+and all cloud scores remain unchanged. No feature rankings or policies have been
+published from this eight-case pilot. No new training or final-test evaluation is needed.
 
 The [experiment ledger and decision summary](decision-summary.md) consolidate
 the cloud controls, scaling confirmation and local diagnostics. The balanced-panel
@@ -23,8 +23,8 @@ These are not 72 independent training runs. Teammates can audit the metrics with
 `python -m src.eval.official_evidence --audit reports/full_data_extension/decision-evidence.json`
 without the dataset, models or a GPU.
 
-Next: cross-check path integration on the eight fixed explanation-pilot cases
-before expanding attribution. No new cloud session or training sweep is recommended. The official-39
+Next: freeze and run the 219-case explanation protocol with per-case numerical QA
+and separate core/error reporting. No new cloud session or training sweep is recommended. The official-39
 final test remains unused for model/threshold evaluation, and the original
 46-feature study stays separate. Raw data, checkpoints and per-row scores remain
 outside Git. The [prior correction](prior-correction-findings.md) and

@@ -1,0 +1,44 @@
+{
+  "protocol": "official39-explanation-integration-v1",
+  "purpose": "Deterministic path-integration cross-check, not model selection or final feature interpretation",
+  "convergence_plan_sha256": "ae3c802d4117bb67df54ee63e335dc27048596bd3968b282a0ef22d0aedd2e86",
+  "convergence_receipt_sha256": "7d596f610784e823883541ae0d14abf01b02571b039f4d581a1bce0c1adb8ac7",
+  "settings": {
+    "method": "background_averaged_composite_gauss_legendre_integrated_gradients",
+    "nodes_per_segment": 32,
+    "segments": [2, 4],
+    "path_nodes": [64, 128],
+    "gradient_batch_size": 128,
+    "threads": 2,
+    "pilot_rows": 8,
+    "background_rows": 128,
+    "model_dtype": "float32",
+    "accumulator_dtype": "float64"
+  },
+  "completeness_limits": {
+    "relative_mean_abs_residual": 0.1,
+    "case_abs_residual": 0.25,
+    "case_relative_residual": 0.1
+  },
+  "resolution_limits": {
+    "relative_mean_abs_difference": 0.1,
+    "per_output_relative_l1_difference": 0.25
+  },
+  "test_evaluated": false,
+  "model_trained": false,
+  "model_promoted": false,
+  "deployment_authorized": false,
+  "full_attribution_run": false,
+  "feature_interpretation_authorized": false,
+  "scope": "All seven frozen models, the same eight pilot cases, all eight logits, all 128 original training-background rows with equal weight, and all misclassified-case predicted-minus-true margins. No random draws or background replacement.",
+  "comparison": "Preserve the 512/2048 Monte Carlo warnings. Compare both deterministic resolutions for completeness and featurewise L1 agreement. Compare the 128-node contributions with the mean of the two saved 2048-draw runs descriptively, not as a truth oracle.",
+  "acceptance": "Both resolutions must pass all original completeness checks for scores and error margins; the resolution comparison must satisfy its predeclared global and per-output featurewise limits, including error margins. Passing only prepares a full-run proposal; it does not authorize feature interpretation.",
+  "work_budget": "Per model: 8 cases times 128 background rows times (64+128) path points = 196608 model forward rows, with eight input-gradient outputs per row. All seven models: 1376256 path rows and 11010048 output-gradient rows. Endpoint verification is additional, not training work.",
+  "stopping_rule": "Fail before integration on any identity, source, package, input or logit mismatch. Run only the two fixed resolutions. Do not increase resolution, repair residuals, change thresholds, retrain or expand to 219 cases automatically.",
+  "limits": [
+    "Deterministic does not mean exact: nonlinear gradients and ReLU kinks can cause quadrature error.",
+    "Repeating the same deterministic calculation is a reproducibility check, not independent uncertainty estimation.",
+    "This targets the same finite-background path-gradient expectation as expected gradients; it is not exact conditional Shapley attribution or proof of causal relevance.",
+    "The background, reused validation, off-manifold interpolation and single non-IID seed limitations remain unchanged."
+  ]
+}

@@ -150,10 +150,11 @@ latency, energy or deployment memory was measured in this extension.
 ## Next analysis and the stopping rule for compute
 
 The subsequent [explanation preparation](explanation-preparation.md) froze the
-references and cases. The [bounded convergence check](explanation-convergence.md)
-improves numerical reconstruction but retains five output and one error-margin
-warning. An integration-method cross-check is next, before feature interpretation.
-The research rationale below is retained.
+references and cases. The [Monte Carlo check](explanation-convergence.md) retains
+its numerical warnings; the [deterministic integration check](explanation-integration.md)
+now passes for all seven models on the eight pilot cases. A separately frozen
+219-case protocol is next, with per-case QA before interpretation. The research
+rationale below is retained.
 
 Next, prepare bounded, error-focused explainability of the existing full-cohort
 references. Freeze the protocol first: final-at-budget checkpoints, train-only
