@@ -2,18 +2,17 @@
 
 ## Latest research status on 9 October 2026
 
-The 2M scaling comparisons, training-fit controls, frozen validation comparison,
-alert-budget diagnostic and [matched-work training-diversity control](diversity-findings.md)
-are complete. Broader coverage gives only a small, inconsistent macro-F1 gain
-while increasing false alerts in all three seeds. The
-[validation findings](panel-validation-findings.md) did not justify a wider
-model, and the [false-alert trade-off](alert-budget-findings.md) shows why a strict
-gate is not a complete repair. No model or decision policy is promoted, and the
-final test has not been used for model or threshold evaluation.
+The [fixed class-prior correction](prior-correction-findings.md) is complete:
+macro-F1 improves and false alerts fall, but Web-based and DoS recall collapse.
+The [training-diversity control](diversity-findings.md) and preceding width and
+alert-budget controls also failed to provide a satisfactory replacement. Close
+this balanced-panel tuning sequence without promoting a model or decision rule.
+The official-39 final test has not been used for model or threshold evaluation.
 
-The next proposed check is a fixed training-prior score adjustment on saved
-models, not another training sweep or cloud scale-up. This branch preserves the
-original study and publishes reproducible experimental code and findings for review.
+The next stage is to consolidate the experiment ledger and decision-layer
+evidence around the existing full-cohort centralized and federated references,
+not launch another training sweep or cloud session. Keep the original 46-feature
+study separate. This branch publishes reproducible experimental code and findings for review.
 Raw data, checkpoints and per-row score arrays remain outside Git.
 
 ## Purpose and data preparation background

@@ -1,5 +1,10 @@
 # Broader training coverage does not fix the false alert burden
 
+The subsequent [fixed class-prior correction](prior-correction-findings.md)
+is complete. It improves aggregate metrics but sacrifices Web-based and DoS
+recall; the balanced-panel tuning sequence is now closed without model promotion.
+The diversity evidence and original next-step rationale below are retained.
+
 Exposing the small neural network to more diverse training examples produces a
 small, inconsistent macro-F1 gain and more benign false alerts. Across seeds 7,
 17 and 27, mean validation macro-F1 changes from 0.568271 to 0.572322, while the

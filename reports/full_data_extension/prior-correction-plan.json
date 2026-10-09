@@ -1,0 +1,33 @@
+{
+  "protocol": "official39-fixed-training-prior-correction-v1",
+  "purpose": "Frozen-model diagnostic of uniform training exposure versus original cohort class frequencies",
+  "reference_receipt_sha256": "0d1d36434c4ba4921d80a4f0c155cf4a49de7918a54c384bd5d239fcadbf36f4",
+  "reference_plan_sha256": "15dc34b4334d3dca15341f204a9ac921891d961e237fef384fdd10c3c34eeffb",
+  "conditions": ["panel_control", "majority_diversity"],
+  "seeds": [7, 17, 27],
+  "epochs": 300,
+  "score_rule": "logit_plus_log_training_prior_over_uniform_exposure_prior",
+  "prior_source": "packed_training_manifest_only",
+  "coefficient": 1.0,
+  "numerics": "float64_log_ratio_cast_to_float32_before_logit_addition",
+  "require_all_raw_bridges_before_correction": true,
+  "evaluation_batch_size": 8192,
+  "validation_rows": 2059284,
+  "validation_class_counts": {"Benign": 109482, "DDoS": 1213890, "DoS": 373093, "Recon": 68008, "Web-based": 2475, "Brute Force": 1284, "Spoofing": 44949, "Mirai": 246103},
+  "threads": 2,
+  "model_trained": false,
+  "test_opened": false,
+  "model_promoted": false,
+  "selection_rule": "Report both raw and corrected scores for all six fixed final-epoch models; no best-model selection",
+  "limits": [
+    "Use only saved weights and training-count metadata, not training arrays or refitting",
+    "All six original cross-entropies and confusion matrices must reproduce before any corrected inference",
+    "The uniform denominator adds one common constant versus logit plus log training prior; it makes uniform-prior identity exact",
+    "Do not estimate priors from validation labels or predictions; no smoothing, coefficient sweep, calibration or threshold search",
+    "Cohort frequencies are a diagnostic proxy, not measured operational traffic prevalence",
+    "Posterior correction assumes useful probability estimates and stable within-class distributions; neither is guaranteed",
+    "Report macro-F1, every class precision and recall, benign false alerts and attack error breakdowns; accuracy is secondary",
+    "Validation has already supported exploratory work; this is not independent assessment or deployment evidence",
+    "Keep cloud compute off and the final test sealed; no production decision change"
+  ]
+}
