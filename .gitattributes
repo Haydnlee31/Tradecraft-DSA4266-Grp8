@@ -4,3 +4,6 @@
 # Published official-39 receipts are byte-hashed; Windows checkouts must not
 # rewrite their newlines and invalidate otherwise identical evidence.
 reports/full_data_extension/*.json text eol=lf
+
+# This audit's published receipt pins the exact implementation bytes too.
+src/data/official_shortcut_audit.py text eol=lf

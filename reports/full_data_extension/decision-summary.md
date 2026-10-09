@@ -169,12 +169,23 @@ preserves Number's leading pilot rank while changing contributions by 14–16%.
 Both backgrounds omit Web-based and Brute Force; numerical convergence does
 not establish reference robustness.
 
-This new evidence warrants preparing a matched shortcut-ablation control,
-not reopening the broad hyperparameter search. First check remaining proxies
-and train/validation collisions after the proposed feature change. Keep the
-existing full-feature results and limitations intact; do not remove several
-features at once or claim that dropping Number alone solves the issue. Leave
-RONIN stopped while this bounded protocol is prepared.
+The [shortcut preflight](shortcut-preflight.md) now shows that Tot sum divided
+by AVG (or Tot size) reconstructs Number on every training and validation row
+within the frozen tolerance. Number-only removal therefore tests explicit access,
+not removal of the underlying information. It creates no new exact overlaps,
+but 11,471 validation rows already match training at float32 model precision.
+Some matched groups contain conflicting labels; the direction of the score
+effect is not measured. Preserve the historical metrics and qualify the earlier
+no-overlap claim as applying to original float64 vectors only.
+
+The [matched three-arm design](shortcut-ablation-plan.json) preserves the full
+reference, separates Number-only masking from Number-plus-Tot-sum masking, and
+holds architecture, cohorts, partitions and work fixed. The joint mask breaks
+the two demonstrated ratio routes but also removes legitimate size information;
+it is not a guarantee of shortcut-free learning. Before training, audit that
+projection, review a shared collision-excluded validation panel, implement opt-in
+masks and pass exact recovery/historical bridges. Keep RONIN stopped. No broad
+hyperparameter search or automatic model promotion is justified.
 
 The question is what feature patterns distinguish a correct prediction from a
 mistake. SHAP describes model behavior, not model quality, vulnerable device

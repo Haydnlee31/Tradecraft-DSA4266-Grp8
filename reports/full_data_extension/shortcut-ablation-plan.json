@@ -1,0 +1,71 @@
+{
+  "protocol": "official39-shortcut-ablation-design-v1",
+  "status": "design_frozen_pending_additional_preflight_and_runner",
+  "historical_reference_plan_sha256": "334d5eab9e425a6c801ab39d75020e498cebb3ffb30b2f2e80400551b4c22855",
+  "packed_manifest_sha256": "dfd1caf01cbe233b52ce55083941001f390ec251dd89b37543630a2bc53935be",
+  "shortcut_audit_source_receipt_sha256": "66a56d419df093d38a216605ce544bc8f32c8a5b8b58696b1f107c04fc6f2e07",
+  "question": "How much do explicit Number and its demonstrated Tot sum / AVG reconstruction route contribute to each training lane at fixed data, initialization, partitions and work?",
+  "arms": [
+    {"id": "full39", "zero_after_scaling": [], "interpretation": "Same-code full-feature reference and historical bridge."},
+    {"id": "number_masked", "zero_after_scaling": ["Number"], "interpretation": "Removes the explicit column only. Packet count remains recoverable from Tot sum / AVG or Tot sum / Tot size."},
+    {"id": "number_total_masked", "zero_after_scaling": ["Number", "Tot sum"], "interpretation": "Removes the explicit count and numerator shared by both demonstrated ratio proxies. This also removes real packet-length information; it is not a guarantee of shortcut-free inputs."}
+  ],
+  "intervention": "Train new models from scratch with selected standardized input columns replaced by exactly zero in every train and validation batch. Do not mask only at inference. Keep 39 input slots, the train-fitted scaler, 5096 parameter slots, identical initial state and RNG setup; no architecture shrink or duplicate-column cleanup is bundled into this control.",
+  "settings": {
+    "cohort_rows": 2000000,
+    "source_validation_rows": 2059284,
+    "lanes": ["light", "iid", "dirichlet"],
+    "initial_seed": 7,
+    "confirmation_seeds_pending_review": [17, 27],
+    "epochs_or_rounds": 20,
+    "clients": 20,
+    "partition_seed": 7,
+    "alpha": 0.5,
+    "batch_size": 512,
+    "lr": 0.001,
+    "weight_decay": 0.00001,
+    "loss": "sqrt_weighted_ce",
+    "loss_reduction": "batch_weight_sum",
+    "normalization": "layer",
+    "hidden_dims": [64, 32],
+    "dropout": 0.2,
+    "device": "cuda",
+    "threads": 2,
+    "local_max_batches": 0,
+    "total_update_budget": 0
+  },
+  "work_per_arm_seed": {
+    "light": {"examples_processed": 40000000, "optimizer_steps": 78140},
+    "iid": {"examples_processed": 40000000, "optimizer_steps": 78400},
+    "dirichlet": {"examples_processed": 40000000, "optimizer_steps": 78340}
+  },
+  "partitions": {
+    "iid_assignment_sha256": "99f985a1bdc06124643baa830bf83b82b10354575f40b645621b8898f5271872",
+    "dirichlet_assignment_sha256": "057d3705863bb7c0546dfd5aa980cc35c2082da25f85ef1075ccad37e7952f46",
+    "dirichlet_policy": "nested-anchor-class-shares-v1",
+    "rule": "Reuse frozen assignments and exact row order across arms and model seeds, not a fresh Dirichlet sample. Full participation and one full local epoch; persistent central Adam versus freshly initialized local Adam each client-round, unchanged from the reference."
+  },
+  "endpoints": {
+    "primary": "Step 20 final checkpoint, paired within lane and seed; no best-seed or best-step substitution.",
+    "primary_panel_pending_freeze": "One shared subset of the source validation rows: exclude any row whose canonical input vector matches training under any of the three arms. Decide membership using features only, not labels, predictions or scores. Pin row-index and retained per-class count receipts before model scoring. Keep within-validation duplicate multiplicity and the training cohort unchanged; this is not a full re-deduplication or new split.",
+    "historical_view": "Also report the unchanged 2059284-row all-validation view as descriptive/history-compatible, never as the collision-excluded primary endpoint. Validation remains extensively reused under either view.",
+    "secondary": "Full trajectories and validation-best checkpoint reported separately, with selection bias noted.",
+    "metrics": ["macro_f1", "all_eight_class_precision_recall_f1_support", "benign_false_alert_rate", "confusion_matrix", "attacks_missed_as_benign", "attacks_given_wrong_attack_category", "examples_processed", "optimizer_steps", "wall_time", "peak_host_and_gpu_memory"],
+    "interpretation": "A loss of performance measures dependence on the removed input information under this collection, not proof that all original accuracy was artificial. Stable performance does not establish unseen-session generalization or eliminate other window-size proxies. Any improvement must retain rare-class and false-alert trade-offs; no automatic model promotion."
+  },
+  "execution_gates_in_order": [
+    "Publish the completed exact float32 baseline and Number-only collision audit and deterministic replay. Preserve any overlap discovered in historical references; do not silently redefine their cohort.",
+    "Audit Number-plus-Tot-sum projected collisions locally before materializing or training any arm. This projection has not yet been audited. Do not infer its safety from the Number-only audit.",
+    "Freeze a common evaluation policy for all arms. If model-input overlap exists, report all-validation as historical/descriptive and prepare a shared label-blind collision-excluded validation panel with retained counts per class for review. Do not claim historical validation was disjoint at model precision; do not silently resplit or remove training rows.",
+    "Implement opt-in masks with input immutability, explicit masked-feature metadata and resume guards. Test that an empty mask matches the unchanged runner exactly, all arms recover exactly, initial weights and partitions match, and work counters are unchanged.",
+    "After review, run the small CUDA recovery gate. Then pass the three-lane full-feature historical bridge before the six seed-7 ablation runs. Every output uses a fresh directory and preserves old references. Halt on any provenance/recovery/work mismatch.",
+    "Review all nine seed-7 bridge/ablation runs together. Seeds 17 and 27 for all three arms and all lanes are a separate confirmation decision, not an automatic sweep. No larger dataset, heavy-model expansion or GPU upgrade."
+  ],
+  "initial_maximum_runs_after_gates": 9,
+  "test_opened": false,
+  "model_trained": false,
+  "split_changed": false,
+  "cloud_authorized": false,
+  "model_promoted": false,
+  "deployment_authorized": false
+}

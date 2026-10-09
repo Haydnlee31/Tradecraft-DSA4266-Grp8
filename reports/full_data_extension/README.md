@@ -2,6 +2,16 @@
 
 ## Latest research status on 9 October 2026
 
+The [shortcut preflight](shortcut-preflight.md) confirms that `Tot sum / AVG`
+reconstructs Number on every audited training and validation row. Dropping
+Number alone does not remove that information. It also finds 11,471 validation
+rows (0.5570%) matching training inputs at float32 model precision, despite the
+earlier float64-level grouping. Number removal adds no new overlaps. Existing
+scores are preserved, but model-input disjointness must not be claimed.
+The [three-arm ablation design](shortcut-ablation-plan.json) is frozen with
+additional collision, shared-panel and runner/recovery gates; no cloud training
+is authorized by this preparation.
+
 The [background and redundancy audit](explanation-sensitivity.md) identifies a
 strong scenario/windowing shortcut concern: Number is near 10 for almost all
 Benign and rarer-category training rows, and near 100 for almost all DDoS, DoS
@@ -34,9 +44,9 @@ These are not 72 independent training runs. Teammates can audit the metrics with
 `python -m src.eval.official_evidence --audit reports/full_data_extension/decision-evidence.json`
 without the dataset, models or a GPU.
 
-Next: locally prepare a prospective matched shortcut-ablation control, checking
-remaining proxies and train/validation feature collisions first. Do not launch
-cloud training until that protocol is ready. No broad training sweep is recommended. The official-39
+Next: audit the Number-plus-Tot-sum projection, prepare a common collision-excluded
+validation panel for review, then implement the opt-in masks and recovery checks.
+Keep RONIN off until those gates pass. No broad training sweep is recommended. The official-39
 final test remains unused for model/threshold evaluation, and the original
 46-feature study stays separate. Raw data, checkpoints and per-row scores remain
 outside Git. The [prior correction](prior-correction-findings.md) and
@@ -65,8 +75,10 @@ model improvement follows from passing the data-tool tests.
 The [completed audit and frozen split counts](results/README.md) report all 309
 files and the eligible counts for every class. All derived shards have now been
 materialized and read-back verified: 16,474,212 training, 2,059,284 validation and
-2,060,864 test vectors. Exact feature digests are unique across the collection and
-disjoint across splits. Training/recovery checks have run on small synthetic
+2,060,864 test vectors. Exact float64 feature digests are unique across the
+collection and disjoint across splits; this does not extend to the lossy float32
+model inputs, as the new train/validation preflight above demonstrates.
+Training/recovery checks have run on small synthetic
 fixtures. The 500k cohort has since completed cloud reference, normalization and
 loss controls. The [client diagnostic](client-diagnostic.md) summarizes those
 results. The [bounded-update plan](bounded-updates.md) records that stage's gated

@@ -1,0 +1,24 @@
+{
+  "protocol": "official39-shortcut-preflight-v1",
+  "packed_manifest_sha256": "dfd1caf01cbe233b52ce55083941001f390ec251dd89b37543630a2bc53935be",
+  "prior_sensitivity_results_sha256": "b8242ebd2b5a22496ffe3e9613b0cb89b716e9cfd1b7aa6984f87675978e90e9",
+  "rows": {"train": 2000000, "val": 2059284},
+  "settings": {
+    "batch_size": 8192,
+    "sqlite_cache_mib": 128,
+    "number_bin_tolerance": 0.0001,
+    "proxy_absolute_tolerance": 0.001,
+    "proxy_relative_tolerance": 0.00001,
+    "denominator_floor": 0.0001,
+    "window_group_cutoff": 55.0
+  },
+  "projections": {"full39": [], "without_number": ["Number"]},
+  "proxy": "Approximately invert the frozen train-only scaler, then evaluate Tot sum / AVG and Tot sum / Tot size as candidate reconstructions of Number. No regression, fitted classifier or adaptive tolerance. Report every class and invalid denominator explicitly; the 55 cutoff is the midpoint of the prior 10/100 groups, not a tuned classifier.",
+  "collisions": "Use exact canonical little-endian float32 row bytes as disk-backed SQLite primary keys, with signed zero normalized. Compare all 39 inputs with the 38 remaining inputs, ignoring labels for identity. Report within-split duplicate excess, cross-split groups and affected rows, contradictory labels and class counts. Subtraction of affected-row counts measures new overlap rows; do not subtract group counts to infer new groups. No hashing collision assumption is needed.",
+  "scope": "Only the frozen packed 2M train and 2059284 validation rows. Packing is lossy relative to raw float64 deduplication. Existing references and split assignment stay unchanged. This is a model-input overlap audit, not a session/near-duplicate/leakage proof.",
+  "stopping_rule": "Any input hash, shape, label, finite-value or scope mismatch halts. Any newly shared projected vector requires an explicit cohort/evaluation decision before training. A successful algebraic proxy prevents a claim that Number-only ablation removes packet-count information. No test access, resplit, model fitting, new pack, cloud launch or model promotion.",
+  "test_opened": false,
+  "model_trained": false,
+  "split_changed": false,
+  "cloud_authorized": false
+}
