@@ -1,0 +1,288 @@
+{
+  "protocol": "official39-explanation-cpu-reference-v2",
+  "purpose": "Freeze a separately identified CPU explanation reference using unchanged GPU-trained final weights; require exact full CPU prediction replay; numerical SHAP pilot only.",
+  "classes": [
+    "Benign",
+    "DDoS",
+    "DoS",
+    "Recon",
+    "Web-based",
+    "Brute Force",
+    "Spoofing",
+    "Mirai"
+  ],
+  "features": [
+    "Header_Length",
+    "Protocol Type",
+    "Time_To_Live",
+    "Rate",
+    "fin_flag_number",
+    "syn_flag_number",
+    "rst_flag_number",
+    "psh_flag_number",
+    "ack_flag_number",
+    "ece_flag_number",
+    "cwr_flag_number",
+    "ack_count",
+    "syn_count",
+    "fin_count",
+    "rst_count",
+    "HTTP",
+    "HTTPS",
+    "DNS",
+    "Telnet",
+    "SMTP",
+    "SSH",
+    "IRC",
+    "TCP",
+    "UDP",
+    "DHCP",
+    "ARP",
+    "ICMP",
+    "IGMP",
+    "IPv",
+    "LLC",
+    "Tot sum",
+    "Min",
+    "Max",
+    "AVG",
+    "Std",
+    "Tot size",
+    "IAT",
+    "Number",
+    "Variance"
+  ],
+  "packed_manifest_sha256": "dfd1caf01cbe233b52ce55083941001f390ec251dd89b37543630a2bc53935be",
+  "train_rows": 2000000,
+  "validation_rows": 2059284,
+  "train_class_counts": {
+    "Benign": 106148,
+    "DDoS": 1178561,
+    "DoS": 362423,
+    "Recon": 66277,
+    "Web-based": 2391,
+    "Brute Force": 1269,
+    "Spoofing": 44095,
+    "Mirai": 238836
+  },
+  "validation_class_counts": {
+    "Benign": 109482,
+    "DDoS": 1213890,
+    "DoS": 373093,
+    "Recon": 68008,
+    "Web-based": 2475,
+    "Brute Force": 1284,
+    "Spoofing": 44949,
+    "Mirai": 246103
+  },
+  "archives": {
+    "reference": {
+      "file": "tradecraft-official39-2m-reference-backup.tgz",
+      "sha256": "189e9bc8d9370711e83ccd7f01da0b0913dc5946af9bc4f5651be8fb0037da22"
+    },
+    "confirmation": {
+      "file": "tradecraft-official39-scaling-confirmation-backup.tgz",
+      "sha256": "98cb7aa4bc605e407582d70faa6161709ad5671f9ece792c7edc555de3672e2a"
+    },
+    "controlled": {
+      "file": "tradecraft-official39-controlled-noniid-backup.tgz",
+      "sha256": "c5b43c8d7fbdefde543b94b364c407707abe9655df081de7d31c014e55473152"
+    }
+  },
+  "models": [
+    {
+      "id": "light-seed7",
+      "lane": "light",
+      "seed": 7,
+      "archive": "reference",
+      "member_root": "outputs/official39-2m-reference-v1/light",
+      "files_sha256": {
+        "environment.json": "d1a46a01b74c75cb6c2cd5d86661bac80194132ee4d213e9c121439902fd02ba",
+        "status.json": "84458bf2cc90914a9b007677f7a74b3c7c70924ff3d784d27397466969d2b3c0",
+        "result.json": "008037ded93669adb60a1d2c7e451503116d9a57c6bf1878dd4ee4bb14823f5e",
+        "last.pt": "d17f6e3d54758f4adbc71ed351c666e0fa98244ba23a13e24dfbe0b2c2ef351b"
+      },
+      "examples_processed": 40000000,
+      "optimizer_steps": 78140,
+      "partition_sha256": null
+    },
+    {
+      "id": "light-seed17",
+      "lane": "light",
+      "seed": 17,
+      "archive": "confirmation",
+      "member_root": "outputs/official39-scaling-confirmation-v1/2m/light-seed17",
+      "files_sha256": {
+        "environment.json": "692f16b6cd4ebb0f5dc21af7e0bba69cdd1d0c61a2c4e9ece7c0308e76971185",
+        "status.json": "84458bf2cc90914a9b007677f7a74b3c7c70924ff3d784d27397466969d2b3c0",
+        "result.json": "998dca9bf242976a852830702f7f50d75c548365ed16ce414b50183e9308c083",
+        "last.pt": "082d2787c0ff08a2317b589616d7cedc95b33615fcb22b85a276d4bb350db79c"
+      },
+      "examples_processed": 40000000,
+      "optimizer_steps": 78140,
+      "partition_sha256": null
+    },
+    {
+      "id": "light-seed27",
+      "lane": "light",
+      "seed": 27,
+      "archive": "confirmation",
+      "member_root": "outputs/official39-scaling-confirmation-v1/2m/light-seed27",
+      "files_sha256": {
+        "environment.json": "697c208abfa954f9a980fcaea45553151344db674edb7229281ce1a3cd4821ea",
+        "status.json": "84458bf2cc90914a9b007677f7a74b3c7c70924ff3d784d27397466969d2b3c0",
+        "result.json": "45504714d25a887a670f30c7b7327e5de468fa46e96312d1db65d51341e996c9",
+        "last.pt": "95b4cb8811357fe7b584f8c54d96b8a00955f93b3113a4eaec575b7bf4f6f9e2"
+      },
+      "examples_processed": 40000000,
+      "optimizer_steps": 78140,
+      "partition_sha256": null
+    },
+    {
+      "id": "iid-seed7",
+      "lane": "iid",
+      "seed": 7,
+      "archive": "reference",
+      "member_root": "outputs/official39-2m-reference-v1/iid",
+      "files_sha256": {
+        "environment.json": "6a5d36dd0313a8abbfd1f619e3dbadf5787dff308d3919725da4804562900576",
+        "status.json": "84458bf2cc90914a9b007677f7a74b3c7c70924ff3d784d27397466969d2b3c0",
+        "result.json": "d5913ff170f9c979331f4ac94bd4869ce93e775576e93c522825949b842ae91d",
+        "last.pt": "1164368006fbc1a8606e98f1d93c41c15ea9f6b3e0d86bc7e4523ae8493bb297"
+      },
+      "examples_processed": 40000000,
+      "optimizer_steps": 78400,
+      "partition_sha256": "99f985a1bdc06124643baa830bf83b82b10354575f40b645621b8898f5271872"
+    },
+    {
+      "id": "iid-seed17",
+      "lane": "iid",
+      "seed": 17,
+      "archive": "confirmation",
+      "member_root": "outputs/official39-scaling-confirmation-v1/2m/iid-seed17",
+      "files_sha256": {
+        "environment.json": "6b8e8eb074f705f021aee3211242f86505fcd4af2def7971bf4ae419a21c59aa",
+        "status.json": "84458bf2cc90914a9b007677f7a74b3c7c70924ff3d784d27397466969d2b3c0",
+        "result.json": "7cbae22e3ca5b5840c20c47421c45b59e5c8dfdf7322e393d7c4ef7d9757f4d9",
+        "last.pt": "7d7fd374ba63983c7df12e9695f95a315668941dcebdc979aa3c33b5ec9f91e5"
+      },
+      "examples_processed": 40000000,
+      "optimizer_steps": 78400,
+      "partition_sha256": "99f985a1bdc06124643baa830bf83b82b10354575f40b645621b8898f5271872"
+    },
+    {
+      "id": "iid-seed27",
+      "lane": "iid",
+      "seed": 27,
+      "archive": "confirmation",
+      "member_root": "outputs/official39-scaling-confirmation-v1/2m/iid-seed27",
+      "files_sha256": {
+        "environment.json": "610d54744ae2b5b7a43b591caa376431fb7e8d1e86303d61b374ec4bb7c3e0b7",
+        "status.json": "84458bf2cc90914a9b007677f7a74b3c7c70924ff3d784d27397466969d2b3c0",
+        "result.json": "c74b9f375892e1fc011ead34d657b5f79db87a60d9ec475e0dd87f15b07ba854",
+        "last.pt": "ad337f4139e55b0e0e359d41144c390762ef7bef94b0ebee904b28d0a38455d0"
+      },
+      "examples_processed": 40000000,
+      "optimizer_steps": 78400,
+      "partition_sha256": "99f985a1bdc06124643baa830bf83b82b10354575f40b645621b8898f5271872"
+    },
+    {
+      "id": "dirichlet-seed7",
+      "lane": "dirichlet",
+      "seed": 7,
+      "archive": "controlled",
+      "member_root": "outputs/official39-controlled-noniid-2m-v1/dirichlet-seed7",
+      "files_sha256": {
+        "environment.json": "5a9b131eb74c9dd0e1621f43ec43a8334dd900a847d774e8697a26e87ea464c2",
+        "status.json": "84458bf2cc90914a9b007677f7a74b3c7c70924ff3d784d27397466969d2b3c0",
+        "result.json": "ec408285ea884ac421025e67742f770928dfdbf36acf23c44dc3cfd71c5cc7a6",
+        "last.pt": "01d09d739dc7dccc2ed437ce0a5b755dac2d237562e3a9bc260cbc7d850d61b8"
+      },
+      "examples_processed": 40000000,
+      "optimizer_steps": 78340,
+      "partition_sha256": "057d3705863bb7c0546dfd5aa980cc35c2082da25f85ef1075ccad37e7952f46",
+      "partition_control": {
+        "policy": "nested-anchor-class-shares-v1",
+        "cohort": "2m",
+        "plan_sha256": "15bdb74c37c54b194185e4c0e0d434566d827c3e30b248c059fdb95e8b7c9997",
+        "assignment_sha256": "057d3705863bb7c0546dfd5aa980cc35c2082da25f85ef1075ccad37e7952f46"
+      }
+    }
+  ],
+  "settings": {
+    "core_per_class": 8,
+    "background_rows": 128,
+    "sample_seed": 42663907,
+    "error_rows_per_group": 1,
+    "maximum_explanation_rows": 225,
+    "pilot_rows_per_class": 1,
+    "pilot_nsamples": 512,
+    "mc_seeds": [
+      71,
+      72
+    ],
+    "inference_batch_size": 512,
+    "gradient_batch_size": 128,
+    "threads": 2,
+    "checkpoint_step": 20,
+    "confusion_parity": "frozen_cpu_reference",
+    "method": "expected_gradients_logits"
+  },
+  "quality_limits": {
+    "relative_mean_abs_residual": 0.1,
+    "relative_repeat_difference": 0.25,
+    "case_abs_residual": 0.25,
+    "case_relative_residual": 0.1
+  },
+  "test_evaluated": false,
+  "model_trained": false,
+  "model_promoted": false,
+  "deployment_authorized": false,
+  "full_attribution_run": false,
+  "training_settings": {
+    "epochs": 20,
+    "clients": 20,
+    "partition_seed": 7,
+    "alpha": 0.5,
+    "batch_size": 512,
+    "lr": 0.001,
+    "weight_decay": 0.00001,
+    "loss": "sqrt_weighted_ce",
+    "normalization": "layer",
+    "device": "cuda",
+    "threads": 2,
+    "local_max_batches": 0,
+    "total_update_budget": 0,
+    "loss_reduction": "batch_weight_sum"
+  },
+  "model_config": {
+    "name": "centralized_light",
+    "hidden_dims": [
+      64,
+      32
+    ],
+    "dropout": 0.2,
+    "normalization": "layer"
+  },
+  "sampling_scope": "64-row class-balanced core shared by all seven models; union of one uniformly selected case per model and class/error group; absent groups explicit; supplement never pooled into core importance.",
+  "background_scope": "128 uniformly sampled unique rows from the 2M training cohort; same rows and unchanged train-only scaler for every model. A finite empirical baseline, not an operational traffic distribution.",
+  "pilot_scope": "First core row in each of the eight classes, same eight rows for all models. Two Monte Carlo repeats per model, 512 draws each, all eight logits. No feature ranking or policy synthesis in this preparation stage.",
+  "stopping_rule": "Any provenance or full CPU prediction digest mismatch stops before attribution. Original GPU metrics remain separately labelled. Numerical screen failures require review before interpretation; no automatic sample-budget increase or fallback.",
+  "future_full_explanation": "Not implemented or launched here. Review frozen cases and numerical pilot before declaring a full attribution budget, case reliability and between-model seed-stability analysis.",
+  "limits": [
+    "Within-collection validation already reused, not independent final evaluation.",
+    "One controlled non-IID seed cannot establish between-seed stability.",
+    "Core class balancing and error enrichment do not estimate population-weighted importance.",
+    "Logit attributions are not calibrated probabilities, causes, vulnerabilities or deployable security rules.",
+    "Correlated/discrete inputs and off-manifold interpolation limit causal interpretation.",
+    "Numerical QA cutoffs are predeclared diagnostic tolerances, not confidence levels or deployment gates.",
+    "One fixed background does not assess background-sampling sensitivity.",
+    "GPU per-row predictions were not archived: one-count confusion shifts do not establish exactly one differing flow or exclude cancelling per-row differences."
+  ],
+  "superseded_plan_sha256": "796cc4d401163d3206f5bcb452f87c1da3608f4ef252813a01a8e041b99a444e",
+  "cpu_reference_sha256": "979a1e5d950b8db34e423c14cac4047b2d7ea7fae97afd8c9408fc63db9de532",
+  "original_cpu_audit_receipt_sha256": "2636d177db8cc64a6527d55c8d377e97b7d5d2a145a1faf5ce5248419faf001d",
+  "published_reference_serialization": "Original JSON plus a trailing newline; identical parsed evidence, separately pinned file bytes",
+  "cpu_reference": "reports/full_data_extension/explanation-cpu-reference.json",
+  "revision_reason": "Version 1 halted before SHAP: light seed7, IID seed7 and IID seed27 each show a one-count DDoS/DoS confusion shift between archived GPU and current CPU inference. Original metrics and weights remain unchanged. Version 2 explains CPU outputs, with exact per-row prediction digest replay instead of a relaxed historical tolerance."
+}

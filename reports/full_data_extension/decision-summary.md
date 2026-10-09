@@ -149,6 +149,10 @@ latency, energy or deployment memory was measured in this extension.
 
 ## Next analysis and the stopping rule for compute
 
+The subsequent [explanation preparation](explanation-preparation.md) has now
+frozen the references and cases. Its numerical pilot requires a convergence
+review before feature interpretation. The research rationale below is retained.
+
 Next, prepare bounded, error-focused explainability of the existing full-cohort
 references. Freeze the protocol first: final-at-budget checkpoints, train-only
 background examples and deterministic validation examples covering correct

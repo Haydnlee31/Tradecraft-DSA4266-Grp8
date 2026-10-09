@@ -2,6 +2,12 @@
 
 ## Latest research status on 9 October 2026
 
+The [explanation preparation and numerical pilot](explanation-preparation.md)
+have completed. All seven frozen CPU references repeat exactly; the original
+cloud scores remain unchanged. The SHAP pilot flags individual-score reconstruction
+errors, so full feature interpretation is deferred pending a bounded local
+convergence check. No new model training or final-test evaluation is needed.
+
 The [experiment ledger and decision summary](decision-summary.md) consolidate
 the cloud controls, scaling confirmation and local diagnostics. The balanced-panel
 tuning sequence is closed without promoting a model or decision rule. The best
@@ -15,8 +21,8 @@ These are not 72 independent training runs. Teammates can audit the metrics with
 `python -m src.eval.official_evidence --audit reports/full_data_extension/decision-evidence.json`
 without the dataset, models or a GPU.
 
-Next: freeze a bounded, error-focused explainability protocol for the existing
-references. No new cloud session or training sweep is recommended. The official-39
+Next: review numerical convergence on the eight fixed explanation-pilot cases
+before expanding attribution. No new cloud session or training sweep is recommended. The official-39
 final test remains unused for model/threshold evaluation, and the original
 46-feature study stays separate. Raw data, checkpoints and per-row scores remain
 outside Git. The [prior correction](prior-correction-findings.md) and
