@@ -1,0 +1,41 @@
+{
+  "protocol": "official39-explanation-study-v1",
+  "purpose": "Explain the frozen 219 validation cases without training, test access or deployment changes",
+  "integration_plan_sha256": "18ad7b3f81489c8b6c2a55a0c1133f744067a5542942502bc91cd17b158e74ac",
+  "integration_receipt_sha256": "93e4702e45c66d05e0e03e0fc1702833528edec9558577d16012ca8783631371",
+  "settings": {
+    "cases": 219,
+    "core_cases": 64,
+    "supplement_cases": 155,
+    "background_rows": 128,
+    "case_batch_size": 8,
+    "path_nodes": [64, 128],
+    "gradient_batch_size": 128,
+    "threads": 2
+  },
+  "test_evaluated": false,
+  "model_trained": false,
+  "model_promoted": false,
+  "deployment_authorized": false,
+  "full_attribution_run": true,
+  "feature_interpretation_authorized": false,
+  "descriptive_feature_summaries": true,
+  "acceptance": "Retain both pilot resolutions and all original completeness/resolution limits. Check all eight scores and each misclassified predicted-minus-true margin. Check global criteria separately for core and supplement. Withhold an entire stratum's descriptive rankings if its QA fails; never silently drop failed cases. Publish every failure and its validation row identifier.",
+  "summary_rule": "Use 128-point contributions. Report core own-true-class score importance over all eight cases per class, including mistakes, and a balanced 64-case summary. Report error margins separately by true/predicted pair and stratum. Positive margin attribution favors the predicted class relative to the true class versus this background. Supplement is purposefully selected, not prevalence representative; it also contains correct detections selected by the original protocol.",
+  "seed_comparison": "Normalize each model's mean absolute feature vector to sum to one before equally averaging the three centralized or IID seeds. Report all-three top-five intersections and pairwise top-five Jaccard overlap. These are descriptive seed stability, not confidence intervals. Non-IID has one seed only.",
+  "work_budget": {
+    "models": 7,
+    "path_forward_rows_per_model": 5382144,
+    "path_forward_rows_total": 37675008,
+    "output_gradient_rows_total": 301400064
+  },
+  "stopping_rule": "Verify the complete provenance chain, all seven checkpoints, all selected predictions and pilot arrays before integration. Refuse output overwrite. Run only 64 and 128 points per path; no adaptive retries, threshold changes or resampling. Require exact replay of the eight pilot attribution arrays embedded in the full run. Numerical failures end in numerical_review_required, not another experiment.",
+  "limits": [
+    "Background-averaged integrated gradients, not exact conditional Shapley values or causal effects.",
+    "Same 128 uniformly sampled training rows: no Web-based or Brute Force background examples.",
+    "Correlated and discrete features can make straight interpolation unrealistic.",
+    "Eight core examples per class and a selected supplement cannot estimate population feature importance or detector quality.",
+    "Previously reused, within-collection validation; no unseen-session or final-test generalization claim.",
+    "No device identities, real edge measurements, automatic blocking rules or security-policy validation."
+  ]
+}

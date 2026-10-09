@@ -149,20 +149,21 @@ latency, energy or deployment memory was measured in this extension.
 
 ## Next analysis and the stopping rule for compute
 
-The subsequent [explanation preparation](explanation-preparation.md) froze the
-references and cases. The [Monte Carlo check](explanation-convergence.md) retains
-its numerical warnings; the [deterministic integration check](explanation-integration.md)
-now passes for all seven models on the eight pilot cases. A separately frozen
-219-case protocol is next, with per-case QA before interpretation. The research
-rationale below is retained.
+The [full 219-case explanation study](explanation-study.md) now passes numerical
+QA for all seven frozen references, including controlled non-IID. It preserves
+the balanced core separately from the targeted supplement and compares the
+centralized/IID seeds. Number ranks first in every balanced-core model summary,
+but other feature rankings and error explanations vary across seeds. Non-IID
+rare-attack misses show recurring Number and ack_flag_number contributions to
+Benign-minus-attack margins on the selected groups; this is a single-model
+diagnostic, not a validated detection rule. Earlier [Monte Carlo warnings](explanation-convergence.md)
+and all measured cloud scores remain unchanged.
 
-Next, prepare bounded, error-focused explainability of the existing full-cohort
-references. Freeze the protocol first: final-at-budget checkpoints, train-only
-background examples and deterministic validation examples covering correct
-labels, benign false alerts, missed rare attacks and wrong attack categories.
-Include controlled non-IID so its failure mode is explained, not hidden. A first
-seed-7 diagnostic must be labelled exploratory; check feature-pattern stability
-across the other saved centralized/IID seeds before generalizing.
+Next, check important feature definitions, related-feature behavior and
+sensitivity to a separately frozen training-only background on matched cases.
+The present background has no Web-based or Brute Force examples. Numerical
+convergence does not resolve that reference sensitivity. Keep this audit local
+and bounded before proposing security-monitoring hypotheses.
 
 The question is what feature patterns distinguish a correct prediction from a
 mistake. SHAP describes model behavior, not model quality, vulnerable device
