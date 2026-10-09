@@ -1,0 +1,38 @@
+{
+  "protocol": "official39-explanation-sensitivity-v1",
+  "study_plan_sha256": "0d69092312a34fb92edf329dca3d4db2b56e81b0e670989fca82c8cbd4315b2d",
+  "study_receipt_sha256": "142e159af6bbd0fe334cc4934b4006651ac781c1abf15908e6b1311bea120ea5",
+  "settings": {
+    "training_rows": 2000000,
+    "scan_batch_size": 8192,
+    "background_rows": 128,
+    "background_seed": 42663908,
+    "cases": "same eight original pilot rows, one per class",
+    "path_nodes": [64, 128],
+    "threads": 2,
+    "correlation_threshold": 0.98,
+    "identity_tolerance_scaled": 0.00001,
+    "number_value_tolerance_unscaled": 0.0001,
+    "sign_magnitude_floor": 0.000001
+  },
+  "feature_groups": {
+    "link_indicators": ["ARP", "IPv", "LLC"],
+    "size_summaries": ["AVG", "Tot size"]
+  },
+  "test_evaluated": false,
+  "model_trained": false,
+  "model_promoted": false,
+  "deployment_authorized": false,
+  "full_attribution_run": false,
+  "feature_interpretation_authorized": false,
+  "background_rule": "Draw 128 distinct row indices uniformly from the same 2M training cohort using seeded rejection sampling, excluding the 128 original background indices. Sort before use. One draw only: no redraw to obtain rare classes or better agreement. Keep the existing scaler and exact float32 inputs.",
+  "feature_audit": "Read train_x/train_y only in chunks after verifying file/scaler hashes. Report Number approximately equal to 10, 100, or other by class; all counts sum to the frozen training counts. Report all pairwise absolute Pearson correlations at least 0.98; constant-feature correlations are undefined. Check scaled IPv=LLC, AVG=Tot size and ARP=-IPv at the fixed tolerance. These are descriptive training associations, not a fitted classifier or a causal test.",
+  "group_rule": "Sum existing attributions within the two prespecified related-feature groups. Report cancellation and net magnitude separately on the 64-case core and 155-case supplement for all seven models. These algebraic sums are not grouped Shapley values, feature ablations or independent causal effects.",
+  "comparison_rule": "Reuse the same eight pilot rows across all seven checkpoints. Both original and new backgrounds must pass unchanged score and error-margin reconstruction/resolution QA before descriptive comparison. Compare signed per-case Number contributions, top-five overlap, reference-logit shifts and featurewise differences. Different backgrounds define different references: disagreement is sensitivity, not numerical error; no background-agreement pass threshold is invented.",
+  "work_budget": {"models": 7, "path_forward_rows": 1376256, "output_gradient_rows": 11010048},
+  "stopping_rule": "No adaptive redraw, balanced background, case selection, threshold relaxation, retraining, feature removal or test evaluation. Numerical failures remain explicit and withhold the affected comparison. Completion means the bounded audit ran, not that explanations are background-robust or deployment-ready.",
+  "sources": [
+    {"url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10346235/", "section": "Table 4 and Section 4", "accessed": "2026-10-09", "use": "Published feature definitions and scenario-dependent 10/100 packet aggregation; not proof that this 39-column release uses the identical extractor implementation."},
+    {"url": "https://www.unb.ca/cic/datasets/iotdataset-2023.html", "section": "Data descriptions and Dataset directories", "accessed": "2026-10-09", "use": "Official release context; its displayed 46-feature statistics differ from this downloaded 39-feature release. No silent schema equivalence."}
+  ]
+}

@@ -2,7 +2,16 @@
 
 ## Latest research status on 9 October 2026
 
-The [full 219-case explanation study](explanation-study.md) passes for all seven
+The [background and redundancy audit](explanation-sensitivity.md) identifies a
+strong scenario/windowing shortcut concern: Number is near 10 for almost all
+Benign and rarer-category training rows, and near 100 for almost all DDoS, DoS
+and Mirai rows. Several protocol/size columns are exactly redundant in the
+two-million-row model inputs. A second uniform training background preserves
+Number's leading pilot rank but changes feature contributions by 14–16%.
+Numerical QA and independent replay pass; the findings do not authorize policy
+deployment or invalidate the measured within-collection comparisons.
+
+The preceding [full 219-case explanation study](explanation-study.md) passes for all seven
 models: 12,264/12,264 class-score checks and 835/835 error-margin checks at both
 resolutions, with featurewise resolution agreement. Balanced-core rankings are
 reported separately from the targeted supplement. Number is the leading core
@@ -25,8 +34,9 @@ These are not 72 independent training runs. Teammates can audit the metrics with
 `python -m src.eval.official_evidence --audit reports/full_data_extension/decision-evidence.json`
 without the dataset, models or a GPU.
 
-Next: prepare a bounded training-background and feature-redundancy audit before
-turning attribution patterns into monitoring hypotheses. No new cloud session or training sweep is recommended. The official-39
+Next: locally prepare a prospective matched shortcut-ablation control, checking
+remaining proxies and train/validation feature collisions first. Do not launch
+cloud training until that protocol is ready. No broad training sweep is recommended. The official-39
 final test remains unused for model/threshold evaluation, and the original
 46-feature study stays separate. Raw data, checkpoints and per-row scores remain
 outside Git. The [prior correction](prior-correction-findings.md) and

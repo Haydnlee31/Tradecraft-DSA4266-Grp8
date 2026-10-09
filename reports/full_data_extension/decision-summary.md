@@ -159,11 +159,22 @@ Benign-minus-attack margins on the selected groups; this is a single-model
 diagnostic, not a validated detection rule. Earlier [Monte Carlo warnings](explanation-convergence.md)
 and all measured cloud scores remain unchanged.
 
-Next, check important feature definitions, related-feature behavior and
-sensitivity to a separately frozen training-only background on matched cases.
-The present background has no Web-based or Brute Force examples. Numerical
-convergence does not resolve that reference sensitivity. Keep this audit local
-and bounded before proposing security-monitoring hypotheses.
+The subsequent [background and redundancy audit](explanation-sensitivity.md)
+found that Number nearly separates scenario groups through values of 10 and
+100, consistent with a published windowing distinction. This is a strong
+dataset-construction shortcut concern, not proof of its complete causal role.
+IPv/LLC and AVG/Tot size are duplicate model inputs, and standardized ARP is the
+negative of IPv on all two million training rows. A second uniform background
+preserves Number's leading pilot rank while changing contributions by 14–16%.
+Both backgrounds omit Web-based and Brute Force; numerical convergence does
+not establish reference robustness.
+
+This new evidence warrants preparing a matched shortcut-ablation control,
+not reopening the broad hyperparameter search. First check remaining proxies
+and train/validation collisions after the proposed feature change. Keep the
+existing full-feature results and limitations intact; do not remove several
+features at once or claim that dropping Number alone solves the issue. Leave
+RONIN stopped while this bounded protocol is prepared.
 
 The question is what feature patterns distinguish a correct prediction from a
 mistake. SHAP describes model behavior, not model quality, vulnerable device
