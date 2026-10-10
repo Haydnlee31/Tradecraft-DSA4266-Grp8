@@ -6,17 +6,25 @@ on reused validation data, but cannot solve their rare-attack failures. Even
 a perfect selector between those original models has only 6.87% mean Web-based
 recall. Subsequent stages add a balanced specialist and examine routing costs.
 
-**Current direction: fully automatic classification.** The
-[score-fusion experiment](fusion-findings.md) combines the frozen generalist
-and balanced specialist using a small learned eight-class head. It compares
-fusion with each model alone, probability averaging, and single-model
-recalibration. Human review and abstention are not required; this addresses
-the project's objective of improving classification and rare-attack detection.
-The completed three-seed comparison raises mean IID/non-IID macro-F1 to
-0.6407/0.6330, but remains below the centralized reference and leaves about
-89% of Web-based attacks undetected. It fails the continuation screen; the
-findings recommend a bounded feature-aware expert experiment, not cloud scaling.
-The earlier review work below is preserved as an optional side experiment.
+**Current direction: fully automatic classification.** The latest
+[feature-aware expert comparison](feature-expert-findings.md) reaches mean
+macro-F1 0.6975 with feature-only boosted trees, versus 0.6556 for the existing
+centralized neural reference, while reducing benign false alerts from 17.39%
+to 14.67%. Adding neural scores reaches 0.6995/0.6986 for IID/non-IID, only a
+small gain over feature-only. Web-based recall improves to 22–24%, but Brute
+Force F1 is not consistently better, and tree inference is much slower than
+the small neural model. Both strict continuation screens fail; retain the
+feature-only result as a stronger exploratory baseline, not a deployment or
+hybrid success. The next justified check is local feature-dependence testing,
+not cloud scaling.
+
+The preceding [score-fusion experiment](fusion-findings.md) combines the frozen
+generalist and balanced specialist using a learned eight-class head. Mean
+IID/non-IID macro-F1 reaches 0.6407/0.6330, below the centralized reference,
+with about 89% of Web-based attacks still missed. That motivated direct feature
+access with matched nonlinear score-only and feature-only controls. Neither
+automatic classifier requires human review or abstention. The earlier review
+work below is preserved as an optional side experiment.
 
 Stage four's [frozen-policy trade-off analysis](tradeoff-findings.md)
 finds some gains when extra benign alerts are allowed, but no consistent
@@ -37,8 +45,8 @@ benign false-alert guard. No model is promoted and no cloud run is needed.
 Stage two's [balanced-specialist comparison](specialist-findings.md) raised the
 Web-based diagnostic recall ceiling to 51.07%, but did not make confidence
 routing safe. That motivated the earlier policy analysis. The current
-experiment instead asks whether learning directly from both score vectors
-can improve automatic predictions, while still reporting false alerts.
+automatic experiments test learned score combination and direct access to flow
+features, while still reporting false alerts and all eight classes.
 The remainder of this page preserves the stage-one results and rationale.
 
 This is a separate exploratory extension on `experiment/risk-aware-routing`.
@@ -47,8 +55,9 @@ unchanged. Its final test has already been exposed. This diagnostic does not
 reopen that test. The stage-one diagnostic described below did not train a
 model, fit a learned gate, call an API or authorise deployment. Stage three
 fits only the local router, as documented separately. The automatic extension
-fits score-combination heads without retraining the neural models; no stage
-evaluates Jev, Laya or the Decisions API.
+fits score-combination heads and feature-based classifiers without retraining
+the neural models; no stage evaluates Jev, Laya or the Decisions API. The new
+experts are centrally fitted, not privacy-preserving federated tree training.
 
 ## What was compared
 
