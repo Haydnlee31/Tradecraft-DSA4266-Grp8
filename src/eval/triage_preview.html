@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'nonce-triage-local-v1'; style-src 'nonce-triage-local-v1'; connect-src 'none'; img-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
+<title>Tradecraft · Local triage preview</title>
+<style nonce="triage-local-v1">
+  :root{color-scheme:light;--ink:#18303c;--muted:#526671;--line:#d7e0e4;--paper:#f3f6f7;--amber:#86510a}
+  *{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font:15px/1.5 system-ui,-apple-system,sans-serif}
+  main{max-width:1240px;margin:auto;padding:32px 28px}header{border-bottom:2px solid var(--ink);padding-bottom:22px}
+  .eyebrow{font-size:12px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:var(--muted)}
+  h1{font-size:32px;line-height:1.2;margin:10px 0}h2{font-size:20px;margin:0 0 12px}p{margin:8px 0}.muted{color:var(--muted)}
+  .notice{padding:14px 18px;border-left:4px solid #c17c1b;background:#fff6e5;margin:22px 0}
+  .controls{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin:22px 0 12px}
+  label{display:grid;gap:7px;font-size:13px;font-weight:600}select{font:inherit;padding:10px;border:1px solid #8a9ca6;border-radius:5px;background:white;color:var(--ink);width:100%}
+  select:focus-visible,summary:focus-visible{outline:3px solid #2d7194;outline-offset:3px}
+  .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:20px 0}.card,section{background:#fff;border:1px solid var(--line);border-radius:8px;padding:20px}
+  .number{font-size:29px;letter-spacing:-.03em;font-weight:650}.caption{font-size:13px;color:var(--muted)}
+  section{margin-top:20px}.scroll{overflow-x:auto}table{width:100%;border-collapse:collapse;margin-top:12px;font-size:13px}
+  th{text-align:left;background:#f2f5f6;font-weight:600}th,td{padding:11px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+  .badge{display:inline-block;border-radius:4px;padding:3px 7px;background:#edf1f3;white-space:nowrap;font-size:12px}
+  .review{background:#fff0d3;color:#7b4900}.warn{color:#9b3e17;font-weight:600}.mono{font-family:ui-monospace,monospace;font-size:12px;overflow-wrap:anywhere}
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:24px}details{margin-top:22px}summary{cursor:pointer;font-weight:600}footer{margin-top:24px;color:var(--muted);font-size:13px}
+  @media(max-width:760px){main{padding:20px 14px}.controls{grid-template-columns:1fr 1fr}.cards,.two{grid-template-columns:1fr}h1{font-size:27px}.number{font-size:25px}section{padding:14px}}
+</style>
+</head>
+<body><main>
+<header><div class="eyebrow">Tradecraft / official39 / local research prototype</div>
+<h1>Predictions stay. Review flags are separate.</h1>
+<p class="muted">Explore saved validation predictions and frozen review thresholds. This is an offline replay, not live network monitoring.</p></header>
+<div class="notice"><strong>Read-only · No approved operating policy</strong><br>
+No automatic blocking or corrected labels. “Not flagged” does not mean safe. A referral is unresolved, not a detection.</div>
+<noscript><p class="notice">Enable JavaScript to inspect the embedded local preview. No network access is required.</p></noscript>
+<div class="controls">
+<label>Base model<select id="lane"><option value="iid">Federated IID control</option><option value="dirichlet">Federated non-IID</option></select></label>
+<label>Training seed<select id="seed"><option>7</option><option>17</option><option>27</option></select></label>
+<label>Review score<select id="rule"><option value="confidence">Low base confidence</option><option value="learned">Frozen repair/harm tree</option><option value="random">Seeded random control</option></select></label>
+<label>Illustrative calibration ceiling<select id="budget"><option value="1">1% of flows</option><option value="5" selected>5% of flows</option><option value="10">10% of flows</option></select></label>
+</div>
+<p class="caption">The initial IID / seed 7 / 5% selection is an illustration, not a chosen best model. Changing a selector only displays an already-computed policy.</p>
+<div id="view" aria-live="polite" aria-atomic="false">
+<div class="cards">
+<div class="card"><div class="caption">Audit population, not preview sample</div><div id="population" class="number"></div><div class="caption">Reused validation flows</div></div>
+<div class="card"><div class="caption">Flagged for unresolved review</div><div id="referrals" class="number"></div><div id="rate" class="caption"></div></div>
+<div class="card"><div class="caption">Later cohort budget check</div><div id="cap-state" class="number"></div><div id="cap-detail" class="caption"></div></div>
+</div>
+<p id="score-note" class="muted"></p><p class="mono" id="threshold"></p>
+<section><h2>Small row preview</h2><p class="muted">First eight flagged and first eight unflagged rows in original order; fewer if unavailable. Not ranked, balanced, or representative. True labels are not used to select these examples.</p>
+<div class="scroll"><table><thead><tr><th scope="col">Validation row reference</th><th scope="col">Saved model prediction</th><th scope="col">Max softmax<br>(uncalibrated)</th><th scope="col">Review score</th><th scope="col">Review status</th><th scope="col">Reason</th></tr></thead><tbody id="preview"></tbody></table></div></section>
+<section><h2>Historical evaluation context</h2><p class="muted">Previously measured internal-audit outcomes, copied from the verified aggregate evidence. These labels are not available to the flagging function. No new classification score or human-review success is claimed.</p>
+<div class="two"><p id="base-metrics"></p><p id="review-context"></p></div>
+<div class="scroll"><table><thead><tr><th scope="col">True class</th><th scope="col">Saved base recall</th><th scope="col">Referred for review<br>(not detection recall)</th><th scope="col">Base errors in queue</th><th scope="col">Base errors outside queue</th></tr></thead><tbody id="classes"></tbody></table></div>
+</section></div>
+<details><summary>Scope and provenance</summary><p>No model fitting, neural inference, raw ground-truth row loading, cloud compute, external API, or security action. Review score thresholds are frozen; over-budget rows are not silently dropped. Future quota handling and the reviewer remain unspecified.</p><p>Flow references are dataset positions, not devices. Max softmax is not a calibrated probability of correctness. Repair/harm scores are not attack probabilities. Review time and edge latency have not been measured.</p><p>Validation has already informed development. These results are exploratory, not independent confirmation; the historical final test is not reopened.</p><p class="mono" id="source"></p></details>
+<footer>Generated locally. This file contains a small private prediction preview; keep it in the ignored output directory. No data leave this page.</footer>
+</main>
+<script id="triage-data" type="application/json">__TRIAGE_DATA__</script>
+<script nonce="triage-local-v1">
+'use strict';
+// Use DOM text nodes, not data-derived markup. No fetch, storage or uploads.
+const data=JSON.parse(document.getElementById('triage-data').textContent);
+const el=id=>document.getElementById(id);
+const percent=n=>(100*n).toFixed(3)+'%';
+const number=n=>n.toLocaleString('en-US');
+function cells(parent, values){
+  const row=document.createElement('tr');
+  for(const value of values){const cell=document.createElement('td');cell.textContent=String(value);row.appendChild(cell);}
+  parent.appendChild(row);return row;
+}
+function update(){
+  const p=data.pairs.find(p=>p.lane===el('lane').value&&p.seed===Number(el('seed').value));
+  const s=p.scenarios.find(s=>s.rule===el('rule').value&&s.budget_percent===Number(el('budget').value));
+  const w=s.workload;
+  el('population').textContent=number(w.rows);
+  el('referrals').textContent=number(w.referrals);
+  el('rate').textContent=percent(w.referral_rate)+' of all audit flows; labels unchanged';
+  el('cap-state').textContent=w.budget_respected?'Within illustration':'Over illustration';
+  el('cap-state').className='number'+(w.budget_respected?'':' warn');
+  el('cap-detail').textContent='Reference cap '+number(w.illustrative_cohort_cap)+'; excess '+number(w.over_cap)+'. No trimming or policy approval.';
+  const notes={confidence:'Higher score = lower maximum base softmax. Confidence is uncalibrated.',learned:'Higher score = greater weighted repair-minus-harm in the frozen tree. Not a calibrated safety or attack probability.',random:'Seeded random control, independent of labels. Not an operational risk score.'};
+  el('score-note').textContent=notes[s.rule];
+  el('threshold').textContent='Frozen score threshold: '+(s.threshold===null?'none — never flag':s.threshold.toPrecision(9)+'; flag when score ≥ threshold');
+  el('preview').replaceChildren();
+  for(const r of s.preview){
+    const row=cells(el('preview'),[r.row_ref,r.prediction,r.max_softmax_uncalibrated.toFixed(6),r.review_score.toFixed(6),'',r.reason]);
+    const badge=document.createElement('span');badge.className='badge'+(r.needs_review?' review':'');badge.textContent=r.status;row.children[4].appendChild(badge);
+  }
+  el('base-metrics').textContent='Unchanged base macro-F1: '+p.base_metrics.macro_f1.toFixed(5)+'. Benign false-alert rate: '+percent(p.base_metrics.benign_false_alert_rate)+'.';
+  el('review-context').textContent='Historical base errors referred: '+number(s.historical_review.base_errors_referred)+'. Benign referrals: '+number(s.historical_review.benign_referrals)+'. Reviewer outcome: unknown.';
+  el('classes').replaceChildren();
+  for(const name of data.classes){const c=s.historical_review.per_class[name];cells(el('classes'),[name,percent(p.base_metrics.per_class[name].recall),percent(c.review_coverage),number(c.base_errors_referred),number(c.base_errors_not_referred)]);}
+  el('source').textContent='Source evidence SHA-256: '+data.evidence_sha256+' | Fixed thresholds; all six base/seed pairs and 54 review scenarios verified.';
+}
+for(const id of ['lane','seed','rule','budget'])el(id).addEventListener('change',update);
+update();
+</script></body></html>

@@ -12,6 +12,11 @@ rare-attack fix. Review queues concentrate some rare cases without claiming
 they are correctly detected. No operating point is approved; work remains
 local and no cloud run is needed.
 
+A [local read-only triage prototype](triage-prototype.md) now demonstrates
+those review policies using unchanged saved predictions. Flags are unresolved
+referrals, never automatic corrections or blocking actions. Its generated row
+preview stays outside git.
+
 The [stage-three learned-router experiment](router-findings.md)
 did not pass its predeclared success screen. One IID seed improves slightly;
 the other IID seeds and all non-IID seeds choose no calls under the conservative

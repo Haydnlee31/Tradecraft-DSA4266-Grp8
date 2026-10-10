@@ -37,3 +37,6 @@ scripts/official39_routing_gate.py text eol=lf
 scripts/official39_routing_gate_report.py text eol=lf
 src/eval/routing_gate.py text eol=lf
 scripts/official39_policy_tradeoffs.py text eol=lf
+scripts/official39_triage.py text eol=lf
+src/eval/triage_preview.py text eol=lf
+src/eval/triage_preview.html text eol=lf
