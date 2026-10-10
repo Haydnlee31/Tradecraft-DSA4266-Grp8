@@ -1,0 +1,1008 @@
+{
+  "scope": "official39_validation_only",
+  "classes": [
+    "Benign",
+    "DDoS",
+    "DoS",
+    "Recon",
+    "Web-based",
+    "Brute Force",
+    "Spoofing",
+    "Mirai"
+  ],
+  "validation_class_counts": {
+    "Benign": 109480,
+    "DDoS": 1208020,
+    "DoS": 367615,
+    "Recon": 68006,
+    "Web-based": 2475,
+    "Brute Force": 1284,
+    "Spoofing": 44945,
+    "Mirai": 245980
+  },
+  "groups": {
+    "light": {
+      "scope": "Final step 20 on shared 2,047,805-row validation panel. Fixed partition seed 7. Training seed 7 exploratory; 17/27 prospective. Not unseen-session or deployment evidence.",
+      "conditions": {
+        "full39": [
+          7,
+          17,
+          27
+        ],
+        "number_masked": [
+          7,
+          17,
+          27
+        ],
+        "number_total_masked": [
+          7,
+          17,
+          27
+        ]
+      }
+    },
+    "iid": {
+      "scope": "Final step 20 on shared 2,047,805-row validation panel. Fixed partition seed 7. Training seed 7 exploratory; 17/27 prospective. Not unseen-session or deployment evidence.",
+      "conditions": {
+        "full39": [
+          7,
+          17,
+          27
+        ],
+        "number_masked": [
+          7,
+          17,
+          27
+        ],
+        "number_total_masked": [
+          7,
+          17,
+          27
+        ]
+      }
+    },
+    "dirichlet": {
+      "scope": "Final step 20 on shared 2,047,805-row validation panel. Fixed partition seed 7. Training seed 7 exploratory; 17/27 prospective. Not unseen-session or deployment evidence.",
+      "conditions": {
+        "full39": [
+          7,
+          17,
+          27
+        ],
+        "number_masked": [
+          7,
+          17,
+          27
+        ],
+        "number_total_masked": [
+          7,
+          17,
+          27
+        ]
+      }
+    }
+  },
+  "comparisons": [
+    {
+      "id": "light/number_masked-minus-full39",
+      "group": "light",
+      "left": "number_masked",
+      "right": "full39",
+      "scope": "Within-seed mask minus full39; descriptive differences, not significance or equivalence."
+    },
+    {
+      "id": "light/number_total_masked-minus-full39",
+      "group": "light",
+      "left": "number_total_masked",
+      "right": "full39",
+      "scope": "Within-seed mask minus full39; descriptive differences, not significance or equivalence."
+    },
+    {
+      "id": "iid/number_masked-minus-full39",
+      "group": "iid",
+      "left": "number_masked",
+      "right": "full39",
+      "scope": "Within-seed mask minus full39; descriptive differences, not significance or equivalence."
+    },
+    {
+      "id": "iid/number_total_masked-minus-full39",
+      "group": "iid",
+      "left": "number_total_masked",
+      "right": "full39",
+      "scope": "Within-seed mask minus full39; descriptive differences, not significance or equivalence."
+    },
+    {
+      "id": "dirichlet/number_masked-minus-full39",
+      "group": "dirichlet",
+      "left": "number_masked",
+      "right": "full39",
+      "scope": "Within-seed mask minus full39; descriptive differences, not significance or equivalence."
+    },
+    {
+      "id": "dirichlet/number_total_masked-minus-full39",
+      "group": "dirichlet",
+      "left": "number_total_masked",
+      "right": "full39",
+      "scope": "Within-seed mask minus full39; descriptive differences, not significance or equivalence."
+    }
+  ],
+  "sources": {
+    "seed7": {
+      "path": "reports/full_data_extension/ablation-seed7-results.json",
+      "sha256": "75e0a9783d79b3b407d616c6fd8d1c8d86013f117a23a9a01064b97ada97ded0",
+      "guards": {
+        "/status": "complete",
+        "/archive_sha256": "58cefe5732eb2e232d12fa90f5adae5e745f57872ea066e8554f4a1fec115fa8"
+      }
+    },
+    "confirmation": {
+      "path": "tradecraft-official39-ablation-confirmation-backup.tgz",
+      "sha256": "9e7640f4d8953ce913dc3f99edfc04c2bc95af30e6b7c9abede0eec0f7c636eb",
+      "member": "outputs/official39-ablation-confirmation-v1/summary.json",
+      "guards": {
+        "/status": "complete",
+        "/test_evaluated": false,
+        "/seed_order": [
+          7,
+          17,
+          27
+        ],
+        "/plan_sha256": "96982579edd3db2914981b132808420c1f1a38c466121bfd8a306f046d84abe0",
+        "/endpoints/seed17~1light~1full39/verified": true,
+        "/endpoints/seed17~1light~1full39/examples_processed": 40000000,
+        "/endpoints/seed17~1light~1full39/optimizer_steps": 78140,
+        "/endpoints/seed27~1light~1full39/verified": true,
+        "/endpoints/seed27~1light~1full39/examples_processed": 40000000,
+        "/endpoints/seed27~1light~1full39/optimizer_steps": 78140,
+        "/endpoints/seed17~1light~1number_masked/verified": true,
+        "/endpoints/seed17~1light~1number_masked/examples_processed": 40000000,
+        "/endpoints/seed17~1light~1number_masked/optimizer_steps": 78140,
+        "/endpoints/seed27~1light~1number_masked/verified": true,
+        "/endpoints/seed27~1light~1number_masked/examples_processed": 40000000,
+        "/endpoints/seed27~1light~1number_masked/optimizer_steps": 78140,
+        "/endpoints/seed17~1light~1number_total_masked/verified": true,
+        "/endpoints/seed17~1light~1number_total_masked/examples_processed": 40000000,
+        "/endpoints/seed17~1light~1number_total_masked/optimizer_steps": 78140,
+        "/endpoints/seed27~1light~1number_total_masked/verified": true,
+        "/endpoints/seed27~1light~1number_total_masked/examples_processed": 40000000,
+        "/endpoints/seed27~1light~1number_total_masked/optimizer_steps": 78140,
+        "/endpoints/seed17~1iid~1full39/verified": true,
+        "/endpoints/seed17~1iid~1full39/examples_processed": 40000000,
+        "/endpoints/seed17~1iid~1full39/optimizer_steps": 78400,
+        "/endpoints/seed27~1iid~1full39/verified": true,
+        "/endpoints/seed27~1iid~1full39/examples_processed": 40000000,
+        "/endpoints/seed27~1iid~1full39/optimizer_steps": 78400,
+        "/endpoints/seed17~1iid~1number_masked/verified": true,
+        "/endpoints/seed17~1iid~1number_masked/examples_processed": 40000000,
+        "/endpoints/seed17~1iid~1number_masked/optimizer_steps": 78400,
+        "/endpoints/seed27~1iid~1number_masked/verified": true,
+        "/endpoints/seed27~1iid~1number_masked/examples_processed": 40000000,
+        "/endpoints/seed27~1iid~1number_masked/optimizer_steps": 78400,
+        "/endpoints/seed17~1iid~1number_total_masked/verified": true,
+        "/endpoints/seed17~1iid~1number_total_masked/examples_processed": 40000000,
+        "/endpoints/seed17~1iid~1number_total_masked/optimizer_steps": 78400,
+        "/endpoints/seed27~1iid~1number_total_masked/verified": true,
+        "/endpoints/seed27~1iid~1number_total_masked/examples_processed": 40000000,
+        "/endpoints/seed27~1iid~1number_total_masked/optimizer_steps": 78400,
+        "/endpoints/seed17~1dirichlet~1full39/verified": true,
+        "/endpoints/seed17~1dirichlet~1full39/examples_processed": 40000000,
+        "/endpoints/seed17~1dirichlet~1full39/optimizer_steps": 78340,
+        "/endpoints/seed27~1dirichlet~1full39/verified": true,
+        "/endpoints/seed27~1dirichlet~1full39/examples_processed": 40000000,
+        "/endpoints/seed27~1dirichlet~1full39/optimizer_steps": 78340,
+        "/endpoints/seed17~1dirichlet~1number_masked/verified": true,
+        "/endpoints/seed17~1dirichlet~1number_masked/examples_processed": 40000000,
+        "/endpoints/seed17~1dirichlet~1number_masked/optimizer_steps": 78340,
+        "/endpoints/seed27~1dirichlet~1number_masked/verified": true,
+        "/endpoints/seed27~1dirichlet~1number_masked/examples_processed": 40000000,
+        "/endpoints/seed27~1dirichlet~1number_masked/optimizer_steps": 78340,
+        "/endpoints/seed17~1dirichlet~1number_total_masked/verified": true,
+        "/endpoints/seed17~1dirichlet~1number_total_masked/examples_processed": 40000000,
+        "/endpoints/seed17~1dirichlet~1number_total_masked/optimizer_steps": 78340,
+        "/endpoints/seed27~1dirichlet~1number_total_masked/verified": true,
+        "/endpoints/seed27~1dirichlet~1number_total_masked/examples_processed": 40000000,
+        "/endpoints/seed27~1dirichlet~1number_total_masked/optimizer_steps": 78340
+      }
+    }
+  },
+  "archive_review": {
+    "checks": {
+      "new_runs_verified": 18,
+      "total_endpoints_verified": 27,
+      "metric_views_independently_recomputed": 1080,
+      "training_source_files_verified": 86,
+      "archived_summary_reproduced_exactly": true,
+      "new_training_examples_processed": 720000000,
+      "new_optimizer_steps": 1409280,
+      "shared_validation_rows": 2047805,
+      "test_evaluated": false
+    },
+    "training_source_commit": "5cc8206da6022d362449de69babfe8fb03a1fd08",
+    "scope": "Prior local archive review verified checkpoints, receipts and histories. Export reads pinned JSON; it does not repeat checkpoint verification."
+  },
+  "records": [
+    {
+      "id": "seed7/light/full39",
+      "group": "light",
+      "condition": "full39",
+      "seed": 7,
+      "seed_role": "exploratory",
+      "source": "seed7",
+      "pointer": "/runs/light~1full39/final_panel",
+      "format": "metrics",
+      "endpoint": 20,
+      "cohort_rows": 2000000,
+      "examples_processed": 40000000,
+      "optimizer_steps": 78140,
+      "work_basis": "Verified 20-step checkpoint histories; examples are repeated exposures.",
+      "num_parameters": 5096,
+      "training_validation_seconds": 298.90307419199985,
+      "artifact": {
+        "archive": "tradecraft-official39-ablation-backup.tgz",
+        "archive_sha256": "58cefe5732eb2e232d12fa90f5adae5e745f57872ea066e8554f4a1fec115fa8",
+        "checkpoint_member": "outputs/official39-ablation-bridges-v1/light/last.pt",
+        "environment_member": "outputs/official39-ablation-bridges-v1/light/environment.json",
+        "result_member": "outputs/official39-ablation-bridges-v1/light/result.json",
+        "sha256": {
+          "last.pt": "9fa411c0453037b1eac42a1309cd6667c56fc6cd4cd4449d43cabde24796d2fc",
+          "environment.json": "3825ba7de8481ed2faa9408bb429b293983da3e6a68cd616f0d174a4d60d9a32",
+          "result.json": "2f764d8cb2cf90ed7e7eeaf8507645ac94d482a305798a6099072b383f861d06"
+        }
+      }
+    },
+    {
+      "id": "seed17/light/full39",
+      "group": "light",
+      "condition": "full39",
+      "seed": 17,
+      "seed_role": "prospective_confirmation",
+      "source": "confirmation",
+      "pointer": "/endpoints/seed17~1light~1full39/final_panel_metrics",
+      "format": "metrics",
+      "endpoint": 20,
+      "cohort_rows": 2000000,
+      "examples_processed": 40000000,
+      "optimizer_steps": 78140,
+      "work_basis": "Verified 20-step checkpoint histories; examples are repeated exposures.",
+      "num_parameters": 5096,
+      "training_validation_seconds": 298.6820481090017,
+      "artifact": {
+        "archive": "tradecraft-official39-ablation-confirmation-backup.tgz",
+        "archive_sha256": "9e7640f4d8953ce913dc3f99edfc04c2bc95af30e6b7c9abede0eec0f7c636eb",
+        "checkpoint_member": "outputs/official39-ablation-confirmation-v1/seed17/light-full39/last.pt",
+        "environment_member": "outputs/official39-ablation-confirmation-v1/seed17/light-full39/environment.json",
+        "result_member": "outputs/official39-ablation-confirmation-v1/seed17/light-full39/result.json",
+        "sha256": {
+          "last.pt": "eb493d81fa408b4b73aa991ff630b25becd1ebf453777a42601b5f5060d62e43",
+          "environment.json": "d8b9934fe6964b27adf219da6375be9407808df40db86ca1dbb7a800420f93da",
+          "result.json": "0c62b3d10bc23a1ba20a60c95b56388ef33f3a407ece27d471df46e89d588c98"
+        }
+      }
+    },
+    {
+      "id": "seed27/light/full39",
+      "group": "light",
+      "condition": "full39",
+      "seed": 27,
+      "seed_role": "prospective_confirmation",
+      "source": "confirmation",
+      "pointer": "/endpoints/seed27~1light~1full39/final_panel_metrics",
+      "format": "metrics",
+      "endpoint": 20,
+      "cohort_rows": 2000000,
+      "examples_processed": 40000000,
+      "optimizer_steps": 78140,
+      "work_basis": "Verified 20-step checkpoint histories; examples are repeated exposures.",
+      "num_parameters": 5096,
+      "training_validation_seconds": 301.0113877069962,
+      "artifact": {
+        "archive": "tradecraft-official39-ablation-confirmation-backup.tgz",
+        "archive_sha256": "9e7640f4d8953ce913dc3f99edfc04c2bc95af30e6b7c9abede0eec0f7c636eb",
+        "checkpoint_member": "outputs/official39-ablation-confirmation-v1/seed27/light-full39/last.pt",
+        "environment_member": "outputs/official39-ablation-confirmation-v1/seed27/light-full39/environment.json",
+        "result_member": "outputs/official39-ablation-confirmation-v1/seed27/light-full39/result.json",
+        "sha256": {
+          "last.pt": "57f23a069c4f0a20f32f395f16778c490801a0ed7ac43a3ff4c4aef042b14cdd",
+          "environment.json": "4a2c21578dd907cc6522bde78ca4ad6eecdc7a7a2f03d2cc956397d64279f636",
+          "result.json": "62c71115544d92ba1a26fd1c55e3a20157fa930de0614e3b742d4b7fa5b38bd5"
+        }
+      }
+    },
+    {
+      "id": "seed7/light/number_masked",
+      "group": "light",
+      "condition": "number_masked",
+      "seed": 7,
+      "seed_role": "exploratory",
+      "source": "seed7",
+      "pointer": "/runs/light~1number_masked/final_panel",
+      "format": "metrics",
+      "endpoint": 20,
+      "cohort_rows": 2000000,
+      "examples_processed": 40000000,
+      "optimizer_steps": 78140,
+      "work_basis": "Verified 20-step checkpoint histories; examples are repeated exposures.",
+      "num_parameters": 5096,
+      "training_validation_seconds": 302.8845549430034,
+      "artifact": {
+        "archive": "tradecraft-official39-ablation-backup.tgz",
+        "archive_sha256": "58cefe5732eb2e232d12fa90f5adae5e745f57872ea066e8554f4a1fec115fa8",
+        "checkpoint_member": "outputs/official39-ablation-masked-v1/light-number_masked-seed7/last.pt",
+        "environment_member": "outputs/official39-ablation-masked-v1/light-number_masked-seed7/environment.json",
+        "result_member": "outputs/official39-ablation-masked-v1/light-number_masked-seed7/result.json",
+        "sha256": {
+          "last.pt": "84df25e743625cbe9ab6321c118dea579e655380660757d044119fbc60e2a1e4",
+          "environment.json": "141a99fce47cee1b4eadf152e0dfd0775ddf9cb215daaabf0426588dbb2ff8c1",
+          "result.json": "4c30dc348bc3a9248905492084399e9f5d838827a16e0b4a609bf909d2888d20"
+        }
+      }
+    },
+    {
+      "id": "seed17/light/number_masked",
+      "group": "light",
+      "condition": "number_masked",
+      "seed": 17,
+      "seed_role": "prospective_confirmation",
+      "source": "confirmation",
+      "pointer": "/endpoints/seed17~1light~1number_masked/final_panel_metrics",
+      "format": "metrics",
+      "endpoint": 20,
+      "cohort_rows": 2000000,
+      "examples_processed": 40000000,
+      "optimizer_steps": 78140,
+      "work_basis": "Verified 20-step checkpoint histories; examples are repeated exposures.",
+      "num_parameters": 5096,
+      "training_validation_seconds": 299.58640758900583,
+      "artifact": {
+        "archive": "tradecraft-official39-ablation-confirmation-backup.tgz",
+        "archive_sha256": "9e7640f4d8953ce913dc3f99edfc04c2bc95af30e6b7c9abede0eec0f7c636eb",
+        "checkpoint_member": "outputs/official39-ablation-confirmation-v1/seed17/light-number_masked/last.pt",
+        "environment_member": "outputs/official39-ablation-confirmation-v1/seed17/light-number_masked/environment.json",
+        "result_member": "outputs/official39-ablation-confirmation-v1/seed17/light-number_masked/result.json",
+        "sha256": {
+          "last.pt": "cdcf634df3fa737cf291be2f5065321a1917549241bdd33851e46ee549f3f72e",
+          "environment.json": "232e0cbad9eaeadbce8edbe70d8749dca432a70558d69af853d463c1117be4f0",
+          "result.json": "4b067c8a5341693b574ff795d72f627d547b726faba74016ce0bfca45af53303"
+        }
+      }
+    },
+    {
+      "id": "seed27/light/number_masked",
+      "group": "light",
+      "condition": "number_masked",
+      "seed": 27,
+      "seed_role": "prospective_confirmation",
+      "source": "confirmation",
+      "pointer": "/endpoints/seed27~1light~1number_masked/final_panel_metrics",
+      "format": "metrics",
+      "endpoint": 20,
+      "cohort_rows": 2000000,
+      "examples_processed": 40000000,
+      "optimizer_steps": 78140,
+      "work_basis": "Verified 20-step checkpoint histories; examples are repeated exposures.",
+      "num_parameters": 5096,
+      "training_validation_seconds": 301.3161990230001,
+      "artifact": {
+        "archive": "tradecraft-official39-ablation-confirmation-backup.tgz",
+        "archive_sha256": "9e7640f4d8953ce913dc3f99edfc04c2bc95af30e6b7c9abede0eec0f7c636eb",
+        "checkpoint_member": "outputs/official39-ablation-confirmation-v1/seed27/light-number_masked/last.pt",
+        "environment_member": "outputs/official39-ablation-confirmation-v1/seed27/light-number_masked/environment.json",
+        "result_member": "outputs/official39-ablation-confirmation-v1/seed27/light-number_masked/result.json",
+        "sha256": {
+          "last.pt": "74c787dd189c9422fb81dc3a9e862b624af61fd066983afc08c3e5d42c61cdb5",
+          "environment.json": "7593fd5963dc986b7b915337f504e58d6e2d07eadc53f7a6b72bf9484ed4b74e",
+          "result.json": "a63b3e9b338509fe818010021d1875b6eae0a2c293a137416abeae135fbb78e6"
+        }
+      }
+    },
+    {
+      "id": "seed7/light/number_total_masked",
+      "group": "light",
+      "condition": "number_total_masked",
+      "seed": 7,
+      "seed_role": "exploratory",
+      "source": "seed7",
+      "pointer": "/runs/light~1number_total_masked/final_panel",
+      "format": "metrics",
+      "endpoint": 20,
+      "cohort_rows": 2000000,
+      "examples_processed": 40000000,
+      "optimizer_steps": 78140,
+      "work_basis": "Verified 20-step checkpoint histories; examples are repeated exposures.",
+      "num_parameters": 5096,
+      "training_validation_seconds": 304.9080185860057,
+      "artifact": {
+        "archive": "tradecraft-official39-ablation-backup.tgz",
+        "archive_sha256": "58cefe5732eb2e232d12fa90f5adae5e745f57872ea066e8554f4a1fec115fa8",
+        "checkpoint_member": "outputs/official39-ablation-masked-v1/light-number_total_masked-seed7/last.pt",
+        "environment_member": "outputs/official39-ablation-masked-v1/light-number_total_masked-seed7/environment.json",
+        "result_member": "outputs/official39-ablation-masked-v1/light-number_total_masked-seed7/result.json",
+        "sha256": {
+          "last.pt": "80404ca253186050f0f5e630083cbbdf1991e0f66f524e8cae203945a77546ab",
+          "environment.json": "d5380e21873303f525c7c604ecc2fecc69b4de4fc37ee906d811693aacf38eaa",
+          "result.json": "cf0f3bea675995964ee4cc6e9f2128cad2ae4e78c6a7b1fa9fde752aa88d6b6c"
+        }
+      }
+    },
+    {
+      "id": "seed17/light/number_total_masked",
+      "group": "light",
+      "condition": "number_total_masked",
+      "seed": 17,
+      "seed_role": "prospective_confirmation",
+      "source": "confirmation",
+      "pointer": "/endpoints/seed17~1light~1number_total_masked/final_panel_metrics",
+      "format": "metrics",
+      "endpoint": 20,
+      "cohort_rows": 2000000,
+      "examples_processed": 40000000,
+      "optimizer_steps": 78140,
+      "work_basis": "Verified 20-step checkpoint histories; examples are repeated exposures.",
+      "num_parameters": 5096,
+      "training_validation_seconds": 300.6840464249981,
+      "artifact": {
+        "archive": "tradecraft-official39-ablation-confirmation-backup.tgz",
+        "archive_sha256": "9e7640f4d8953ce913dc3f99edfc04c2bc95af30e6b7c9abede0eec0f7c636eb",
+        "checkpoint_member": "outputs/official39-ablation-confirmation-v1/seed17/light-number_total_masked/last.pt",
+        "environment_member": "outputs/official39-ablation-confirmation-v1/seed17/light-number_total_masked/environment.json",
+        "result_member": "outputs/official39-ablation-confirmation-v1/seed17/light-number_total_masked/result.json",
+        "sha256": {
+          "last.pt": "a69ca7dd16e8bcbc587a5feb289730295973c34dad8741112f7cd00d16200c45",
+          "environment.json": "b9e6af8307e06a222d818c3bf8dfd7fbc876a06fd5b6e1595d711b8e3425c4dc",
+          "result.json": "2d7b37a1c0c5a2aee8db491d96b7f79a9249ef5ff44fde23b948220d1aaf6b02"
+        }
+      }
+    },
+    {
+      "id": "seed27/light/number_total_masked",
+      "group": "light",
+      "condition": "number_total_masked",
+      "seed": 27,
+      "seed_role": "prospective_confirmation",
+      "source": "confirmation",
+      "pointer": "/endpoints/seed27~1light~1number_total_masked/final_panel_metrics",
+      "format": "metrics",
+      "endpoint": 20,
+      "cohort_rows": 2000000,
+      "examples_processed": 40000000,
+      "optimizer_steps": 78140,
+      "work_basis": "Verified 20-step checkpoint histories; examples are repeated exposures.",
+      "num_parameters": 5096,
+      "training_validation_seconds": 302.45293527399735,
+      "artifact": {
+        "archive": "tradecraft-official39-ablation-confirmation-backup.tgz",
+        "archive_sha256": "9e7640f4d8953ce913dc3f99edfc04c2bc95af30e6b7c9abede0eec0f7c636eb",
+        "checkpoint_member": "outputs/official39-ablation-confirmation-v1/seed27/light-number_total_masked/last.pt",
+        "environment_member": "outputs/official39-ablation-confirmation-v1/seed27/light-number_total_masked/environment.json",
+        "result_member": "outputs/official39-ablation-confirmation-v1/seed27/light-number_total_masked/result.json",
+        "sha256": {
+          "last.pt": "e77c81e2964626737ed5b5e6d7372aa51766a6e398fd63d1a094332f37691b97",
+          "environment.json": "16bbe75e1b3f392536f1283d08f7b3f76f1c141f8ca6cd8d8a1eaeef5a3d983f",
+          "result.json": "5502c6c542fc632909c079ee306968e857f45d174dce2a1ce3f6e82e2aa776a7"
+        }
+      }
+    },
+    {
+      "id": "seed7/iid/full39",
+      "group": "iid",
+      "condition": "full39",
+      "seed": 7,
+      "seed_role": "exploratory",
+      "source": "seed7",
+      "pointer": "/runs/iid~1full39/final_panel",
+      "format": "metrics",
+      "endpoint": 20,
+      "cohort_rows": 2000000,
+      "examples_processed": 40000000,
+      "optimizer_steps": 78400,
+      "work_basis": "Verified 20-step checkpoint histories; examples are repeated exposures.",
+      "num_parameters": 5096,
+      "training_validation_seconds": 310.12564479900016,
+      "artifact": {
+        "archive": "tradecraft-official39-ablation-backup.tgz",
+        "archive_sha256": "58cefe5732eb2e232d12fa90f5adae5e745f57872ea066e8554f4a1fec115fa8",
+        "checkpoint_member": "outputs/official39-ablation-bridges-v1/iid/last.pt",
+        "environment_member": "outputs/official39-ablation-bridges-v1/iid/environment.json",
+        "result_member": "outputs/official39-ablation-bridges-v1/iid/result.json",
+        "sha256": {
+          "last.pt": "4c8e2e57c1e5c25d95b8fa49b0abc3cc85b3ecf508e79a2842e6bd5227515db7",
+          "environment.json": "e39d4d4f7d8236996ab08ee2c088680db52337090d8587538b9ae249257ff162",
+          "result.json": "00003901e45abf24e6ba8302ad46f994cb2289721177724b51d9c4ab62935d59"
+        }
+      }
+    },
+    {
+      "id": "seed17/iid/full39",
+      "group": "iid",
+      "condition": "full39",
+      "seed": 17,
+      "seed_role": "prospective_confirmation",
+      "source": "confirmation",
+      "pointer": "/endpoints/seed17~1iid~1full39/final_panel_metrics",
+      "format": "metrics",
+      "endpoint": 20,
+      "cohort_rows": 2000000,
+      "examples_processed": 40000000,
+      "optimizer_steps": 78400,
+      "work_basis": "Verified 20-step checkpoint histories; examples are repeated exposures.",
+      "num_parameters": 5096,
+      "training_validation_seconds": 310.3897912090015,
+      "artifact": {
+        "archive": "tradecraft-official39-ablation-confirmation-backup.tgz",
+        "archive_sha256": "9e7640f4d8953ce913dc3f99edfc04c2bc95af30e6b7c9abede0eec0f7c636eb",
+        "checkpoint_member": "outputs/official39-ablation-confirmation-v1/seed17/iid-full39/last.pt",
+        "environment_member": "outputs/official39-ablation-confirmation-v1/seed17/iid-full39/environment.json",
+        "result_member": "outputs/official39-ablation-confirmation-v1/seed17/iid-full39/result.json",
+        "sha256": {
+          "last.pt": "39fedfa16c96f944348a21b5bbef5ad2632dc4c4030bf2d59f6cf45e901a10b3",
+          "environment.json": "d0c3e70558f4a895f09de888b134ea8d5c08c9c67107b3f0365db3f8e9032594",
+          "result.json": "c3e9112ad505a2f859834d9de92ad03671b6f1eae7cf81e0884ba009fec582dc"
+        }
+      }
+    },
+    {
+      "id": "seed27/iid/full39",
+      "group": "iid",
+      "condition": "full39",
+      "seed": 27,
+      "seed_role": "prospective_confirmation",
+      "source": "confirmation",
+      "pointer": "/endpoints/seed27~1iid~1full39/final_panel_metrics",
+      "format": "metrics",
+      "endpoint": 20,
+      "cohort_rows": 2000000,
+      "examples_processed": 40000000,
+      "optimizer_steps": 78400,
+      "work_basis": "Verified 20-step checkpoint histories; examples are repeated exposures.",
+      "num_parameters": 5096,
+      "training_validation_seconds": 310.37202709900157,
+      "artifact": {
+        "archive": "tradecraft-official39-ablation-confirmation-backup.tgz",
+        "archive_sha256": "9e7640f4d8953ce913dc3f99edfc04c2bc95af30e6b7c9abede0eec0f7c636eb",
+        "checkpoint_member": "outputs/official39-ablation-confirmation-v1/seed27/iid-full39/last.pt",
+        "environment_member": "outputs/official39-ablation-confirmation-v1/seed27/iid-full39/environment.json",
+        "result_member": "outputs/official39-ablation-confirmation-v1/seed27/iid-full39/result.json",
+        "sha256": {
+          "last.pt": "643b004a5629500f88d53e58c80d79b0f90ba8b6593e901e6aedd33e60444ae7",
+          "environment.json": "2f738cbadc05f34ac131cab26c49fb9280b0c9480dc89ed921396917ccea098e",
+          "result.json": "d9a490bc5faa4c20850cd2fcd91c460921e81893180cb10b4f6509e80c82f33b"
+        }
+      }
+    },
+    {
+      "id": "seed7/iid/number_masked",
+      "group": "iid",
+      "condition": "number_masked",
+      "seed": 7,
+      "seed_role": "exploratory",
+      "source": "seed7",
+      "pointer": "/runs/iid~1number_masked/final_panel",
+      "format": "metrics",
+      "endpoint": 20,
+      "cohort_rows": 2000000,
+      "examples_processed": 40000000,
+      "optimizer_steps": 78400,
+      "work_basis": "Verified 20-step checkpoint histories; examples are repeated exposures.",
+      "num_parameters": 5096,
+      "training_validation_seconds": 311.9253523390007,
+      "artifact": {
+        "archive": "tradecraft-official39-ablation-backup.tgz",
+        "archive_sha256": "58cefe5732eb2e232d12fa90f5adae5e745f57872ea066e8554f4a1fec115fa8",
+        "checkpoint_member": "outputs/official39-ablation-masked-v1/iid-number_masked-seed7/last.pt",
+        "environment_member": "outputs/official39-ablation-masked-v1/iid-number_masked-seed7/environment.json",
+        "result_member": "outputs/official39-ablation-masked-v1/iid-number_masked-seed7/result.json",
+        "sha256": {
+          "last.pt": "0ebe29ed516774af81cff32edaa5fd941cd31d8f9e63eeb746af984b6d2a03cf",
+          "environment.json": "46fcc4918d51da6f6290b02a4ba4da5723b1b3be7c04222ccd663e93cf0349ac",
+          "result.json": "4d1379fd144c5c3a0f623c3accc37937e80f5018c390449c74d586c1c931aae7"
+        }
+      }
+    },
+    {
+      "id": "seed17/iid/number_masked",
+      "group": "iid",
+      "condition": "number_masked",
+      "seed": 17,
+      "seed_role": "prospective_confirmation",
+      "source": "confirmation",
+      "pointer": "/endpoints/seed17~1iid~1number_masked/final_panel_metrics",
+      "format": "metrics",
+      "endpoint": 20,
+      "cohort_rows": 2000000,
+      "examples_processed": 40000000,
+      "optimizer_steps": 78400,
+      "work_basis": "Verified 20-step checkpoint histories; examples are repeated exposures.",
+      "num_parameters": 5096,
+      "training_validation_seconds": 310.9535722510027,
+      "artifact": {
+        "archive": "tradecraft-official39-ablation-confirmation-backup.tgz",
+        "archive_sha256": "9e7640f4d8953ce913dc3f99edfc04c2bc95af30e6b7c9abede0eec0f7c636eb",
+        "checkpoint_member": "outputs/official39-ablation-confirmation-v1/seed17/iid-number_masked/last.pt",
+        "environment_member": "outputs/official39-ablation-confirmation-v1/seed17/iid-number_masked/environment.json",
+        "result_member": "outputs/official39-ablation-confirmation-v1/seed17/iid-number_masked/result.json",
+        "sha256": {
+          "last.pt": "d40690bdf8a54f51ca87033234ad806d1fdc4a6ad5a84c88d99d06dc67ac5008",
+          "environment.json": "8dd1d4564b748b78225061e41b855311206aebf611b85d7bfb81a768f18e316c",
+          "result.json": "1a8bd48917cdef1a01e6cc0936ba647ec101bd911affe23469606aa920918e5f"
+        }
+      }
+    },
+    {
+      "id": "seed27/iid/number_masked",
+      "group": "iid",
+      "condition": "number_masked",
+      "seed": 27,
+      "seed_role": "prospective_confirmation",
+      "source": "confirmation",
+      "pointer": "/endpoints/seed27~1iid~1number_masked/final_panel_metrics",
+      "format": "metrics",
+      "endpoint": 20,
+      "cohort_rows": 2000000,
+      "examples_processed": 40000000,
+      "optimizer_steps": 78400,
+      "work_basis": "Verified 20-step checkpoint histories; examples are repeated exposures.",
+      "num_parameters": 5096,
+      "training_validation_seconds": 313.25039549500616,
+      "artifact": {
+        "archive": "tradecraft-official39-ablation-confirmation-backup.tgz",
+        "archive_sha256": "9e7640f4d8953ce913dc3f99edfc04c2bc95af30e6b7c9abede0eec0f7c636eb",
+        "checkpoint_member": "outputs/official39-ablation-confirmation-v1/seed27/iid-number_masked/last.pt",
+        "environment_member": "outputs/official39-ablation-confirmation-v1/seed27/iid-number_masked/environment.json",
+        "result_member": "outputs/official39-ablation-confirmation-v1/seed27/iid-number_masked/result.json",
+        "sha256": {
+          "last.pt": "ef133d5fc77498bbec851ea8bb23947aa2c84fe55a16f7c2bd4019a74f59a08e",
+          "environment.json": "bb4559a7565145a7d4953784be0534c2f49f8e73c1223a6b0bba58cf4d06d0cf",
+          "result.json": "e84b9c6aa24cde262b5e67e5ac486a22d008c9d9891e19447044007b1dc0a8e5"
+        }
+      }
+    },
+    {
+      "id": "seed7/iid/number_total_masked",
+      "group": "iid",
+      "condition": "number_total_masked",
+      "seed": 7,
+      "seed_role": "exploratory",
+      "source": "seed7",
+      "pointer": "/runs/iid~1number_total_masked/final_panel",
+      "format": "metrics",
+      "endpoint": 20,
+      "cohort_rows": 2000000,
+      "examples_processed": 40000000,
+      "optimizer_steps": 78400,
+      "work_basis": "Verified 20-step checkpoint histories; examples are repeated exposures.",
+      "num_parameters": 5096,
+      "training_validation_seconds": 314.27234905099976,
+      "artifact": {
+        "archive": "tradecraft-official39-ablation-backup.tgz",
+        "archive_sha256": "58cefe5732eb2e232d12fa90f5adae5e745f57872ea066e8554f4a1fec115fa8",
+        "checkpoint_member": "outputs/official39-ablation-masked-v1/iid-number_total_masked-seed7/last.pt",
+        "environment_member": "outputs/official39-ablation-masked-v1/iid-number_total_masked-seed7/environment.json",
+        "result_member": "outputs/official39-ablation-masked-v1/iid-number_total_masked-seed7/result.json",
+        "sha256": {
+          "last.pt": "0970be148ed72671edd44a00059d971d66cfeae8445c073267febc81cd06a544",
+          "environment.json": "d9396c776583b2031e13eaee7306832f820d083b8e2380c250cfa054bccfa68b",
+          "result.json": "716974f1d33e6bc656518242863e739c5ead0de351c26a47934054955803d34e"
+        }
+      }
+    },
+    {
+      "id": "seed17/iid/number_total_masked",
+      "group": "iid",
+      "condition": "number_total_masked",
+      "seed": 17,
+      "seed_role": "prospective_confirmation",
+      "source": "confirmation",
+      "pointer": "/endpoints/seed17~1iid~1number_total_masked/final_panel_metrics",
+      "format": "metrics",
+      "endpoint": 20,
+      "cohort_rows": 2000000,
+      "examples_processed": 40000000,
+      "optimizer_steps": 78400,
+      "work_basis": "Verified 20-step checkpoint histories; examples are repeated exposures.",
+      "num_parameters": 5096,
+      "training_validation_seconds": 311.4904139839946,
+      "artifact": {
+        "archive": "tradecraft-official39-ablation-confirmation-backup.tgz",
+        "archive_sha256": "9e7640f4d8953ce913dc3f99edfc04c2bc95af30e6b7c9abede0eec0f7c636eb",
+        "checkpoint_member": "outputs/official39-ablation-confirmation-v1/seed17/iid-number_total_masked/last.pt",
+        "environment_member": "outputs/official39-ablation-confirmation-v1/seed17/iid-number_total_masked/environment.json",
+        "result_member": "outputs/official39-ablation-confirmation-v1/seed17/iid-number_total_masked/result.json",
+        "sha256": {
+          "last.pt": "998089b41d1ccf46fa356e54679d14b31abbb5629c624ed21cef022f7ef20b74",
+          "environment.json": "afd162e8b788266e43a97b226f557fa7f1c167371a4b07de2e8302c76829f16a",
+          "result.json": "ae383467596524fc55fe9355c3f51f63b292efc462a1e57a9b3aba1d890668eb"
+        }
+      }
+    },
+    {
+      "id": "seed27/iid/number_total_masked",
+      "group": "iid",
+      "condition": "number_total_masked",
+      "seed": 27,
+      "seed_role": "prospective_confirmation",
+      "source": "confirmation",
+      "pointer": "/endpoints/seed27~1iid~1number_total_masked/final_panel_metrics",
+      "format": "metrics",
+      "endpoint": 20,
+      "cohort_rows": 2000000,
+      "examples_processed": 40000000,
+      "optimizer_steps": 78400,
+      "work_basis": "Verified 20-step checkpoint histories; examples are repeated exposures.",
+      "num_parameters": 5096,
+      "training_validation_seconds": 313.87102394599424,
+      "artifact": {
+        "archive": "tradecraft-official39-ablation-confirmation-backup.tgz",
+        "archive_sha256": "9e7640f4d8953ce913dc3f99edfc04c2bc95af30e6b7c9abede0eec0f7c636eb",
+        "checkpoint_member": "outputs/official39-ablation-confirmation-v1/seed27/iid-number_total_masked/last.pt",
+        "environment_member": "outputs/official39-ablation-confirmation-v1/seed27/iid-number_total_masked/environment.json",
+        "result_member": "outputs/official39-ablation-confirmation-v1/seed27/iid-number_total_masked/result.json",
+        "sha256": {
+          "last.pt": "d8cba3d0f7ff740126ab38a6dac4eb99e67352587c3602a8fe005509a79d9e38",
+          "environment.json": "28be0ed0feabd8c200ca334ba0fdf9beacf7918558f6298daebab0588dc02fb4",
+          "result.json": "c128208fcd4fabb3373027943f2e2200fbd470bdf4f00c9c8f23fd3d15dec41d"
+        }
+      }
+    },
+    {
+      "id": "seed7/dirichlet/full39",
+      "group": "dirichlet",
+      "condition": "full39",
+      "seed": 7,
+      "seed_role": "exploratory",
+      "source": "seed7",
+      "pointer": "/runs/dirichlet~1full39/final_panel",
+      "format": "metrics",
+      "endpoint": 20,
+      "cohort_rows": 2000000,
+      "examples_processed": 40000000,
+      "optimizer_steps": 78340,
+      "work_basis": "Verified 20-step checkpoint histories; examples are repeated exposures.",
+      "num_parameters": 5096,
+      "training_validation_seconds": 309.7145384709995,
+      "artifact": {
+        "archive": "tradecraft-official39-ablation-backup.tgz",
+        "archive_sha256": "58cefe5732eb2e232d12fa90f5adae5e745f57872ea066e8554f4a1fec115fa8",
+        "checkpoint_member": "outputs/official39-ablation-bridges-v1/dirichlet/last.pt",
+        "environment_member": "outputs/official39-ablation-bridges-v1/dirichlet/environment.json",
+        "result_member": "outputs/official39-ablation-bridges-v1/dirichlet/result.json",
+        "sha256": {
+          "last.pt": "5b4f78a7a43ef461b7e5a50e3fea15898526141b3ff91d5ab4bcd25eecd1b999",
+          "environment.json": "6bb93ecef879acebab512fd77036d9d55d594785883d065581733c382f0cdda8",
+          "result.json": "7d07cf525ae7caf1ed2af0cc65ebeece08eb390bc8814f487c41f73675763446"
+        }
+      }
+    },
+    {
+      "id": "seed17/dirichlet/full39",
+      "group": "dirichlet",
+      "condition": "full39",
+      "seed": 17,
+      "seed_role": "prospective_confirmation",
+      "source": "confirmation",
+      "pointer": "/endpoints/seed17~1dirichlet~1full39/final_panel_metrics",
+      "format": "metrics",
+      "endpoint": 20,
+      "cohort_rows": 2000000,
+      "examples_processed": 40000000,
+      "optimizer_steps": 78340,
+      "work_basis": "Verified 20-step checkpoint histories; examples are repeated exposures.",
+      "num_parameters": 5096,
+      "training_validation_seconds": 310.958380217995,
+      "artifact": {
+        "archive": "tradecraft-official39-ablation-confirmation-backup.tgz",
+        "archive_sha256": "9e7640f4d8953ce913dc3f99edfc04c2bc95af30e6b7c9abede0eec0f7c636eb",
+        "checkpoint_member": "outputs/official39-ablation-confirmation-v1/seed17/dirichlet-full39/last.pt",
+        "environment_member": "outputs/official39-ablation-confirmation-v1/seed17/dirichlet-full39/environment.json",
+        "result_member": "outputs/official39-ablation-confirmation-v1/seed17/dirichlet-full39/result.json",
+        "sha256": {
+          "last.pt": "75105c2dca4348bceddc8257703d2edb2d0c64ed050b4d438d3bd94db50212a5",
+          "environment.json": "7078acfa3302cb427fd682bccaa15aeb2c41af2361ccca7bb467d2fc0064e314",
+          "result.json": "4dbdd02f1cec6519b867e047113253bcb4cc7ed622450aa73b73e57958157a56"
+        }
+      }
+    },
+    {
+      "id": "seed27/dirichlet/full39",
+      "group": "dirichlet",
+      "condition": "full39",
+      "seed": 27,
+      "seed_role": "prospective_confirmation",
+      "source": "confirmation",
+      "pointer": "/endpoints/seed27~1dirichlet~1full39/final_panel_metrics",
+      "format": "metrics",
+      "endpoint": 20,
+      "cohort_rows": 2000000,
+      "examples_processed": 40000000,
+      "optimizer_steps": 78340,
+      "work_basis": "Verified 20-step checkpoint histories; examples are repeated exposures.",
+      "num_parameters": 5096,
+      "training_validation_seconds": 311.48678086299515,
+      "artifact": {
+        "archive": "tradecraft-official39-ablation-confirmation-backup.tgz",
+        "archive_sha256": "9e7640f4d8953ce913dc3f99edfc04c2bc95af30e6b7c9abede0eec0f7c636eb",
+        "checkpoint_member": "outputs/official39-ablation-confirmation-v1/seed27/dirichlet-full39/last.pt",
+        "environment_member": "outputs/official39-ablation-confirmation-v1/seed27/dirichlet-full39/environment.json",
+        "result_member": "outputs/official39-ablation-confirmation-v1/seed27/dirichlet-full39/result.json",
+        "sha256": {
+          "last.pt": "298d72e7195fbad9102fbe36af008486a3f0902d11866c67e8e9a8b60589e3dc",
+          "environment.json": "c4ddbdf6eafd88dfe9551f6bcbed587d17a403eb4061f15b2ef5306b392fcc77",
+          "result.json": "0d9b1a50921f5350da81d7c2b4914661d9bd8890f193f38f4743a8102347d4e6"
+        }
+      }
+    },
+    {
+      "id": "seed7/dirichlet/number_masked",
+      "group": "dirichlet",
+      "condition": "number_masked",
+      "seed": 7,
+      "seed_role": "exploratory",
+      "source": "seed7",
+      "pointer": "/runs/dirichlet~1number_masked/final_panel",
+      "format": "metrics",
+      "endpoint": 20,
+      "cohort_rows": 2000000,
+      "examples_processed": 40000000,
+      "optimizer_steps": 78340,
+      "work_basis": "Verified 20-step checkpoint histories; examples are repeated exposures.",
+      "num_parameters": 5096,
+      "training_validation_seconds": 312.15879805799887,
+      "artifact": {
+        "archive": "tradecraft-official39-ablation-backup.tgz",
+        "archive_sha256": "58cefe5732eb2e232d12fa90f5adae5e745f57872ea066e8554f4a1fec115fa8",
+        "checkpoint_member": "outputs/official39-ablation-masked-v1/dirichlet-number_masked-seed7/last.pt",
+        "environment_member": "outputs/official39-ablation-masked-v1/dirichlet-number_masked-seed7/environment.json",
+        "result_member": "outputs/official39-ablation-masked-v1/dirichlet-number_masked-seed7/result.json",
+        "sha256": {
+          "last.pt": "82923a494de7257dac7d8b093171268afdc1e0a959b5ae5cfba401e7310f8382",
+          "environment.json": "81592f537e42cb8ff1d204ba2e4222b24a29c6fda199df3d2757629dd41c9598",
+          "result.json": "087460e776fd61bb70cc3c5ae460727a8a3350e58b447c5cfe8410624ebd96da"
+        }
+      }
+    },
+    {
+      "id": "seed17/dirichlet/number_masked",
+      "group": "dirichlet",
+      "condition": "number_masked",
+      "seed": 17,
+      "seed_role": "prospective_confirmation",
+      "source": "confirmation",
+      "pointer": "/endpoints/seed17~1dirichlet~1number_masked/final_panel_metrics",
+      "format": "metrics",
+      "endpoint": 20,
+      "cohort_rows": 2000000,
+      "examples_processed": 40000000,
+      "optimizer_steps": 78340,
+      "work_basis": "Verified 20-step checkpoint histories; examples are repeated exposures.",
+      "num_parameters": 5096,
+      "training_validation_seconds": 311.8816703909997,
+      "artifact": {
+        "archive": "tradecraft-official39-ablation-confirmation-backup.tgz",
+        "archive_sha256": "9e7640f4d8953ce913dc3f99edfc04c2bc95af30e6b7c9abede0eec0f7c636eb",
+        "checkpoint_member": "outputs/official39-ablation-confirmation-v1/seed17/dirichlet-number_masked/last.pt",
+        "environment_member": "outputs/official39-ablation-confirmation-v1/seed17/dirichlet-number_masked/environment.json",
+        "result_member": "outputs/official39-ablation-confirmation-v1/seed17/dirichlet-number_masked/result.json",
+        "sha256": {
+          "last.pt": "09a097396bcdf7b965fa9dbe285d5b7ec803fa3757596877a307e1ddb42efc69",
+          "environment.json": "d3f3e2da5221293925dc6beb03095e3f2f9962db235cc8a50d019a82c05f49b1",
+          "result.json": "cdd53067d5c7ff7ef8e4bdde85c3cf83c960b77c9623beb4e1e1fb3ec8f27915"
+        }
+      }
+    },
+    {
+      "id": "seed27/dirichlet/number_masked",
+      "group": "dirichlet",
+      "condition": "number_masked",
+      "seed": 27,
+      "seed_role": "prospective_confirmation",
+      "source": "confirmation",
+      "pointer": "/endpoints/seed27~1dirichlet~1number_masked/final_panel_metrics",
+      "format": "metrics",
+      "endpoint": 20,
+      "cohort_rows": 2000000,
+      "examples_processed": 40000000,
+      "optimizer_steps": 78340,
+      "work_basis": "Verified 20-step checkpoint histories; examples are repeated exposures.",
+      "num_parameters": 5096,
+      "training_validation_seconds": 312.12302360199647,
+      "artifact": {
+        "archive": "tradecraft-official39-ablation-confirmation-backup.tgz",
+        "archive_sha256": "9e7640f4d8953ce913dc3f99edfc04c2bc95af30e6b7c9abede0eec0f7c636eb",
+        "checkpoint_member": "outputs/official39-ablation-confirmation-v1/seed27/dirichlet-number_masked/last.pt",
+        "environment_member": "outputs/official39-ablation-confirmation-v1/seed27/dirichlet-number_masked/environment.json",
+        "result_member": "outputs/official39-ablation-confirmation-v1/seed27/dirichlet-number_masked/result.json",
+        "sha256": {
+          "last.pt": "bf38f43f00c8be57262dd851a90466c1c22235299345c492a281fce403faa962",
+          "environment.json": "8c9bc729dab9a61a39a7739083b926d5a09de8a47d84a8ed70b7d99b64aa3a8c",
+          "result.json": "6189fed7772db0cd9ce1c7eaecb8a53543f8fa8b847f2adb58c560d2e781a110"
+        }
+      }
+    },
+    {
+      "id": "seed7/dirichlet/number_total_masked",
+      "group": "dirichlet",
+      "condition": "number_total_masked",
+      "seed": 7,
+      "seed_role": "exploratory",
+      "source": "seed7",
+      "pointer": "/runs/dirichlet~1number_total_masked/final_panel",
+      "format": "metrics",
+      "endpoint": 20,
+      "cohort_rows": 2000000,
+      "examples_processed": 40000000,
+      "optimizer_steps": 78340,
+      "work_basis": "Verified 20-step checkpoint histories; examples are repeated exposures.",
+      "num_parameters": 5096,
+      "training_validation_seconds": 312.3952894160002,
+      "artifact": {
+        "archive": "tradecraft-official39-ablation-backup.tgz",
+        "archive_sha256": "58cefe5732eb2e232d12fa90f5adae5e745f57872ea066e8554f4a1fec115fa8",
+        "checkpoint_member": "outputs/official39-ablation-masked-v1/dirichlet-number_total_masked-seed7/last.pt",
+        "environment_member": "outputs/official39-ablation-masked-v1/dirichlet-number_total_masked-seed7/environment.json",
+        "result_member": "outputs/official39-ablation-masked-v1/dirichlet-number_total_masked-seed7/result.json",
+        "sha256": {
+          "last.pt": "ca9ed232aa0ea97daf87a2c07fb7ad3c474b1eb99a82e53f4f5d9eba3dc236c3",
+          "environment.json": "fdf9bb3b951bafb6d4e9735b08b36e471707486becfe1e784b2085e0f99c8a89",
+          "result.json": "f1b35df0c314de025347ee3122a618d11976949bc568f23e520f4b4539af204d"
+        }
+      }
+    },
+    {
+      "id": "seed17/dirichlet/number_total_masked",
+      "group": "dirichlet",
+      "condition": "number_total_masked",
+      "seed": 17,
+      "seed_role": "prospective_confirmation",
+      "source": "confirmation",
+      "pointer": "/endpoints/seed17~1dirichlet~1number_total_masked/final_panel_metrics",
+      "format": "metrics",
+      "endpoint": 20,
+      "cohort_rows": 2000000,
+      "examples_processed": 40000000,
+      "optimizer_steps": 78340,
+      "work_basis": "Verified 20-step checkpoint histories; examples are repeated exposures.",
+      "num_parameters": 5096,
+      "training_validation_seconds": 310.9643388430013,
+      "artifact": {
+        "archive": "tradecraft-official39-ablation-confirmation-backup.tgz",
+        "archive_sha256": "9e7640f4d8953ce913dc3f99edfc04c2bc95af30e6b7c9abede0eec0f7c636eb",
+        "checkpoint_member": "outputs/official39-ablation-confirmation-v1/seed17/dirichlet-number_total_masked/last.pt",
+        "environment_member": "outputs/official39-ablation-confirmation-v1/seed17/dirichlet-number_total_masked/environment.json",
+        "result_member": "outputs/official39-ablation-confirmation-v1/seed17/dirichlet-number_total_masked/result.json",
+        "sha256": {
+          "last.pt": "531de5bb863faba6e0129c7e701dbe35dcf28f1df600873ad9037a3b06961402",
+          "environment.json": "8a9985285c16376c4c3737212c8e7b298307481697277e626eb04bbc214d8a94",
+          "result.json": "310effbc517e60bc8577c94add10b4205faa34bc1bd3cb9797a5672f0242c2e9"
+        }
+      }
+    },
+    {
+      "id": "seed27/dirichlet/number_total_masked",
+      "group": "dirichlet",
+      "condition": "number_total_masked",
+      "seed": 27,
+      "seed_role": "prospective_confirmation",
+      "source": "confirmation",
+      "pointer": "/endpoints/seed27~1dirichlet~1number_total_masked/final_panel_metrics",
+      "format": "metrics",
+      "endpoint": 20,
+      "cohort_rows": 2000000,
+      "examples_processed": 40000000,
+      "optimizer_steps": 78340,
+      "work_basis": "Verified 20-step checkpoint histories; examples are repeated exposures.",
+      "num_parameters": 5096,
+      "training_validation_seconds": 310.8745055980107,
+      "artifact": {
+        "archive": "tradecraft-official39-ablation-confirmation-backup.tgz",
+        "archive_sha256": "9e7640f4d8953ce913dc3f99edfc04c2bc95af30e6b7c9abede0eec0f7c636eb",
+        "checkpoint_member": "outputs/official39-ablation-confirmation-v1/seed27/dirichlet-number_total_masked/last.pt",
+        "environment_member": "outputs/official39-ablation-confirmation-v1/seed27/dirichlet-number_total_masked/environment.json",
+        "result_member": "outputs/official39-ablation-confirmation-v1/seed27/dirichlet-number_total_masked/result.json",
+        "sha256": {
+          "last.pt": "69fdb67635b674ebfcc3d9e1d743b4fc70367b63ea9d1081a5239061f2616631",
+          "environment.json": "1579b93cd25f274a9b0549ae0c0ac83f8b1c7bff3e8c467bf6b9fb9ebc8ad453",
+          "result.json": "becb72351b964304189ab6ac86a4cdedd018f7e72f6ea6eb20603421e8b4308f"
+        }
+      }
+    }
+  ]
+}

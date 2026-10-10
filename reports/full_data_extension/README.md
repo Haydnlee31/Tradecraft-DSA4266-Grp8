@@ -2,19 +2,33 @@
 
 ## Latest research status on 10 October 2026
 
-The [nine seed-7 feature masking runs](ablation-confirmation.md) are complete and
-independently verified. Joint Number/Tot sum masking nearly preserves centralized
-macro-F1, slightly lowers IID performance and slightly raises controlled non-IID
-macro-F1, but does not fix rare-class failures or false-alert trade-offs. No masked
-model is promoted. The [portable evidence](ablation-seed7-results.json) retains
-all class metrics, both validation views, work and artifact identities.
+The [feature-mask confirmation](ablation-confirmation-findings.md) is complete:
+nine exploratory seed-7 models plus all eighteen prospective seed-17/27 models.
+Joint masking nearly preserves centralized performance, reduces IID macro-F1 in
+every seed, and does not convincingly repeat the exploratory non-IID gain. No
+masked model is promoted. Rare-class failures and false-alert trade-offs persist.
 
-The [confirmation plan](ablation-confirmation-plan.json) freezes seeds 17 and 27
-for all three masks and lanes: 18 new runs, not yet executed. The orchestration
-wrapper lives outside `src/` so training code, source guards and existing recovery
-remain unchanged. It supports read-only preflight, explicit per-seed execution,
-guarded recovery and a complete paired summary. Keep the dataset, partitions,
-settings and final test unchanged; no larger GPU or broad sweep is needed.
+The [portable 27-endpoint evidence](ablation-confirmation-results.json) retains
+all eight class metrics, error categories, paired differences, work and exact
+artifact identities. It complements, not replaces, the original all-validation
+ledger and [seed-7 evidence](ablation-seed7-results.json). The original
+[confirmation plan](ablation-confirmation-plan.json), training source, comments,
+dependencies and recovery contracts are unchanged.
+
+The [final-evaluation design](final-evaluation.md) fixes nine full39 references
+and eighteen sensitivity controls with exact final checkpoints. It introduces
+no tuning and does not authorize test access. Its evaluator and shared test
+panel are not yet implemented/prepared; test inputs and cloud compute remain
+closed. Before one explicitly approved evaluation, synthetic/replay checks and
+a label-blind train/validation-to-test input-overlap audit must pass.
+
+```bash
+python scripts/official39_closeout.py audit
+python scripts/official39_closeout.py check-final-plan
+```
+
+These offline checks need only Python's standard library and the repository's
+JSON evidence. No dataset, checkpoint, GPU or cloud connection is required.
 
 ## Preparation and earlier evidence on 9 October 2026
 

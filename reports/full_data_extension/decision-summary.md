@@ -1,5 +1,12 @@
 # Official 39 feature findings and decision recommendations
 
+Latest update: the [three-seed mask confirmation](ablation-confirmation-findings.md)
+is complete. It includes non-IID training seeds 17/27 for the fixed 2M partition;
+the earlier 500k-to-2M non-IID scaling comparison below remains seed-7 only.
+The 27 new-panel endpoints are separate from the historical all-validation
+tables. The [final-evaluation protocol](final-evaluation.md) is prepared with
+test access disabled. No improved deployment candidate has been demonstrated.
+
 The cloud and local experiments now support a clear research conclusion: a
 larger training budget helps the centralized and IID light networks, but none
 of the investigated changes resolves the combination of missed rare attacks,
@@ -147,7 +154,11 @@ the model smaller or establish a privacy guarantee. Parameter storage excludes
 runtime allocations, activations and framework overhead. No physical-edge
 latency, energy or deployment memory was measured in this extension.
 
-## Next analysis and the stopping rule for compute
+## Earlier analysis sequence and the stopping rule for compute
+
+The following paragraphs preserve the sequence that led to the completed
+confirmation. Preparation-time next actions have since completed; use the
+final-evaluation handoff below for the current next step.
 
 The [full 219-case explanation study](explanation-study.md) now passes numerical
 QA for all seven frozen references, including controlled non-IID. It preserves
@@ -232,6 +243,41 @@ seed, substitute a best checkpoint, or promote a mask automatically. Three seeds
 remain descriptive within-collection replication. The new wrapper and protocol
 do not start cloud compute during local preparation or alter the original
 46-feature study, model code, dependencies, or final-test policy.
+
+## Completed confirmation and final-evaluation handoff
+
+The above prospective schedule is now complete. The [confirmation findings](ablation-confirmation-findings.md)
+retain all 27 endpoints and all eight recalls. On the same shared validation
+panel, mean full39 macro-F1 is 0.65569 centrally, 0.61386 under IID and 0.40492
+under controlled non-IID. The joint-mask changes average +0.014, −0.846 and
++0.233 percentage points, respectively, but the non-IID prospective-only mean
+change is −0.018 points. Its exploratory gain did not convincingly replicate.
+No masking arm restores non-IID Web-based or Brute Force recall; both remain
+zero in every seed. Preserve the research references without model promotion.
+
+The actionable decision layer is an explicit research-only comparison with
+coverage warnings, not an automated security response. Centralized light is
+the stronger aggregate reference among the scaled light settings; its substantial
+false alerts and rare-class weaknesses still prevent a deployment claim. The
+existing explanation findings are monitoring hypotheses, not validated rules.
+
+The [final protocol](final-evaluation-plan.json) pins nine primary full39 models
+and eighteen secondary sensitivity models, all at their exact final checkpoints.
+No thresholds, prior corrections, ensembles or new training are introduced.
+Test access remains unapproved. The next implementation must pass synthetic
+checks and validation replay, followed by an explicitly approved label-blind
+test overlap audit and one separately approved final evaluation. Keep cloud
+compute stopped during local preparation; do not replace this bounded finish
+with another broad tuning campaign.
+
+The [portable confirmation ledger](ablation-confirmation-results.json) is a
+companion to the historical ledger below, not a replacement or an independent
+27-run addition to every earlier metric view. Audit it with:
+
+```bash
+python scripts/official39_closeout.py audit
+python scripts/official39_closeout.py check-final-plan
+```
 
 ## Reproduce the evidence audit
 

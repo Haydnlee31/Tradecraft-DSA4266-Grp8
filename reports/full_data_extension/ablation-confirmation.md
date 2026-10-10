@@ -1,5 +1,17 @@
 # Feature masking results and seed confirmation
 
+## Completion update on 10 October 2026
+
+All 18 confirmation runs at seeds 17 and 27 are now complete and audited.
+The [completed findings](ablation-confirmation-findings.md) and
+[27-endpoint portable evidence](ablation-confirmation-results.json) supersede the
+preparation status below. The small seed-7 joint-mask non-IID gain did not repeat
+convincingly; no mask is promoted. The final test remains closed under the new
+[final-evaluation design](final-evaluation.md). Do not rerun the completed cloud
+commands below. The original JSON experiment plan remains immutable.
+
+## Original seed-7 findings and pre-run protocol
+
 The nine seed-7 models passed independent artifact and metric verification.
 Masking Number and Tot sum nearly preserved centralized macro-F1, slightly
 lowered IID federated macro-F1, and slightly raised controlled non-IID macro-F1.
@@ -9,8 +21,9 @@ full-feature models as references; no masked model is promoted.
 The next experiment adds training seeds 17 and 27 without changing the data,
 model, loss, client assignments, training budget or validation panel. The
 [confirmation plan](ablation-confirmation-plan.json) specifies 18 new runs.
-They are prepared, not executed. No cloud machine was accessed during this
-local preparation.
+At the time of this original preparation they were not executed. They have now
+completed as documented above. No cloud machine was accessed during that local
+preparation.
 
 ## What the first seed showed
 
@@ -128,7 +141,7 @@ It rechecks confirmation artifacts, produces the paired statistics and saves all
 final class metrics and work records. It does not open a dataset or evaluate a
 model. Existing summaries are not overwritten.
 
-## Cloud commands after the code handoff
+## Archived cloud commands after the code handoff — already completed
 
 Use the existing RONIN T4 and environment. From the Mac, reconnect with:
 
