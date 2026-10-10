@@ -6,16 +6,28 @@ on reused validation data, but cannot solve their rare-attack failures. Even
 a perfect selector between those original models has only 6.87% mean Web-based
 recall. Subsequent stages add a balanced specialist and examine routing costs.
 
-**Stage four is now complete:** the [frozen-policy trade-off analysis](tradeoff-findings.md)
+**Current direction: fully automatic classification.** The
+[score-fusion experiment](fusion-findings.md) combines the frozen generalist
+and balanced specialist using a small learned eight-class head. It compares
+fusion with each model alone, probability averaging, and single-model
+recalibration. Human review and abstention are not required; this addresses
+the project's objective of improving classification and rare-attack detection.
+The completed three-seed comparison raises mean IID/non-IID macro-F1 to
+0.6407/0.6330, but remains below the centralized reference and leaves about
+89% of Web-based attacks undetected. It fails the continuation screen; the
+findings recommend a bounded feature-aware expert experiment, not cloud scaling.
+The earlier review work below is preserved as an optional side experiment.
+
+Stage four's [frozen-policy trade-off analysis](tradeoff-findings.md)
 finds some gains when extra benign alerts are allowed, but no consistent
 rare-attack fix. Review queues concentrate some rare cases without claiming
 they are correctly detected. No operating point is approved; work remains
 local and no cloud run is needed.
 
-A [local read-only triage prototype](triage-prototype.md) now demonstrates
+A [local read-only triage prototype](triage-prototype.md) demonstrates
 those review policies using unchanged saved predictions. Flags are unresolved
 referrals, never automatic corrections or blocking actions. Its generated row
-preview stays outside git.
+preview stays outside git. It is not in the automatic fusion prediction path.
 
 The [stage-three learned-router experiment](router-findings.md)
 did not pass its predeclared success screen. One IID seed improves slightly;
@@ -24,8 +36,9 @@ benign false-alert guard. No model is promoted and no cloud run is needed.
 
 Stage two's [balanced-specialist comparison](specialist-findings.md) raised the
 Web-based diagnostic recall ceiling to 51.07%, but did not make confidence
-routing safe. The next decision is the acceptable alert or review burden, not
-an automatic capacity increase or paid API integration.
+routing safe. That motivated the earlier policy analysis. The current
+experiment instead asks whether learning directly from both score vectors
+can improve automatic predictions, while still reporting false alerts.
 The remainder of this page preserves the stage-one results and rationale.
 
 This is a separate exploratory extension on `experiment/risk-aware-routing`.
@@ -33,8 +46,9 @@ The [completed official39 study](../full_data_extension/final-closeout.md) stays
 unchanged. Its final test has already been exposed. This diagnostic does not
 reopen that test. The stage-one diagnostic described below did not train a
 model, fit a learned gate, call an API or authorise deployment. Stage three
-fits only the local router, as documented separately; no stage evaluates Jev,
-Laya or the Decisions API.
+fits only the local router, as documented separately. The automatic extension
+fits score-combination heads without retraining the neural models; no stage
+evaluates Jev, Laya or the Decisions API.
 
 ## What was compared
 

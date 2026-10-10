@@ -40,3 +40,6 @@ scripts/official39_policy_tradeoffs.py text eol=lf
 scripts/official39_triage.py text eol=lf
 src/eval/triage_preview.py text eol=lf
 src/eval/triage_preview.html text eol=lf
+# Automatic fusion preserves the earlier experiments and pins its own code.
+src/eval/score_fusion.py text eol=lf
+scripts/official39_score_fusion.py text eol=lf
