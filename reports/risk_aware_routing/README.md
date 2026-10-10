@@ -1,12 +1,19 @@
 # Routing feasibility for the official39 extension
 
-Updated 11 October 2026. Selectively consulting the existing centralized model
-improves the federated models on reused validation data, but cannot solve their
-rare-attack failures. Even a perfect selector between these models has only
-6.87% mean Web-based recall.
+Updated 11 October 2026. The initial comparison found that selectively
+consulting the existing centralized-light model improves the federated models
+on reused validation data, but cannot solve their rare-attack failures. Even
+a perfect selector between those original models has only 6.87% mean Web-based
+recall. Subsequent stages add a balanced specialist and examine routing costs.
 
-**Stage three is now complete:** the [local learned-router experiment](router-findings.md)
-does not pass its predeclared success screen. One IID seed improves slightly;
+**Stage four is now complete:** the [frozen-policy trade-off analysis](tradeoff-findings.md)
+finds some gains when extra benign alerts are allowed, but no consistent
+rare-attack fix. Review queues concentrate some rare cases without claiming
+they are correctly detected. No operating point is approved; work remains
+local and no cloud run is needed.
+
+The [stage-three learned-router experiment](router-findings.md)
+did not pass its predeclared success screen. One IID seed improves slightly;
 the other IID seeds and all non-IID seeds choose no calls under the conservative
 benign false-alert guard. No model is promoted and no cloud run is needed.
 

@@ -12,6 +12,10 @@ A specialist can recognise more rare attacks without an upstream router being
 able to identify safe consultations. The evidence supports a detection versus
 false-alert trade-off, not a free improvement from adding a decision layer.
 
+Update: the separate [stage-four frozen-policy sensitivity study](tradeoff-findings.md)
+is complete. It explores illustrative nonzero alert allowances and unresolved
+review referrals, without changing this experiment's failed success screen.
+
 ## The local experiment
 
 The [fixed plan](router-plan.json) follows the
