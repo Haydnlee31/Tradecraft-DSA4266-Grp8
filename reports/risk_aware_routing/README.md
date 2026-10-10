@@ -5,17 +5,24 @@ improves the federated models on reused validation data, but cannot solve their
 rare-attack failures. Even a perfect selector between these models has only
 6.87% mean Web-based recall.
 
-**Stage two is now complete:** the [balanced-specialist comparison](specialist-findings.md)
-raises that diagnostic ceiling to 51.07%, but the same confidence gate creates
-too many new mistakes. It is not a promoted model. The next useful step is a
-bounded numerical-router experiment, not cloud scaling or paid API integration.
+**Stage three is now complete:** the [local learned-router experiment](router-findings.md)
+does not pass its predeclared success screen. One IID seed improves slightly;
+the other IID seeds and all non-IID seeds choose no calls under the conservative
+benign false-alert guard. No model is promoted and no cloud run is needed.
+
+Stage two's [balanced-specialist comparison](specialist-findings.md) raised the
+Web-based diagnostic recall ceiling to 51.07%, but did not make confidence
+routing safe. The next decision is the acceptable alert or review burden, not
+an automatic capacity increase or paid API integration.
 The remainder of this page preserves the stage-one results and rationale.
 
 This is a separate exploratory extension on `experiment/risk-aware-routing`.
 The [completed official39 study](../full_data_extension/final-closeout.md) stays
 unchanged. Its final test has already been exposed. This diagnostic does not
-reopen that test, train a model, fit a learned gate, call an API or authorise
-deployment. It does not evaluate Jev, Laya or the Decisions API.
+reopen that test. The stage-one diagnostic described below did not train a
+model, fit a learned gate, call an API or authorise deployment. Stage three
+fits only the local router, as documented separately; no stage evaluates Jev,
+Laya or the Decisions API.
 
 ## What was compared
 
@@ -127,6 +134,8 @@ is a second-stage specialist diagnostic, not a promotion of the earlier model,
 a new training search or a claim that federated training improved.
 
 That comparison is now complete; see [its findings and next-step protocol](specialist-findings.md).
+The subsequent numerical-router experiment is also complete; see the
+[results and stopping decision](router-findings.md).
 
 Only if this supplies useful headroom should we fit a simple numerical gate
 and compare one typed-decision model with it. Gate training requires out-of-fold

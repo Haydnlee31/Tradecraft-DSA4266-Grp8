@@ -12,6 +12,10 @@ when consulting this specialist will help, rather than merely when the base
 model is uncertain?** A paid decision API has not yet earned a place in the
 pipeline. This comparison does not evaluate Jev, Laya or any external service.
 
+Update: the proposed local router experiment is now complete and did not pass
+its predeclared success screen. See [the router findings](router-findings.md).
+The specialist results below remain unchanged.
+
 ## What changed, and what stayed fixed
 
 This follows the [first routing diagnostic](README.md). The

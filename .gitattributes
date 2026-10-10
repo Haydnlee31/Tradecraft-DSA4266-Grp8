@@ -33,3 +33,6 @@ scripts/official39_routing_specialist.py text eol=lf
 # These unchanged helper bytes identify the saved specialist evaluation.
 src/eval/official_training_fit.py text eol=lf
 src/eval/official_panel_validation.py text eol=lf
+scripts/official39_routing_gate.py text eol=lf
+scripts/official39_routing_gate_report.py text eol=lf
+src/eval/routing_gate.py text eol=lf
