@@ -202,7 +202,9 @@ def main():
         evidence['paired_analysis'] = paired_analysis(evidence)
         result = audit_evidence(evidence)
         args.output.parent.mkdir(parents=True, exist_ok=True)
-        with args.output.open('x', encoding='utf-8') as stream:
+        # Receipts are byte-hashed. Do not let Windows turn LF into CRLF when
+        # rebuilding the same published evidence on another operating system.
+        with args.output.open('x', encoding='utf-8', newline='\n') as stream:
             stream.write(json.dumps(evidence, indent=2, allow_nan=False) + '\n')
     elif args.action == 'audit':
         result = audit_evidence(read(args.evidence))

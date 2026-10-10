@@ -1,11 +1,14 @@
 """Offline closeout checks: no training, dataset arrays or checkpoints required."""
 import copy
+from contextlib import redirect_stdout
+import io
 import json
 from pathlib import Path
 import subprocess
 import sys
 import tempfile
 import unittest
+from unittest.mock import patch
 
 from scripts import official39_closeout as closeout
 from src.data.label_map import BENIGN, WEB_BASED, BRUTE_FORCE
@@ -181,6 +184,19 @@ class OfficialCloseoutTests(unittest.TestCase):
                                 cwd=closeout.ROOT, capture_output=True, text=True)
         self.assertNotEqual(result.returncode, 0)
         self.assertIn('Preserve existing evidence', result.stderr)
+
+    def test_build_writes_portable_lf_bytes(self):
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / 'rebuilt.json'
+            args = ['closeout', 'build', '--archive-dir', directory, '--output', str(path)]
+            # Mock only archive acquisition. The real audit and writer still
+            # run, so Windows CI checks byte stability without private backups.
+            with patch.object(closeout, 'export', return_value=copy.deepcopy(self.evidence)), \
+                    patch.object(sys, 'argv', args), redirect_stdout(io.StringIO()):
+                closeout.main()
+            expected = (json.dumps(self.evidence, indent=2, allow_nan=False) + '\n').encode('utf-8')
+            self.assertEqual(path.read_bytes(), expected)
+            self.assertNotIn(b'\r\n', path.read_bytes())
 
 
 if __name__ == '__main__':
