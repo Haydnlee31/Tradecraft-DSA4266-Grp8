@@ -210,6 +210,29 @@ operating requirements and threshold-selection protocol; freeze them before
 accessing the held-out test. Validation has been reused extensively, and even
 a within-collection test cannot prove unseen-session or real-device generalization.
 
+## Feature masking and confirmation on 10 October 2026
+
+The CUDA pilot, three historical bridges and six masked runs are now complete.
+Independent archive review verified their checkpoints, source identity, pairing,
+work and shared panel, and recomputed 360 confusion-matrix metric views. See the
+[seed-7 findings and confirmation protocol](ablation-confirmation.md) and the
+[portable seed-7 evidence](ablation-seed7-results.json).
+
+At the final shared-panel endpoint, masking Number plus Tot sum changes macro-F1
+from 0.65456 to 0.65428 centrally, 0.61557 to 0.60919 under IID, and 0.40123 to
+0.40858 under controlled non-IID. Centralized false alerts rise from 18.00% to
+19.80%, while the masked non-IID model still labels 97.78% of Web-based and 96.26%
+of Brute Force validation attacks as benign. This is evidence about information
+dependence and training trade-offs, not an improved deployment candidate.
+
+Confirm all three arms in all lanes at training seeds 17 and 27, holding partition
+seed 7 and the exact assignments fixed. The 18-run schedule is frozen before
+scoring the new seeds. Do not stop based on favorable results, select the best
+seed, substitute a best checkpoint, or promote a mask automatically. Three seeds
+remain descriptive within-collection replication. The new wrapper and protocol
+do not start cloud compute during local preparation or alter the original
+46-feature study, model code, dependencies, or final-test policy.
+
 ## Reproduce the evidence audit
 
 The [published evidence](decision-evidence.json) contains 72 validation endpoints,

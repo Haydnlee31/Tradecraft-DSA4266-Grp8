@@ -1,0 +1,124 @@
+{
+  "protocol": "official39-ablation-confirmation-v1",
+  "status": "prepared_not_run",
+  "question": "Do the paired feature-mask effects observed at seed 7 persist under two additional training seeds, at fixed data and client assignments?",
+  "parent_plan_sha256": "b3cda2a4b916e18a9abe52e1229bae3dfc68ab0b397f24f9fc3721b6880cb02b",
+  "seed7_evidence_sha256": "75e0a9783d79b3b407d616c6fd8d1c8d86013f117a23a9a01064b97ada97ded0",
+  "seed7_archive_sha256": "58cefe5732eb2e232d12fa90f5adae5e745f57872ea066e8554f4a1fec115fa8",
+  "verified_training_source_commit": "5cc8206da6022d362449de69babfe8fb03a1fd08",
+  "existing_seed": 7,
+  "confirmation_seeds": [
+    17,
+    27
+  ],
+  "lanes": [
+    "light",
+    "iid",
+    "dirichlet"
+  ],
+  "arms": [
+    "full39",
+    "number_masked",
+    "number_total_masked"
+  ],
+  "settings": {
+    "cohort_rows": 2000000,
+    "source_validation_rows": 2059284,
+    "lanes": [
+      "light",
+      "iid",
+      "dirichlet"
+    ],
+    "initial_seed": 7,
+    "confirmation_seeds_pending_review": [
+      17,
+      27
+    ],
+    "epochs_or_rounds": 20,
+    "clients": 20,
+    "partition_seed": 7,
+    "alpha": 0.5,
+    "batch_size": 512,
+    "lr": 0.001,
+    "weight_decay": 1e-05,
+    "loss": "sqrt_weighted_ce",
+    "loss_reduction": "batch_weight_sum",
+    "normalization": "layer",
+    "hidden_dims": [
+      64,
+      32
+    ],
+    "dropout": 0.2,
+    "device": "cuda",
+    "threads": 2,
+    "local_max_batches": 0,
+    "total_update_budget": 0
+  },
+  "seed_rule": "Replace the model/training seed with 17 or 27; keep partition_seed=7. Pair every mask within a lane/seed. Do not pool different client partitions as training-seed replication.",
+  "packed_manifest_sha256": "dfd1caf01cbe233b52ce55083941001f390ec251dd89b37543630a2bc53935be",
+  "panel_receipt_sha256": "d2ae8eb1cdbd37974dd2e1c5c880e56858adc69181121760b16ea2f641309e77",
+  "panel_rows": 2047805,
+  "partitions": {
+    "iid_assignment_sha256": "99f985a1bdc06124643baa830bf83b82b10354575f40b645621b8898f5271872",
+    "dirichlet_assignment_sha256": "057d3705863bb7c0546dfd5aa980cc35c2082da25f85ef1075ccad37e7952f46",
+    "dirichlet_policy": "nested-anchor-class-shares-v1",
+    "rule": "Reuse frozen assignments and exact row order across arms and model seeds, not a fresh Dirichlet sample. Full participation and one full local epoch; persistent central Adam versus freshly initialized local Adam each client-round, unchanged from the reference."
+  },
+  "work_per_run": {
+    "light": {
+      "examples_processed": 40000000,
+      "optimizer_steps": 78140
+    },
+    "iid": {
+      "examples_processed": 40000000,
+      "optimizer_steps": 78400
+    },
+    "dirichlet": {
+      "examples_processed": 40000000,
+      "optimizer_steps": 78340
+    }
+  },
+  "maximum_new_runs": 18,
+  "new_examples_processed": 720000000,
+  "new_optimizer_steps": 1409280,
+  "per_seed_runs": 9,
+  "primary_endpoint": "final_step_20_on_shared_panel",
+  "secondary_endpoint": "Validation-best and original all-validation scores are descriptive only; never replace final shared-panel values.",
+  "analysis": {
+    "seed_order": [
+      7,
+      17,
+      27
+    ],
+    "seed_roles": "Seed 7 is the exploratory reference motivating this stage. Report seeds 17 and 27 as prospective confirmations, both separately and in the descriptive three-seed summary.",
+    "unit": "One paired training seed, not individual validation rows or epochs",
+    "comparisons": "Within each lane and seed, each masked arm minus full39. Retain all 27 endpoints.",
+    "report": [
+      "all per-seed final metrics",
+      "paired macro-F1 and benign false-alert differences",
+      "all eight class precision, recall and F1 differences",
+      "attack-as-benign and wrong-attack-category counts",
+      "work counters",
+      "training plus validation timing"
+    ],
+    "aggregation": "Mean, sample SD, range and raw paired values. Three seeds are descriptive replication, not a reliable significance/equivalence test.",
+    "no_automatic_promotion": "Do not select the best seed, best round or mask from aggregate F1 alone; retain false-alert and rare-class trade-offs.",
+    "limits": [
+      "Fixed partitions do not measure partition-draw uncertainty",
+      "Reused within-collection validation is not a fresh holdout or unseen-session evidence",
+      "Other window-size proxies may remain",
+      "Joint masking removes legitimate size information too"
+    ]
+  },
+  "execution": {
+    "order": "seed17, then seed27; within each seed light, iid, dirichlet; within each lane full39, number_masked, number_total_masked",
+    "stage_boundary": "Check integrity after seed17, not whether scores look favorable. Complete seed27 unchanged unless an integrity/runtime problem requires review.",
+    "preflight": "Hash-bound seed7 archive, unchanged complete training-source inventory, runtime, pack, panel and exact client assignments; no training in check mode",
+    "recovery": "Explicit --resume only. Verify completed artifacts before skipping them. Resume incomplete runs only from a saved completed-step checkpoint with unchanged session/plan/wrapper/source/settings. Never silently overwrite or restart partial runs.",
+    "scope": "No larger data, hyperparameter tuning, architecture changes, test evaluation or cloud automation."
+  },
+  "score_based_stopping_allowed": false,
+  "test_evaluation_allowed": false,
+  "model_promoted": false,
+  "cloud_started_during_preparation": false
+}

@@ -1,6 +1,22 @@
 # Official data scaling extension
 
-## Latest research status on 9 October 2026
+## Latest research status on 10 October 2026
+
+The [nine seed-7 feature masking runs](ablation-confirmation.md) are complete and
+independently verified. Joint Number/Tot sum masking nearly preserves centralized
+macro-F1, slightly lowers IID performance and slightly raises controlled non-IID
+macro-F1, but does not fix rare-class failures or false-alert trade-offs. No masked
+model is promoted. The [portable evidence](ablation-seed7-results.json) retains
+all class metrics, both validation views, work and artifact identities.
+
+The [confirmation plan](ablation-confirmation-plan.json) freezes seeds 17 and 27
+for all three masks and lanes: 18 new runs, not yet executed. The orchestration
+wrapper lives outside `src/` so training code, source guards and existing recovery
+remain unchanged. It supports read-only preflight, explicit per-seed execution,
+guarded recovery and a complete paired summary. Keep the dataset, partitions,
+settings and final test unchanged; no larger GPU or broad sweep is needed.
+
+## Preparation and earlier evidence on 9 October 2026
 
 The [shared-panel and ablation runner preparation](ablation-readiness.md) is now
 complete locally. The two-column projection excludes 11,479 overlapping validation
@@ -54,7 +70,7 @@ These are not 72 independent training runs. Teammates can audit the metrics with
 `python -m src.eval.official_evidence --audit reports/full_data_extension/decision-evidence.json`
 without the dataset, models or a GPU.
 
-Next: review the prepared shared panel, then schedule the bounded CUDA recovery
+The next step at that preparation checkpoint was to review the shared panel, then schedule the bounded CUDA recovery
 pilot. Keep RONIN off during that review; do not launch the 20-step comparison
 before CUDA recovery and the historical bridges pass. No broad training sweep is recommended. The official-39
 final test remains unused for model/threshold evaluation, and the original

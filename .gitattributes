@@ -14,3 +14,5 @@ src/eval/official_ablation_recovery.py text eol=lf
 # The synthetic gate also records its fixture implementations.
 tests/test_official_ablation.py text eol=lf
 tests/test_official_ablation_panel.py text eol=lf
+# Confirmation session receipts pin this out-of-tree orchestration wrapper.
+scripts/official39_ablation_confirmation.py text eol=lf
