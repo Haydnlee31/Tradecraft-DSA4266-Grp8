@@ -6,9 +6,10 @@ preserved for the secondary comparison. No test predictions, performance
 metrics, model training or new parameter choices were produced in preparation.
 
 The earlier [CUDA replay](final-validation-cuda-checks.json) reproduces all 27
-frozen models' historical validation counts exactly. The next computation is
-**step 6: one separately approved final evaluation on that validated runtime**.
-Keep RONIN stopped until that session is approved and scheduled.
+frozen models' historical validation counts exactly. The subsequent approved
+**step 6 final evaluation is also complete**, followed by the local research
+decision view and [final handoff](final-closeout.md). Keep RONIN stopped.
+The preparation results below remain unchanged historical evidence.
 
 ## What was prepared
 
@@ -109,7 +110,10 @@ matched to their original checksums. The larger SQLite indices stay local.
 Raw inputs, checkpoints, database indices and the archive are not committed
 to Git. Only aggregate receipts, tests and the handoff are published.
 
-## Remaining steps to completion
+## Handoff at the end of preparation
+
+The following were the remaining stages when this receipt was created. They
+have since completed for the official39 extension; see the final handoff above.
 
 6. **Final evaluation:** after separate approval, transfer the prepared archive
    to the existing T4 machine. Verify its checksum and the saved CUDA replay,

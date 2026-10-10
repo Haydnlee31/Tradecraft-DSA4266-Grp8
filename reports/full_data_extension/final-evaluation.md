@@ -1,9 +1,9 @@
 # Locked official39 final evaluation protocol
 
 The model-development sequence is closed without a deployment-ready replacement.
-The next objective is to measure how the frozen research comparison performs on
-the held-out within-collection split. Final evaluation will assess the current
-models, not repair them. No model training, new threshold, test-row access or
+The locked evaluation measures how the frozen research comparison performs on
+the held-out within-collection split. It assesses the current models rather than
+repairing them. No model training, new threshold, test-row access or
 test scoring occurred while preparing this design.
 
 The machine-readable [protocol](final-evaluation-plan.json) pins the
@@ -12,9 +12,10 @@ candidate checkpoint hashes and data identities. Its original
 `prepared_test_closed` status is immutable, not a live progress indicator.
 The subsequent [CUDA replay](final-validation-cuda-checks.json) passes all 27
 endpoints, and the separately approved [test preparation](test-preparation.md)
-has completed. Final model scoring is still unperformed and needs separate
-approval. The closeout checker itself has no evaluation action or model-loading
-dependency.
+has completed. The subsequent approved [final evaluation and closeout](final-closeout.md)
+also completed for all 27 models. This document preserves the locked design;
+its original JSON flags are not a live status indicator. The closeout checker
+itself has no evaluation action or model-loading dependency.
 
 ## Candidate set and endpoint
 
@@ -95,25 +96,20 @@ If the test confirms poor rare-class detection, report that limitation rather
 than tune against it. Once opened for final model assessment, this holdout cannot
 be reused as a fresh final test for additional architecture searches.
 
-## Execution gates and remaining work
+## Execution gates and completion
 
 The [evaluator implementation](final-evaluator-readiness.md) includes gated
 preparation/scoring and synthetic coverage. All 27 CUDA replay endpoints match
 both historical validation populations exactly. The authorized test panel is
-prepared, with all eight classes retained; no model scoring has occurred.
-Keep this preparation-time plan immutable. A later execution receipt must bind
+prepared, with all eight classes retained. The approved final scoring has since
+completed, and the separate JSON-only final-report auditor verifies its receipts.
+Keep this preparation-time plan immutable. The final execution receipt binds
 its hash, the separately approved access, runner identity and prepared panel;
 do not make the checker pass by manually changing its closed-state flags.
-The remaining work is bounded:
-
-- Obtain explicit approval for one complete
-  locked test evaluation. Preserve partial outputs on failure and resume only
-  with matching identities; no score-dependent continuation or reruns.
-- Publish the full result, then finalize the write-up and policy limitations.
-
-The next computation is inference on the validated CUDA runtime, not another
-training campaign. Keep RONIN stopped until that final evaluation is approved
-and scheduled. Preserve the successful replay folder for its runtime gate.
+These execution gates were satisfied without changing the candidates,
+thresholds or populations. All results and policy limitations are published
+in the [final handoff](final-closeout.md). No further computation is required
+for this closeout. Keep RONIN stopped and preserve the private archives.
 
 The official39 extension has no matched heavy lane. Keep that limitation visible:
 the legacy46 heavy/light/federated study and the official39 light extension answer

@@ -3,8 +3,9 @@
 The evaluator passes the historical replay gate on the original CUDA runtime:
 all 27 saved candidates reproduce both validation populations exactly. The
 six small differences on the Mac remain documented below, but no longer block
-use of the validated CUDA environment. Final test scoring remains a separate,
-unperformed stage. No training or test evaluation occurred during these checks.
+use of the validated CUDA environment. The subsequent approved
+[final evaluation](final-closeout.md) is now complete. No training or test
+evaluation occurred during the validation checks described here.
 
 ## What is now implemented
 
@@ -107,16 +108,14 @@ the unchanged exported receipt has SHA-256
 The [replay instructions](final-validation-cloud.md) are retained for recovery,
 not a request to repeat the successfully completed job.
 
-## Remaining stages
+## Subsequent completed stages
 
 The authorized [test preparation](test-preparation.md) is complete, with all
-eight classes retained. The remaining stages are:
-
-1. Obtain separate approval for one complete frozen final evaluation on the
-   validated CUDA runtime. Report every candidate and both populations.
-2. Complete the research write-up and decision-layer warnings. A final test
-   result cannot itself authorize operational deployment or cure rare-class
-   failures. This extension still has no matched official39 heavy model.
+eight classes retained. The separately approved final evaluation, research
+decision view and extension report are now complete in the [final handoff](final-closeout.md).
+They report every candidate and both populations. A final test result cannot
+itself authorize operational deployment or cure rare-class failures. This
+extension still has no matched official39 heavy model.
 
 The immutable protocol and historical training code are unchanged. The original
 46-feature study and its decision defaults remain separate.

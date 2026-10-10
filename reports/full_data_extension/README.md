@@ -1,6 +1,32 @@
 # Official data scaling extension
 
-## Latest research status on 10 October 2026
+## Latest research status on 11 October 2026
+
+**The official39 extension is complete through final evaluation and local
+closeout.** Start with the [final results and teammate handoff](final-closeout.md).
+All 27 frozen models completed the final test on the common 2,040,729-row
+population and the original 2,060,864-row secondary population. Full39 mean
+macro-F1 is 0.65673 centralized, 0.61169 IID and 0.40494 controlled non-IID.
+Rare-class failures and false-alert trade-offs persist; no model is promoted.
+
+The [portable final evidence](final-test-results.json),
+[complete tables](final-test-tables.md) and
+[research decision view](final-test-decision.json) retain all models, seeds,
+classes and error types. They are separate from the original46 decision engine
+and do not authorize automatic allow/block actions. Steps 6, 7 and the
+official39 handoff in step 8 are complete. Keep RONIN stopped; no further cloud
+training or parameter search is planned.
+
+```bash
+python scripts/official39_final_report.py audit
+python scripts/official39_final_report.py decision
+```
+
+These commands use JSON and the standard library only. They do not read traffic,
+load models or run predictions. The final test is now exposed and must not be
+reused as an untouched holdout after further tuning.
+
+## Confirmation and final preparation background
 
 The [feature-mask confirmation](ablation-confirmation-findings.md) is complete:
 nine exploratory seed-7 models plus all eighteen prospective seed-17/27 models.
@@ -21,17 +47,12 @@ no tuning. The [completed CUDA replay](final-evaluator-readiness.md) reproduces
 all 27 historical endpoints exactly, clearing the six small Mac-runtime count
 differences for execution in the original CUDA environment.
 
-**Step 5 is complete:** the authorized [local test preparation](test-preparation.md)
+The authorized [local test preparation](test-preparation.md)
 retains 2,040,729 of 2,060,864 test rows after excluding exact training/validation
 input matches under any mask. All eight classes remain, including every
 Web-based and Brute Force case. Original test rows are preserved for the
-secondary comparison. No model has been scored on these test inputs.
-
-Next is **step 6**, one separately approved final evaluation of the 27 frozen
-models on the validated T4 runtime, followed by **step 7**, results and
-decision-layer integration, and **step 8**, the report and teammate handoff.
-No further training or larger GPU is planned. RONIN can remain stopped until
-the final evaluation is approved and scheduled.
+secondary comparison. That preparation did not score models; the subsequent
+approved final evaluation is recorded in the current evidence linked above.
 
 ```bash
 python scripts/official39_closeout.py audit
@@ -42,7 +63,7 @@ These offline checks need only Python's standard library and the repository's
 JSON evidence. No dataset, checkpoint, GPU or cloud connection is required.
 The final-plan checker retains its original closed-state flags because the
 design is immutable; subsequent authorization and progress are recorded in
-the [preparation receipt](test-panel-preparation.json), not by rewriting the plan.
+the preparation and final execution receipts, not by rewriting the plan.
 
 ## Preparation and earlier evidence on 9 October 2026
 
@@ -98,12 +119,12 @@ These are not 72 independent training runs. Teammates can audit the metrics with
 `python -m src.eval.official_evidence --audit reports/full_data_extension/decision-evidence.json`
 without the dataset, models or a GPU.
 
-The next step at that preparation checkpoint was to review the shared panel, then schedule the bounded CUDA recovery
-pilot. Keep RONIN off during that review; do not launch the 20-step comparison
-before CUDA recovery and the historical bridges pass. No broad training sweep is recommended. The official-39
-final test remains unused for model/threshold evaluation, and the original
-46-feature study stays separate. Raw data, checkpoints and per-row scores remain
-outside Git. The [prior correction](prior-correction-findings.md) and
+At that historical preparation checkpoint, the next step was to review the
+shared panel and schedule bounded CUDA recovery. The 20-step comparison required
+successful recovery and historical bridges first; those gates and the later
+final test have since completed. The original 46-feature study stays separate.
+Raw data, checkpoints and per-row scores remain outside Git.
+The [prior correction](prior-correction-findings.md) and
 [diversity control](diversity-findings.md) retain the preceding detailed findings.
 
 ## Purpose and data preparation background

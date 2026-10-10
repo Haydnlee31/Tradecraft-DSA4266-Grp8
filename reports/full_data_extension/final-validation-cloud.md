@@ -2,8 +2,9 @@
 
 This replay has now completed successfully for all 27 candidates. Keep these
 instructions for recovery; do not repeat the job merely because the historical
-handoff remains here. The current next stage is in the
-[test preparation handoff](test-preparation.md).
+handoff remains here. The subsequent final test and local closeout also
+completed; see the [final results and teammate handoff](final-closeout.md).
+The commands below are historical recovery instructions, not a new run request.
 
 Use the existing T4 machine and its `tradecraft-official39` environment. Do not
 create a larger instance, upgrade Torch, retrain, or open test shards for this
