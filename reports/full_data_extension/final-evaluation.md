@@ -92,16 +92,20 @@ be reused as a fresh final test for additional architecture searches.
 
 ## Execution gates and remaining work
 
-The current closeout implements evidence export, offline audits and protocol
-checks only. It does not yet implement the evaluator or create the test panel.
+The original closeout implemented evidence export, offline audits and protocol
+checks only. The subsequent [evaluator implementation](final-evaluator-readiness.md)
+now includes gated preparation/scoring and synthetic coverage. Its local
+validation replay matches the unchanged evaluator for all 27 candidates, but
+six endpoints differ slightly from archived CUDA counts. The strict historical
+replay gate remains blocked; the test panel has not been created.
 Keep this preparation-time plan immutable. A later execution receipt must bind
 its hash, the separately approved access, runner identity and prepared panel;
 do not make the checker pass by manually changing its closed-state flags.
 The remaining work is bounded:
 
-- Implement the evaluator and input-overlap preparation outside the frozen
-  training path. Test masks, ties, counts, exclusions and output preservation on
-  synthetic fixtures; replay saved validation endpoints before test scoring.
+- Complete historical-count replay in the original CUDA runtime before test
+  scoring. Implementation and synthetic checks are complete outside the frozen
+  training path; the CPU/CUDA discrepancy must not be hidden by relaxing counts.
 - Obtain explicit permission before opening test shards for the label-blind
   overlap audit. Freeze the resulting panel identity without inspecting scores.
 - After all preflight checks pass, obtain explicit approval for one complete

@@ -17,10 +17,13 @@ dependencies and recovery contracts are unchanged.
 
 The [final-evaluation design](final-evaluation.md) fixes nine full39 references
 and eighteen sensitivity controls with exact final checkpoints. It introduces
-no tuning and does not authorize test access. Its evaluator and shared test
-panel are not yet implemented/prepared; test inputs and cloud compute remain
-closed. Before one explicitly approved evaluation, synthetic/replay checks and
-a label-blind train/validation-to-test input-overlap audit must pass.
+no tuning and does not authorize test access. The [evaluator implementation and
+CPU replay](final-evaluator-readiness.md) now pass 21 synthetic checks and all
+27 same-runtime validation comparisons. Six endpoints have a small count
+difference from the archived CUDA results; the strict historical gate remains
+blocked. The test panel is not prepared and test scoring remains closed. The
+next check is a short validation-only replay in the original CUDA environment,
+not retraining. See the [connection and replay instructions](final-validation-cloud.md).
 
 ```bash
 python scripts/official39_closeout.py audit

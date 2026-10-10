@@ -18,3 +18,11 @@ tests/test_official_ablation.py text eol=lf
 tests/test_official_ablation_panel.py text eol=lf
 # Confirmation session receipts pin this out-of-tree orchestration wrapper.
 scripts/official39_ablation_confirmation.py text eol=lf
+# The frozen evaluator binds these implementation bytes across operating systems.
+scripts/official39_final_evaluation.py text eol=lf
+scripts/official39_test_panel.py text eol=lf
+scripts/official39_closeout.py text eol=lf
+src/data/label_map.py text eol=lf
+src/data/official_loader.py text eol=lf
+src/models/architectures.py text eol=lf
+src/eval/official_evidence.py text eol=lf
