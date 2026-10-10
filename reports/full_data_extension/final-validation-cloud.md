@@ -1,8 +1,14 @@
-# Optional next session: validation replay only
+# Completed validation replay and recovery instructions
+
+This replay has now completed successfully for all 27 candidates. Keep these
+instructions for recovery; do not repeat the job merely because the historical
+handoff remains here. The current next stage is in the
+[test preparation handoff](test-preparation.md).
 
 Use the existing T4 machine and its `tradecraft-official39` environment. Do not
 create a larger instance, upgrade Torch, retrain, or open test shards for this
-check. These commands are a handoff, not a record of a cloud run already made.
+check. These commands are the original handoff; the completed run is recorded
+in the [CUDA receipt](final-validation-cuda-checks.json).
 
 ## 1. Start the existing machine when ready, then connect from your Mac
 

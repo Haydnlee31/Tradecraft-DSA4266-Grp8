@@ -4,15 +4,18 @@ Latest update: the [three-seed mask confirmation](ablation-confirmation-findings
 is complete. It includes non-IID training seeds 17/27 for the fixed 2M partition;
 the earlier 500k-to-2M non-IID scaling comparison below remains seed-7 only.
 The 27 new-panel endpoints are separate from the historical all-validation
-tables. The [final-evaluation protocol](final-evaluation.md) is prepared with
-test access disabled. No improved deployment candidate has been demonstrated.
+tables. The [final-evaluation protocol](final-evaluation.md) remains frozen.
+The subsequent [CUDA verification and local test preparation](test-preparation.md)
+are complete; final model scoring still requires separate approval. No improved
+deployment candidate has been demonstrated.
 
 The cloud and local experiments now support a clear research conclusion: a
 larger training budget helps the centralized and IID light networks, but none
 of the investigated changes resolves the combination of missed rare attacks,
 incorrect attack labels and benign false alerts. Close this tuning sequence.
 Keep the full-cohort references for analysis, not deployment. Leave the cloud
-machine stopped and the official-39 final test sealed.
+machine stopped until the approved final inference session; test data have been
+opened only for the subsequent preparation and integrity checks, not model scoring.
 
 This is a useful result for Tradecraft's trade-off question, even without a new
 winning architecture. It shows where the small federated model loses useful

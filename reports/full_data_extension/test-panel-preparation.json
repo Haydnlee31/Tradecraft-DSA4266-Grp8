@@ -1,0 +1,244 @@
+{
+  "protocol": "official39-test-panel-v1",
+  "status": "prepared_not_scored",
+  "plan_sha256": "48f105e89229830556f4252952876f09a2984044fb1b4fb5ecef0914551ae247",
+  "source_sha256": {
+    "scripts/official39_final_evaluation.py": "10cd95078217fa604729e99f0782ada0ec37adf3fad59a6621077d92b6dbea07",
+    "scripts/official39_test_panel.py": "3d1e42b8b4727f1c0567100b66d78d4b06f1a25f98ebe2efb26d89f9001eb7ac",
+    "scripts/official39_closeout.py": "5f0d27236a3d9b49b08cb674e468d5f005759c038c810636af3d86fc755d2f7f",
+    "src/data/label_map.py": "18f43ecb917d0f453572e497675799930ab6f76e1130b54cd45e7fd463f2d994",
+    "src/data/official_loader.py": "1ca5b6d48df7b4980cdd04a3eac7d9b2c112afb56000505193aa18ec07dfe431",
+    "src/data/official_shortcut_audit.py": "9472605b1effccf0b17691f3990845f5d50d83b5f860cc577401b232ed0cc0d1",
+    "src/data/official_ablation_panel.py": "a7efade572a71f10b972025b7b98d1b8f5008b48b5cc9fdfd44c51b20a285f25",
+    "src/models/architectures.py": "921a1c9fd5f212d647eaea93e8c0fec8134cd0ca1b118d8ed41e7d5d7fd85526",
+    "src/models/official_ablation.py": "9b330ca2cf042da961bf76ec43e6a6265252d0664e818ea6b5bbf31859fc1e71",
+    "src/eval/official_evidence.py": "2c3fb23270209bdb50f90bb9370a6e30855cf88bf97a8e0f1a02ad76acfde98c"
+  },
+  "explicit_test_preparation_opt_in": true,
+  "test_opened": true,
+  "test_evaluated": false,
+  "model_trained": false,
+  "parent_manifest_sha256": "1f35e1c29599e056e0758554094425b2d3f744c4853928bafc44bc2f800a1ed3",
+  "scaler_sha256": "6731ce8c113fa568006ef551bb40b00e027169598d16f9b96e02f491ca681b9e",
+  "rows": 2060864,
+  "features": [
+    "Header_Length",
+    "Protocol Type",
+    "Time_To_Live",
+    "Rate",
+    "fin_flag_number",
+    "syn_flag_number",
+    "rst_flag_number",
+    "psh_flag_number",
+    "ack_flag_number",
+    "ece_flag_number",
+    "cwr_flag_number",
+    "ack_count",
+    "syn_count",
+    "fin_count",
+    "rst_count",
+    "HTTP",
+    "HTTPS",
+    "DNS",
+    "Telnet",
+    "SMTP",
+    "SSH",
+    "IRC",
+    "TCP",
+    "UDP",
+    "DHCP",
+    "ARP",
+    "ICMP",
+    "IGMP",
+    "IPv",
+    "LLC",
+    "Tot sum",
+    "Min",
+    "Max",
+    "AVG",
+    "Std",
+    "Tot size",
+    "IAT",
+    "Number",
+    "Variance"
+  ],
+  "classes": [
+    "Benign",
+    "DDoS",
+    "DoS",
+    "Recon",
+    "Web-based",
+    "Brute Force",
+    "Spoofing",
+    "Mirai"
+  ],
+  "class_counts": {
+    "Benign": 109137,
+    "DDoS": 1213933,
+    "DoS": 373680,
+    "Recon": 68364,
+    "Web-based": 2437,
+    "Brute Force": 1310,
+    "Spoofing": 45485,
+    "Mirai": 246518
+  },
+  "panel": {
+    "retained_rows": 2040729,
+    "excluded_rows": 20135,
+    "retained_class_counts": {
+      "Benign": 109133,
+      "DDoS": 1203157,
+      "DoS": 364574,
+      "Recon": 68363,
+      "Web-based": 2437,
+      "Brute Force": 1310,
+      "Spoofing": 45471,
+      "Mirai": 246284
+    },
+    "excluded_class_counts": {
+      "Benign": 4,
+      "DDoS": 10776,
+      "DoS": 9106,
+      "Recon": 1,
+      "Web-based": 0,
+      "Brute Force": 0,
+      "Spoofing": 14,
+      "Mirai": 234
+    },
+    "all_classes_retained": true,
+    "projections": {
+      "full39": {
+        "matched_rows": {
+          "train": 11450,
+          "val": 11699,
+          "either": 20120
+        },
+        "matched_class_counts": {
+          "train": {
+            "Benign": 3,
+            "DDoS": 5929,
+            "DoS": 5390,
+            "Recon": 1,
+            "Web-based": 0,
+            "Brute Force": 0,
+            "Spoofing": 10,
+            "Mirai": 117
+          },
+          "val": {
+            "Benign": 1,
+            "DDoS": 6119,
+            "DoS": 5456,
+            "Recon": 0,
+            "Web-based": 0,
+            "Brute Force": 0,
+            "Spoofing": 4,
+            "Mirai": 119
+          },
+          "either": {
+            "Benign": 4,
+            "DDoS": 10768,
+            "DoS": 9100,
+            "Recon": 1,
+            "Web-based": 0,
+            "Brute Force": 0,
+            "Spoofing": 14,
+            "Mirai": 233
+          }
+        },
+        "held_out_unique_projected_vectors": 2054580,
+        "duplicate_groups": 5544,
+        "duplicate_excess_rows": 6284
+      },
+      "number_masked": {
+        "matched_rows": {
+          "train": 11450,
+          "val": 11699,
+          "either": 20120
+        },
+        "matched_class_counts": {
+          "train": {
+            "Benign": 3,
+            "DDoS": 5929,
+            "DoS": 5390,
+            "Recon": 1,
+            "Web-based": 0,
+            "Brute Force": 0,
+            "Spoofing": 10,
+            "Mirai": 117
+          },
+          "val": {
+            "Benign": 1,
+            "DDoS": 6119,
+            "DoS": 5456,
+            "Recon": 0,
+            "Web-based": 0,
+            "Brute Force": 0,
+            "Spoofing": 4,
+            "Mirai": 119
+          },
+          "either": {
+            "Benign": 4,
+            "DDoS": 10768,
+            "DoS": 9100,
+            "Recon": 1,
+            "Web-based": 0,
+            "Brute Force": 0,
+            "Spoofing": 14,
+            "Mirai": 233
+          }
+        },
+        "held_out_unique_projected_vectors": 2054580,
+        "duplicate_groups": 5544,
+        "duplicate_excess_rows": 6284
+      },
+      "number_total_masked": {
+        "matched_rows": {
+          "train": 11458,
+          "val": 11706,
+          "either": 20135
+        },
+        "matched_class_counts": {
+          "train": {
+            "Benign": 3,
+            "DDoS": 5934,
+            "DoS": 5393,
+            "Recon": 1,
+            "Web-based": 0,
+            "Brute Force": 0,
+            "Spoofing": 10,
+            "Mirai": 117
+          },
+          "val": {
+            "Benign": 1,
+            "DDoS": 6122,
+            "DoS": 5459,
+            "Recon": 0,
+            "Web-based": 0,
+            "Brute Force": 0,
+            "Spoofing": 4,
+            "Mirai": 120
+          },
+          "either": {
+            "Benign": 4,
+            "DDoS": 10776,
+            "DoS": 9106,
+            "Recon": 1,
+            "Web-based": 0,
+            "Brute Force": 0,
+            "Spoofing": 14,
+            "Mirai": 234
+          }
+        },
+        "held_out_unique_projected_vectors": 2054580,
+        "duplicate_groups": 5544,
+        "duplicate_excess_rows": 6284
+      }
+    },
+    "label_blind_membership": true
+  },
+  "files": {
+    "x.npy": "20df8f6e0d211de33e58154766a3236f069df213cafd13f32cd3a96452d8c3a2",
+    "y.npy": "0476d81530cc13a2fefda9119e6bb09dc336390f2d2ecd8bae11bd85ec25a093",
+    "retained.npy": "9a875e134cd28e155debbf6833b5bdb85814cdf846a2227d7899feff38e30615"
+  }
+}

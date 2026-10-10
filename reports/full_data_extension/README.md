@@ -17,13 +17,21 @@ dependencies and recovery contracts are unchanged.
 
 The [final-evaluation design](final-evaluation.md) fixes nine full39 references
 and eighteen sensitivity controls with exact final checkpoints. It introduces
-no tuning and does not authorize test access. The [evaluator implementation and
-CPU replay](final-evaluator-readiness.md) now pass 21 synthetic checks and all
-27 same-runtime validation comparisons. Six endpoints have a small count
-difference from the archived CUDA results; the strict historical gate remains
-blocked. The test panel is not prepared and test scoring remains closed. The
-next check is a short validation-only replay in the original CUDA environment,
-not retraining. See the [connection and replay instructions](final-validation-cloud.md).
+no tuning. The [completed CUDA replay](final-evaluator-readiness.md) reproduces
+all 27 historical endpoints exactly, clearing the six small Mac-runtime count
+differences for execution in the original CUDA environment.
+
+**Step 5 is complete:** the authorized [local test preparation](test-preparation.md)
+retains 2,040,729 of 2,060,864 test rows after excluding exact training/validation
+input matches under any mask. All eight classes remain, including every
+Web-based and Brute Force case. Original test rows are preserved for the
+secondary comparison. No model has been scored on these test inputs.
+
+Next is **step 6**, one separately approved final evaluation of the 27 frozen
+models on the validated T4 runtime, followed by **step 7**, results and
+decision-layer integration, and **step 8**, the report and teammate handoff.
+No further training or larger GPU is planned. RONIN can remain stopped until
+the final evaluation is approved and scheduled.
 
 ```bash
 python scripts/official39_closeout.py audit
@@ -32,6 +40,9 @@ python scripts/official39_closeout.py check-final-plan
 
 These offline checks need only Python's standard library and the repository's
 JSON evidence. No dataset, checkpoint, GPU or cloud connection is required.
+The final-plan checker retains its original closed-state flags because the
+design is immutable; subsequent authorization and progress are recorded in
+the [preparation receipt](test-panel-preparation.json), not by rewriting the plan.
 
 ## Preparation and earlier evidence on 9 October 2026
 

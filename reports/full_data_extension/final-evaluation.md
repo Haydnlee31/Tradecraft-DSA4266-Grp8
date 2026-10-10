@@ -1,4 +1,4 @@
-# Locked official39 final-evaluation design — test still closed
+# Locked official39 final evaluation protocol
 
 The model-development sequence is closed without a deployment-ready replacement.
 The next objective is to measure how the frozen research comparison performs on
@@ -8,9 +8,13 @@ test scoring occurred while preparing this design.
 
 The machine-readable [protocol](final-evaluation-plan.json) pins the
 [verified confirmation evidence](ablation-confirmation-results.json), all
-candidate checkpoint hashes and data identities. Its current status is
-`prepared_test_closed`, not ready-to-run or permission to access test data.
-The checker has no evaluation action and no model/data-loading dependency.
+candidate checkpoint hashes and data identities. Its original
+`prepared_test_closed` status is immutable, not a live progress indicator.
+The subsequent [CUDA replay](final-validation-cuda-checks.json) passes all 27
+endpoints, and the separately approved [test preparation](test-preparation.md)
+has completed. Final model scoring is still unperformed and needs separate
+approval. The closeout checker itself has no evaluation action or model-loading
+dependency.
 
 ## Candidate set and endpoint
 
@@ -34,13 +38,14 @@ No confidence cutoff or alert-rate cap is fitted in this evaluation. The earlier
 
 The protocol binds the original duplicate-grouped split, shard manifest,
 two-million-row train-fitted scaler, train/validation arrays and feature order.
-The previously audited test split contains 2,060,864 rows before any float32
-overlap screening. This count comes from existing metadata, not a new test read.
+The test split contains 2,060,864 rows before float32 overlap screening. The
+authorized preparation retains 2,040,729 rows for the common primary comparison;
+its [receipt](test-panel-preparation.json) freezes the membership and class counts.
 Preprocessing must reproduce float64 training-only scaling, then float32 casting,
 then the candidate's training-time standardized-input mask. Never refit a scaler.
 
-The known float64-to-float32 overlap issue must not be silently carried into
-final evaluation. After separate permission to read test shards:
+The following approved preparation rules were executed before any final model
+scoring, to address the known float64-to-float32 overlap issue:
 
 1. Stream test inputs in bounded batches; use a disk-backed exact-input index.
    Canonicalize float32 byte order and signed zero consistently. Do not load the
@@ -92,30 +97,23 @@ be reused as a fresh final test for additional architecture searches.
 
 ## Execution gates and remaining work
 
-The original closeout implemented evidence export, offline audits and protocol
-checks only. The subsequent [evaluator implementation](final-evaluator-readiness.md)
-now includes gated preparation/scoring and synthetic coverage. Its local
-validation replay matches the unchanged evaluator for all 27 candidates, but
-six endpoints differ slightly from archived CUDA counts. The strict historical
-replay gate remains blocked; the test panel has not been created.
+The [evaluator implementation](final-evaluator-readiness.md) includes gated
+preparation/scoring and synthetic coverage. All 27 CUDA replay endpoints match
+both historical validation populations exactly. The authorized test panel is
+prepared, with all eight classes retained; no model scoring has occurred.
 Keep this preparation-time plan immutable. A later execution receipt must bind
 its hash, the separately approved access, runner identity and prepared panel;
 do not make the checker pass by manually changing its closed-state flags.
 The remaining work is bounded:
 
-- Complete historical-count replay in the original CUDA runtime before test
-  scoring. Implementation and synthetic checks are complete outside the frozen
-  training path; the CPU/CUDA discrepancy must not be hidden by relaxing counts.
-- Obtain explicit permission before opening test shards for the label-blind
-  overlap audit. Freeze the resulting panel identity without inspecting scores.
-- After all preflight checks pass, obtain explicit approval for one complete
+- Obtain explicit approval for one complete
   locked test evaluation. Preserve partial outputs on failure and resume only
   with matching identities; no score-dependent continuation or reruns.
 - Publish the full result, then finalize the write-up and policy limitations.
 
-These are inference/data-integrity tasks, not another cloud training campaign.
-Keep RONIN stopped for implementation and synthetic checks. Measure validation
-replay time locally before deciding whether cloud inference is necessary.
+The next computation is inference on the validated CUDA runtime, not another
+training campaign. Keep RONIN stopped until that final evaluation is approved
+and scheduled. Preserve the successful replay folder for its runtime gate.
 
 The official39 extension has no matched heavy lane. Keep that limitation visible:
 the legacy46 heavy/light/federated study and the official39 light extension answer

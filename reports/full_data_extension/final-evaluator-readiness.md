@@ -1,8 +1,10 @@
-# Frozen evaluator readiness — 10 October 2026
+# Frozen evaluator readiness
 
-The evaluator is implemented and locally checked. Final test scoring is still
-blocked by the historical replay gate. No official test rows were opened in
-this work, no model was trained, and no cloud machine was started.
+The evaluator passes the historical replay gate on the original CUDA runtime:
+all 27 saved candidates reproduce both validation populations exactly. The
+six small differences on the Mac remain documented below, but no longer block
+use of the validated CUDA environment. Final test scoring remains a separate,
+unperformed stage. No training or test evaluation occurred during these checks.
 
 ## What is now implemented
 
@@ -25,8 +27,9 @@ packing and disk-backed exact-input screening. It reconstructs the saved
 train-only scaler, replays packed rows for identity, and excludes matches to
 training **or validation** under any input mask. Every candidate will use the
 same retained rows. Membership ignores labels; reporting retains class supports
-and projected duplicate counts. Empty retained classes block scoring. This
-production preparation has **not** been executed.
+and projected duplicate counts. Empty retained classes block scoring. See the
+[test preparation handoff](test-preparation.md) for the subsequent authorized
+data-access stage; it is separate from this validation-only replay.
 
 ## Checks actually run
 
@@ -48,7 +51,7 @@ The measured sum of inference/replay sections was 36.91 seconds. This includes
 two validation forwards per candidate (new and unchanged evaluators), not
 archive/input verification or total wall time. It is not an edge benchmark.
 
-## Why the final-test gate is still blocked
+## CPU replay differences
 
 The local runtime is macOS arm64, Python 3.13.9, Torch 2.14.0, NumPy 2.5.3,
 two CPU threads. The archived models were evaluated on CUDA with Torch
@@ -73,9 +76,9 @@ relaxed after observing them.
 
 Matching the unchanged evaluator locally makes a new counting/masking bug less
 likely. The differences are consistent with runtime/device numerical variation,
-but this comparison does not isolate the cause. Replaying in the original CUDA
-environment is the next diagnostic. This requires inference only, not training,
-more data, a larger model or a more expensive GPU.
+but this comparison does not isolate the cause. The subsequent replay in the
+original CUDA environment reproduces all historical counts exactly. Final
+inference must use that validated environment, not silently substitute the Mac.
 
 The local receipt is `outputs/official39-final-validation-replay-v1/checks.json`,
 with SHA-256 `741ae1ff88786d85290a3c7097ab5eeafdbfc81cf1a2fe8425198cc211b2601b`.
@@ -84,16 +87,34 @@ It binds all 27 case-file hashes, runtime, runner sources and frozen protocol
 Each case preserves both populations' full metrics, per-class recalls and errors.
 Private checkpoints, arrays and individual replay outputs remain outside Git.
 
-## Remaining gates
+## Completed CUDA replay
 
-1. [Validation-only CUDA replay](final-validation-cloud.md), with no tolerance
-   change and no test access. If any endpoint still differs, preserve the output
-   and diagnose before advancing.
-2. Explicit approval to prepare the label-blind test overlap panel; inspect its
-   receipt and retained supports without model scoring.
-3. Separate approval for one complete frozen final evaluation on the validated
-   runtime. Report all candidates and both populations, including poor results.
-4. Complete the research write-up and decision-layer warnings. A final test
+The [CUDA receipt](final-validation-cuda-checks.json) records 27 same-runtime
+matches and 27 exact historical matches on the Tesla T4, Torch 2.7.0+cu128,
+Python 3.12.10 and NumPy 2.5.3. The local archive review checked every case hash,
+the session and recovery journal, all frozen checkpoint state hashes, both
+confusion matrices and all eight classes' metrics against the original records.
+It did not perform new inference. Both validation views pass for all 27 models.
+
+The cloud inference/replay sections sum to 253.44 seconds, excluding setup,
+archive checks and file I/O outside those sections. This is not billing time
+or an edge benchmark. All three CI jobs for evaluator commit `e4c3215` passed.
+
+The backup archive SHA-256 is
+`d4627714a5b19e73c084c2821c2d0458c548db5d5dad087e8c7eee0c350a57e3`;
+the unchanged exported receipt has SHA-256
+`1b0ea88403fe1b591021f77b4a028e18f4d948ebd6fd182bc51efb7c809d2643`.
+The [replay instructions](final-validation-cloud.md) are retained for recovery,
+not a request to repeat the successfully completed job.
+
+## Remaining stages
+
+The authorized [test preparation](test-preparation.md) is complete, with all
+eight classes retained. The remaining stages are:
+
+1. Obtain separate approval for one complete frozen final evaluation on the
+   validated CUDA runtime. Report every candidate and both populations.
+2. Complete the research write-up and decision-layer warnings. A final test
    result cannot itself authorize operational deployment or cure rare-class
    failures. This extension still has no matched official39 heavy model.
 
