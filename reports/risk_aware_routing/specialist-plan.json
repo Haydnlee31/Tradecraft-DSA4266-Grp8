@@ -1,0 +1,37 @@
+{
+  "protocol": "official39-routing-specialist-v1",
+  "purpose": "Compare a frozen balanced-panel fallback with the frozen full-cohort centralized fallback on identical development rows and routing selections",
+  "headroom_plan_sha256": "b857169ae1194236f2825ab6c8d6d9b347893876d0e5aafc88dedc81ecaaf28c",
+  "headroom_results_sha256": "02a23ccbf003b71c2de8b6e9f70aea46939c55d302eb0eb08c0f8b15bdee40cb",
+  "headroom_runner_sha256": "76d6399823b73874e5f561da0290e1678576426b41fb566e62006f0ea02e566c",
+  "specialist_receipt_sha256": "b5767472daeb19218e2a704c1c3d6edf54a129c96ac8da0a88f8d20698c6df99",
+  "specialist_training_panel_sha256": "eeb0da60b60a6af56c7a66920dd2877a59b3f5aa768fb79f27bca079b8afab52",
+  "specialist_condition": "small_dropout",
+  "specialist_epochs": 300,
+  "specialist_historical_batch_size": 8192,
+  "reviewed_evaluator_bridge": {
+    "file": "models/official_streaming.py",
+    "historical_sha256": "82eebe2e342c727fb79811278c9847e9debd0daeb9c2ff7debf7c29988a29646",
+    "current_sha256": "cf7085916f6794867485802236662131c3465d1f40564d692a398c64b7ffe496",
+    "evaluate_source_sha256": "ca41ebb148a6df26923a1d91034803b7db728a7bc76da5ce5f48d226c19b458d",
+    "reason": "Reviewed bfab230..5cc8206: opt-in ablation additions change training wrapper, not evaluate; historical specialist confusion matrices must still reproduce exactly"
+  },
+  "seeds": [7, 17, 27],
+  "base_lanes": ["iid", "dirichlet"],
+  "fallbacks": ["centralized_full_cohort", "balanced_panel"],
+  "budgets_percent": [1, 5, 10],
+  "controls": ["lowest_base_confidence", "random_same_budget"],
+  "device": "cpu",
+  "batch_size": 512,
+  "specialists": [
+    {"seed": 7, "checkpoint": "small_dropout_seed7.pt", "sha256": "7c5a42c8d1e5dab440978847ce7dabcdf000f4c5c2d31d0ac78c7491971adbfd"},
+    {"seed": 17, "checkpoint": "small_dropout_seed17.pt", "sha256": "78dad9aa0b609be4cf49e259a924e066c6944bd6296916d8a0e771ef86ba3478"},
+    {"seed": 27, "checkpoint": "small_dropout_seed27.pt", "sha256": "db150336eb1165443f2b1ad0b1bd661abf2c20915623d7554dafeed1d071a051"}
+  ],
+  "test_opened": false,
+  "test_evaluated": false,
+  "model_trained": false,
+  "learned_gate_trained": false,
+  "external_api_called": false,
+  "deployment_authorized": false
+}

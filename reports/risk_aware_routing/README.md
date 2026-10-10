@@ -3,8 +3,13 @@
 Updated 11 October 2026. Selectively consulting the existing centralized model
 improves the federated models on reused validation data, but cannot solve their
 rare-attack failures. Even a perfect selector between these models has only
-6.87% mean Web-based recall. The next useful check is a different specialist's
-complementarity, not paid API integration or more training of the same models.
+6.87% mean Web-based recall.
+
+**Stage two is now complete:** the [balanced-specialist comparison](specialist-findings.md)
+raises that diagnostic ceiling to 51.07%, but the same confidence gate creates
+too many new mistakes. It is not a promoted model. The next useful step is a
+bounded numerical-router experiment, not cloud scaling or paid API integration.
+The remainder of this page preserves the stage-one results and rationale.
 
 This is a separate exploratory extension on `experiment/risk-aware-routing`.
 The [completed official39 study](../full_data_extension/final-closeout.md) stays
@@ -106,7 +111,7 @@ the oracle shows a routing problem, while the low rare-class oracle itself
 shows a specialist problem. A new decision model must not be credited with
 fixing mistakes that its downstream specialist cannot correct.
 
-## Next bounded experiment
+## Stage-one recommendation (now completed in stage two)
 
 Do not start RONIN or install an API SDK yet. The earlier
 [balanced-panel comparison](../full_data_extension/panel-validation-findings.md)
@@ -115,11 +120,13 @@ false alerts. Their poor standalone performance does not tell us whether
 selective routing can use them safely; their complementarity has to be measured
 on these same paired rows, with actual harm counted.
 
-The next local stage should compare the frozen small balanced-panel neural
+The recommended next local stage was to compare the frozen small balanced-panel neural
 model against the current centralized fallback. Include every existing seed,
 retain the same panel and budgets, and preserve the standalone controls. This
 is a second-stage specialist diagnostic, not a promotion of the earlier model,
 a new training search or a claim that federated training improved.
+
+That comparison is now complete; see [its findings and next-step protocol](specialist-findings.md).
 
 Only if this supplies useful headroom should we fit a simple numerical gate
 and compare one typed-decision model with it. Gate training requires out-of-fold

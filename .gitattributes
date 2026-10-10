@@ -29,3 +29,7 @@ src/eval/official_evidence.py text eol=lf
 # The routing extension also publishes byte-hashed plans and source identities.
 reports/risk_aware_routing/*.json text eol=lf
 scripts/official39_routing_headroom.py text eol=lf
+scripts/official39_routing_specialist.py text eol=lf
+# These unchanged helper bytes identify the saved specialist evaluation.
+src/eval/official_training_fit.py text eol=lf
+src/eval/official_panel_validation.py text eol=lf
