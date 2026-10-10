@@ -26,3 +26,6 @@ src/data/label_map.py text eol=lf
 src/data/official_loader.py text eol=lf
 src/models/architectures.py text eol=lf
 src/eval/official_evidence.py text eol=lf
+# The routing extension also publishes byte-hashed plans and source identities.
+reports/risk_aware_routing/*.json text eol=lf
+scripts/official39_routing_headroom.py text eol=lf
