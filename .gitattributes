@@ -53,3 +53,7 @@ src/eval/balanced_tree.py text eol=lf
 scripts/official39_balanced_tree.py text eol=lf
 src/eval/score_adjustment.py text eol=lf
 scripts/official39_score_adjustment.py text eol=lf
+src/eval/flow_representation.py text eol=lf
+src/eval/numerical_embedding.py text eol=lf
+scripts/official39_representation_pilot.py text eol=lf
+scripts/official39_laya_inference.py text eol=lf
