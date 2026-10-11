@@ -1,0 +1,14 @@
+{
+  "protocol": "laya-resource-bounded-repeatability-v1",
+  "original_plan_sha256": "b72001f063041b71a42911fd0e22eef8c3615ac42f8b576e55ba01c50df0ac7f",
+  "reason": "The first GPU screen caused substantial memory pressure and slow inference; reduce repeat verification, not the classification screen or its gate",
+  "declared_before_first_scores_opened": true,
+  "screen_rows_per_class": 128,
+  "repeat_rows_per_class": 16,
+  "repeat_sample_seed": 20261013,
+  "repeat_scope": "128 fixed stratified rows per serializer, not every screen prediction",
+  "require": "exact choices and returned rounded probability vectors for the repeat subset",
+  "classification_screen_and_gate_changed": false,
+  "numerical_training_replay_changed": false,
+  "test_opened": false
+}
