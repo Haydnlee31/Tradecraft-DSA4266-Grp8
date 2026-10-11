@@ -6,14 +6,22 @@ on reused validation data, but cannot solve their rare-attack failures. Even
 a perfect selector between those original models has only 6.87% mean Web-based
 recall. Subsequent stages add a balanced specialist and examine routing costs.
 
-**Current direction: fully automatic classification.** The latest
+**Current decision: retain the automatic tree baseline and close the bounded
+score-adjustment search.** The latest
+[calibration-only score adjustment](score-adjustment-findings.md) finds no
+eligible rule among nine alternatives: all reduce Web-based F1 at every
+calibration seed. The selected fallback reproduces the baseline at 0.6988
+audit macro-F1 and 14.50% benign false alerts. No new classifier was fitted;
+no cloud or final-test run is needed. Rare-class detection remains unresolved,
+and these false alerts do not justify deployment.
+
+The preceding
 [equal-class-weight experiment](balanced-tree-findings.md) raises Web/Brute
 Force recall to 58.76%/53.89%, but precision falls to about 6%, macro-F1 drops
 to 0.6366 and benign false alerts rise to 23.19%. Every continuation check
 fails at every seed. Retain the square-root-weighted tree at 0.6988 macro-F1
-and 14.50% false alerts. The next bounded local question is a calibration-only
-automatic score adjustment on frozen classifiers, with a false-alert guard
-and a stopping rule, not more model capacity or cloud compute.
+and 14.50% false alerts. The score-adjustment result above completes the
+bounded follow-up with its false-alert guard and stopping rule.
 
 The preceding
 [matched-data neural comparison](matched-neural-findings.md) retains the tree

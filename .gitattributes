@@ -51,3 +51,5 @@ src/eval/matched_neural.py text eol=lf
 scripts/official39_matched_neural.py text eol=lf
 src/eval/balanced_tree.py text eol=lf
 scripts/official39_balanced_tree.py text eol=lf
+src/eval/score_adjustment.py text eol=lf
+scripts/official39_score_adjustment.py text eol=lf
