@@ -7,12 +7,21 @@ a perfect selector between those original models has only 6.87% mean Web-based
 recall. Subsequent stages add a balanced specialist and examine routing costs.
 
 **Current direction: fully automatic classification.** The latest
+[equal-class-weight experiment](balanced-tree-findings.md) raises Web/Brute
+Force recall to 58.76%/53.89%, but precision falls to about 6%, macro-F1 drops
+to 0.6366 and benign false alerts rise to 23.19%. Every continuation check
+fails at every seed. Retain the square-root-weighted tree at 0.6988 macro-F1
+and 14.50% false alerts. The next bounded local question is a calibration-only
+automatic score adjustment on frozen classifiers, with a false-alert guard
+and a stopping rule, not more model capacity or cloud compute.
+
+The preceding
 [matched-data neural comparison](matched-neural-findings.md) retains the tree
 advantage: mean audit macro-F1 0.6988 versus 0.6560, with benign false alerts
 14.50% versus 17.06%. Neural rare recall is poor even on fitting rows, and a
 perfect selector between this pair adds less than 1.5 recall points for either
-rare class. The next local control is equal total loss weight per class on the
-existing tree recipe, not another router, human review or cloud scaling.
+rare class. The equal-class-weight control above follows that diagnosis;
+higher rare recall alone did not provide a better classifier.
 
 The preceding
 [feature-removal comparison](feature-ablation-findings.md) shows that the tree

@@ -49,3 +49,5 @@ src/eval/feature_ablation.py text eol=lf
 scripts/official39_feature_ablation.py text eol=lf
 src/eval/matched_neural.py text eol=lf
 scripts/official39_matched_neural.py text eol=lf
+src/eval/balanced_tree.py text eol=lf
+scripts/official39_balanced_tree.py text eol=lf
