@@ -7,13 +7,21 @@ a perfect selector between those original models has only 6.87% mean Web-based
 recall. Subsequent stages add a balanced specialist and examine routing costs.
 
 **Current direction: fully automatic classification.** The latest
+[matched-data neural comparison](matched-neural-findings.md) retains the tree
+advantage: mean audit macro-F1 0.6988 versus 0.6560, with benign false alerts
+14.50% versus 17.06%. Neural rare recall is poor even on fitting rows, and a
+perfect selector between this pair adds less than 1.5 recall points for either
+rare class. The next local control is equal total loss weight per class on the
+existing tree recipe, not another router, human review or cloud scaling.
+
+The preceding
 [feature-removal comparison](feature-ablation-findings.md) shows that the tree
 gain survives retraining without `Number` and `Tot sum`: mean macro-F1 0.6988,
 benign false alerts 14.50%, Web-based recall 21.82% and Brute Force recall
 34.52%. The exact overlap screen retains all 408,027 audit rows. Changes between
 tree arms are small; no shortcut-free, deployment or new-session claim follows.
-The next local step is a matched-data neural control and diagnosis of the
-remaining Benign/Recon/rare-category confusion, not cloud scaling.
+The matched-data neural control above follows that result and diagnoses the
+remaining Benign/Recon/rare-category confusion.
 
 The preceding [feature-aware expert comparison](feature-expert-findings.md) reaches mean
 macro-F1 0.6975 with feature-only boosted trees, versus 0.6556 for the existing
@@ -62,8 +70,9 @@ unchanged. Its final test has already been exposed. This diagnostic does not
 reopen that test. The stage-one diagnostic described below did not train a
 model, fit a learned gate, call an API or authorise deployment. Stage three
 fits only the local router, as documented separately. The automatic extension
-fits score-combination heads and feature-based classifiers without retraining
-the neural models; no stage evaluates Jev, Laya or the Decisions API. The new
+fits score-combination heads and feature-based classifiers, and now adds three
+fresh matched-data neural controls; all original neural checkpoints stay
+unchanged. No stage evaluates Jev, Laya or the Decisions API. The new
 experts are centrally fitted, not privacy-preserving federated tree training.
 
 ## What was compared
