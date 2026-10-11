@@ -7,7 +7,15 @@ a perfect selector between those original models has only 6.87% mean Web-based
 recall. Subsequent stages add a balanced specialist and examine routing costs.
 
 **Current direction: fully automatic classification.** The latest
-[feature-aware expert comparison](feature-expert-findings.md) reaches mean
+[feature-removal comparison](feature-ablation-findings.md) shows that the tree
+gain survives retraining without `Number` and `Tot sum`: mean macro-F1 0.6988,
+benign false alerts 14.50%, Web-based recall 21.82% and Brute Force recall
+34.52%. The exact overlap screen retains all 408,027 audit rows. Changes between
+tree arms are small; no shortcut-free, deployment or new-session claim follows.
+The next local step is a matched-data neural control and diagnosis of the
+remaining Benign/Recon/rare-category confusion, not cloud scaling.
+
+The preceding [feature-aware expert comparison](feature-expert-findings.md) reaches mean
 macro-F1 0.6975 with feature-only boosted trees, versus 0.6556 for the existing
 centralized neural reference, while reducing benign false alerts from 17.39%
 to 14.67%. Adding neural scores reaches 0.6995/0.6986 for IID/non-IID, only a
@@ -15,8 +23,7 @@ small gain over feature-only. Web-based recall improves to 22–24%, but Brute
 Force F1 is not consistently better, and tree inference is much slower than
 the small neural model. Both strict continuation screens fail; retain the
 feature-only result as a stronger exploratory baseline, not a deployment or
-hybrid success. The next justified check is local feature-dependence testing,
-not cloud scaling.
+hybrid success. The feature-dependence check above follows that result.
 
 The preceding [score-fusion experiment](fusion-findings.md) combines the frozen
 generalist and balanced specialist using a learned eight-class head. Mean

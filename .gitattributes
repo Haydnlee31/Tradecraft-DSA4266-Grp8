@@ -45,3 +45,5 @@ src/eval/score_fusion.py text eol=lf
 scripts/official39_score_fusion.py text eol=lf
 src/eval/feature_expert.py text eol=lf
 scripts/official39_feature_expert.py text eol=lf
+src/eval/feature_ablation.py text eol=lf
+scripts/official39_feature_ablation.py text eol=lf
