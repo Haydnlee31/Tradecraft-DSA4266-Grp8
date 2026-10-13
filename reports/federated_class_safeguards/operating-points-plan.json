@@ -1,0 +1,31 @@
+{
+  "purpose": "Frozen SCAFFOLD and matched SGD controls at predeclared benign false-alert targets; training-only diagnostic, not retraining or a replacement for the failed prior screen",
+  "arms": ["central_sgd", "fedavg_sgd", "scaffold"],
+  "endpoint_sha256": "3eac6a916a1c41f4f2e7d913ac84e324471a122d3c890c4b7c85cbe442bec0c7",
+  "evidence_sha256": "aec7f1a51be80a05b41bc018fb42e094b3ecde5be92a7be90fad7a2b77d9ec5a",
+  "packed_manifest_sha256": "dfd1caf01cbe233b52ce55083941001f390ec251dd89b37543630a2bc53935be",
+  "model_sha256": {
+    "central_sgd": "f334659de7fb55f2766ec575828935ea31e0d3f0a3d7a13edf2ec749f13b5c90",
+    "fedavg_sgd": "107cbdedec23b071fccb584a917ec9c87d7697949e4234f73472c082066e267a",
+    "scaffold": "c6a61dc22135e252eae753b7b5d8bfd69c4ce3e6e2222a9ad7880defa00ee6db"
+  },
+  "model_config": {"name": "centralized_light", "hidden_dims": [64, 32], "dropout": 0.2, "normalization": "layer"},
+  "split_domain": "tradecraft-scaffold-operating-points-v1:426650:",
+  "split": "SHA256(domain || canonical little-endian float32 full39 feature bytes), first byte <128 for calibration, otherwise audit. Normalize signed zero. Group exact model-input duplicates, including conflicting labels. Labels and model scores never affect membership. Approximately half, not exact stratification. Stop if either partition misses a class; do not retry a seed",
+  "partition_limitation": "Both groups were used during model fitting; audit is held out ONLY from threshold fitting. No unseen-traffic, near-duplicate, source-session independence or population FAR guarantee",
+  "targets_basis_points": [100, 500, 1000],
+  "primary_target_basis_points": 500,
+  "decision": "score = highest attack logit minus benign logit, subtracted in float64 from FP32 logits. Attack iff score > threshold, else Benign. Attack class is always its highest logit with canonical-order ties. No probability calibration, model fitting, new classifier or attack re-ranking",
+  "threshold": "Use ONLY benign calibration scores. k=floor(n*target_basis_points/10000). Threshold is ascending order statistic n-k-1 (zero based); strict > excludes ties and permits at most k empirical calibration false alerts. Report achieved calibration AND audit FAR; equal target is not exact equal audit FAR",
+  "report": "Every target for every arm, all8 recalls/precisions/F1/confusion, binary attack alarm recall separate from correct category recall, and per-attack recall ceiling if benign rejection is entirely removed. No favorable target or model chosen after scoring",
+  "bridges": "Zero threshold must exactly match argmax and full-training argmax confusion/metrics must equal the frozen historical receipt. Stop on mismatch. Verify saved model tensor hashes and unchanged source bytes",
+  "diagnostic_screen": {"min_macro_gain": 0.01, "max_audit_far_difference": 0.005, "max_audit_target_deviation": 0.005},
+  "interpretation": "At primary5%, only if SCAFFOLD gains >=1pp macro-F1 over FedAvg with neither rare recall declining, absolute audit FAR difference <=0.5pp, and each achieved audit FAR within0.5pp of target, permit separately planned from-scratch paired-seed development. Otherwise stop this continuation. Secondary1%/10% are descriptive, not alternative routes to a pass. Previous training screen stays failed regardless. No automatic training follows",
+  "work_per_pass": {"optimizer_steps": 0, "backward_batches": 0, "forward_examples": 6000000},
+  "independent_replay": true,
+  "stopping": "One frozen threshold per arm per declared target; no new targets, model edits or hyperparameter retries after observing audit results",
+  "deployment_limitation": "Offline simulator uses pooled benign calibration scores; a real federated calibration protocol and its privacy/communication costs are not implemented or claimed",
+  "validation_rows_opened": false,
+  "test_opened": false,
+  "cloud_used": false
+}
