@@ -65,3 +65,4 @@ scripts/official39_contrastive.py text eol=lf
 scripts/official39_contrastive_fit_check.py text eol=lf
 src/eval/rare_error_diagnostic.py text eol=lf
 scripts/official39_rare_error_diagnostic.py text eol=lf
+scripts/official39_rare_reference_control.py text eol=lf

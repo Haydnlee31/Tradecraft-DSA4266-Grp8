@@ -1,0 +1,17 @@
+{
+  "protocol": "official39-rare-reference-count-control-v1",
+  "reference_sha256": "191e1af8d76558d22ceed38778e610e5d4b87c27b8782fb83dec79a4baf03403",
+  "reason": "post_hoc_control_for_natural_reference_count_imbalance_in_completed_diagnostic",
+  "unique_vectors_per_class": 760,
+  "seeds": [7, 17, 27],
+  "selection": "uniform_without_replacement_within_class_unique_vectors_from_full_FIT_only",
+  "queries_and_geometries": "identical_to_parent_diagnostic",
+  "labels": "FIT_labels_only_for_reference_selection_query_labels_only_for_post_hoc_summary",
+  "interpretation": "reference_draw_sensitivity_not_confidence_intervals_not_a_classifier",
+  "model_trained": false,
+  "test_opened": false,
+  "audit_scored": false,
+  "cloud_authorized": false,
+  "deployment_authorized": false,
+  "independent_replay_required": true
+}
