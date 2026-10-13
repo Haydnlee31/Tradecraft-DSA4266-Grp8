@@ -1,0 +1,3268 @@
+{
+  "status": "complete",
+  "recipe": {
+    "identity": {
+      "plan": {
+        "protocol": "official39-hard-example-screen-v1",
+        "diagnostic_reference_sha256": "4232be72b248655a35fe490052d44ade04ca308fe1a09985c76b3283646d72c6",
+        "historical_reference_sha256": "315351ba7cc4fb8d1643455bc709d472e4982fce96fcc7800e8922cb8b36a4dc",
+        "scope": "exploratory_reused_development_calibration_not_independent_test",
+        "arms": [
+          "ordinary_control",
+          "hard_mixture"
+        ],
+        "training": {
+          "seed": 7,
+          "epochs": 60,
+          "warmup_epochs": 5,
+          "steps_per_epoch": 528,
+          "per_class": 64,
+          "hard_fraction": 0.25,
+          "lr": 0.001,
+          "weight_decay": 0.0001,
+          "scoring_batch": 8192
+        },
+        "architecture": "historical_PLE_225_64_32_8_LayerNorm_dropout_0.2_projector_zero_loss_both_arms_discarded_inference",
+        "mining": "start_of_each_epoch_eval_mode_unweighted_CE_on_all_270326_FIT_rows",
+        "ranking": "within_each_class_top_ceil_quarter_ties_by_FIT_position",
+        "mixture": "32_uniform_then_32_distinct_hard_rows_per_class_no_within_batch_replacement",
+        "warmup": "first_5_epochs_both_arms_historical_uniform_balanced_sampler",
+        "control_scoring": "same_full_FIT_scoring_overhead_ranking_not_used",
+        "class_weights": "historical_8_times_sqrt_full_FIT_counts_over_sum_sqrt_counts_fixed_batch_denominator",
+        "objective": "class_mass_preserved_within_class_distribution_deliberately_changed_no_inverse_probability_correction",
+        "fit_rows": 270326,
+        "calibration_rows": 409918,
+        "query_examples_per_fit": 16220160,
+        "optimizer_steps_per_fit": 31680,
+        "mining_examples_per_fit": 16219560,
+        "forced_hard_positions": 7434240,
+        "max_fits_including_replay": 4,
+        "endpoint": "final_epoch_60_no_validation_selection_or_sweep",
+        "recovery": "synthetic_exact_epoch_boundary_model_Adam_rng_counters_and_sampler_digest",
+        "bridge": "ordinary_control_weights_and_calibration_predictions_equal_historical_balanced_CE",
+        "continue_only_if": "macro_F1_and_both_rare_F1_strictly_improve_with_benign_FAR_no_higher_versus_both_control_and_tree",
+        "if_fail": "close_this_configuration_no_fraction_warmup_loss_grid_or_cloud",
+        "test_opened": false,
+        "audit_scored": false,
+        "cloud_authorized": false,
+        "deployment_authorized": false,
+        "source": "https://arxiv.org/abs/1604.03540",
+        "source_limit": "inspired_by_hard_example_mining_in_vision_not_a_reproduction_or_evidence_of_success_on_IoT_flows"
+      },
+      "plan_sha256": "2f34b748a25f2aba519afd930db3ade8f7b8b03e0da0d1541fed848f3d53f17b",
+      "sources": {
+        "src/eval/hard_example_flow.py": "a90c583bb1dad61e1a87692f690781f84f5e22687a5eb878bbf35b9f4ddd3dfd",
+        "scripts/official39_hard_example.py": "5584b7fd4bf07add81a4f09f8d6e2ca322459ece2692c74ffe0ac272d5955248",
+        "src/eval/contrastive_flow.py": "18f1382fb0123ecde10f1ecf9b17279be0b02947d35bb48a8a25a033711c0976",
+        "scripts/official39_contrastive.py": "e261846a30d2cfdc300c732a7cb840967c4dd4f970cf7cea1675ea5fcca23fca",
+        "src/eval/matched_neural.py": "ead9dbb6809b10e590f8661fe8ea039aac4492b18d967ee5d9ec3938e4578b29",
+        "src/eval/flow_representation.py": "b3c5fc4271bc600fdfd230e2375322c299ebb34eefba1cadff7d9dfc775bf2a9",
+        "src/models/architectures.py": "921a1c9fd5f212d647eaea93e8c0fec8134cd0ca1b118d8ed41e7d5d7fd85526",
+        "src/eval/numerical_embedding.py": "7458227700c41df15b4acfcd5f40ea5d81cfd6e7e44219348fdefba884b9e3c4"
+      },
+      "historical_identity": {
+        "plan": {
+          "protocol": "official39-contrastive-screen-v1",
+          "reference_sha256": "53401dec0248a67ab3fa0a926e630e1424af9e4e05252cf510c3c5d1bbaa887b",
+          "scope": "exploratory_reused_development_calibration_not_independent_test",
+          "test_opened": false,
+          "audit_scored": false,
+          "cloud_authorized": false,
+          "fit_rows": 270326,
+          "calibration_rows": 409918,
+          "masked_features": [
+            "Number",
+            "Tot sum"
+          ],
+          "representation": "historical_225_column_FIT_only_PLE_from_37_retained_features",
+          "arms": [
+            "balanced_ce_control",
+            "balanced_ce_supcon"
+          ],
+          "training": {
+            "seed": 7,
+            "epochs": 60,
+            "steps_per_epoch": 528,
+            "per_class": 64,
+            "lr": 0.001,
+            "weight_decay": 0.0001,
+            "temperature": 0.1,
+            "coefficient": 0.1,
+            "dropout": 0.2,
+            "hidden_dims": [
+              64,
+              32
+            ],
+            "projection_dims": [
+              32,
+              16
+            ]
+          },
+          "sampling": "64_distinct_FIT_rows_per_class_per_batch_independent_draws_across_batches_shared_exact_order_between_arms",
+          "ce_class_weights": "8_times_sqrt_FIT_population_count_divided_by_sum_sqrt_counts",
+          "ce_objective": "historical_sqrt_class_mass_preserved_in_expectation_not_a_second_inverse_frequency_weighting",
+          "contrastive_objective": "single_view_normalized_projection_mean_positive_log_probability",
+          "positives": "same_class_other_FIT_vectors",
+          "excluded_pairs": "same_exact_retained_37_feature_group_including_self_even_if_labels_conflict",
+          "no_positive_anchor": "skip_contrastive_term_record_count",
+          "feature_augmentation": "none",
+          "hard_negative_mining": "none_all_other_class_batch_examples_compete",
+          "projector": "same_in_both_arms_discarded_at_inference_control_coefficient_zero",
+          "endpoint": "fixed_final_epoch_no_early_stopping_or_search",
+          "query_examples_per_fit": 16220160,
+          "optimizer_steps_per_fit": 31680,
+          "max_fits_including_replay": 4,
+          "device": "cpu",
+          "threads": 2,
+          "continue_only_if": "SupCon improves macro-F1 and both rare-class F1 with benign FAR no higher versus BOTH matched CE control and historical tree on the same calibration rows",
+          "if_pass": "propose_paired_seed_confirmation_no_automatic_audit_or_test_scoring",
+          "if_fail": "stop_this_configuration_no_temperature_loss_grid_or_cloud_escalation",
+          "independent_replay_required": true,
+          "deployment_authorized": false,
+          "sources": [
+            "https://arxiv.org/abs/2004.11362",
+            "https://github.com/HobbitLong/SupContrast/blob/master/losses.py"
+          ]
+        },
+        "plan_sha256": "fae8a50804bdddeee74bc0259b6469b7a68c8cce62a3a5d67281483799960536",
+        "reference_sha256": "53401dec0248a67ab3fa0a926e630e1424af9e4e05252cf510c3c5d1bbaa887b",
+        "sources": {
+          "src/eval/contrastive_flow.py": "18f1382fb0123ecde10f1ecf9b17279be0b02947d35bb48a8a25a033711c0976",
+          "scripts/official39_contrastive.py": "e261846a30d2cfdc300c732a7cb840967c4dd4f970cf7cea1675ea5fcca23fca",
+          "scripts/official39_numeric_retrieval.py": "df34d930caccdcd45319dad8bcfad74b7ead577a0b2e6db141b00da03863a249",
+          "scripts/official39_representation_pilot.py": "44f5fb7cd786ef228acae4442d03d1c47afe82a93a1903399e319783a3859db3",
+          "src/eval/flow_representation.py": "b3c5fc4271bc600fdfd230e2375322c299ebb34eefba1cadff7d9dfc775bf2a9",
+          "src/eval/numerical_embedding.py": "7458227700c41df15b4acfcd5f40ea5d81cfd6e7e44219348fdefba884b9e3c4",
+          "src/eval/matched_neural.py": "ead9dbb6809b10e590f8661fe8ea039aac4492b18d967ee5d9ec3938e4578b29",
+          "src/eval/score_fusion.py": "b05f698114d5ec26c49c4c370c4e7a36939e79faaa4e204929719a71e1e1ea53",
+          "src/models/architectures.py": "921a1c9fd5f212d647eaea93e8c0fec8134cd0ca1b118d8ed41e7d5d7fd85526"
+        }
+      }
+    },
+    "runtime": {
+      "device": "cpu",
+      "device_name": "arm64",
+      "python": "3.13.9",
+      "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
+      "torch": "2.14.0",
+      "numpy": "2.5.3",
+      "torch_cuda": null,
+      "threads": 2,
+      "batch_size": 512,
+      "deterministic": true,
+      "float32_matmul_precision": "highest",
+      "tf32": false,
+      "cublas_workspace_config": null
+    },
+    "files": {
+      "fit-rows.npy": "808769005504d5f857fe31b0df6a07a2087f8c1cc087d8f74ab15bca9cec4c2c",
+      "calibration-rows.npy": "1ff2f7080d262d664f109549095d127ed15ed752c505d90248cb41d7f21c0f45",
+      "edges.json": "e29290562aa5baa5f008b45d3b337e348247a3b0002294437790c885932e0018"
+    },
+    "fit_population_counts": [
+      65706,
+      725547,
+      220398,
+      40913,
+      1502,
+      760,
+      27151,
+      147882
+    ],
+    "fit_sample_counts": [
+      50000,
+      50000,
+      50000,
+      40913,
+      1502,
+      760,
+      27151,
+      50000
+    ],
+    "ple_dimensions": 225,
+    "fit_rows_sha256": "2607e8871e78b4104cc2d9370ba5844709e277fb1827a8a69c7a2d4e98275e9f",
+    "calibration_rows_sha256": "91e266be9d4f5a3ac3c713b00b0b15a03c4dce179ca6dabc40ee035ed5bed071",
+    "historical_receipt_sha256": "0578a2ddbb730b7a5436e2c7f90c2e58761bef12b8d5d88bd5a572ceba7b402a",
+    "test_opened": false,
+    "audit_scored": false
+  },
+  "files": {
+    "fit-rows.npy": "808769005504d5f857fe31b0df6a07a2087f8c1cc087d8f74ab15bca9cec4c2c",
+    "calibration-rows.npy": "1ff2f7080d262d664f109549095d127ed15ed752c505d90248cb41d7f21c0f45",
+    "edges.json": "e29290562aa5baa5f008b45d3b337e348247a3b0002294437790c885932e0018",
+    "ordinary_control.pt": "82b21efe0613eb2b2b002f81880c297735b6cccd03a1380ca4c0074942d1c498",
+    "hard_mixture.pt": "36854c5de2a235b4e3078873549d836e423ec463781455467a234befd08468a9",
+    "calibration-labels.npy": "2bae9bac20e29b52f2654710ea8721c0a594c073edeb2794b3a28ff1cad65808",
+    "tree-calibration.npy": "f4289471b7c5b07b10fb4c584f812cf104fdba2fb03c2aafd1dcf11465fc9bee",
+    "ple-calibration.npy": "5b89da1858042c5d77d211d8077d49877859b0bee1f4f52e85e2023e4ffb8d69",
+    "ordinary_control-calibration.npy": "222b5839370de4f1b81cde42bdd776637b72c1cafb253414ad61ca0dcd835077",
+    "hard_mixture-calibration.npy": "7b6cc7f4587686424676f15c5ef443085bfa73e1e64cdcd9db985c481a8745fe"
+  },
+  "models": [
+    {
+      "settings": {
+        "seed": 7,
+        "epochs": 60,
+        "warmup_epochs": 5,
+        "steps_per_epoch": 528,
+        "per_class": 64,
+        "hard_fraction": 0.25,
+        "lr": 0.001,
+        "weight_decay": 0.0001,
+        "scoring_batch": 8192
+      },
+      "arm": "ordinary_control",
+      "completed_epochs": 60,
+      "parameters": 18584,
+      "deployment_parameters": 17000,
+      "initial_state_sha256": "b9e432901078da2cc81217ef596cef5e23a185f12d2578ee01862183dfdad346",
+      "class_weights": [
+        0.856040470582695,
+        2.844621955880657,
+        1.567817858347872,
+        0.6754954769072361,
+        0.129427555504305,
+        0.09206585241641203,
+        0.5502812273710245,
+        1.2842496029897987
+      ],
+      "examples_processed": 16220160,
+      "optimizer_steps": 31680,
+      "mining_examples_scored": 16219560,
+      "forced_hard_positions": 0,
+      "sampled_class_counts": [
+        2027520,
+        2027520,
+        2027520,
+        2027520,
+        2027520,
+        2027520,
+        2027520,
+        2027520
+      ],
+      "selected_hard_pool_positions": 4056840,
+      "batch_chain_sha256": "86876c758db31869d1239178ca2d02b2b3f0825ce4c764f1b713d0e06b816ced",
+      "observations": [
+        {
+          "epoch": 1,
+          "ce": 0.7112988757482763,
+          "state_sha256": "e4a97662c8d3f73af73836cb9beb07a1f7b98b23e5141f74616ace8ede60cdbe"
+        },
+        {
+          "epoch": 5,
+          "ce": 0.44616584718598046,
+          "state_sha256": "b0a5056ecc1437e7645ed1fa3778b5efa030004f153a695ad8343eb473e6a43e"
+        },
+        {
+          "epoch": 20,
+          "ce": 0.4113189404793442,
+          "state_sha256": "104f4787b9db3142a99af178f3486a4172d6f20b1ad83981e77636e334dfcd17"
+        },
+        {
+          "epoch": 40,
+          "ce": 0.40447309643448187,
+          "state_sha256": "f6fa6a589898be3684beeb0b1195ceb78749e7009b7e8c333852af23bcabad94"
+        },
+        {
+          "epoch": 60,
+          "ce": 0.4003258325173169,
+          "state_sha256": "af3feb0e6527b903a91b7d0bb27733fb68be28a98d7628ba7980de915b1246e8"
+        }
+      ],
+      "mining": [
+        {
+          "epoch": 1,
+          "losses_sha256": "b23d1a315d86b6abc3731ae41b0d952c097dda22286c31878e8015583aacfbfb",
+          "pool_sha256": "dca20fad8ce811503f15a31edc914c7f408373ac874ac411f6d1331d593b98af",
+          "pool_class_counts": [
+            12500,
+            12500,
+            12500,
+            10229,
+            376,
+            190,
+            6788,
+            12500
+          ]
+        },
+        {
+          "epoch": 2,
+          "losses_sha256": "57032d51aa57f27d3e554b2bf8b0f8dbec11801307201d0d16deb83cd5047b85",
+          "pool_sha256": "c2d87548484708c44d6bd2294e1c433c626d561454c466f8945307b3259f9c57",
+          "pool_class_counts": [
+            12500,
+            12500,
+            12500,
+            10229,
+            376,
+            190,
+            6788,
+            12500
+          ]
+        },
+        {
+          "epoch": 3,
+          "losses_sha256": "508d994dc45e8866c0a61a1f46e18f038554fff32ded343db941277c7cdb3321",
+          "pool_sha256": "3ba71119504b10d856ced81ecda54afd08556893522a6d7512d7379ca5084e5c",
+          "pool_class_counts": [
+            12500,
+            12500,
+            12500,
+            10229,
+            376,
+            190,
+            6788,
+            12500
+          ]
+        },
+        {
+          "epoch": 4,
+          "losses_sha256": "acc990cc7f4ddf986d0a8d8e1c5193886fbbfd12b058afda19e31fbcdce27ff4",
+          "pool_sha256": "5f5e0a4014f00379a8601575146b8eca9de168b7db2efe5b04a86960ef264bbe",
+          "pool_class_counts": [
+            12500,
+            12500,
+            12500,
+            10229,
+            376,
+            190,
+            6788,
+            12500
+          ]
+        },
+        {
+          "epoch": 5,
+          "losses_sha256": "b6e73c0ff743e63119bb55c0ee808b469518c136082bb358a0f1903d2e8fad56",
+          "pool_sha256": "d6aaf86bef44308b2f68312886e00645254e75602451efb6713767dfe32cfd98",
+          "pool_class_counts": [
+            12500,
+            12500,
+            12500,
+            10229,
+            376,
+            190,
+            6788,
+            12500
+          ]
+        },
+        {
+          "epoch": 6,
+          "losses_sha256": "59ee4874a9b9272ce50be19a580314554370e5585a602c0d794e23c46c9a1880",
+          "pool_sha256": "c71de12c40815bca6f2061adb375c23eb1b97f222af439ad202376b92405435d",
+          "pool_class_counts": [
+            12500,
+            12500,
+            12500,
+            10229,
+            376,
+            190,
+            6788,
+            12500
+          ]
+        },
+        {
+          "epoch": 7,
+          "losses_sha256": "22cb612a869459d7f09718f54dc21c52693c40b7119bb0926d827854fe2376ea",
+          "pool_sha256": "9acf035629d993fec7c17e299acebaa08aae7ac80b3f0baed876e950bb58bc77",
+          "pool_class_counts": [
+            12500,
+            12500,
+            12500,
+            10229,
+            376,
+            190,
+            6788,
+            12500
+          ]
+        },
+        {
+          "epoch": 8,
+          "losses_sha256": "0baec33d0e057cc28c83b938289d359e4d2182a11c8ffe643847831f796fdee2",
+          "pool_sha256": "fc371f270df618856c61235e18933a1ccb8b366206eaaffb63967d346fbdbd5c",
+          "pool_class_counts": [
+            12500,
+            12500,
+            12500,
+            10229,
+            376,
+            190,
+            6788,
+            12500
+          ]
+        },
+        {
+          "epoch": 9,
+          "losses_sha256": "4dc52fa3b9e6caefa22d41210cdb370216c8f052e9784831309b3905e658354f",
+          "pool_sha256": "fa5ce146d28f507e1c8997d434105a56f45ffd3687f20ebb8e6c53a7a466306d",
+          "pool_class_counts": [
+            12500,
+            12500,
+            12500,
+            10229,
+            376,
+            190,
+            6788,
+            12500
+          ]
+        },
+        {
+          "epoch": 10,
+          "losses_sha256": "80db4af57341ef0d7d6d79c0ba70f8d43e8e65c5e255658accaddaeb94d1995b",
+          "pool_sha256": "ad05d44695d602eba90b1e1da84ee78c730a486b401371dbbaead4940f4e3888",
+          "pool_class_counts": [
+            12500,
+            12500,
+            12500,
+            10229,
+            376,
+            190,
+            6788,
+            12500
+          ]
+        },
+        {
+          "epoch": 11,
+          "losses_sha256": "7cc4ea9eeb42de9078589154d85e6cc4fda7eeadb0b95ba805ff291a0c94ae5b",
+          "pool_sha256": "303238650a3151b26964c812e01ebafbb3b33e40a62fdd2f5e0b4c0ea923b6f6",
+          "pool_class_counts": [
+            12500,
+            12500,
+            12500,
+            10229,
+            376,
+            190,
+            6788,
+            12500
+          ]
+        },
+        {
+          "epoch": 12,
+          "losses_sha256": "8994ff323021eb18ac04ff63533d638d406e39df66d87729504c974ea4e43e9a",
+          "pool_sha256": "cf1f939207a3564c8f0a852bd48f24c7d0429bfe74fb3ab07c8b27989d36781d",
+          "pool_class_counts": [
+            12500,
+            12500,
+            12500,
+            10229,
+            376,
+            190,
+            6788,
+            12500
+          ]
+        },
+        {
+          "epoch": 13,
+          "losses_sha256": "dcb187b2dd5424428a8802df93a4edfc75434de82e8054ae6396d46476ab6779",
+          "pool_sha256": "a342565caa430d2d118cf3a5938e08d7483a10afcfcaf9173e207e72e5c312a7",
+          "pool_class_counts": [
+            12500,
+            12500,
+            12500,
+            10229,
+            376,
+            190,
+            6788,
+            12500
+          ]
+        },
+        {
+          "epoch": 14,
+          "losses_sha256": "c3686c169f580713f532ea2a4ee2fb9a762bf40e3284577d6ed9fb7b47dfbfb3",
+          "pool_sha256": "1200aa2f14c69ba2e970766f85993cdee09ff84ec2adbf03c350494d7ad71c56",
+          "pool_class_counts": [
+            12500,
+            12500,
+            12500,
+            10229,
+            376,
+            190,
+            6788,
+            12500
+          ]
+        },
+        {
+          "epoch": 15,
+          "losses_sha256": "d3a52edfa20baece3dcef2cd453d07b8abdfad70b7576d954e7debb152e12fc1",
+          "pool_sha256": "9030d9417ddef48bf13994a4fa8c5dc9c3ef58a9baa8542e900a718555f57675",
+          "pool_class_counts": [
+            12500,
+            12500,
+            12500,
+            10229,
+            376,
+            190,
+            6788,
+            12500
+          ]
+        },
+        {
+          "epoch": 16,
+          "losses_sha256": "0a1f078b77adf7dfeb28bec0b6962424fe493d6e6c48c214c6ca273b498113d8",
+          "pool_sha256": "5a7a2865a07b6fdc0ee28f4057adbb8dbf3669feae9252c69b871bb9354faf67",
+          "pool_class_counts": [
+            12500,
+            12500,
+            12500,
+            10229,
+            376,
+            190,
+            6788,
+            12500
+          ]
+        },
+        {
+          "epoch": 17,
+          "losses_sha256": "8ed01ba0833338214fef76d2618f417857471dabc9fd4ca023256942e5693e0f",
+          "pool_sha256": "43a5cc9388705707662d1c44e0db2eab0edf464bbb24bbc8eb8d416cac2dcf33",
+          "pool_class_counts": [
+            12500,
+            12500,
+            12500,
+            10229,
+            376,
+            190,
+            6788,
+            12500
+          ]
+        },
+        {
+          "epoch": 18,
+          "losses_sha256": "f409e8d9454c08279fe255cb4a00616a3a1db2e49149eeda559e1d97bf5a7bcf",
+          "pool_sha256": "bb6d0c713d4fa8e15c5eb7bdfcf16f2b47406ddf484b11b73669bac591c152f9",
+          "pool_class_counts": [
+            12500,
+            12500,
+            12500,
+            10229,
+            376,
+            190,
+            6788,
+            12500
+          ]
+        },
+        {
+          "epoch": 19,
+          "losses_sha256": "cb46c7d2dfd9ff50a66d91797bb30dd4ca05d251a1c0d4ffb3f79978812ef361",
+          "pool_sha256": "8fb3fb1c5de4fa1ae7c9d0f59912a47a78eb6883ad179a43df76b6cd83e1eb48",
+          "pool_class_counts": [
+            12500,
+            12500,
+            12500,
+            10229,
+            376,
+            190,
+            6788,
+            12500
+          ]
+        },
+        {
+          "epoch": 20,
+          "losses_sha256": "8d24e5ba95cd749761bb1eed131d969ca2564daf366a649d299d22f75c151b0e",
+          "pool_sha256": "7d5b40bc59d9040d8427402020896703c73b6d46efe7e27c0c0242caa31241c3",
+          "pool_class_counts": [
+            12500,
+            12500,
+            12500,
+            10229,
+            376,
+            190,
+            6788,
+            12500
+          ]
+        },
+        {
+          "epoch": 21,
+          "losses_sha256": "2dfb7d497b6b4500834d95633927e8130dcd8fcee7fd19477eabb526641d58c4",
+          "pool_sha256": "58e1c712c893789f9fbedcc7c9aab79e38c9db937e5e40cea9db366d4b4b8d64",
+          "pool_class_counts": [
+            12500,
+            12500,
+            12500,
+            10229,
+            376,
+            190,
+            6788,
+            12500
+          ]
+        },
+        {
+          "epoch": 22,
+          "losses_sha256": "d249ab0856f137091c9cd220d03272c4ec08608df3bd4ab73edf96e121e47b79",
+          "pool_sha256": "06ff4020db762b50969c735424d6d2492d935ebb155a550d82a11cfac061fa04",
+          "pool_class_counts": [
+            12500,
+            12500,
+            12500,
+            10229,
+            376,
+            190,
+            6788,
+            12500
+          ]
+        },
+        {
+          "epoch": 23,
+          "losses_sha256": "41315bbc87570a17c1f04ba4158824957f8364918494c37dc86524a3ad6698f7",
+          "pool_sha256": "5ae49362cf80aca44e1777038bf86e0e3db62128111d614945466085e220edb3",
+          "pool_class_counts": [
+            12500,
+            12500,
+            12500,
+            10229,
+            376,
+            190,
+            6788,
+            12500
+          ]
+        },
+        {
+          "epoch": 24,
+          "losses_sha256": "e65183519628ff2e614a4937c3b33211ee452b0944388afba69c6a9b46e5b9ac",
+          "pool_sha256": "71b473bf314e4fe68c846da9ea318aa7ce7d52e219fa9eb6d0cabd7c84fb69a8",
+          "pool_class_counts": [
+            12500,
+            12500,
+            12500,
+            10229,
+            376,
+            190,
+            6788,
+            12500
+          ]
+        },
+        {
+          "epoch": 25,
+          "losses_sha256": "bc5943ca414058a3a2507496ff438609c6dd6a04b21442dccd395b1d8a44a0bb",
+          "pool_sha256": "e8ab115a28fd6d41e6fffead11f63aad457d25ef78780916516f6cd16ac9e16b",
+          "pool_class_counts": [
+            12500,
+            12500,
+            12500,
+            10229,
+            376,
+            190,
+            6788,
+            12500
+          ]
+        },
+        {
+          "epoch": 26,
+          "losses_sha256": "54c77ba5407a0aac1033414e392b2c167470de35f26caf1257e81de57702c928",
+          "pool_sha256": "4d980b026ec03f4ec76b7a592bc51a559698fcdeed795310a4795301e8af154a",
+          "pool_class_counts": [
+            12500,
+            12500,
+            12500,
+            10229,
+            376,
+            190,
+            6788,
+            12500
+          ]
+        },
+        {
+          "epoch": 27,
+          "losses_sha256": "e40a1f6cba994c51085513a23ea8f3f8e93a8fce0ecfd177858a0798db702655",
+          "pool_sha256": "32913b26b1af04f65c7a8aac01c5f20aa026fb9d9be1457e1272ae96ffb06521",
+          "pool_class_counts": [
+            12500,
+            12500,
+            12500,
+            10229,
+            376,
+            190,
+            6788,
+            12500
+          ]
+        },
+        {
+          "epoch": 28,
+          "losses_sha256": "a8d936e96ee99a4e8dcb92f2f0acbee430a6defd38efb19ec3c549ec3ed57245",
+          "pool_sha256": "28872c5aa1fd527d07532e47223ae19a6fad94d0132ecd466843894aef59f56a",
+          "pool_class_counts": [
+            12500,
+            12500,
+            12500,
+            10229,
+            376,
+            190,
+            6788,
+            12500
+          ]
+        },
+        {
+          "epoch": 29,
+          "losses_sha256": "48a4db4c8d10da4b1f7d38245753f43f0ce166f784b2784c9c7e846a8071db84",
+          "pool_sha256": "49b16d5cbc8f0e72da1cf7bfb273ab458ffd16afdcd1905cc2364877a86d38c8",
+          "pool_class_counts": [
+            12500,
+            12500,
+            12500,
+            10229,
+            376,
+            190,
+            6788,
+            12500
+          ]
+        },
+        {
+          "epoch": 30,
+          "losses_sha256": "e6c875d9f99b86780ef22172bdbb0e13f21093a9dd43ee60868b49755c4ca031",
+          "pool_sha256": "a12841dd684d0c1d5b30de8b0b5db8c936cb50383588e475d243677ec6e28e16",
+          "pool_class_counts": [
+            12500,
+            12500,
+            12500,
+            10229,
+            376,
+            190,
+            6788,
+            12500
+          ]
+        },
+        {
+          "epoch": 31,
+          "losses_sha256": "178cbe21f6719cd2e28d25ad24ed769356d57d1a39bc62656876c5ef432e3dc1",
+          "pool_sha256": "0acbcca24b0fac3fe8c42d9e8c39e6b1864e2e95e7d44ac18cd7b02dc9a10ea6",
+          "pool_class_counts": [
+            12500,
+            12500,
+            12500,
+            10229,
+            376,
+            190,
+            6788,
+            12500
+          ]
+        },
+        {
+          "epoch": 32,
+          "losses_sha256": "59c70de0e127c6e4233717f8541cb84f146000e8a4e6dead3871cddec98a260f",
+          "pool_sha256": "b3a689f243768c828e9eaf83db97029ccc961001b61b61eeb4b4f615feb64119",
+          "pool_class_counts": [
+            12500,
+            12500,
+            12500,
+            10229,
+            376,
+            190,
+            6788,
+            12500
+          ]
+        },
+        {
+          "epoch": 33,
+          "losses_sha256": "fadeb45db0c09c5f4590a68ef88cbbafdd5d26d5440940d19a4a91adfe75d688",
+          "pool_sha256": "37f6e2d85a124e869515df2616797e1760fd50ff783002aa3d68892d3c29de50",
+          "pool_class_counts": [
+            12500,
+            12500,
+            12500,
+            10229,
+            376,
+            190,
+            6788,
+            12500
+          ]
+        },
+        {
+          "epoch": 34,
+          "losses_sha256": "0e7bfe1fb0667c0913f79fbe7d19a6b76375d81046f82f4dd653aeedb612c403",
+          "pool_sha256": "50fe33be52fd298285f27393328612392e5f70ec010493dc64536dc391ce9c82",
+          "pool_class_counts": [
+            12500,
+            12500,
+            12500,
+            10229,
+            376,
+            190,
+            6788,
+            12500
+          ]
+        },
+        {
+          "epoch": 35,
+          "losses_sha256": "82206b34116ed7c9accf96c319c21567e70ee54424aaf80f972679f4779dab74",
+          "pool_sha256": "cafec3ebee1dafa2e07f20275713e2c1fcac14be04d0b828b7f37d52e7309412",
+          "pool_class_counts": [
+            12500,
+            12500,
+            12500,
+            10229,
+            376,
+            190,
+            6788,
+            12500
+          ]
+        },
+        {
+          "epoch": 36,
+          "losses_sha256": "2d5f99dc4e4f213a047ddd67f094b8276a48cc9ddb94820e0bd1a72e794e5378",
+          "pool_sha256": "dbd47eaaca0be9d55d229b54c33a6ae1755e40aa8e166e00847613d93d6124a7",
+          "pool_class_counts": [
+            12500,
+            12500,
+            12500,
+            10229,
+            376,
+            190,
+            6788,
+            12500
+          ]
+        },
+        {
+          "epoch": 37,
+          "losses_sha256": "af1135879edcef67f303ac773bc924301e8f3a4e76d2d289262e42acdf8f7e84",
+          "pool_sha256": "f683793d47b4f3bae49d36ec26f90248cd0a35266b1c7e7fc5a544e224a0886d",
+          "pool_class_counts": [
+            12500,
+            12500,
+            12500,
+            10229,
+            376,
+            190,
+            6788,
+            12500
+          ]
+        },
+        {
+          "epoch": 38,
+          "losses_sha256": "4da3d746b7449aa67e4a908d60a8f394f7a2ccc2b74e9ff8396ba56d8fdf0076",
+          "pool_sha256": "9742d5e5bbb7c639fe7b0245881a58be667b689a0598e8cc0566c92bdc788730",
+          "pool_class_counts": [
+            12500,
+            12500,
+            12500,
+            10229,
+            376,
+            190,
+            6788,
+            12500
+          ]
+        },
+        {
+          "epoch": 39,
+          "losses_sha256": "7b97be19461fb8539122d7356db3ca2dd5404af9d23117c1edf963323a53b20c",
+          "pool_sha256": "e564d6fa4fca6c280b7eb973857836dff350df8d4c7896cd2ef4b92a37fd86a7",
+          "pool_class_counts": [
+            12500,
+            12500,
+            12500,
+            10229,
+            376,
+            190,
+            6788,
+            12500
+          ]
+        },
+        {
+          "epoch": 40,
+          "losses_sha256": "ec154a4ffeff3a250460aad6344dcd93b5f3e7ecb7f1ecce5fc7d8c7188d5676",
+          "pool_sha256": "4b0d813d6ac74196353b78050f449b1cb18c485d450b8c7435b258a172785190",
+          "pool_class_counts": [
+            12500,
+            12500,
+            12500,
+            10229,
+            376,
+            190,
+            6788,
+            12500
+          ]
+        },
+        {
+          "epoch": 41,
+          "losses_sha256": "02c17f75c694ee8d8e828bca111d726727614c0e7d5d4470f837e0bf3ae669fa",
+          "pool_sha256": "22b2fc49a6b0bb3b477d923f52ff31c93299ccdfafd778f7163c128ddb2684d2",
+          "pool_class_counts": [
+            12500,
+            12500,
+            12500,
+            10229,
+            376,
+            190,
+            6788,
+            12500
+          ]
+        },
+        {
+          "epoch": 42,
+          "losses_sha256": "2c0f8385210a16b261bfe7696a2f7f2e5b34ccc098b67e25e8326d6e223149f8",
+          "pool_sha256": "c0d510b1830bc5cc352763e01e0961c285a0d4624da652fb4404a965bf7e14e3",
+          "pool_class_counts": [
+            12500,
+            12500,
+            12500,
+            10229,
+            376,
+            190,
+            6788,
+            12500
+          ]
+        },
+        {
+          "epoch": 43,
+          "losses_sha256": "5c2f78d85b5c2cd5fed36e684e5bec3e0cb3ebfc9fe10c2c0efd6584c83e86e2",
+          "pool_sha256": "b1a50f142b45b73cf2d816ec5b2c36a53cee667348dfbbf2edf354ab28cad7de",
+          "pool_class_counts": [
+            12500,
+            12500,
+            12500,
+            10229,
+            376,
+            190,
+            6788,
+            12500
+          ]
+        },
+        {
+          "epoch": 44,
+          "losses_sha256": "ba674d8db4f48af3d5af84ae815efe6b3160d5875a53787edc4befe3644b3366",
+          "pool_sha256": "d2bf4e325b1a96b873072f16deb64a4db4812903effcb4a49f142adb585a152a",
+          "pool_class_counts": [
+            12500,
+            12500,
+            12500,
+            10229,
+            376,
+            190,
+            6788,
+            12500
+          ]
+        },
+        {
+          "epoch": 45,
+          "losses_sha256": "b3bc029221837151715815aa7b994cb0c760b48695bdebf456ad4d08c8b720ee",
+          "pool_sha256": "bc151194c62a932e4a61e2fc9da7fe1f714716e2a5562db270fbbf4e5907dc99",
+          "pool_class_counts": [
+            12500,
+            12500,
+            12500,
+            10229,
+            376,
+            190,
+            6788,
+            12500
+          ]
+        },
+        {
+          "epoch": 46,
+          "losses_sha256": "b6c67488da8ca761896d638f35c15bcb6bbf6800461ef522aba97b20cf8cd19f",
+          "pool_sha256": "f4c1281c0ac85ac597be519025ee9d1b34019ba99ac3f0ddc694673f1bfcf47f",
+          "pool_class_counts": [
+            12500,
+            12500,
+            12500,
+            10229,
+            376,
+            190,
+            6788,
+            12500
+          ]
+        },
+        {
+          "epoch": 47,
+          "losses_sha256": "de8cee899ac935581b1ac865157defa86915741a545556b0b949b832696ab88c",
+          "pool_sha256": "19e965db9a74579fb9d9176ed1ab0d4607c1e2432d197230a953538adf2668e6",
+          "pool_class_counts": [
+            12500,
+            12500,
+            12500,
+            10229,
+            376,
+            190,
+            6788,
+            12500
+          ]
+        },
+        {
+          "epoch": 48,
+          "losses_sha256": "f0aecb346965ce0aa9a6f69a9d4cc602a9dff4364dec589dba504269053fad3c",
+          "pool_sha256": "b9232add7c9d4f975ca0f84a407b92cb1c8973cd623156028932b16fd255bd94",
+          "pool_class_counts": [
+            12500,
+            12500,
+            12500,
+            10229,
+            376,
+            190,
+            6788,
+            12500
+          ]
+        },
+        {
+          "epoch": 49,
+          "losses_sha256": "ff04d33a10e378c981044058791234d0440dbb6fb7f7ebc6d39129ab3610e653",
+          "pool_sha256": "71fb11d4953943fa509a5b346180b6912bcdf077b8abe35d7770d5bb95a873f9",
+          "pool_class_counts": [
+            12500,
+            12500,
+            12500,
+            10229,
+            376,
+            190,
+            6788,
+            12500
+          ]
+        },
+        {
+          "epoch": 50,
+          "losses_sha256": "8e7735572231f4355acd1ce9f4663cfec31ee48c598a2687cb19fa879b152e05",
+          "pool_sha256": "9938b855ad3b777497df4116fdbac133a7a85ba11c3c172b598b559addf6b432",
+          "pool_class_counts": [
+            12500,
+            12500,
+            12500,
+            10229,
+            376,
+            190,
+            6788,
+            12500
+          ]
+        },
+        {
+          "epoch": 51,
+          "losses_sha256": "3df7421771c0634426d7bb3dfe2096644fd8af7c4ea5d31765b34fd4b5acbfcf",
+          "pool_sha256": "1b587bd5292040ef5de4ef961ef40b676b30abc1a7d4be84346e03112729551a",
+          "pool_class_counts": [
+            12500,
+            12500,
+            12500,
+            10229,
+            376,
+            190,
+            6788,
+            12500
+          ]
+        },
+        {
+          "epoch": 52,
+          "losses_sha256": "fa7ffd73d962a256a27795983cec9460daf4f83c1c58f955ab593391cf76159d",
+          "pool_sha256": "eafbf51fb5fda25384a2782071207192b2ac599d069e092940973abb82a830d4",
+          "pool_class_counts": [
+            12500,
+            12500,
+            12500,
+            10229,
+            376,
+            190,
+            6788,
+            12500
+          ]
+        },
+        {
+          "epoch": 53,
+          "losses_sha256": "94a4623154518908b09f0243d345de03f225144aa131aadf7dffb5b8f3ce4a95",
+          "pool_sha256": "b9202dbdc9c499a765f1f56896c00444c877a552d877a480810087405b6cb619",
+          "pool_class_counts": [
+            12500,
+            12500,
+            12500,
+            10229,
+            376,
+            190,
+            6788,
+            12500
+          ]
+        },
+        {
+          "epoch": 54,
+          "losses_sha256": "d2fd0751d56a77be69f7661774a3ed9dd30fe028028707d118707437d62d0d2c",
+          "pool_sha256": "07ab7725fb8651112fa2c07100ed5020c30b3a55732e773e2ab0f9615028a733",
+          "pool_class_counts": [
+            12500,
+            12500,
+            12500,
+            10229,
+            376,
+            190,
+            6788,
+            12500
+          ]
+        },
+        {
+          "epoch": 55,
+          "losses_sha256": "a55c58da6063c4095f123aa4963bcf842f1c6756b2d4a2c110ace5e1f8244638",
+          "pool_sha256": "973651dc89a021aca6ad640cecd3c23d86e90cd59e5e8fd69f5d47fcb225d475",
+          "pool_class_counts": [
+            12500,
+            12500,
+            12500,
+            10229,
+            376,
+            190,
+            6788,
+            12500
+          ]
+        },
+        {
+          "epoch": 56,
+          "losses_sha256": "d5f2c7c7b1e04d3dd8b13e3d218316d9112bbde2c5b32ea8dd27116ade10c027",
+          "pool_sha256": "54ae08cda2029b06d448e5f7f802a26c54e18a02fbf2b9d6848c73973c9fe79d",
+          "pool_class_counts": [
+            12500,
+            12500,
+            12500,
+            10229,
+            376,
+            190,
+            6788,
+            12500
+          ]
+        },
+        {
+          "epoch": 57,
+          "losses_sha256": "580142baaf0512bbd5696111c9110ee81aa90d5122a602485debd7ccbbe88f80",
+          "pool_sha256": "69f8ed355b110ed0c7d8dd70317795fbc306acc14e5d6af1a272fe35b732cf01",
+          "pool_class_counts": [
+            12500,
+            12500,
+            12500,
+            10229,
+            376,
+            190,
+            6788,
+            12500
+          ]
+        },
+        {
+          "epoch": 58,
+          "losses_sha256": "50edf1cb288c0e91d28f202b65e9222487012695a97a26b0e8c97247875e24c1",
+          "pool_sha256": "0850999395b5288fd7aa062d46e4c5909a6e21014ac5020107407ca150572166",
+          "pool_class_counts": [
+            12500,
+            12500,
+            12500,
+            10229,
+            376,
+            190,
+            6788,
+            12500
+          ]
+        },
+        {
+          "epoch": 59,
+          "losses_sha256": "6e68f7c60eaee97a37d1a5bc28e7e536f0f821ed57eb106834bc494db9a60a2f",
+          "pool_sha256": "bc7fa0eee20d8e6c0cd8686c31909b5074b4342b0aa3895cf1bdf62ddc6116d8",
+          "pool_class_counts": [
+            12500,
+            12500,
+            12500,
+            10229,
+            376,
+            190,
+            6788,
+            12500
+          ]
+        },
+        {
+          "epoch": 60,
+          "losses_sha256": "7bba18c37c8f7f08532d0a4440dfb80d9d1ad43126822257663c56028d457921",
+          "pool_sha256": "15eaf39e41812d17b700c5bd64abe168223f6443b929bd443d4a07e187783924",
+          "pool_class_counts": [
+            12500,
+            12500,
+            12500,
+            10229,
+            376,
+            190,
+            6788,
+            12500
+          ]
+        }
+      ],
+      "final_state_sha256": "af3feb0e6527b903a91b7d0bb27733fb68be28a98d7628ba7980de915b1246e8",
+      "unique_rows_seen": 270326,
+      "unique_class_counts": [
+        50000,
+        50000,
+        50000,
+        40913,
+        1502,
+        760,
+        27151,
+        50000
+      ],
+      "file": "ordinary_control.pt",
+      "sha256": "82b21efe0613eb2b2b002f81880c297735b6cccd03a1380ca4c0074942d1c498",
+      "seconds": 112.1956665001344
+    },
+    {
+      "settings": {
+        "seed": 7,
+        "epochs": 60,
+        "warmup_epochs": 5,
+        "steps_per_epoch": 528,
+        "per_class": 64,
+        "hard_fraction": 0.25,
+        "lr": 0.001,
+        "weight_decay": 0.0001,
+        "scoring_batch": 8192
+      },
+      "arm": "hard_mixture",
+      "completed_epochs": 60,
+      "parameters": 18584,
+      "deployment_parameters": 17000,
+      "initial_state_sha256": "b9e432901078da2cc81217ef596cef5e23a185f12d2578ee01862183dfdad346",
+      "class_weights": [
+        0.856040470582695,
+        2.844621955880657,
+        1.567817858347872,
+        0.6754954769072361,
+        0.129427555504305,
+        0.09206585241641203,
+        0.5502812273710245,
+        1.2842496029897987
+      ],
+      "examples_processed": 16220160,
+      "optimizer_steps": 31680,
+      "mining_examples_scored": 16219560,
+      "forced_hard_positions": 7434240,
+      "sampled_class_counts": [
+        2027520,
+        2027520,
+        2027520,
+        2027520,
+        2027520,
+        2027520,
+        2027520,
+        2027520
+      ],
+      "selected_hard_pool_positions": 9629202,
+      "batch_chain_sha256": "c0001ee463963c913cc41149cdf286e858111f68589712f82b49386a1fca47aa",
+      "observations": [
+        {
+          "epoch": 1,
+          "ce": 0.7112988757482763,
+          "state_sha256": "e4a97662c8d3f73af73836cb9beb07a1f7b98b23e5141f74616ace8ede60cdbe"
+        },
+        {
+          "epoch": 5,
+          "ce": 0.44616584718598046,
+          "state_sha256": "b0a5056ecc1437e7645ed1fa3778b5efa030004f153a695ad8343eb473e6a43e"
+        },
+        {
+          "epoch": 20,
+          "ce": 0.5558780624133901,
+          "state_sha256": "fe2ff0b07b38ce065754004fa9e8ec7d533c5bc1c3662dba32919ff088961acc"
+        },
+        {
+          "epoch": 40,
+          "ce": 0.5423625686588344,
+          "state_sha256": "848d99637f309e5e06c0e46004a83b22a1363279bb59b40d39ddb577984cef4e"
+        },
+        {
+          "epoch": 60,
+          "ce": 0.537866297305145,
+          "state_sha256": "f65013281c9a49c280d4ee18b48f27798e988f32a881fb1c636742a963438ab6"
+        }
+      ],
+      "mining": [
+        {
+          "epoch": 1,
+          "losses_sha256": "b23d1a315d86b6abc3731ae41b0d952c097dda22286c31878e8015583aacfbfb",
+          "pool_sha256": "dca20fad8ce811503f15a31edc914c7f408373ac874ac411f6d1331d593b98af",
+          "pool_class_counts": [
+            12500,
+            12500,
+            12500,
+            10229,
+            376,
+            190,
+            6788,
+            12500
+          ]
+        },
+        {
+          "epoch": 2,
+          "losses_sha256": "57032d51aa57f27d3e554b2bf8b0f8dbec11801307201d0d16deb83cd5047b85",
+          "pool_sha256": "c2d87548484708c44d6bd2294e1c433c626d561454c466f8945307b3259f9c57",
+          "pool_class_counts": [
+            12500,
+            12500,
+            12500,
+            10229,
+            376,
+            190,
+            6788,
+            12500
+          ]
+        },
+        {
+          "epoch": 3,
+          "losses_sha256": "508d994dc45e8866c0a61a1f46e18f038554fff32ded343db941277c7cdb3321",
+          "pool_sha256": "3ba71119504b10d856ced81ecda54afd08556893522a6d7512d7379ca5084e5c",
+          "pool_class_counts": [
+            12500,
+            12500,
+            12500,
+            10229,
+            376,
+            190,
+            6788,
+            12500
+          ]
+        },
+        {
+          "epoch": 4,
+          "losses_sha256": "acc990cc7f4ddf986d0a8d8e1c5193886fbbfd12b058afda19e31fbcdce27ff4",
+          "pool_sha256": "5f5e0a4014f00379a8601575146b8eca9de168b7db2efe5b04a86960ef264bbe",
+          "pool_class_counts": [
+            12500,
+            12500,
+            12500,
+            10229,
+            376,
+            190,
+            6788,
+            12500
+          ]
+        },
+        {
+          "epoch": 5,
+          "losses_sha256": "b6e73c0ff743e63119bb55c0ee808b469518c136082bb358a0f1903d2e8fad56",
+          "pool_sha256": "d6aaf86bef44308b2f68312886e00645254e75602451efb6713767dfe32cfd98",
+          "pool_class_counts": [
+            12500,
+            12500,
+            12500,
+            10229,
+            376,
+            190,
+            6788,
+            12500
+          ]
+        },
+        {
+          "epoch": 6,
+          "losses_sha256": "59ee4874a9b9272ce50be19a580314554370e5585a602c0d794e23c46c9a1880",
+          "pool_sha256": "c71de12c40815bca6f2061adb375c23eb1b97f222af439ad202376b92405435d",
+          "pool_class_counts": [
+            12500,
+            12500,
+            12500,
+            10229,
+            376,
+            190,
+            6788,
+            12500
+          ]
+        },
+        {
+          "epoch": 7,
+          "losses_sha256": "3c758a518c9043c35f50fdd77e3e07f42eef0c7e255e1af3b3293ba291015549",
+          "pool_sha256": "d6c789f0caade517334225617533fc0e35b17967a6b99d2f327e9f87666b43ee",
+          "pool_class_counts": [
+            12500,
+            12500,
+            12500,
+            10229,
+            376,
+            190,
+            6788,
+            12500
+          ]
+        },
+        {
+          "epoch": 8,
+          "losses_sha256": "50e127f635f1f9a5983724be80dcb13e0d4b999faa5f78e550aa443393796d57",
+          "pool_sha256": "650ec6b96d4a470aa72d82fcef24427bc9da16808cecf3aa61aa1990889479c1",
+          "pool_class_counts": [
+            12500,
+            12500,
+            12500,
+            10229,
+            376,
+            190,
+            6788,
+            12500
+          ]
+        },
+        {
+          "epoch": 9,
+          "losses_sha256": "39385c0eed49cb4a680e9518d3a2e1cfd269d3648dc13fe8f2eaf1965bbc5bd8",
+          "pool_sha256": "0db42553bf20d97cc42660cef55616866fc2c06715c3574dd4bfde87762aad53",
+          "pool_class_counts": [
+            12500,
+            12500,
+            12500,
+            10229,
+            376,
+            190,
+            6788,
+            12500
+          ]
+        },
+        {
+          "epoch": 10,
+          "losses_sha256": "2844538bd8585d46086942bd942122db72edff506230f42969f6516be0345c6f",
+          "pool_sha256": "ae3112045ff663022e46d67756a92cf11e650d2e5da667c50c3238171c7777e9",
+          "pool_class_counts": [
+            12500,
+            12500,
+            12500,
+            10229,
+            376,
+            190,
+            6788,
+            12500
+          ]
+        },
+        {
+          "epoch": 11,
+          "losses_sha256": "5833531294bc96f2fe1d8e5fb69a7110e656c0566e8cc58d61f931e01037ea27",
+          "pool_sha256": "c9010b1df0cc2de76d6ae8387654ba385498c7a36d1fa0f479428edff1c44aa3",
+          "pool_class_counts": [
+            12500,
+            12500,
+            12500,
+            10229,
+            376,
+            190,
+            6788,
+            12500
+          ]
+        },
+        {
+          "epoch": 12,
+          "losses_sha256": "bb4481fc8f9d27dc8ebf5d1e3a26e7b0a386d09664528d7b196f1c6dd0c39937",
+          "pool_sha256": "ffc2e83f2b4c224ff1c443c0e68113abdb61088ce1315ed7c752febd2f882c39",
+          "pool_class_counts": [
+            12500,
+            12500,
+            12500,
+            10229,
+            376,
+            190,
+            6788,
+            12500
+          ]
+        },
+        {
+          "epoch": 13,
+          "losses_sha256": "e22b0178156b157ba45a45ad279f646f169b8419dab3ef51ae2ccf5fa59fd7ec",
+          "pool_sha256": "471ee66c4de0d42fbb70204636d3840205c57d763fca19c873e02d43b142c6e5",
+          "pool_class_counts": [
+            12500,
+            12500,
+            12500,
+            10229,
+            376,
+            190,
+            6788,
+            12500
+          ]
+        },
+        {
+          "epoch": 14,
+          "losses_sha256": "f7818e1d6cb1693c2ec019f5fb4e553c13dffff88973b062fa0810914390b0c1",
+          "pool_sha256": "59b45dd2a14890a58c650e1dbf89e258145e04c4ff817cd780737a3ccd5654de",
+          "pool_class_counts": [
+            12500,
+            12500,
+            12500,
+            10229,
+            376,
+            190,
+            6788,
+            12500
+          ]
+        },
+        {
+          "epoch": 15,
+          "losses_sha256": "934d89902e8a2c1f630eba8e84bfe15d30b29cfd909b1c19e21c9880dcf32d8e",
+          "pool_sha256": "59915a6bf82bfdc3482253413a16c79d529cbdbc2b34b5a84e0142191648aebc",
+          "pool_class_counts": [
+            12500,
+            12500,
+            12500,
+            10229,
+            376,
+            190,
+            6788,
+            12500
+          ]
+        },
+        {
+          "epoch": 16,
+          "losses_sha256": "9566c4525721edf433c131f551a8690bfdeca4cf5a691309a37a5e759829fdfd",
+          "pool_sha256": "13c90723bc6e02376047f3bea31c0dda62f7f3ef843e4a95dd184a8f4173e196",
+          "pool_class_counts": [
+            12500,
+            12500,
+            12500,
+            10229,
+            376,
+            190,
+            6788,
+            12500
+          ]
+        },
+        {
+          "epoch": 17,
+          "losses_sha256": "5ec067253286275eb169dfc7d29bfa5ad784d70da3189ed1a4aae829d7836488",
+          "pool_sha256": "b4a8c59468ffda73e5db7f4dbf6dfcae729b06ebca5c279408b1dc9a3fd600d4",
+          "pool_class_counts": [
+            12500,
+            12500,
+            12500,
+            10229,
+            376,
+            190,
+            6788,
+            12500
+          ]
+        },
+        {
+          "epoch": 18,
+          "losses_sha256": "6ddd414a4ca8f5759ddecba097ee02050a5a454332239f1dee2704dda715aa9a",
+          "pool_sha256": "20eebe82ab8c0582a63fffd5c12f3bea3743791a08e2aba230d0c03ea660753f",
+          "pool_class_counts": [
+            12500,
+            12500,
+            12500,
+            10229,
+            376,
+            190,
+            6788,
+            12500
+          ]
+        },
+        {
+          "epoch": 19,
+          "losses_sha256": "bfd4d2785aa8ed2cde26fc6e0ad2e3176698faf6925a42856ef847490a3961c3",
+          "pool_sha256": "53215997c1a5d8b1e4ebe36db18b6e2af3f316eccac005f3d436deb80cb51498",
+          "pool_class_counts": [
+            12500,
+            12500,
+            12500,
+            10229,
+            376,
+            190,
+            6788,
+            12500
+          ]
+        },
+        {
+          "epoch": 20,
+          "losses_sha256": "a6aa1a590520618caa4a7d5dbeae9afb02a7c0a8b61fe5161d4d52d3626380ea",
+          "pool_sha256": "7da3e61990a31887be98d03419cbf24468fcadb42aa460ccc2f3b2b2c328bc1a",
+          "pool_class_counts": [
+            12500,
+            12500,
+            12500,
+            10229,
+            376,
+            190,
+            6788,
+            12500
+          ]
+        },
+        {
+          "epoch": 21,
+          "losses_sha256": "7c30af9c34604594ebb6ddb5a548b2f2336faad50d90ff723f508d61a2d5a047",
+          "pool_sha256": "e446fd589cff3551a6ed66a3a360e71420e30d3685c9ad3d10333f1c404dd422",
+          "pool_class_counts": [
+            12500,
+            12500,
+            12500,
+            10229,
+            376,
+            190,
+            6788,
+            12500
+          ]
+        },
+        {
+          "epoch": 22,
+          "losses_sha256": "cad5ed0536a4ef1edd72c7448ee64411181ade2c0b32f5a1e1d8170dadb6f04a",
+          "pool_sha256": "75db4c25f77bba85df8f849a4cd5e1d3eba674b606acd06493b0cc9fba59f15f",
+          "pool_class_counts": [
+            12500,
+            12500,
+            12500,
+            10229,
+            376,
+            190,
+            6788,
+            12500
+          ]
+        },
+        {
+          "epoch": 23,
+          "losses_sha256": "63489c61d1e9d8493d4974a243513a58db8a6a1690ab4b3d42dec2d92969da81",
+          "pool_sha256": "bc5c6dd258972fbfaed3d1a37e505470ec553116fb0bd0a6adb86fbda6f09bca",
+          "pool_class_counts": [
+            12500,
+            12500,
+            12500,
+            10229,
+            376,
+            190,
+            6788,
+            12500
+          ]
+        },
+        {
+          "epoch": 24,
+          "losses_sha256": "c4910aaf587ae77488b8d03e9dffae4a378ef865bb307edd0e7225be1fe68452",
+          "pool_sha256": "4a9bf8c12816e515608a3f973f8450456729637b147aabcc0bbadd44ebbd76f1",
+          "pool_class_counts": [
+            12500,
+            12500,
+            12500,
+            10229,
+            376,
+            190,
+            6788,
+            12500
+          ]
+        },
+        {
+          "epoch": 25,
+          "losses_sha256": "524c5c6acebf3e6f96aef232df743a74cb85beb27a5eab3be75c3c78f7afed02",
+          "pool_sha256": "dad140d28b2f5504536ce04e6ae4b2c4c411b7a75b94f732eeb697f615c4a483",
+          "pool_class_counts": [
+            12500,
+            12500,
+            12500,
+            10229,
+            376,
+            190,
+            6788,
+            12500
+          ]
+        },
+        {
+          "epoch": 26,
+          "losses_sha256": "93eaaeaa08f267eeb6bb27d9e54724f41b54aee96e8b2041138286a45860d7fb",
+          "pool_sha256": "661409b26f32ccedfa3085b5db259b6cd0d573f7132ace64bd77cfa014bb3363",
+          "pool_class_counts": [
+            12500,
+            12500,
+            12500,
+            10229,
+            376,
+            190,
+            6788,
+            12500
+          ]
+        },
+        {
+          "epoch": 27,
+          "losses_sha256": "3f86d88a1ec85dd5b13f63510a4eb0c638d82cdc715b173956bb60dad8d25b4d",
+          "pool_sha256": "a4f49f4c1f657f1cf5e5790e645a9c17d340d13dc9f83d4590449ca248b71e6e",
+          "pool_class_counts": [
+            12500,
+            12500,
+            12500,
+            10229,
+            376,
+            190,
+            6788,
+            12500
+          ]
+        },
+        {
+          "epoch": 28,
+          "losses_sha256": "74893d9be38566755cd480b7e4727ca2e6c5f81a0f6017a43c5c12bcf16616a3",
+          "pool_sha256": "330a3b0fbe1a050f7e2493291802e01e05794ce5cdb0f4c33926c2032e5fec0b",
+          "pool_class_counts": [
+            12500,
+            12500,
+            12500,
+            10229,
+            376,
+            190,
+            6788,
+            12500
+          ]
+        },
+        {
+          "epoch": 29,
+          "losses_sha256": "17a39a15ae1c00295a7361d836a6cb929fcbd3a13b62430b338f82eea12ad6f3",
+          "pool_sha256": "53dda1e1960cc83f2f691496d750250b621c4ddab9b301f3aba00e507a1bb7e4",
+          "pool_class_counts": [
+            12500,
+            12500,
+            12500,
+            10229,
+            376,
+            190,
+            6788,
+            12500
+          ]
+        },
+        {
+          "epoch": 30,
+          "losses_sha256": "d8515fcf1e50818fd4ac07107a6c66a4a6def274073da2c16815c201e1f94304",
+          "pool_sha256": "ea2586d3bb7d60e133cca819a08e7acaa5cf048ff71b7a7b24b31436ebc92c0f",
+          "pool_class_counts": [
+            12500,
+            12500,
+            12500,
+            10229,
+            376,
+            190,
+            6788,
+            12500
+          ]
+        },
+        {
+          "epoch": 31,
+          "losses_sha256": "a700b3589951318213d0ab39b89ed96014eb74e3395a8773f6f2a76081fb2bb5",
+          "pool_sha256": "97e375d7085faa3e6d27999311267835f102e85209fc89e6838aaf3a005d4f8e",
+          "pool_class_counts": [
+            12500,
+            12500,
+            12500,
+            10229,
+            376,
+            190,
+            6788,
+            12500
+          ]
+        },
+        {
+          "epoch": 32,
+          "losses_sha256": "4dcad0677ca70350a9fd44ae173eaf646901e4498ffe928de994bd203a70696c",
+          "pool_sha256": "77b49d226dd32ce3d51f5f0ef995df8e6056f0d7249aa999b55285a31b494dbf",
+          "pool_class_counts": [
+            12500,
+            12500,
+            12500,
+            10229,
+            376,
+            190,
+            6788,
+            12500
+          ]
+        },
+        {
+          "epoch": 33,
+          "losses_sha256": "cd00e47cb3d36563ea3c812c917ce903ef3a7324737752272083829d46d4d49b",
+          "pool_sha256": "81c66da7f95f36b90f059704d3e51de0212c88539e75a68188fda17c7ecb4efd",
+          "pool_class_counts": [
+            12500,
+            12500,
+            12500,
+            10229,
+            376,
+            190,
+            6788,
+            12500
+          ]
+        },
+        {
+          "epoch": 34,
+          "losses_sha256": "fb1625e73af618611ed84daef779c5a0989af5c8f35de18bfb1aa114cd7b3111",
+          "pool_sha256": "eded631bec355566cb2fbd9ebad90be1c40679b83f9dbc8c197d3ad160e2dbda",
+          "pool_class_counts": [
+            12500,
+            12500,
+            12500,
+            10229,
+            376,
+            190,
+            6788,
+            12500
+          ]
+        },
+        {
+          "epoch": 35,
+          "losses_sha256": "26a866b11e1eb42b6c3a921dd09e6e98ccd5304870d934a0b7db49415cf3acbc",
+          "pool_sha256": "ededcecf40edc69474ab6ead73941a95e12c7444e9fd932fad84f7400399ef27",
+          "pool_class_counts": [
+            12500,
+            12500,
+            12500,
+            10229,
+            376,
+            190,
+            6788,
+            12500
+          ]
+        },
+        {
+          "epoch": 36,
+          "losses_sha256": "c0cc9b96bbd0a62f8f4b9ae6caf218fbfb57fa016092eaa99de0447fceca1716",
+          "pool_sha256": "fe416dd2fe71afc31803c80fafae954b48c21644ce4ef354c351777834fc143c",
+          "pool_class_counts": [
+            12500,
+            12500,
+            12500,
+            10229,
+            376,
+            190,
+            6788,
+            12500
+          ]
+        },
+        {
+          "epoch": 37,
+          "losses_sha256": "2d85acb0bdf6cbdc6fbfec827155009cb51ee7b9763e334bdd0dff6aacf0cb38",
+          "pool_sha256": "0da9c789f892d412dfed1d4d27a573ee3a63d96b01bd0e9dc0aad560d379a5bd",
+          "pool_class_counts": [
+            12500,
+            12500,
+            12500,
+            10229,
+            376,
+            190,
+            6788,
+            12500
+          ]
+        },
+        {
+          "epoch": 38,
+          "losses_sha256": "ecae92ea1097931d71f5520cfd98c47a5775dac6dffe10c461406b25e839297b",
+          "pool_sha256": "8b88e3f60ab2614b202979e2059dc088695d5d1e7e7fdae07e75c56e7d66be63",
+          "pool_class_counts": [
+            12500,
+            12500,
+            12500,
+            10229,
+            376,
+            190,
+            6788,
+            12500
+          ]
+        },
+        {
+          "epoch": 39,
+          "losses_sha256": "fc18bff406a818451b9891c15a035cf030c94c8b6190623c0fb200d74efb379b",
+          "pool_sha256": "663c1691f3c81e5d4837aa30266e586ec523fc2638983272268755b7e81d0e9e",
+          "pool_class_counts": [
+            12500,
+            12500,
+            12500,
+            10229,
+            376,
+            190,
+            6788,
+            12500
+          ]
+        },
+        {
+          "epoch": 40,
+          "losses_sha256": "16981b8d8fd8b7f82ff0450e08754105c9b40957f5cbc63e87cd43a9bbc1529b",
+          "pool_sha256": "14da37bda970513b51d5569d0e6f51f377534c277145db3ef55acb8f2e0ada53",
+          "pool_class_counts": [
+            12500,
+            12500,
+            12500,
+            10229,
+            376,
+            190,
+            6788,
+            12500
+          ]
+        },
+        {
+          "epoch": 41,
+          "losses_sha256": "cb9a31aad31c5fd53ff6fbe0f0dc33047e0f3bd76052168c8d715cf3711e6f88",
+          "pool_sha256": "a04ffb16d75615507b1ab998f1286cce0600454fa4bd26848f4e6537eeca899f",
+          "pool_class_counts": [
+            12500,
+            12500,
+            12500,
+            10229,
+            376,
+            190,
+            6788,
+            12500
+          ]
+        },
+        {
+          "epoch": 42,
+          "losses_sha256": "f0dcc84f1673745e0d260762b0639431936c29e0fd333fc2a88394a11abd3fda",
+          "pool_sha256": "21fc73f63893315162add68018ccd08b88c10766ab070114bd228afd1e6c2031",
+          "pool_class_counts": [
+            12500,
+            12500,
+            12500,
+            10229,
+            376,
+            190,
+            6788,
+            12500
+          ]
+        },
+        {
+          "epoch": 43,
+          "losses_sha256": "848811b495548523e21d382390f33b7026297725ff47517753833b11c3b96c0f",
+          "pool_sha256": "3ae8665244605792c1881c8a613f0553551acf3052b11bc6709f6c09e82be7d3",
+          "pool_class_counts": [
+            12500,
+            12500,
+            12500,
+            10229,
+            376,
+            190,
+            6788,
+            12500
+          ]
+        },
+        {
+          "epoch": 44,
+          "losses_sha256": "83370aa682e20bb237d1cdb3ea0683dce307e7bbe76333e9eb43c1892b21cee7",
+          "pool_sha256": "c781c098d7158c80cec7c2e2e4ebe0efd04f2753419a4964a7b38d8aca1eff11",
+          "pool_class_counts": [
+            12500,
+            12500,
+            12500,
+            10229,
+            376,
+            190,
+            6788,
+            12500
+          ]
+        },
+        {
+          "epoch": 45,
+          "losses_sha256": "a4e2baf9d696550dba31ff323d41d8566053c44ce8db43e15a0de4b5b86663ae",
+          "pool_sha256": "6ca10b4c4db97469ce6f2f008cfe3d86e7fca9a13a3301d82cb00db5ac26fb75",
+          "pool_class_counts": [
+            12500,
+            12500,
+            12500,
+            10229,
+            376,
+            190,
+            6788,
+            12500
+          ]
+        },
+        {
+          "epoch": 46,
+          "losses_sha256": "979eedeea98e47334d3a2323948301590450e92d03e766764688ef5222ea7f26",
+          "pool_sha256": "6ea5b688d9bbaf70f6e1c09171ab794548896c3ea9877042b2f07e6a47e534ac",
+          "pool_class_counts": [
+            12500,
+            12500,
+            12500,
+            10229,
+            376,
+            190,
+            6788,
+            12500
+          ]
+        },
+        {
+          "epoch": 47,
+          "losses_sha256": "b6f19597e5e78fcb68c9d2f838d852a5eb2acc0aa6b70ad40a81a43588c9435d",
+          "pool_sha256": "da19d7e1d227aed8dc3ff4b5a51bd08282b908f187c6ed34ae750590cabb18ba",
+          "pool_class_counts": [
+            12500,
+            12500,
+            12500,
+            10229,
+            376,
+            190,
+            6788,
+            12500
+          ]
+        },
+        {
+          "epoch": 48,
+          "losses_sha256": "b6a986ea9e5dbd9216aa5245cc32a0bb321c0a26c99981885bb403e86e9a47cc",
+          "pool_sha256": "af0f8d8baaae1f64f266c0599143292f72cf0cd897914a23df06e1e7357af09a",
+          "pool_class_counts": [
+            12500,
+            12500,
+            12500,
+            10229,
+            376,
+            190,
+            6788,
+            12500
+          ]
+        },
+        {
+          "epoch": 49,
+          "losses_sha256": "5913e9361891afda4d5f6f930b49f18719f58293460dd087a40484a755273894",
+          "pool_sha256": "5c85afebd1f7cd588f790a211a42f51dd42ff85c9c6f6710db62b5f2c2b440aa",
+          "pool_class_counts": [
+            12500,
+            12500,
+            12500,
+            10229,
+            376,
+            190,
+            6788,
+            12500
+          ]
+        },
+        {
+          "epoch": 50,
+          "losses_sha256": "34a7f87f89c848bec473e0c860646d4ac70403aa50a0624cabd3648049c1f770",
+          "pool_sha256": "3b287ee29e1dfb385af6d7afaab3b792966b8d534195666caaa1d6e50edb2461",
+          "pool_class_counts": [
+            12500,
+            12500,
+            12500,
+            10229,
+            376,
+            190,
+            6788,
+            12500
+          ]
+        },
+        {
+          "epoch": 51,
+          "losses_sha256": "d3bb8991cc0a0725b670589501a11036ac06f7d2491c4f77310b65a4da0ea38c",
+          "pool_sha256": "6c51028864949a01fedd85269c42bcb3f0a36c024b6d5d6d086b13613767d6a4",
+          "pool_class_counts": [
+            12500,
+            12500,
+            12500,
+            10229,
+            376,
+            190,
+            6788,
+            12500
+          ]
+        },
+        {
+          "epoch": 52,
+          "losses_sha256": "a2f2d0fc95271a5e2e70abbe5ef9575fb56040a10ccff94cd0fc544e067d7502",
+          "pool_sha256": "88625813927210be789f4a36776937b15c6d59c5496fd62dd245ef99aa6ba3c6",
+          "pool_class_counts": [
+            12500,
+            12500,
+            12500,
+            10229,
+            376,
+            190,
+            6788,
+            12500
+          ]
+        },
+        {
+          "epoch": 53,
+          "losses_sha256": "09f18b92cd9b192073dd77e395dfa169e3099c5145ec96fee89f4ef6eca82704",
+          "pool_sha256": "1fdb8da2f8b51f802211a998aaa42b293a882c964288d1951bbb1d5dffa80ab0",
+          "pool_class_counts": [
+            12500,
+            12500,
+            12500,
+            10229,
+            376,
+            190,
+            6788,
+            12500
+          ]
+        },
+        {
+          "epoch": 54,
+          "losses_sha256": "8f303c97558413189ac8fd216dc1c11fd776c9ae9ae1e88fc00463394cb656cb",
+          "pool_sha256": "a1cbf9f725669682abf195557e67218d9b7dc40dfdabe5d5652e5bdb5620ddcf",
+          "pool_class_counts": [
+            12500,
+            12500,
+            12500,
+            10229,
+            376,
+            190,
+            6788,
+            12500
+          ]
+        },
+        {
+          "epoch": 55,
+          "losses_sha256": "5b21d5eb45b5c4563e5a37dab6997919a749bb5a48135f0c2217daa83d01f1b0",
+          "pool_sha256": "7a6c131fb51504e5b2b8923ae8a6ca5cf577dc288ed09f8f73d5e49d31a20be7",
+          "pool_class_counts": [
+            12500,
+            12500,
+            12500,
+            10229,
+            376,
+            190,
+            6788,
+            12500
+          ]
+        },
+        {
+          "epoch": 56,
+          "losses_sha256": "e9b8ed350563ce68b896be9e7531cb8c52ef5d0cfa602eb261c96d1af0892a2e",
+          "pool_sha256": "256f806f8256ac3453afbf605e5a6bd84c925021a1e4b9da1925340304c67db6",
+          "pool_class_counts": [
+            12500,
+            12500,
+            12500,
+            10229,
+            376,
+            190,
+            6788,
+            12500
+          ]
+        },
+        {
+          "epoch": 57,
+          "losses_sha256": "2ef59355d474cd064114bf8efd1b193d6ba3baf8618d68ad9e065f298c3b1fa5",
+          "pool_sha256": "37a52295218c436835920cadd3ee8a0665bb43c06d920f8af9e7b18f9c856576",
+          "pool_class_counts": [
+            12500,
+            12500,
+            12500,
+            10229,
+            376,
+            190,
+            6788,
+            12500
+          ]
+        },
+        {
+          "epoch": 58,
+          "losses_sha256": "af7bd4ceedf09c77115261899b185392d2d8e430d838f219ebcbcbbdf085e4ea",
+          "pool_sha256": "15b4cb2f45aab67c546acf9604699d746d999af356716ba5e9ff96203d74d3a9",
+          "pool_class_counts": [
+            12500,
+            12500,
+            12500,
+            10229,
+            376,
+            190,
+            6788,
+            12500
+          ]
+        },
+        {
+          "epoch": 59,
+          "losses_sha256": "2634fb9c535f8c3160e314db9d207b66412280cec74536c6e042824617cb50a3",
+          "pool_sha256": "2d16414d1d6d210243259a84f4b82c8ec2887a6a50acb3ded331ce331711207d",
+          "pool_class_counts": [
+            12500,
+            12500,
+            12500,
+            10229,
+            376,
+            190,
+            6788,
+            12500
+          ]
+        },
+        {
+          "epoch": 60,
+          "losses_sha256": "6267341992052269250ba4e381e999770a348947ea3ef0f4723b59ef01b5e999",
+          "pool_sha256": "909ca515f781f6ed0be35dc561f36ae8b3e81f236d2b30f061cb6508642c426e",
+          "pool_class_counts": [
+            12500,
+            12500,
+            12500,
+            10229,
+            376,
+            190,
+            6788,
+            12500
+          ]
+        }
+      ],
+      "final_state_sha256": "f65013281c9a49c280d4ee18b48f27798e988f32a881fb1c636742a963438ab6",
+      "unique_rows_seen": 270326,
+      "unique_class_counts": [
+        50000,
+        50000,
+        50000,
+        40913,
+        1502,
+        760,
+        27151,
+        50000
+      ],
+      "file": "hard_mixture.pt",
+      "sha256": "36854c5de2a235b4e3078873549d836e423ec463781455467a234befd08468a9",
+      "seconds": 107.57257604203187
+    }
+  ],
+  "scores": {
+    "tree": {
+      "metrics": {
+        "macro_f1": 0.7003148513954193,
+        "accuracy": 0.8401655940944286,
+        "benign_false_alert_rate": 0.14427747764107687,
+        "per_class": {
+          "Benign": {
+            "precision": 0.8319283223727766,
+            "recall": 0.8557225223589231,
+            "f1": 0.8436576850774326,
+            "support": 22027
+          },
+          "DDoS": {
+            "precision": 0.9142171054108037,
+            "recall": 0.8427727344196092,
+            "f1": 0.8770423508591383,
+            "support": 241682
+          },
+          "DoS": {
+            "precision": 0.5909405330624068,
+            "recall": 0.7411448943351724,
+            "f1": 0.6575742815392109,
+            "support": 73771
+          },
+          "Recon": {
+            "precision": 0.7477425413566423,
+            "recall": 0.7648145411556081,
+            "f1": 0.7561821967344852,
+            "support": 13534
+          },
+          "Web-based": {
+            "precision": 0.28883495145631066,
+            "recall": 0.2375249500998004,
+            "f1": 0.26067907995618833,
+            "support": 501
+          },
+          "Brute Force": {
+            "precision": 0.35319148936170214,
+            "recall": 0.3062730627306273,
+            "f1": 0.3280632411067194,
+            "support": 271
+          },
+          "Spoofing": {
+            "precision": 0.9230298580518845,
+            "recall": 0.845059377100605,
+            "f1": 0.8823254181775647,
+            "support": 8926
+          },
+          "Mirai": {
+            "precision": 0.9962258025242482,
+            "recall": 0.9977645002641954,
+            "f1": 0.9969945577126147,
+            "support": 49206
+          }
+        },
+        "confusion_matrix": [
+          [
+            18849,
+            3,
+            2,
+            2717,
+            80,
+            62,
+            313,
+            1
+          ],
+          [
+            12,
+            203683,
+            37817,
+            14,
+            2,
+            1,
+            14,
+            139
+          ],
+          [
+            3,
+            19039,
+            54675,
+            4,
+            0,
+            0,
+            9,
+            41
+          ],
+          [
+            2717,
+            1,
+            4,
+            10351,
+            144,
+            72,
+            245,
+            0
+          ],
+          [
+            103,
+            0,
+            0,
+            252,
+            119,
+            3,
+            24,
+            0
+          ],
+          [
+            93,
+            0,
+            0,
+            83,
+            7,
+            83,
+            5,
+            0
+          ],
+          [
+            880,
+            0,
+            2,
+            422,
+            60,
+            14,
+            7543,
+            5
+          ],
+          [
+            0,
+            69,
+            22,
+            0,
+            0,
+            0,
+            19,
+            49096
+          ]
+        ]
+      },
+      "errors": {
+        "Benign": {
+          "support": 22027,
+          "correct": 18849,
+          "false_alerts": 3178,
+          "false_alert_rate": 0.14427747764107687
+        },
+        "DDoS": {
+          "support": 241682,
+          "correct_category": 203683,
+          "predicted_benign": 12,
+          "wrong_attack_category": 37987,
+          "category_recall": 0.8427727344196092,
+          "attack_to_benign_rate": 4.9652022078599154e-05,
+          "wrong_attack_category_rate": 0.15717761355831217
+        },
+        "DoS": {
+          "support": 73771,
+          "correct_category": 54675,
+          "predicted_benign": 3,
+          "wrong_attack_category": 19093,
+          "category_recall": 0.7411448943351724,
+          "attack_to_benign_rate": 4.066638652044841e-05,
+          "wrong_attack_category_rate": 0.2588144392783072
+        },
+        "Recon": {
+          "support": 13534,
+          "correct_category": 10351,
+          "predicted_benign": 2717,
+          "wrong_attack_category": 466,
+          "category_recall": 0.7648145411556081,
+          "attack_to_benign_rate": 0.20075365745529777,
+          "wrong_attack_category_rate": 0.03443180138909413
+        },
+        "Web-based": {
+          "support": 501,
+          "correct_category": 119,
+          "predicted_benign": 103,
+          "wrong_attack_category": 279,
+          "category_recall": 0.2375249500998004,
+          "attack_to_benign_rate": 0.2055888223552894,
+          "wrong_attack_category_rate": 0.5568862275449101
+        },
+        "Brute Force": {
+          "support": 271,
+          "correct_category": 83,
+          "predicted_benign": 93,
+          "wrong_attack_category": 95,
+          "category_recall": 0.3062730627306273,
+          "attack_to_benign_rate": 0.34317343173431736,
+          "wrong_attack_category_rate": 0.3505535055350554
+        },
+        "Spoofing": {
+          "support": 8926,
+          "correct_category": 7543,
+          "predicted_benign": 880,
+          "wrong_attack_category": 503,
+          "category_recall": 0.845059377100605,
+          "attack_to_benign_rate": 0.09858839345731571,
+          "wrong_attack_category_rate": 0.05635222944207932
+        },
+        "Mirai": {
+          "support": 49206,
+          "correct_category": 49096,
+          "predicted_benign": 0,
+          "wrong_attack_category": 110,
+          "category_recall": 0.9977645002641954,
+          "attack_to_benign_rate": 0.0,
+          "wrong_attack_category_rate": 0.0022354997358045767
+        }
+      },
+      "prediction_sha256": "55d24e4002950cf37b1e86b41e4cc9e138cab5018211f8149fc43db6d37f2105",
+      "prior_standardized": {
+        "macro_f1": 0.6994144225118465,
+        "benign_false_alert_rate": 0.1442774776410769,
+        "per_class": {
+          "Benign": {
+            "precision": 0.8301395558206459,
+            "recall": 0.8557225223589231,
+            "f1": 0.8427369282590795
+          },
+          "DDoS": {
+            "precision": 0.9145937225798912,
+            "recall": 0.8427727344196092,
+            "f1": 0.877215619305386
+          },
+          "DoS": {
+            "precision": 0.5897711426848471,
+            "recall": 0.7411448943351724,
+            "f1": 0.6568496570314
+          },
+          "Recon": {
+            "precision": 0.7499939421972807,
+            "recall": 0.7648145411556081,
+            "f1": 0.7573317407115048
+          },
+          "Web-based": {
+            "precision": 0.287978300901747,
+            "recall": 0.2375249500998004,
+            "f1": 0.2603296227802455
+          },
+          "Brute Force": {
+            "precision": 0.3373698527417147,
+            "recall": 0.3062730627306273,
+            "f1": 0.3210702567785065
+          },
+          "Spoofing": {
+            "precision": 0.9240331596740571,
+            "recall": 0.845059377100605,
+            "f1": 0.8827835402642081
+          },
+          "Mirai": {
+            "precision": 0.9962327063927469,
+            "recall": 0.9977645002641954,
+            "f1": 0.9969980149644412
+          }
+        },
+        "class_prior": [
+          0.05342563659736604,
+          0.5899432373955064,
+          0.17920590897005267,
+          0.0332664150931123,
+          0.0012212782115673423,
+          0.000617957017837004,
+          0.02207651446222697,
+          0.12024305225233137
+        ]
+      }
+    },
+    "ple": {
+      "metrics": {
+        "macro_f1": 0.6903631817453192,
+        "accuracy": 0.8403631945901375,
+        "benign_false_alert_rate": 0.14986153357243384,
+        "per_class": {
+          "Benign": {
+            "precision": 0.8260255844728717,
+            "recall": 0.8501384664275662,
+            "f1": 0.8379085844687563,
+            "support": 22027
+          },
+          "DDoS": {
+            "precision": 0.9069122598534364,
+            "recall": 0.8525872841171457,
+            "f1": 0.8789111235756163,
+            "support": 241682
+          },
+          "DoS": {
+            "precision": 0.5971103367125271,
+            "recall": 0.715389516205555,
+            "f1": 0.6509204156516912,
+            "support": 73771
+          },
+          "Recon": {
+            "precision": 0.7395405775185425,
+            "recall": 0.7588296143047141,
+            "f1": 0.7490609386966193,
+            "support": 13534
+          },
+          "Web-based": {
+            "precision": 0.23908045977011494,
+            "recall": 0.20758483033932135,
+            "f1": 0.2222222222222222,
+            "support": 501
+          },
+          "Brute Force": {
+            "precision": 0.3898305084745763,
+            "recall": 0.25461254612546125,
+            "f1": 0.3080357142857143,
+            "support": 271
+          },
+          "Spoofing": {
+            "precision": 0.9226880394574599,
+            "recall": 0.8383374411830607,
+            "f1": 0.8784926038976285,
+            "support": 8926
+          },
+          "Mirai": {
+            "precision": 0.9989398572884811,
+            "recall": 0.9957728732268423,
+            "f1": 0.9973538511643054,
+            "support": 49206
+          }
+        },
+        "confusion_matrix": [
+          [
+            18726,
+            5,
+            0,
+            2826,
+            115,
+            45,
+            310,
+            0
+          ],
+          [
+            0,
+            206055,
+            35582,
+            7,
+            1,
+            0,
+            3,
+            34
+          ],
+          [
+            3,
+            20971,
+            52775,
+            2,
+            0,
+            0,
+            4,
+            16
+          ],
+          [
+            2814,
+            1,
+            0,
+            10270,
+            138,
+            51,
+            260,
+            0
+          ],
+          [
+            115,
+            0,
+            0,
+            253,
+            104,
+            2,
+            27,
+            0
+          ],
+          [
+            94,
+            0,
+            0,
+            95,
+            3,
+            69,
+            10,
+            0
+          ],
+          [
+            918,
+            1,
+            4,
+            434,
+            74,
+            10,
+            7483,
+            2
+          ],
+          [
+            0,
+            172,
+            23,
+            0,
+            0,
+            0,
+            13,
+            48998
+          ]
+        ]
+      },
+      "errors": {
+        "Benign": {
+          "support": 22027,
+          "correct": 18726,
+          "false_alerts": 3301,
+          "false_alert_rate": 0.14986153357243384
+        },
+        "DDoS": {
+          "support": 241682,
+          "correct_category": 206055,
+          "predicted_benign": 0,
+          "wrong_attack_category": 35627,
+          "category_recall": 0.8525872841171457,
+          "attack_to_benign_rate": 0.0,
+          "wrong_attack_category_rate": 0.14741271588285432
+        },
+        "DoS": {
+          "support": 73771,
+          "correct_category": 52775,
+          "predicted_benign": 3,
+          "wrong_attack_category": 20993,
+          "category_recall": 0.715389516205555,
+          "attack_to_benign_rate": 4.066638652044841e-05,
+          "wrong_attack_category_rate": 0.28456981740792453
+        },
+        "Recon": {
+          "support": 13534,
+          "correct_category": 10270,
+          "predicted_benign": 2814,
+          "wrong_attack_category": 450,
+          "category_recall": 0.7588296143047141,
+          "attack_to_benign_rate": 0.2079207920792079,
+          "wrong_attack_category_rate": 0.03324959361607802
+        },
+        "Web-based": {
+          "support": 501,
+          "correct_category": 104,
+          "predicted_benign": 115,
+          "wrong_attack_category": 282,
+          "category_recall": 0.20758483033932135,
+          "attack_to_benign_rate": 0.22954091816367264,
+          "wrong_attack_category_rate": 0.562874251497006
+        },
+        "Brute Force": {
+          "support": 271,
+          "correct_category": 69,
+          "predicted_benign": 94,
+          "wrong_attack_category": 108,
+          "category_recall": 0.25461254612546125,
+          "attack_to_benign_rate": 0.34686346863468637,
+          "wrong_attack_category_rate": 0.3985239852398524
+        },
+        "Spoofing": {
+          "support": 8926,
+          "correct_category": 7483,
+          "predicted_benign": 918,
+          "wrong_attack_category": 525,
+          "category_recall": 0.8383374411830607,
+          "attack_to_benign_rate": 0.10284561953842707,
+          "wrong_attack_category_rate": 0.05881693927851221
+        },
+        "Mirai": {
+          "support": 49206,
+          "correct_category": 48998,
+          "predicted_benign": 0,
+          "wrong_attack_category": 208,
+          "category_recall": 0.9957728732268423,
+          "attack_to_benign_rate": 0.0,
+          "wrong_attack_category_rate": 0.004227126773157745
+        }
+      },
+      "prediction_sha256": "1c249d294dec806dcdcfd89b347999729d2dbd2b6cc5f737168b42afe51eacbb",
+      "prior_standardized": {
+        "macro_f1": 0.6896851830670063,
+        "benign_false_alert_rate": 0.1498615335724338,
+        "per_class": {
+          "Benign": {
+            "precision": 0.8241789208711393,
+            "recall": 0.8501384664275662,
+            "f1": 0.8369574480520102
+          },
+          "DDoS": {
+            "precision": 0.9073153782186935,
+            "recall": 0.8525872841171457,
+            "f1": 0.8791003851616181
+          },
+          "DoS": {
+            "precision": 0.5959464140724874,
+            "recall": 0.715389516205555,
+            "f1": 0.650228224521167
+          },
+          "Recon": {
+            "precision": 0.7418765751904266,
+            "recall": 0.7588296143047141,
+            "f1": 0.7502573379841139
+          },
+          "Web-based": {
+            "precision": 0.23827988179538703,
+            "recall": 0.20758483033932135,
+            "f1": 0.22187577302966602
+          },
+          "Brute Force": {
+            "precision": 0.37332839371225934,
+            "recall": 0.25461254612546125,
+            "f1": 0.30274851290496174
+          },
+          "Spoofing": {
+            "precision": 0.9237172938702948,
+            "recall": 0.8383374411830607,
+            "f1": 0.8789588394895299
+          },
+          "Mirai": {
+            "precision": 0.99894204870128,
+            "recall": 0.9957728732268423,
+            "f1": 0.9973549433929843
+          }
+        },
+        "class_prior": [
+          0.05342563659736604,
+          0.5899432373955064,
+          0.17920590897005267,
+          0.0332664150931123,
+          0.0012212782115673423,
+          0.000617957017837004,
+          0.02207651446222697,
+          0.12024305225233137
+        ]
+      }
+    },
+    "ordinary_control": {
+      "metrics": {
+        "macro_f1": 0.690203154599191,
+        "accuracy": 0.8384945281739274,
+        "benign_false_alert_rate": 0.14772778862305352,
+        "per_class": {
+          "Benign": {
+            "precision": 0.822115174074885,
+            "recall": 0.8522722113769464,
+            "f1": 0.8369221167134768,
+            "support": 22027
+          },
+          "DDoS": {
+            "precision": 0.909558885633888,
+            "recall": 0.8466000777881679,
+            "f1": 0.8769509359563684,
+            "support": 241682
+          },
+          "DoS": {
+            "precision": 0.591196565159325,
+            "recall": 0.7260712203982594,
+            "f1": 0.6517290049400141,
+            "support": 73771
+          },
+          "Recon": {
+            "precision": 0.7422183252959228,
+            "recall": 0.7505541598936013,
+            "f1": 0.7463629684055841,
+            "support": 13534
+          },
+          "Web-based": {
+            "precision": 0.3,
+            "recall": 0.17964071856287425,
+            "f1": 0.2247191011235955,
+            "support": 501
+          },
+          "Brute Force": {
+            "precision": 0.28152492668621704,
+            "recall": 0.35424354243542433,
+            "f1": 0.3137254901960784,
+            "support": 271
+          },
+          "Spoofing": {
+            "precision": 0.9177947329559439,
+            "recall": 0.8355366345507507,
+            "f1": 0.8747361013370867,
+            "support": 8926
+          },
+          "Mirai": {
+            "precision": 0.9977993316488711,
+            "recall": 0.9951631914807137,
+            "f1": 0.9964795181213243,
+            "support": 49206
+          }
+        },
+        "confusion_matrix": [
+          [
+            18773,
+            2,
+            1,
+            2742,
+            75,
+            94,
+            339,
+            1
+          ],
+          [
+            1,
+            204608,
+            36982,
+            8,
+            1,
+            1,
+            2,
+            79
+          ],
+          [
+            3,
+            20168,
+            53563,
+            6,
+            0,
+            1,
+            5,
+            25
+          ],
+          [
+            2886,
+            0,
+            1,
+            10158,
+            90,
+            126,
+            273,
+            0
+          ],
+          [
+            106,
+            0,
+            0,
+            268,
+            90,
+            11,
+            26,
+            0
+          ],
+          [
+            82,
+            0,
+            0,
+            80,
+            4,
+            96,
+            9,
+            0
+          ],
+          [
+            984,
+            1,
+            5,
+            423,
+            40,
+            12,
+            7458,
+            3
+          ],
+          [
+            0,
+            174,
+            49,
+            1,
+            0,
+            0,
+            14,
+            48968
+          ]
+        ]
+      },
+      "errors": {
+        "Benign": {
+          "support": 22027,
+          "correct": 18773,
+          "false_alerts": 3254,
+          "false_alert_rate": 0.14772778862305352
+        },
+        "DDoS": {
+          "support": 241682,
+          "correct_category": 204608,
+          "predicted_benign": 1,
+          "wrong_attack_category": 37073,
+          "category_recall": 0.8466000777881679,
+          "attack_to_benign_rate": 4.1376685065499295e-06,
+          "wrong_attack_category_rate": 0.15339578454332553
+        },
+        "DoS": {
+          "support": 73771,
+          "correct_category": 53563,
+          "predicted_benign": 3,
+          "wrong_attack_category": 20205,
+          "category_recall": 0.7260712203982594,
+          "attack_to_benign_rate": 4.066638652044841e-05,
+          "wrong_attack_category_rate": 0.27388811321522005
+        },
+        "Recon": {
+          "support": 13534,
+          "correct_category": 10158,
+          "predicted_benign": 2886,
+          "wrong_attack_category": 490,
+          "category_recall": 0.7505541598936013,
+          "attack_to_benign_rate": 0.2132407270577804,
+          "wrong_attack_category_rate": 0.036205113048618294
+        },
+        "Web-based": {
+          "support": 501,
+          "correct_category": 90,
+          "predicted_benign": 106,
+          "wrong_attack_category": 305,
+          "category_recall": 0.17964071856287425,
+          "attack_to_benign_rate": 0.21157684630738524,
+          "wrong_attack_category_rate": 0.6087824351297405
+        },
+        "Brute Force": {
+          "support": 271,
+          "correct_category": 96,
+          "predicted_benign": 82,
+          "wrong_attack_category": 93,
+          "category_recall": 0.35424354243542433,
+          "attack_to_benign_rate": 0.3025830258302583,
+          "wrong_attack_category_rate": 0.34317343173431736
+        },
+        "Spoofing": {
+          "support": 8926,
+          "correct_category": 7458,
+          "predicted_benign": 984,
+          "wrong_attack_category": 484,
+          "category_recall": 0.8355366345507507,
+          "attack_to_benign_rate": 0.11023974904772575,
+          "wrong_attack_category_rate": 0.054223616401523636
+        },
+        "Mirai": {
+          "support": 49206,
+          "correct_category": 48968,
+          "predicted_benign": 0,
+          "wrong_attack_category": 238,
+          "category_recall": 0.9951631914807137,
+          "attack_to_benign_rate": 0.0,
+          "wrong_attack_category_rate": 0.004836808519286266
+        }
+      },
+      "prediction_sha256": "bf32c6c314a0a09263b0577f622874a650a485a3ba71c68f1c4faea065f72486",
+      "prior_standardized": {
+        "macro_f1": 0.6890894282501165,
+        "benign_false_alert_rate": 0.14772778862305358,
+        "per_class": {
+          "Benign": {
+            "precision": 0.8201849186733614,
+            "recall": 0.8522722113769464,
+            "f1": 0.8359207561329121
+          },
+          "DDoS": {
+            "precision": 0.9099515016230192,
+            "recall": 0.8466000777881679,
+            "f1": 0.8771333800693084
+          },
+          "DoS": {
+            "precision": 0.5900270320687165,
+            "recall": 0.7260712203982594,
+            "f1": 0.6510177282571015
+          },
+          "Recon": {
+            "precision": 0.7444912288099499,
+            "recall": 0.7505541598936013,
+            "f1": 0.7475104007004915
+          },
+          "Web-based": {
+            "precision": 0.29930058435433554,
+            "recall": 0.17964071856287425,
+            "f1": 0.22452259478233028
+          },
+          "Brute Force": {
+            "precision": 0.2676222149700806,
+            "recall": 0.35424354243542433,
+            "f1": 0.3049000217054781
+          },
+          "Spoofing": {
+            "precision": 0.9188805172274741,
+            "recall": 0.8355366345507507,
+            "f1": 0.8752289432878833
+          },
+          "Mirai": {
+            "precision": 0.9978035085883792,
+            "recall": 0.9951631914807137,
+            "f1": 0.996481601065427
+          }
+        },
+        "class_prior": [
+          0.05342563659736604,
+          0.5899432373955064,
+          0.17920590897005267,
+          0.0332664150931123,
+          0.0012212782115673423,
+          0.000617957017837004,
+          0.02207651446222697,
+          0.12024305225233137
+        ]
+      }
+    },
+    "hard_mixture": {
+      "metrics": {
+        "macro_f1": 0.6176501952821145,
+        "accuracy": 0.7473031191604175,
+        "benign_false_alert_rate": 0.1573069414809098,
+        "per_class": {
+          "Benign": {
+            "precision": 0.7319689262194882,
+            "recall": 0.8426930585190902,
+            "f1": 0.7834381462879332,
+            "support": 22027
+          },
+          "DDoS": {
+            "precision": 0.8389845464624296,
+            "recall": 0.7671361541198766,
+            "f1": 0.8014533130739819,
+            "support": 241682
+          },
+          "DoS": {
+            "precision": 0.4050289397248076,
+            "recall": 0.517927098724431,
+            "f1": 0.4545730347104488,
+            "support": 73771
+          },
+          "Recon": {
+            "precision": 0.6777206912657636,
+            "recall": 0.5360573370769913,
+            "f1": 0.5986220553653204,
+            "support": 13534
+          },
+          "Web-based": {
+            "precision": 0.5633802816901409,
+            "recall": 0.07984031936127745,
+            "f1": 0.13986013986013984,
+            "support": 501
+          },
+          "Brute Force": {
+            "precision": 0.5267857142857143,
+            "recall": 0.2177121771217712,
+            "f1": 0.30809399477806787,
+            "support": 271
+          },
+          "Spoofing": {
+            "precision": 0.8530973451327434,
+            "recall": 0.8639928299350212,
+            "f1": 0.8585105198708671,
+            "support": 8926
+          },
+          "Mirai": {
+            "precision": 0.9955791693705386,
+            "recall": 0.9977238548144535,
+            "f1": 0.9966503583101565,
+            "support": 49206
+          }
+        },
+        "confusion_matrix": [
+          [
+            18562,
+            2,
+            0,
+            2595,
+            10,
+            29,
+            829,
+            0
+          ],
+          [
+            0,
+            185403,
+            56118,
+            7,
+            0,
+            0,
+            7,
+            147
+          ],
+          [
+            3,
+            35484,
+            38208,
+            1,
+            0,
+            0,
+            7,
+            68
+          ],
+          [
+            5829,
+            0,
+            0,
+            7255,
+            15,
+            18,
+            417,
+            0
+          ],
+          [
+            168,
+            0,
+            0,
+            246,
+            40,
+            2,
+            45,
+            0
+          ],
+          [
+            100,
+            0,
+            0,
+            96,
+            1,
+            59,
+            15,
+            0
+          ],
+          [
+            697,
+            0,
+            1,
+            505,
+            4,
+            4,
+            7712,
+            3
+          ],
+          [
+            0,
+            96,
+            7,
+            0,
+            1,
+            0,
+            8,
+            49094
+          ]
+        ]
+      },
+      "errors": {
+        "Benign": {
+          "support": 22027,
+          "correct": 18562,
+          "false_alerts": 3465,
+          "false_alert_rate": 0.1573069414809098
+        },
+        "DDoS": {
+          "support": 241682,
+          "correct_category": 185403,
+          "predicted_benign": 0,
+          "wrong_attack_category": 56279,
+          "category_recall": 0.7671361541198766,
+          "attack_to_benign_rate": 0.0,
+          "wrong_attack_category_rate": 0.23286384588012346
+        },
+        "DoS": {
+          "support": 73771,
+          "correct_category": 38208,
+          "predicted_benign": 3,
+          "wrong_attack_category": 35560,
+          "category_recall": 0.517927098724431,
+          "attack_to_benign_rate": 4.066638652044841e-05,
+          "wrong_attack_category_rate": 0.48203223488904856
+        },
+        "Recon": {
+          "support": 13534,
+          "correct_category": 7255,
+          "predicted_benign": 5829,
+          "wrong_attack_category": 450,
+          "category_recall": 0.5360573370769913,
+          "attack_to_benign_rate": 0.4306930693069307,
+          "wrong_attack_category_rate": 0.03324959361607802
+        },
+        "Web-based": {
+          "support": 501,
+          "correct_category": 40,
+          "predicted_benign": 168,
+          "wrong_attack_category": 293,
+          "category_recall": 0.07984031936127745,
+          "attack_to_benign_rate": 0.33532934131736525,
+          "wrong_attack_category_rate": 0.5848303393213573
+        },
+        "Brute Force": {
+          "support": 271,
+          "correct_category": 59,
+          "predicted_benign": 100,
+          "wrong_attack_category": 112,
+          "category_recall": 0.2177121771217712,
+          "attack_to_benign_rate": 0.36900369003690037,
+          "wrong_attack_category_rate": 0.4132841328413284
+        },
+        "Spoofing": {
+          "support": 8926,
+          "correct_category": 7712,
+          "predicted_benign": 697,
+          "wrong_attack_category": 517,
+          "category_recall": 0.8639928299350212,
+          "attack_to_benign_rate": 0.07808648890880573,
+          "wrong_attack_category_rate": 0.05792068115617298
+        },
+        "Mirai": {
+          "support": 49206,
+          "correct_category": 49094,
+          "predicted_benign": 0,
+          "wrong_attack_category": 112,
+          "category_recall": 0.9977238548144535,
+          "attack_to_benign_rate": 0.0,
+          "wrong_attack_category_rate": 0.002276145185546478
+        }
+      },
+      "prediction_sha256": "cd8c72871e5a6bcba3ad36fd0c26a89c94dbad9ef36d1a271f24e82288ed3c8f",
+      "prior_standardized": {
+        "macro_f1": 0.6172923311268854,
+        "benign_false_alert_rate": 0.15730694148090985,
+        "per_class": {
+          "Benign": {
+            "precision": 0.729472671878076,
+            "recall": 0.8426930585190902,
+            "f1": 0.7820060507434358
+          },
+          "DDoS": {
+            "precision": 0.8396343153238136,
+            "recall": 0.7671361541198766,
+            "f1": 0.8017496609177747
+          },
+          "DoS": {
+            "precision": 0.4038645501409574,
+            "recall": 0.517927098724431,
+            "f1": 0.45383877146124924
+          },
+          "Recon": {
+            "precision": 0.6802772805449829,
+            "recall": 0.5360573370769913,
+            "f1": 0.5996172799815129
+          },
+          "Web-based": {
+            "precision": 0.5628163939277494,
+            "recall": 0.07984031936127745,
+            "f1": 0.13984274871410202
+          },
+          "Brute Force": {
+            "precision": 0.5098263646403344,
+            "recall": 0.2177121771217712,
+            "f1": 0.30512584950095756
+          },
+          "Spoofing": {
+            "precision": 0.8550588027569582,
+            "recall": 0.8639928299350212,
+            "f1": 0.8595026009753457
+          },
+          "Mirai": {
+            "precision": 0.9955898033530066,
+            "recall": 0.9977238548144535,
+            "f1": 0.9966556867207051
+          }
+        },
+        "class_prior": [
+          0.05342563659736604,
+          0.5899432373955064,
+          0.17920590897005267,
+          0.0332664150931123,
+          0.0012212782115673423,
+          0.000617957017837004,
+          0.02207651446222697,
+          0.12024305225233137
+        ]
+      }
+    }
+  },
+  "control_historical_bridge_exact": true,
+  "continuation_checks": {
+    "tree": false,
+    "ordinary_control": false
+  },
+  "continue_to_confirmation": false,
+  "examples_processed": 32440320,
+  "optimizer_steps": 63360,
+  "mining_examples_scored": 32439120,
+  "test_opened": false,
+  "test_evaluated": false,
+  "audit_scored": false,
+  "cloud_used": false,
+  "independent_confirmation": false,
+  "deployment_authorized": false,
+  "elapsed_seconds": 224.7193471249193,
+  "non_timing_replay_exact": true,
+  "first_sha256": "a00d172468498a24faa9f2d64955383ad9ecd6d341ed8147e130f8dffc733a19",
+  "replay_sha256": "d4ded520480b095ae84b1c014790485df0268453bdb52ec460e923499a8911c9"
+}
