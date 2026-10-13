@@ -1,0 +1,51 @@
+{
+  "protocol": "official39-numeric-retrieval-screen-v1",
+  "reference_sha256": "187c49ab0b57d784c6b5d072ee222066c7bf7482bd4d4639249dfc7a7dcf4fed",
+  "scope": "exploratory_reused_development_calibration_not_independent_test",
+  "test_opened": false,
+  "audit_scored": false,
+  "cloud_authorized": false,
+  "seeds": [7],
+  "masked_features": ["Number", "Tot sum"],
+  "fit_rows": 270326,
+  "calibration_rows": 409918,
+  "representation": "historical_16_bin_clipped_PLE_fitted_only_on_FIT",
+  "bank": {
+    "source": "270326_FIT_sample_only",
+    "deduplication": "exact_37_feature_vector_keep_first_FIT_row_regardless_of_label",
+    "class_cap": 2048,
+    "sample_seed": 20261013,
+    "maximum_rows": 16384,
+    "self_and_duplicate_group_exclusion": true
+  },
+  "retrieval": {
+    "search": "fixed_KDTree_L2_in_37_clipped_FIT_quantile_coordinates",
+    "neighbours": 8,
+    "learned": "negative_squared_key_distance_softmax_label_embedding_plus_key_difference_value",
+    "adaptation_not_TabR_reproduction": true,
+    "candidate_search_learned": false,
+    "reference_labels_are_not_query_labels": true
+  },
+  "training": {
+    "arms": ["self_context_control", "retrieval"],
+    "epochs": 60,
+    "batch_size": 512,
+    "lr": 0.001,
+    "weight_decay": 0.0001,
+    "loss": "historical_sqrt_population_weights_fixed_batch_denominator",
+    "device": "cpu",
+    "threads": 2,
+    "endpoint": "final_epoch_only_no_search",
+    "parameters_control_difference": "retrieval_has_256_extra_label_embedding_parameters",
+    "max_query_examples_per_fit": 16219560,
+    "max_optimizer_steps_per_fit": 31680,
+    "max_fits_including_independent_replay": 4
+  },
+  "comparators": ["same_bank_unweighted_8NN", "historical_seed7_PLE", "historical_seed7_tree", "self_context_control"],
+  "continue_only_if": "retrieval improves macro-F1 and both rare-class F1, with FAR no higher, versus both tree and self-context control on the same calibration rows",
+  "if_pass": "propose_paired_seed_confirmation_no_automatic_audit_or_test_scoring",
+  "if_fail": "stop_this_configuration_no_grid_or_cloud_escalation",
+  "replay_required": "rebuild_bank_candidates_and_both_fits_in_a_separate_process_exact_non_timing_match",
+  "deployment_authorized": false,
+  "sources": ["https://arxiv.org/abs/2307.14338", "https://github.com/yandex-research/tabular-dl-tabr/blob/main/bin/tabr.py"]
+}

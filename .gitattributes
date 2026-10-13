@@ -58,3 +58,5 @@ src/eval/numerical_embedding.py text eol=lf
 scripts/official39_representation_pilot.py text eol=lf
 scripts/official39_laya_inference.py text eol=lf
 scripts/official39_laya_repeatability.py text eol=lf
+src/eval/numeric_retrieval.py text eol=lf
+scripts/official39_numeric_retrieval.py text eol=lf
