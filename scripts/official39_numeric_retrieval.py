@@ -4,6 +4,7 @@ No test interface, cloud interface, automatic sweep, or deployment action.
 The original byte-pinned experiment modules remain unchanged.
 """
 import argparse
+import copy
 from dataclasses import replace
 import io
 from pathlib import Path
@@ -27,6 +28,11 @@ NUMERICAL = ROOT/'outputs/official39-numerical-embedding-v1'
 SOURCES = ['src/eval/numeric_retrieval.py', 'scripts/official39_numeric_retrieval.py',
            'scripts/official39_representation_pilot.py', 'src/eval/flow_representation.py',
            'src/eval/numerical_embedding.py', 'src/eval/matched_neural.py']
+# The initial run used exactly these runner bytes. The subsequent change only
+# fixes receipt validation (list -> named support mapping) and its tests/replay
+# bookkeeping. No data, model, fit, search, score, or continuation rule changed.
+PRE_VERIFIER_FIX_RUNNER = '0d3e4316d61f380c4566bc826ad0f45216ea762e747b7459910f056400ff43c8'
+RUNNER = 'scripts/official39_numeric_retrieval.py'
 
 
 def identity():
@@ -151,9 +157,18 @@ def run(output):
     print({'continue_to_confirmation': result['continue_to_confirmation']}, flush=True)
 
 
+def compatible_identity(observed):
+    expected = identity()
+    if observed == expected:
+        return True
+    legacy = copy.deepcopy(expected)
+    legacy['sources'][RUNNER] = PRE_VERIFIER_FIX_RUNNER
+    return observed == legacy
+
+
 def verify(output):
     r = frozen.read(output/'receipt.json')
-    require(r['status'] == 'complete' and r['recipe']['identity'] == identity()
+    require(r['status'] == 'complete' and compatible_identity(r['recipe']['identity'])
             and all(r[k] is False for k in ['test_opened', 'test_evaluated', 'audit_scored',
                                            'independent_confirmation', 'deployment_authorized'])
             and r['examples_processed'] == 32439120 and r['optimizer_steps'] == 63360,
@@ -169,7 +184,8 @@ def verify(output):
                 and model['examples_processed'] == 16219560 and model['optimizer_steps'] == 31680,
                 'Invalid checkpoint or budget')
     for name, score in r['scores'].items():
-        prior.old.prior.prior.verify_score(score, r['calibration_supports'], r['recipe']['fit_population_counts'])
+        supports = dict(zip(prior.CLASSES, r['calibration_supports']))
+        prior.old.prior.prior.verify_score(score, supports, r['recipe']['fit_population_counts'])
         pred = np.load(output/(name+'-calibration.npy'), allow_pickle=False)
         require(pred.shape == (409918,) and pred.dtype == np.uint8 and (pred < 8).all()
                 and neural.vector_hash(pred) == score['prediction_sha256'], 'Predictions changed')
@@ -183,8 +199,18 @@ def verify(output):
 def publish(first, replay, destination):
     require(first.resolve() != replay.resolve() and not destination.exists(), 'Fresh independent replay required')
     a, b = verify(first), verify(replay)
-    require(prior.without_timing(a) == prior.without_timing(b), 'Retrieval replay mismatch')
-    frozen.save(destination, dict(a, non_timing_replay_exact=True,
+    def comparable(result):
+        value = copy.deepcopy(result)
+        # verify() allows only the two explicitly bound runner versions. Keep
+        # both original identities in the published provenance instead of
+        # claiming their source files were byte-identical.
+        value['recipe']['identity']['sources'][RUNNER] = 'verified_receipt_only_upgrade'
+        return prior.without_timing(value)
+    require(comparable(a) == comparable(b), 'Retrieval replay mismatch')
+    frozen.save(destination, dict(a, training_and_predictions_replay_exact=True,
+        non_timing_except_verified_runner_upgrade_exact=True,
+        replay_identity=b['recipe']['identity'],
+        verifier_upgrade='Named support mapping for existing score verifier; training/scoring unchanged',
         first_sha256=digest(first/'receipt.json'), replay_sha256=digest(replay/'receipt.json')))
     print('PASS: bank, contexts, both fits and all five predictions replay exactly; audit/test closed', flush=True)
 
