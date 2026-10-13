@@ -3455,6 +3455,13 @@
     "seconds": 60.598,
     "isolated_committed_snapshot": true
   },
+  "final_full_regression": {
+    "passed": 588,
+    "seconds": 53.622,
+    "isolated_committed_snapshot": "a9761f8",
+    "new_numerical_and_bridge_tests": 13,
+    "new_public_evidence_tests": 4
+  },
   "limitations": [
     "One training seed, partition and three source states; three independent one-round counterfactuals, not a corrected trajectory.",
     "Only training metrics; no validation/test inference, no independent generalization evidence.",

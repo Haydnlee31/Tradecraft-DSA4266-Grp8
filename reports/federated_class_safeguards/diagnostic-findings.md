@@ -147,8 +147,9 @@ The proposed three summaries add 61,152 FP32 payload bytes per client per round;
 the diagnostic's eight summaries correspond to 163,072 bytes. These are
 calculated payload sizes, not measured network traffic. Inference is unchanged.
 
-All 584 tests passed in an isolated committed snapshot, including 13 new
-numerical, source-bridge, loader-isolation and deterministic-replay tests.
+All 588 tests passed in an isolated committed snapshot, including 13 new
+numerical, source-bridge, loader-isolation and deterministic-replay tests and
+four public-evidence checks. The final full-suite run took 53.622 seconds.
 The aggregate [results](diagnostic-results.json) contain no traffic rows or
 model weights. Historical checkpoints and the original archive are unchanged.
 Unrelated working-tree changes were preserved, and no cloud computation or
