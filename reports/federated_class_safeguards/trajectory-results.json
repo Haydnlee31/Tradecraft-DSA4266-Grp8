@@ -1,0 +1,6608 @@
+{
+  "execution_commit": "d807cbe",
+  "primary": {
+    "status": "complete",
+    "plan_sha256": "1f28eb5aaf8e5d566c54819fff3897cfc67677b9216e959c6587d1c108ec5f30",
+    "script_sha256": "b7bd20fa53603f0be8de2315ab10dfc1ddf75cc04eecde8f8d8766de244b9602",
+    "recipe_sha256": "080d7b05772e719f875cc86b9c31f65e71d02eb70728bf908191e08c47d7564d",
+    "finite_step_runner_sha256": "d6c3bdce076a578bd310b670704be7107340c1c2ed71cb448ef200682eeacdd3",
+    "finite_step_evidence_sha256": "5ea4cea89e684d71b2828bd92e906ffca1c0fede6f3e24f435548730dc9542a4",
+    "source_provenance": {
+      "checkpoint_sha256": "01d09d739dc7dccc2ed437ce0a5b755dac2d237562e3a9bc260cbc7d850d61b8",
+      "environment_sha256": "5a9b131eb74c9dd0e1621f43ec43a8334dd900a847d774e8697a26e87ea464c2",
+      "partition_sha256": "057d3705863bb7c0546dfd5aa980cc35c2082da25f85ef1075ccad37e7952f46",
+      "source_checks": {
+        "models/architectures.py": {
+          "archived_sha256": "921a1c9fd5f212d647eaea93e8c0fec8134cd0ca1b118d8ed41e7d5d7fd85526",
+          "current_sha256": "921a1c9fd5f212d647eaea93e8c0fec8134cd0ca1b118d8ed41e7d5d7fd85526",
+          "exact_file": true
+        },
+        "models/official_streaming.py": {
+          "archived_sha256": "82eebe2e342c727fb79811278c9847e9debd0daeb9c2ff7debf7c29988a29646",
+          "current_sha256": "cf7085916f6794867485802236662131c3465d1f40564d692a398c64b7ffe496",
+          "exact_file": false,
+          "reviewed_bridge": "1d767e2 to 5cc8206 optional ablation; imported functions AST-exact",
+          "imported_function_ast_sha256": {
+            "train_epoch": "201c79d33cd8fa37cfd26efef1eb9a1b316cf517207641e04e0704694fdd1254",
+            "confusion_metrics": "8a3c6e903211cd4dd32a5f3dcb54c9e8bff21e2441528e10d30e85fd1bb43c96"
+          }
+        },
+        "models/official_losses.py": {
+          "archived_sha256": "8d2603b1e875d63ff5fe83ac270d8e410a97738dffa0982f3c37120475f49436",
+          "current_sha256": "8d2603b1e875d63ff5fe83ac270d8e410a97738dffa0982f3c37120475f49436",
+          "exact_file": true
+        },
+        "models/losses.py": {
+          "archived_sha256": "2af9a81e5fedb122316db1f83900b34436976a5204a0d8145bdfefe8d76134da",
+          "current_sha256": "2af9a81e5fedb122316db1f83900b34436976a5204a0d8145bdfefe8d76134da",
+          "exact_file": true
+        },
+        "data/official_packed.py": {
+          "archived_sha256": "e9660bcbacf6c80cf66581840b07c607cddec3ba5613676a58f7ce8cd29b7e5d",
+          "current_sha256": "e9660bcbacf6c80cf66581840b07c607cddec3ba5613676a58f7ce8cd29b7e5d",
+          "exact_file": true
+        },
+        "data/label_map.py": {
+          "archived_sha256": "18f43ecb917d0f453572e497675799930ab6f76e1130b54cd45e7fd463f2d994",
+          "current_sha256": "18f43ecb917d0f453572e497675799930ab6f76e1130b54cd45e7fd463f2d994",
+          "exact_file": true
+        },
+        "utils/seed.py": {
+          "archived_sha256": "03ec4f4e392d47bddc21d032ced2ec555b77b8faa86bbdbf23ec98d91bb1f7a0",
+          "current_sha256": "03ec4f4e392d47bddc21d032ced2ec555b77b8faa86bbdbf23ec98d91bb1f7a0",
+          "exact_file": true
+        },
+        "federated/partition.py": {
+          "archived_sha256": "cc6bd1b7ba9943ef1ce26f7d951256e99406c1ee936004965a9780ae42470763",
+          "current_sha256": "cc6bd1b7ba9943ef1ce26f7d951256e99406c1ee936004965a9780ae42470763",
+          "exact_file": true
+        }
+      }
+    },
+    "archive_sha256": "c5b43c8d7fbdefde543b94b364c407707abe9655df081de7d31c014e55473152",
+    "packed_manifest_sha256": "dfd1caf01cbe233b52ce55083941001f390ec251dd89b37543630a2bc53935be",
+    "settings": {
+      "lane": "dirichlet",
+      "epochs": 20,
+      "seed": 7,
+      "clients": 20,
+      "partition_seed": 7,
+      "alpha": 0.5,
+      "batch_size": 512,
+      "lr": 0.001,
+      "weight_decay": 1e-05,
+      "loss": "sqrt_weighted_ce",
+      "normalization": "layer",
+      "device": "cuda",
+      "threads": 2,
+      "local_max_batches": 0,
+      "total_update_budget": 0,
+      "loss_reduction": "batch_weight_sum"
+    },
+    "class_order": [
+      "Benign",
+      "DDoS",
+      "DoS",
+      "Recon",
+      "Web-based",
+      "Brute Force",
+      "Spoofing",
+      "Mirai"
+    ],
+    "initial_training_evaluation": {
+      "mean_class_ce": [
+        0.05458454729946846,
+        0.08073798232049564,
+        1.629060769473077,
+        2.2949587780597964,
+        4.145710689759264,
+        5.034461669794117,
+        3.9899136748994097,
+        0.07019563325379001
+      ],
+      "metrics": {
+        "macro_f1": 0.39974557549061207,
+        "accuracy": 0.7933715,
+        "per_class": {
+          "Benign": {
+            "precision": 0.5160502987464365,
+            "recall": 0.9959302106492821,
+            "f1": 0.6798369152808325,
+            "support": 106148
+          },
+          "DDoS": {
+            "precision": 0.7944047787552807,
+            "recall": 0.9905138554559332,
+            "f1": 0.8816860613315761,
+            "support": 1178561
+          },
+          "DoS": {
+            "precision": 0.8526938062609163,
+            "recall": 0.17511581770472626,
+            "f1": 0.29055998241971553,
+            "support": 362423
+          },
+          "Recon": {
+            "precision": 0.9351429892345288,
+            "recall": 0.21363368891168882,
+            "f1": 0.34781006657004593,
+            "support": 66277
+          },
+          "Web-based": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "support": 2391
+          },
+          "Brute Force": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "support": 1269
+          },
+          "Spoofing": {
+            "precision": 0.6788321167883211,
+            "recall": 0.0021090826624333824,
+            "f1": 0.004205100379815518,
+            "support": 44095
+          },
+          "Mirai": {
+            "precision": 0.999983045962396,
+            "recall": 0.9878242810966521,
+            "f1": 0.993866477942911,
+            "support": 238836
+          }
+        },
+        "benign_false_alert_rate": 0.0040697893507178895,
+        "confusion_matrix": [
+          [
+            105716,
+            5,
+            0,
+            427,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            126,
+            1167381,
+            10851,
+            199,
+            0,
+            0,
+            1,
+            3
+          ],
+          [
+            93,
+            298744,
+            63466,
+            83,
+            0,
+            0,
+            36,
+            1
+          ],
+          [
+            51481,
+            637,
+            0,
+            14159,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            2305,
+            0,
+            0,
+            86,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            1214,
+            0,
+            0,
+            55,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            43746,
+            124,
+            0,
+            132,
+            0,
+            0,
+            93,
+            0
+          ],
+          [
+            175,
+            2613,
+            113,
+            0,
+            0,
+            0,
+            7,
+            235928
+          ]
+        ]
+      }
+    },
+    "device": "cpu",
+    "threads": 2,
+    "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
+    "packages": {
+      "torch": "2.14.0",
+      "numpy": "2.5.3",
+      "flwr": "1.38.0"
+    },
+    "validation_rows_opened": false,
+    "test_opened": false,
+    "test_evaluated": false,
+    "cloud_used": false,
+    "rounds": [
+      {
+        "round": 21,
+        "starting_model_sha256": {
+          "fedavg": "0bb905a6e22fd982ccd8ee6a9f1b81fde807b4065c5733aa75e130fb3c4479c0",
+          "corrected": "0bb905a6e22fd982ccd8ee6a9f1b81fde807b4065c5733aa75e130fb3c4479c0"
+        },
+        "fedavg_model_sha256": "8a80da09ff66efd2a430f04e3f02d1124591a5e5515fc079e0357632d5a2186d",
+        "proposal_model_sha256": "8a80da09ff66efd2a430f04e3f02d1124591a5e5515fc079e0357632d5a2186d",
+        "corrected_model_sha256": "1a3af893b2d9d89ec8c5addb7e236a27e1aac316a3d3e3bcd44ae5c5e54f8ead",
+        "gradient_work": {
+          "client_counts": [
+            [
+              4752,
+              26032,
+              54632,
+              368,
+              208,
+              0,
+              0,
+              2008
+            ],
+            [
+              15416,
+              432,
+              9728,
+              1300,
+              40,
+              212,
+              336,
+              244
+            ],
+            [
+              4216,
+              28304,
+              50668,
+              16773,
+              420,
+              0,
+              0,
+              0
+            ],
+            [
+              16,
+              198229,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              4244,
+              30244,
+              82051,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              5172,
+              8052,
+              4888,
+              12340,
+              0,
+              276,
+              6280,
+              32356
+            ],
+            [
+              368,
+              74324,
+              50228,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              10784,
+              54544,
+              5972,
+              8012,
+              228,
+              16,
+              488,
+              13148
+            ],
+            [
+              0,
+              7336,
+              116,
+              5188,
+              220,
+              80,
+              21775,
+              30612
+            ],
+            [
+              2104,
+              84640,
+              23544,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              23244,
+              8,
+              29148,
+              1588,
+              4,
+              285,
+              300,
+              20452
+            ],
+            [
+              124,
+              36992,
+              18360,
+              2340,
+              96,
+              284,
+              2136,
+              29660
+            ],
+            [
+              9136,
+              3976,
+              1140,
+              4204,
+              20,
+              0,
+              304,
+              2020
+            ],
+            [
+              7360,
+              121140,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              2624,
+              143548,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              1316,
+              47688,
+              1624,
+              3476,
+              184,
+              12,
+              3320,
+              800
+            ],
+            [
+              592,
+              6816,
+              27716,
+              7252,
+              783,
+              12,
+              9100,
+              107480
+            ],
+            [
+              10996,
+              96168,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              1920,
+              73052,
+              2604,
+              3436,
+              188,
+              92,
+              56,
+              52
+            ],
+            [
+              1764,
+              137036,
+              4,
+              0,
+              0,
+              0,
+              0,
+              4
+            ]
+          ],
+          "class_counts": [
+            106148,
+            1178561,
+            362423,
+            66277,
+            2391,
+            1269,
+            44095,
+            238836
+          ],
+          "mean_class_ce": [
+            0.05458454705411759,
+            0.08073798217807826,
+            1.6290607626537614,
+            2.2949587830032803,
+            4.145710790770566,
+            5.034461470078633,
+            3.9899137106567895,
+            0.07019563317475455
+          ],
+          "gradient_examples": 2000000,
+          "gradient_backward_batches": 1044
+        },
+        "client_work": {
+          "fedavg": [
+            {
+              "client": 0,
+              "examples_processed": 88000,
+              "optimizer_steps": 172,
+              "task_loss": 0.3911644529862837
+            },
+            {
+              "client": 1,
+              "examples_processed": 27708,
+              "optimizer_steps": 55,
+              "task_loss": 0.652310339931597
+            },
+            {
+              "client": 2,
+              "examples_processed": 100381,
+              "optimizer_steps": 197,
+              "task_loss": 0.5221833243582072
+            },
+            {
+              "client": 3,
+              "examples_processed": 198245,
+              "optimizer_steps": 388,
+              "task_loss": 0.0012553023945238572
+            },
+            {
+              "client": 4,
+              "examples_processed": 116539,
+              "optimizer_steps": 228,
+              "task_loss": 0.2781372209421033
+            },
+            {
+              "client": 5,
+              "examples_processed": 69364,
+              "optimizer_steps": 136,
+              "task_loss": 0.6875285654254703
+            },
+            {
+              "client": 6,
+              "examples_processed": 124920,
+              "optimizer_steps": 244,
+              "task_loss": 0.42986440203947934
+            },
+            {
+              "client": 7,
+              "examples_processed": 93192,
+              "optimizer_steps": 183,
+              "task_loss": 0.525061302465864
+            },
+            {
+              "client": 8,
+              "examples_processed": 65327,
+              "optimizer_steps": 128,
+              "task_loss": 0.6373846696675383
+            },
+            {
+              "client": 9,
+              "examples_processed": 110288,
+              "optimizer_steps": 216,
+              "task_loss": 0.3948397249714065
+            },
+            {
+              "client": 10,
+              "examples_processed": 75029,
+              "optimizer_steps": 147,
+              "task_loss": 0.3231542304329607
+            },
+            {
+              "client": 11,
+              "examples_processed": 89992,
+              "optimizer_steps": 176,
+              "task_loss": 0.48556331259185487
+            },
+            {
+              "client": 12,
+              "examples_processed": 20800,
+              "optimizer_steps": 41,
+              "task_loss": 0.6498594265717726
+            },
+            {
+              "client": 13,
+              "examples_processed": 128500,
+              "optimizer_steps": 251,
+              "task_loss": 0.0032630608022867083
+            },
+            {
+              "client": 14,
+              "examples_processed": 146172,
+              "optimizer_steps": 286,
+              "task_loss": 0.0027692648337880395
+            },
+            {
+              "client": 15,
+              "examples_processed": 58420,
+              "optimizer_steps": 115,
+              "task_loss": 0.6500685666489789
+            },
+            {
+              "client": 16,
+              "examples_processed": 159751,
+              "optimizer_steps": 313,
+              "task_loss": 0.32388415772660073
+            },
+            {
+              "client": 17,
+              "examples_processed": 107164,
+              "optimizer_steps": 210,
+              "task_loss": 0.0037655444791880647
+            },
+            {
+              "client": 18,
+              "examples_processed": 81400,
+              "optimizer_steps": 159,
+              "task_loss": 0.44393722727199153
+            },
+            {
+              "client": 19,
+              "examples_processed": 138808,
+              "optimizer_steps": 272,
+              "task_loss": 0.0026274524870996047
+            }
+          ],
+          "corrected": [
+            {
+              "client": 0,
+              "examples_processed": 88000,
+              "optimizer_steps": 172,
+              "task_loss": 0.3911644529862837
+            },
+            {
+              "client": 1,
+              "examples_processed": 27708,
+              "optimizer_steps": 55,
+              "task_loss": 0.652310339931597
+            },
+            {
+              "client": 2,
+              "examples_processed": 100381,
+              "optimizer_steps": 197,
+              "task_loss": 0.5221833243582072
+            },
+            {
+              "client": 3,
+              "examples_processed": 198245,
+              "optimizer_steps": 388,
+              "task_loss": 0.0012553023945238572
+            },
+            {
+              "client": 4,
+              "examples_processed": 116539,
+              "optimizer_steps": 228,
+              "task_loss": 0.2781372209421033
+            },
+            {
+              "client": 5,
+              "examples_processed": 69364,
+              "optimizer_steps": 136,
+              "task_loss": 0.6875285654254703
+            },
+            {
+              "client": 6,
+              "examples_processed": 124920,
+              "optimizer_steps": 244,
+              "task_loss": 0.42986440203947934
+            },
+            {
+              "client": 7,
+              "examples_processed": 93192,
+              "optimizer_steps": 183,
+              "task_loss": 0.525061302465864
+            },
+            {
+              "client": 8,
+              "examples_processed": 65327,
+              "optimizer_steps": 128,
+              "task_loss": 0.6373846696675383
+            },
+            {
+              "client": 9,
+              "examples_processed": 110288,
+              "optimizer_steps": 216,
+              "task_loss": 0.3948397249714065
+            },
+            {
+              "client": 10,
+              "examples_processed": 75029,
+              "optimizer_steps": 147,
+              "task_loss": 0.3231542304329607
+            },
+            {
+              "client": 11,
+              "examples_processed": 89992,
+              "optimizer_steps": 176,
+              "task_loss": 0.48556331259185487
+            },
+            {
+              "client": 12,
+              "examples_processed": 20800,
+              "optimizer_steps": 41,
+              "task_loss": 0.6498594265717726
+            },
+            {
+              "client": 13,
+              "examples_processed": 128500,
+              "optimizer_steps": 251,
+              "task_loss": 0.0032630608022867083
+            },
+            {
+              "client": 14,
+              "examples_processed": 146172,
+              "optimizer_steps": 286,
+              "task_loss": 0.0027692648337880395
+            },
+            {
+              "client": 15,
+              "examples_processed": 58420,
+              "optimizer_steps": 115,
+              "task_loss": 0.6500685666489789
+            },
+            {
+              "client": 16,
+              "examples_processed": 159751,
+              "optimizer_steps": 313,
+              "task_loss": 0.32388415772660073
+            },
+            {
+              "client": 17,
+              "examples_processed": 107164,
+              "optimizer_steps": 210,
+              "task_loss": 0.0037655444791880647
+            },
+            {
+              "client": 18,
+              "examples_processed": 81400,
+              "optimizer_steps": 159,
+              "task_loss": 0.44393722727199153
+            },
+            {
+              "client": 19,
+              "examples_processed": 138808,
+              "optimizer_steps": 272,
+              "task_loss": 0.0026274524870996047
+            }
+          ]
+        },
+        "baseline_client_risk": {
+          "mean_class_ce": [
+            0.05458454730520654,
+            4.14571069005841,
+            5.0344616700759355
+          ],
+          "client_loss_sums": [
+            [
+              255.84478579484858,
+              863.8351497650146,
+              0.0
+            ],
+            [
+              835.8626784122316,
+              171.69523334503174,
+              1079.9455808401108
+            ],
+            [
+              233.89724833343644,
+              1754.8617949485779,
+              0.0
+            ],
+            [
+              0.6742194325197488,
+              0.0,
+              0.0
+            ],
+            [
+              224.69117514567915,
+              0.0,
+              0.0
+            ],
+            [
+              270.7704041278921,
+              0.0,
+              1393.7812980413437
+            ],
+            [
+              20.389060866553336,
+              0.0,
+              0.0
+            ],
+            [
+              593.4232985918643,
+              968.7118825912476,
+              63.20456290245056
+            ],
+            [
+              0.0,
+              887.1573131084442,
+              422.18940591812134
+            ],
+            [
+              109.13144800264854,
+              0.0,
+              0.0
+            ],
+            [
+              1264.3256845461437,
+              15.984878301620483,
+              1409.5476838350296
+            ],
+            [
+              6.64951502752956,
+              402.14606523513794,
+              1435.7270332574844
+            ],
+            [
+              499.9403831369709,
+              80.19807314872742,
+              0.0
+            ],
+            [
+              404.7382453357568,
+              0.0,
+              0.0
+            ],
+            [
+              147.43755618017167,
+              0.0,
+              0.0
+            ],
+            [
+              68.48746099881828,
+              750.2639410495758,
+              63.64815378189087
+            ],
+            [
+              31.475509388605133,
+              3243.5764689445496,
+              54.24406123161316
+            ],
+            [
+              617.7130247015739,
+              0.0,
+              0.0
+            ],
+            [
+              106.75220951228403,
+              773.9634594917297,
+              466.4440795183182
+            ],
+            [
+              101.8366198175354,
+              0.0,
+              0.0
+            ]
+          ],
+          "client_counts": [
+            [
+              4752,
+              208,
+              0
+            ],
+            [
+              15416,
+              40,
+              212
+            ],
+            [
+              4216,
+              420,
+              0
+            ],
+            [
+              16,
+              0,
+              0
+            ],
+            [
+              4244,
+              0,
+              0
+            ],
+            [
+              5172,
+              0,
+              276
+            ],
+            [
+              368,
+              0,
+              0
+            ],
+            [
+              10784,
+              228,
+              16
+            ],
+            [
+              0,
+              220,
+              80
+            ],
+            [
+              2104,
+              0,
+              0
+            ],
+            [
+              23244,
+              4,
+              285
+            ],
+            [
+              124,
+              96,
+              284
+            ],
+            [
+              9136,
+              20,
+              0
+            ],
+            [
+              7360,
+              0,
+              0
+            ],
+            [
+              2624,
+              0,
+              0
+            ],
+            [
+              1316,
+              184,
+              12
+            ],
+            [
+              592,
+              783,
+              12
+            ],
+            [
+              10996,
+              0,
+              0
+            ],
+            [
+              1920,
+              188,
+              92
+            ],
+            [
+              1764,
+              0,
+              0
+            ]
+          ],
+          "forward_examples": 109808,
+          "forward_batches": 84
+        },
+        "search": {
+          "accepted": true,
+          "solver": {
+            "status": "certified",
+            "margin": 0.003678721804723667,
+            "active_constraints": [
+              0,
+              1,
+              2
+            ],
+            "kkt_residual": 1.1709383462843448e-17,
+            "normalized_dots": [
+              -0.0036787218047236725,
+              -0.003678721804723655,
+              -0.0036787218047236656
+            ]
+          },
+          "trials": [
+            {
+              "scale": 1.0,
+              "accepted": true,
+              "retained_norm_fraction": 1.0005703864840796,
+              "model_sha256": "1a3af893b2d9d89ec8c5addb7e236a27e1aac316a3d3e3bcd44ae5c5e54f8ead",
+              "risk": {
+                "mean_class_ce": [
+                  0.0526253365433046,
+                  4.093573592188766,
+                  4.983853582982664
+                ],
+                "client_loss_sums": [
+                  [
+                    246.64338421844877,
+                    852.9996514320374,
+                    0.0
+                  ],
+                  [
+                    804.3705454433803,
+                    170.08776569366455,
+                    1069.1498030424118
+                  ],
+                  [
+                    225.63596908177715,
+                    1733.4512345790863,
+                    0.0
+                  ],
+                  [
+                    0.6912431515520439,
+                    0.0,
+                    0.0
+                  ],
+                  [
+                    216.3057783645345,
+                    0.0,
+                    0.0
+                  ],
+                  [
+                    260.6419038255699,
+                    0.0,
+                    1380.573612689972
+                  ],
+                  [
+                    19.543171663070098,
+                    0.0,
+                    0.0
+                  ],
+                  [
+                    572.0970911907498,
+                    957.3406233787537,
+                    62.19208383560181
+                  ],
+                  [
+                    0.0,
+                    874.8486249446869,
+                    419.07733500003815
+                  ],
+                  [
+                    105.02610010420904,
+                    0.0,
+                    0.0
+                  ],
+                  [
+                    1220.6657739239745,
+                    15.890422344207764,
+                    1393.3262116909027
+                  ],
+                  [
+                    6.405660121701658,
+                    396.7912480831146,
+                    1421.3583838939667
+                  ],
+                  [
+                    482.4937509081792,
+                    79.08076667785645,
+                    0.0
+                  ],
+                  [
+                    389.93823521386366,
+                    0.0,
+                    0.0
+                  ],
+                  [
+                    142.2067998854909,
+                    0.0,
+                    0.0
+                  ],
+                  [
+                    65.82975513825659,
+                    738.6241991519928,
+                    63.17093229293823
+                  ],
+                  [
+                    30.32785157917533,
+                    3204.941319704056,
+                    53.65664100646973
+                  ],
+                  [
+                    596.1236410865095,
+                    0.0,
+                    0.0
+                  ],
+                  [
+                    102.82647612225264,
+                    763.6786029338837,
+                    462.0051933526993
+                  ],
+                  [
+                    98.30109237600118,
+                    0.0,
+                    0.0
+                  ]
+                ],
+                "client_counts": [
+                  [
+                    4752,
+                    208,
+                    0
+                  ],
+                  [
+                    15416,
+                    40,
+                    212
+                  ],
+                  [
+                    4216,
+                    420,
+                    0
+                  ],
+                  [
+                    16,
+                    0,
+                    0
+                  ],
+                  [
+                    4244,
+                    0,
+                    0
+                  ],
+                  [
+                    5172,
+                    0,
+                    276
+                  ],
+                  [
+                    368,
+                    0,
+                    0
+                  ],
+                  [
+                    10784,
+                    228,
+                    16
+                  ],
+                  [
+                    0,
+                    220,
+                    80
+                  ],
+                  [
+                    2104,
+                    0,
+                    0
+                  ],
+                  [
+                    23244,
+                    4,
+                    285
+                  ],
+                  [
+                    124,
+                    96,
+                    284
+                  ],
+                  [
+                    9136,
+                    20,
+                    0
+                  ],
+                  [
+                    7360,
+                    0,
+                    0
+                  ],
+                  [
+                    2624,
+                    0,
+                    0
+                  ],
+                  [
+                    1316,
+                    184,
+                    12
+                  ],
+                  [
+                    592,
+                    783,
+                    12
+                  ],
+                  [
+                    10996,
+                    0,
+                    0
+                  ],
+                  [
+                    1920,
+                    188,
+                    92
+                  ],
+                  [
+                    1764,
+                    0,
+                    0
+                  ]
+                ],
+                "forward_examples": 109808,
+                "forward_batches": 84
+              },
+              "predicted_ce_changes": [
+                -0.0022891792925618833,
+                -0.0474483095150178,
+                -0.04779788234385307
+              ],
+              "actual_ce_changes": [
+                -0.0019592107619019403,
+                -0.052137097869644045,
+                -0.05060808709327169
+              ],
+              "armijo_upper_bounds": [
+                -0.00022791792925618833,
+                -0.00474383095150178,
+                -0.004778788234385307
+              ],
+              "rounding_displacement_norm": 4.778994172738388e-07
+            }
+          ],
+          "direction_norm_ratio": 1.0005703716097294,
+          "reason": "first_passing_scale",
+          "accepted_scale": 1.0
+        },
+        "work": {
+          "client_training_examples": 4000000,
+          "client_optimizer_steps": 7834,
+          "gradient_examples": 2000000,
+          "training_forward_evaluation_examples": 4000000,
+          "protected_risk_forward_examples": 219616,
+          "candidate_checks": 1
+        },
+        "fedavg": {
+          "mean_class_ce": [
+            0.054369517517754,
+            0.0808339289940776,
+            1.6111825929923693,
+            2.2946981052363222,
+            4.122276009699632,
+            5.084383557686381,
+            3.9798949810122806,
+            0.06519207151024269
+          ],
+          "metrics": {
+            "macro_f1": 0.4030701707403357,
+            "accuracy": 0.7945695,
+            "per_class": {
+              "Benign": {
+                "precision": 0.5172466108745657,
+                "recall": 0.9956758488148623,
+                "f1": 0.6808147437177513,
+                "support": 106148
+              },
+              "DDoS": {
+                "precision": 0.7955689101143969,
+                "recall": 0.9902737321190842,
+                "f1": 0.8823072930900426,
+                "support": 1178561
+              },
+              "DoS": {
+                "precision": 0.8532845193735832,
+                "recall": 0.18070872985434147,
+                "f1": 0.2982533238307106,
+                "support": 362423
+              },
+              "Recon": {
+                "precision": 0.934487021013597,
+                "recall": 0.2167267679587187,
+                "f1": 0.35185185185185186,
+                "support": 66277
+              },
+              "Web-based": {
+                "precision": 0.0,
+                "recall": 0.0,
+                "f1": 0.0,
+                "support": 2391
+              },
+              "Brute Force": {
+                "precision": 0.0,
+                "recall": 0.0,
+                "f1": 0.0,
+                "support": 1269
+              },
+              "Spoofing": {
+                "precision": 0.8857808857808858,
+                "recall": 0.008617757115319197,
+                "f1": 0.017069445692210944,
+                "support": 44095
+              },
+              "Mirai": {
+                "precision": 0.999987294488349,
+                "recall": 0.9886072451389237,
+                "f1": 0.994264707740118,
+                "support": 238836
+              }
+            },
+            "benign_false_alert_rate": 0.004324151185137737,
+            "confusion_matrix": [
+              [
+                105689,
+                5,
+                0,
+                453,
+                0,
+                0,
+                1,
+                0
+              ],
+              [
+                117,
+                1167098,
+                11149,
+                192,
+                0,
+                0,
+                3,
+                2
+              ],
+              [
+                88,
+                296722,
+                65493,
+                81,
+                0,
+                0,
+                38,
+                1
+              ],
+              [
+                51283,
+                630,
+                0,
+                14364,
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                2302,
+                0,
+                0,
+                89,
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                1214,
+                0,
+                0,
+                55,
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                43459,
+                119,
+                0,
+                137,
+                0,
+                0,
+                380,
+                0
+              ],
+              [
+                178,
+                2424,
+                112,
+                0,
+                0,
+                0,
+                7,
+                236115
+              ]
+            ]
+          }
+        },
+        "corrected": {
+          "mean_class_ce": [
+            0.05262533653910852,
+            0.0809149095379105,
+            1.610355762476608,
+            2.3383070094166385,
+            4.093573596775657,
+            4.983853588619037,
+            3.975179708771782,
+            0.06510987790849054
+          ],
+          "metrics": {
+            "macro_f1": 0.40167979197998455,
+            "accuracy": 0.7943845,
+            "per_class": {
+              "Benign": {
+                "precision": 0.5161095144456209,
+                "recall": 0.9964577759354863,
+                "f1": 0.6800111865093269,
+                "support": 106148
+              },
+              "DDoS": {
+                "precision": 0.79560179314971,
+                "recall": 0.9902593077490262,
+                "f1": 0.8823217892274248,
+                "support": 1178561
+              },
+              "DoS": {
+                "precision": 0.8531566823275245,
+                "recall": 0.18087704146811875,
+                "f1": 0.29847470746255067,
+                "support": 362423
+              },
+              "Recon": {
+                "precision": 0.9396009469056477,
+                "recall": 0.2096051420553133,
+                "f1": 0.34274999383188176,
+                "support": 66277
+              },
+              "Web-based": {
+                "precision": 0.0,
+                "recall": 0.0,
+                "f1": 0.0,
+                "support": 2391
+              },
+              "Brute Force": {
+                "precision": 0.0,
+                "recall": 0.0,
+                "f1": 0.0,
+                "support": 1269
+              },
+              "Spoofing": {
+                "precision": 0.8784810126582279,
+                "recall": 0.00786937294477832,
+                "f1": 0.015599011013710947,
+                "support": 44095
+              },
+              "Mirai": {
+                "precision": 0.9999872949188146,
+                "recall": 0.9886407409268284,
+                "f1": 0.9942816477949815,
+                "support": 238836
+              }
+            },
+            "benign_false_alert_rate": 0.003542224064513655,
+            "confusion_matrix": [
+              [
+                105772,
+                5,
+                0,
+                370,
+                0,
+                0,
+                1,
+                0
+              ],
+              [
+                119,
+                1167081,
+                11172,
+                184,
+                0,
+                0,
+                3,
+                2
+              ],
+              [
+                88,
+                296662,
+                65554,
+                80,
+                0,
+                0,
+                38,
+                1
+              ],
+              [
+                51752,
+                633,
+                0,
+                13892,
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                2314,
+                0,
+                0,
+                77,
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                1214,
+                0,
+                0,
+                55,
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                43504,
+                117,
+                0,
+                127,
+                0,
+                0,
+                347,
+                0
+              ],
+              [
+                178,
+                2418,
+                111,
+                0,
+                0,
+                0,
+                6,
+                236123
+              ]
+            ]
+          }
+        },
+        "elapsed_seconds": 6.998089333996177
+      },
+      {
+        "round": 22,
+        "starting_model_sha256": {
+          "fedavg": "8a80da09ff66efd2a430f04e3f02d1124591a5e5515fc079e0357632d5a2186d",
+          "corrected": "1a3af893b2d9d89ec8c5addb7e236a27e1aac316a3d3e3bcd44ae5c5e54f8ead"
+        },
+        "fedavg_model_sha256": "c6c8c36f6b295649267777c3efe95e1bd3a7b7403b98f9bcd497551e8d8de312",
+        "proposal_model_sha256": "918a394f059413aa68cca35d50dcd0f19aa556255cbad5ae8490891d13936ff1",
+        "corrected_model_sha256": "1b69c70a4572de186927bacf748d38805fe69b62064a64a0f744e3fab8cc3d4d",
+        "gradient_work": {
+          "client_counts": [
+            [
+              4752,
+              26032,
+              54632,
+              368,
+              208,
+              0,
+              0,
+              2008
+            ],
+            [
+              15416,
+              432,
+              9728,
+              1300,
+              40,
+              212,
+              336,
+              244
+            ],
+            [
+              4216,
+              28304,
+              50668,
+              16773,
+              420,
+              0,
+              0,
+              0
+            ],
+            [
+              16,
+              198229,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              4244,
+              30244,
+              82051,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              5172,
+              8052,
+              4888,
+              12340,
+              0,
+              276,
+              6280,
+              32356
+            ],
+            [
+              368,
+              74324,
+              50228,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              10784,
+              54544,
+              5972,
+              8012,
+              228,
+              16,
+              488,
+              13148
+            ],
+            [
+              0,
+              7336,
+              116,
+              5188,
+              220,
+              80,
+              21775,
+              30612
+            ],
+            [
+              2104,
+              84640,
+              23544,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              23244,
+              8,
+              29148,
+              1588,
+              4,
+              285,
+              300,
+              20452
+            ],
+            [
+              124,
+              36992,
+              18360,
+              2340,
+              96,
+              284,
+              2136,
+              29660
+            ],
+            [
+              9136,
+              3976,
+              1140,
+              4204,
+              20,
+              0,
+              304,
+              2020
+            ],
+            [
+              7360,
+              121140,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              2624,
+              143548,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              1316,
+              47688,
+              1624,
+              3476,
+              184,
+              12,
+              3320,
+              800
+            ],
+            [
+              592,
+              6816,
+              27716,
+              7252,
+              783,
+              12,
+              9100,
+              107480
+            ],
+            [
+              10996,
+              96168,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              1920,
+              73052,
+              2604,
+              3436,
+              188,
+              92,
+              56,
+              52
+            ],
+            [
+              1764,
+              137036,
+              4,
+              0,
+              0,
+              0,
+              0,
+              4
+            ]
+          ],
+          "class_counts": [
+            106148,
+            1178561,
+            362423,
+            66277,
+            2391,
+            1269,
+            44095,
+            238836
+          ],
+          "mean_class_ce": [
+            0.05262533634228341,
+            0.08091490990763672,
+            1.6103557601426728,
+            2.3383069454167615,
+            4.093573762900856,
+            4.983853820367908,
+            3.975179753345161,
+            0.0651098784441679
+          ],
+          "gradient_examples": 2000000,
+          "gradient_backward_batches": 1044
+        },
+        "client_work": {
+          "fedavg": [
+            {
+              "client": 0,
+              "examples_processed": 88000,
+              "optimizer_steps": 172,
+              "task_loss": 0.3915080300244418
+            },
+            {
+              "client": 1,
+              "examples_processed": 27708,
+              "optimizer_steps": 55,
+              "task_loss": 0.6570453976972186
+            },
+            {
+              "client": 2,
+              "examples_processed": 100381,
+              "optimizer_steps": 197,
+              "task_loss": 0.5184659136177574
+            },
+            {
+              "client": 3,
+              "examples_processed": 198245,
+              "optimizer_steps": 388,
+              "task_loss": 0.0012416408892584718
+            },
+            {
+              "client": 4,
+              "examples_processed": 116539,
+              "optimizer_steps": 228,
+              "task_loss": 0.2753199586874812
+            },
+            {
+              "client": 5,
+              "examples_processed": 69364,
+              "optimizer_steps": 136,
+              "task_loss": 0.6873784518992568
+            },
+            {
+              "client": 6,
+              "examples_processed": 124920,
+              "optimizer_steps": 244,
+              "task_loss": 0.4290456963394683
+            },
+            {
+              "client": 7,
+              "examples_processed": 93192,
+              "optimizer_steps": 183,
+              "task_loss": 0.5218320830879994
+            },
+            {
+              "client": 8,
+              "examples_processed": 65327,
+              "optimizer_steps": 128,
+              "task_loss": 0.6326482984814283
+            },
+            {
+              "client": 9,
+              "examples_processed": 110288,
+              "optimizer_steps": 216,
+              "task_loss": 0.3950791093870083
+            },
+            {
+              "client": 10,
+              "examples_processed": 75029,
+              "optimizer_steps": 147,
+              "task_loss": 0.3276819923370062
+            },
+            {
+              "client": 11,
+              "examples_processed": 89992,
+              "optimizer_steps": 176,
+              "task_loss": 0.48699622798447123
+            },
+            {
+              "client": 12,
+              "examples_processed": 20800,
+              "optimizer_steps": 41,
+              "task_loss": 0.6552177289816049
+            },
+            {
+              "client": 13,
+              "examples_processed": 128500,
+              "optimizer_steps": 251,
+              "task_loss": 0.003011325085519338
+            },
+            {
+              "client": 14,
+              "examples_processed": 146172,
+              "optimizer_steps": 286,
+              "task_loss": 0.00236263718929039
+            },
+            {
+              "client": 15,
+              "examples_processed": 58420,
+              "optimizer_steps": 115,
+              "task_loss": 0.642349801615304
+            },
+            {
+              "client": 16,
+              "examples_processed": 159751,
+              "optimizer_steps": 313,
+              "task_loss": 0.32271005381254453
+            },
+            {
+              "client": 17,
+              "examples_processed": 107164,
+              "optimizer_steps": 210,
+              "task_loss": 0.003375440650385015
+            },
+            {
+              "client": 18,
+              "examples_processed": 81400,
+              "optimizer_steps": 159,
+              "task_loss": 0.44746729996046214
+            },
+            {
+              "client": 19,
+              "examples_processed": 138808,
+              "optimizer_steps": 272,
+              "task_loss": 0.00311949490501297
+            }
+          ],
+          "corrected": [
+            {
+              "client": 0,
+              "examples_processed": 88000,
+              "optimizer_steps": 172,
+              "task_loss": 0.3911395659229972
+            },
+            {
+              "client": 1,
+              "examples_processed": 27708,
+              "optimizer_steps": 55,
+              "task_loss": 0.6543248769299747
+            },
+            {
+              "client": 2,
+              "examples_processed": 100381,
+              "optimizer_steps": 197,
+              "task_loss": 0.5197295414316734
+            },
+            {
+              "client": 3,
+              "examples_processed": 198245,
+              "optimizer_steps": 388,
+              "task_loss": 0.0012421965983343442
+            },
+            {
+              "client": 4,
+              "examples_processed": 116539,
+              "optimizer_steps": 228,
+              "task_loss": 0.2752857880998995
+            },
+            {
+              "client": 5,
+              "examples_processed": 69364,
+              "optimizer_steps": 136,
+              "task_loss": 0.6880994307204972
+            },
+            {
+              "client": 6,
+              "examples_processed": 124920,
+              "optimizer_steps": 244,
+              "task_loss": 0.4290533329922917
+            },
+            {
+              "client": 7,
+              "examples_processed": 93192,
+              "optimizer_steps": 183,
+              "task_loss": 0.5222787317331486
+            },
+            {
+              "client": 8,
+              "examples_processed": 65327,
+              "optimizer_steps": 128,
+              "task_loss": 0.6332528725781281
+            },
+            {
+              "client": 9,
+              "examples_processed": 110288,
+              "optimizer_steps": 216,
+              "task_loss": 0.39502745676106366
+            },
+            {
+              "client": 10,
+              "examples_processed": 75029,
+              "optimizer_steps": 147,
+              "task_loss": 0.3268876049862379
+            },
+            {
+              "client": 11,
+              "examples_processed": 89992,
+              "optimizer_steps": 176,
+              "task_loss": 0.4861446681902434
+            },
+            {
+              "client": 12,
+              "examples_processed": 20800,
+              "optimizer_steps": 41,
+              "task_loss": 0.6584004108722393
+            },
+            {
+              "client": 13,
+              "examples_processed": 128500,
+              "optimizer_steps": 251,
+              "task_loss": 0.0030065684848825597
+            },
+            {
+              "client": 14,
+              "examples_processed": 146172,
+              "optimizer_steps": 286,
+              "task_loss": 0.0023644767634836664
+            },
+            {
+              "client": 15,
+              "examples_processed": 58420,
+              "optimizer_steps": 115,
+              "task_loss": 0.6429691023469094
+            },
+            {
+              "client": 16,
+              "examples_processed": 159751,
+              "optimizer_steps": 313,
+              "task_loss": 0.3228280867045716
+            },
+            {
+              "client": 17,
+              "examples_processed": 107164,
+              "optimizer_steps": 210,
+              "task_loss": 0.0033650514108855747
+            },
+            {
+              "client": 18,
+              "examples_processed": 81400,
+              "optimizer_steps": 159,
+              "task_loss": 0.44702149963496063
+            },
+            {
+              "client": 19,
+              "examples_processed": 138808,
+              "optimizer_steps": 272,
+              "task_loss": 0.0031178797466183935
+            }
+          ]
+        },
+        "baseline_client_risk": {
+          "mean_class_ce": [
+            0.0526253365433046,
+            4.093573592188766,
+            4.983853582982664
+          ],
+          "client_loss_sums": [
+            [
+              246.64338421844877,
+              852.9996514320374,
+              0.0
+            ],
+            [
+              804.3705454433803,
+              170.08776569366455,
+              1069.1498030424118
+            ],
+            [
+              225.63596908177715,
+              1733.4512345790863,
+              0.0
+            ],
+            [
+              0.6912431515520439,
+              0.0,
+              0.0
+            ],
+            [
+              216.3057783645345,
+              0.0,
+              0.0
+            ],
+            [
+              260.6419038255699,
+              0.0,
+              1380.573612689972
+            ],
+            [
+              19.543171663070098,
+              0.0,
+              0.0
+            ],
+            [
+              572.0970911907498,
+              957.3406233787537,
+              62.19208383560181
+            ],
+            [
+              0.0,
+              874.8486249446869,
+              419.07733500003815
+            ],
+            [
+              105.02610010420904,
+              0.0,
+              0.0
+            ],
+            [
+              1220.6657739239745,
+              15.890422344207764,
+              1393.3262116909027
+            ],
+            [
+              6.405660121701658,
+              396.7912480831146,
+              1421.3583838939667
+            ],
+            [
+              482.4937509081792,
+              79.08076667785645,
+              0.0
+            ],
+            [
+              389.93823521386366,
+              0.0,
+              0.0
+            ],
+            [
+              142.2067998854909,
+              0.0,
+              0.0
+            ],
+            [
+              65.82975513825659,
+              738.6241991519928,
+              63.17093229293823
+            ],
+            [
+              30.32785157917533,
+              3204.941319704056,
+              53.65664100646973
+            ],
+            [
+              596.1236410865095,
+              0.0,
+              0.0
+            ],
+            [
+              102.82647612225264,
+              763.6786029338837,
+              462.0051933526993
+            ],
+            [
+              98.30109237600118,
+              0.0,
+              0.0
+            ]
+          ],
+          "client_counts": [
+            [
+              4752,
+              208,
+              0
+            ],
+            [
+              15416,
+              40,
+              212
+            ],
+            [
+              4216,
+              420,
+              0
+            ],
+            [
+              16,
+              0,
+              0
+            ],
+            [
+              4244,
+              0,
+              0
+            ],
+            [
+              5172,
+              0,
+              276
+            ],
+            [
+              368,
+              0,
+              0
+            ],
+            [
+              10784,
+              228,
+              16
+            ],
+            [
+              0,
+              220,
+              80
+            ],
+            [
+              2104,
+              0,
+              0
+            ],
+            [
+              23244,
+              4,
+              285
+            ],
+            [
+              124,
+              96,
+              284
+            ],
+            [
+              9136,
+              20,
+              0
+            ],
+            [
+              7360,
+              0,
+              0
+            ],
+            [
+              2624,
+              0,
+              0
+            ],
+            [
+              1316,
+              184,
+              12
+            ],
+            [
+              592,
+              783,
+              12
+            ],
+            [
+              10996,
+              0,
+              0
+            ],
+            [
+              1920,
+              188,
+              92
+            ],
+            [
+              1764,
+              0,
+              0
+            ]
+          ],
+          "forward_examples": 109808,
+          "forward_batches": 84
+        },
+        "search": {
+          "accepted": true,
+          "solver": {
+            "status": "certified",
+            "margin": 0.0036673887875610807,
+            "active_constraints": [
+              0,
+              1,
+              2
+            ],
+            "kkt_residual": 6.722053469410127e-17,
+            "normalized_dots": [
+              -0.0036673887875610135,
+              -0.0036673887875611037,
+              -0.003667388787561114
+            ]
+          },
+          "trials": [
+            {
+              "scale": 1.0,
+              "accepted": true,
+              "retained_norm_fraction": 1.000557151859784,
+              "model_sha256": "1b69c70a4572de186927bacf748d38805fe69b62064a64a0f744e3fab8cc3d4d",
+              "risk": {
+                "mean_class_ce": [
+                  0.05059426717173419,
+                  4.0443985068314445,
+                  4.935732674561118
+                ],
+                "client_loss_sums": [
+                  [
+                    236.80684186914004,
+                    842.0474035739899,
+                    0.0
+                  ],
+                  [
+                    771.6785047620069,
+                    168.6784543991089,
+                    1061.0935831069946
+                  ],
+                  [
+                    217.14436560031027,
+                    1713.942299604416,
+                    0.0
+                  ],
+                  [
+                    0.6941291911061853,
+                    0.0,
+                    0.0
+                  ],
+                  [
+                    207.22712372406386,
+                    0.0,
+                    0.0
+                  ],
+                  [
+                    250.37750771036372,
+                    0.0,
+                    1366.8888493776321
+                  ],
+                  [
+                    18.601111727533862,
+                    0.0,
+                    0.0
+                  ],
+                  [
+                    549.0120671465993,
+                    945.1578640937805,
+                    61.0135600566864
+                  ],
+                  [
+                    0.0,
+                    863.2615184783936,
+                    416.11225056648254
+                  ],
+                  [
+                    100.56775001483038,
+                    0.0,
+                    0.0
+                  ],
+                  [
+                    1174.3821837065043,
+                    15.711097002029419,
+                    1378.1240936517715
+                  ],
+                  [
+                    6.28082964499481,
+                    392.5846664905548,
+                    1406.870602965355
+                  ],
+                  [
+                    464.363068300765,
+                    77.9280731678009,
+                    0.0
+                  ],
+                  [
+                    375.9535441243788,
+                    0.0,
+                    0.0
+                  ],
+                  [
+                    137.0611270549707,
+                    0.0,
+                    0.0
+                  ],
+                  [
+                    63.06564186094329,
+                    730.1867711544037,
+                    62.669262170791626
+                  ],
+                  [
+                    29.33917792874854,
+                    3164.92045044899,
+                    52.87779128551483
+                  ],
+                  [
+                    574.5076385622378,
+                    0.0,
+                    0.0
+                  ],
+                  [
+                    98.75218783179298,
+                    755.738231420517,
+                    457.79477083683014
+                  ],
+                  [
+                    94.66547098394949,
+                    0.0,
+                    0.0
+                  ]
+                ],
+                "client_counts": [
+                  [
+                    4752,
+                    208,
+                    0
+                  ],
+                  [
+                    15416,
+                    40,
+                    212
+                  ],
+                  [
+                    4216,
+                    420,
+                    0
+                  ],
+                  [
+                    16,
+                    0,
+                    0
+                  ],
+                  [
+                    4244,
+                    0,
+                    0
+                  ],
+                  [
+                    5172,
+                    0,
+                    276
+                  ],
+                  [
+                    368,
+                    0,
+                    0
+                  ],
+                  [
+                    10784,
+                    228,
+                    16
+                  ],
+                  [
+                    0,
+                    220,
+                    80
+                  ],
+                  [
+                    2104,
+                    0,
+                    0
+                  ],
+                  [
+                    23244,
+                    4,
+                    285
+                  ],
+                  [
+                    124,
+                    96,
+                    284
+                  ],
+                  [
+                    9136,
+                    20,
+                    0
+                  ],
+                  [
+                    7360,
+                    0,
+                    0
+                  ],
+                  [
+                    2624,
+                    0,
+                    0
+                  ],
+                  [
+                    1316,
+                    184,
+                    12
+                  ],
+                  [
+                    592,
+                    783,
+                    12
+                  ],
+                  [
+                    10996,
+                    0,
+                    0
+                  ],
+                  [
+                    1920,
+                    188,
+                    92
+                  ],
+                  [
+                    1764,
+                    0,
+                    0
+                  ]
+                ],
+                "forward_examples": 109808,
+                "forward_batches": 84
+              },
+              "predicted_ce_changes": [
+                -0.0022482696261277545,
+                -0.04857104593652578,
+                -0.04803390208800026
+              ],
+              "actual_ce_changes": [
+                -0.00203106937157041,
+                -0.04917508535732118,
+                -0.04812090842154593
+              ],
+              "armijo_upper_bounds": [
+                -0.00022382696261277545,
+                -0.0048561045936525785,
+                -0.004802390208800027
+              ],
+              "rounding_displacement_norm": 4.7144709492820295e-07
+            }
+          ],
+          "direction_norm_ratio": 1.0005571307407732,
+          "reason": "first_passing_scale",
+          "accepted_scale": 1.0
+        },
+        "work": {
+          "client_training_examples": 4000000,
+          "client_optimizer_steps": 7834,
+          "gradient_examples": 2000000,
+          "training_forward_evaluation_examples": 4000000,
+          "protected_risk_forward_examples": 219616,
+          "candidate_checks": 1
+        },
+        "fedavg": {
+          "mean_class_ce": [
+            0.05203721082089772,
+            0.08591635855882528,
+            1.5510819604830637,
+            2.3392950990717805,
+            4.160575541628299,
+            5.136772699389898,
+            3.976822596624171,
+            0.061025997833015024
+          ],
+          "metrics": {
+            "macro_f1": 0.40934322471255935,
+            "accuracy": 0.7963715,
+            "per_class": {
+              "Benign": {
+                "precision": 0.5194204094868885,
+                "recall": 0.9959113690319177,
+                "f1": 0.6827504028468924,
+                "support": 106148
+              },
+              "DDoS": {
+                "precision": 0.7976044766061207,
+                "recall": 0.989183419441166,
+                "f1": 0.8831234253110745,
+                "support": 1178561
+              },
+              "DoS": {
+                "precision": 0.8468309430470672,
+                "recall": 0.19192214622140427,
+                "f1": 0.31292443556677263,
+                "support": 362423
+              },
+              "Recon": {
+                "precision": 0.9374547846103255,
+                "recall": 0.2150670670066539,
+                "f1": 0.34986868265383764,
+                "support": 66277
+              },
+              "Web-based": {
+                "precision": 0.0,
+                "recall": 0.0,
+                "f1": 0.0,
+                "support": 2391
+              },
+              "Brute Force": {
+                "precision": 0.0,
+                "recall": 0.0,
+                "f1": 0.0,
+                "support": 1269
+              },
+              "Spoofing": {
+                "precision": 0.9337060702875399,
+                "recall": 0.026510942283705635,
+                "f1": 0.05155798619533817,
+                "support": 44095
+              },
+              "Mirai": {
+                "precision": 0.9999873009960252,
+                "recall": 0.989113868930982,
+                "f1": 0.994520865126559,
+                "support": 238836
+              }
+            },
+            "benign_false_alert_rate": 0.0040886309680823185,
+            "confusion_matrix": [
+              [
+                105714,
+                5,
+                0,
+                427,
+                0,
+                0,
+                2,
+                0
+              ],
+              [
+                88,
+                1165813,
+                12473,
+                173,
+                0,
+                0,
+                12,
+                2
+              ],
+              [
+                70,
+                292674,
+                69557,
+                74,
+                0,
+                0,
+                47,
+                1
+              ],
+              [
+                51357,
+                666,
+                0,
+                14254,
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                2305,
+                0,
+                0,
+                86,
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                1214,
+                0,
+                0,
+                55,
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                42629,
+                161,
+                0,
+                136,
+                0,
+                0,
+                1169,
+                0
+              ],
+              [
+                146,
+                2324,
+                108,
+                0,
+                0,
+                0,
+                22,
+                236236
+              ]
+            ]
+          }
+        },
+        "corrected": {
+          "mean_class_ce": [
+            0.05059426717427859,
+            0.0863654778212621,
+            1.5460536854424973,
+            2.3979768341989973,
+            4.044398500748829,
+            4.935732666764135,
+            3.9469370461196935,
+            0.060934400513229015
+          ],
+          "metrics": {
+            "macro_f1": 0.4073242640184751,
+            "accuracy": 0.796122,
+            "per_class": {
+              "Benign": {
+                "precision": 0.5175999334836473,
+                "recall": 0.9969947620303727,
+                "f1": 0.6814290635493498,
+                "support": 106148
+              },
+              "DDoS": {
+                "precision": 0.7977086308511651,
+                "recall": 0.9891460857774863,
+                "f1": 0.8831723838030756,
+                "support": 1178561
+              },
+              "DoS": {
+                "precision": 0.8466915869702413,
+                "recall": 0.1924933020255337,
+                "f1": 0.31367365153017296,
+                "support": 362423
+              },
+              "Recon": {
+                "precision": 0.9457755359394704,
+                "recall": 0.20369057138977323,
+                "f1": 0.33519136944296163,
+                "support": 66277
+              },
+              "Web-based": {
+                "precision": 0.0,
+                "recall": 0.0,
+                "f1": 0.0,
+                "support": 2391
+              },
+              "Brute Force": {
+                "precision": 0.0,
+                "recall": 0.0,
+                "f1": 0.0,
+                "support": 1269
+              },
+              "Spoofing": {
+                "precision": 0.9302514193025142,
+                "recall": 0.02601201950334505,
+                "f1": 0.050608895164136955,
+                "support": 44095
+              },
+              "Mirai": {
+                "precision": 0.9999873009422701,
+                "recall": 0.9891096819574938,
+                "f1": 0.9945187486581037,
+                "support": 238836
+              }
+            },
+            "benign_false_alert_rate": 0.0030052379696272613,
+            "confusion_matrix": [
+              [
+                105829,
+                5,
+                0,
+                312,
+                0,
+                0,
+                2,
+                0
+              ],
+              [
+                92,
+                1165769,
+                12524,
+                162,
+                0,
+                0,
+                12,
+                2
+              ],
+              [
+                70,
+                292468,
+                69764,
+                72,
+                1,
+                0,
+                47,
+                1
+              ],
+              [
+                52102,
+                674,
+                0,
+                13500,
+                0,
+                0,
+                1,
+                0
+              ],
+              [
+                2326,
+                0,
+                0,
+                65,
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                1216,
+                1,
+                0,
+                52,
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                42683,
+                154,
+                0,
+                111,
+                0,
+                0,
+                1147,
+                0
+              ],
+              [
+                143,
+                2326,
+                108,
+                0,
+                0,
+                0,
+                24,
+                236235
+              ]
+            ]
+          }
+        },
+        "elapsed_seconds": 6.462014874909073
+      },
+      {
+        "round": 23,
+        "starting_model_sha256": {
+          "fedavg": "c6c8c36f6b295649267777c3efe95e1bd3a7b7403b98f9bcd497551e8d8de312",
+          "corrected": "1b69c70a4572de186927bacf748d38805fe69b62064a64a0f744e3fab8cc3d4d"
+        },
+        "fedavg_model_sha256": "97a0d3f16b952039a84753ac0462b139fb92bc4844a769756ff1d09805093e6f",
+        "proposal_model_sha256": "bc388a0247aefb4c57a545c4210c3d61e4dbb40e6fb556e266c44c90a999f883",
+        "corrected_model_sha256": "b42bfa91cba94ae254ee1ba6283a50411b5197bdfc9b8fb33f533470ef66a42f",
+        "gradient_work": {
+          "client_counts": [
+            [
+              4752,
+              26032,
+              54632,
+              368,
+              208,
+              0,
+              0,
+              2008
+            ],
+            [
+              15416,
+              432,
+              9728,
+              1300,
+              40,
+              212,
+              336,
+              244
+            ],
+            [
+              4216,
+              28304,
+              50668,
+              16773,
+              420,
+              0,
+              0,
+              0
+            ],
+            [
+              16,
+              198229,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              4244,
+              30244,
+              82051,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              5172,
+              8052,
+              4888,
+              12340,
+              0,
+              276,
+              6280,
+              32356
+            ],
+            [
+              368,
+              74324,
+              50228,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              10784,
+              54544,
+              5972,
+              8012,
+              228,
+              16,
+              488,
+              13148
+            ],
+            [
+              0,
+              7336,
+              116,
+              5188,
+              220,
+              80,
+              21775,
+              30612
+            ],
+            [
+              2104,
+              84640,
+              23544,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              23244,
+              8,
+              29148,
+              1588,
+              4,
+              285,
+              300,
+              20452
+            ],
+            [
+              124,
+              36992,
+              18360,
+              2340,
+              96,
+              284,
+              2136,
+              29660
+            ],
+            [
+              9136,
+              3976,
+              1140,
+              4204,
+              20,
+              0,
+              304,
+              2020
+            ],
+            [
+              7360,
+              121140,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              2624,
+              143548,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              1316,
+              47688,
+              1624,
+              3476,
+              184,
+              12,
+              3320,
+              800
+            ],
+            [
+              592,
+              6816,
+              27716,
+              7252,
+              783,
+              12,
+              9100,
+              107480
+            ],
+            [
+              10996,
+              96168,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              1920,
+              73052,
+              2604,
+              3436,
+              188,
+              92,
+              56,
+              52
+            ],
+            [
+              1764,
+              137036,
+              4,
+              0,
+              0,
+              0,
+              0,
+              4
+            ]
+          ],
+          "class_counts": [
+            106148,
+            1178561,
+            362423,
+            66277,
+            2391,
+            1269,
+            44095,
+            238836
+          ],
+          "mean_class_ce": [
+            0.05059426711849689,
+            0.08636547732868412,
+            1.5460536752502194,
+            2.397976792869336,
+            4.044398461760262,
+            4.935732658873213,
+            3.9469370296853294,
+            0.060934400011498066
+          ],
+          "gradient_examples": 2000000,
+          "gradient_backward_batches": 1044
+        },
+        "client_work": {
+          "fedavg": [
+            {
+              "client": 0,
+              "examples_processed": 88000,
+              "optimizer_steps": 172,
+              "task_loss": 0.39065458685701543
+            },
+            {
+              "client": 1,
+              "examples_processed": 27708,
+              "optimizer_steps": 55,
+              "task_loss": 0.6539878323383794
+            },
+            {
+              "client": 2,
+              "examples_processed": 100381,
+              "optimizer_steps": 197,
+              "task_loss": 0.5170139069913745
+            },
+            {
+              "client": 3,
+              "examples_processed": 198245,
+              "optimizer_steps": 388,
+              "task_loss": 0.0012116916676836538
+            },
+            {
+              "client": 4,
+              "examples_processed": 116539,
+              "optimizer_steps": 228,
+              "task_loss": 0.276375941126849
+            },
+            {
+              "client": 5,
+              "examples_processed": 69364,
+              "optimizer_steps": 136,
+              "task_loss": 0.681495632710984
+            },
+            {
+              "client": 6,
+              "examples_processed": 124920,
+              "optimizer_steps": 244,
+              "task_loss": 0.4276748801800749
+            },
+            {
+              "client": 7,
+              "examples_processed": 93192,
+              "optimizer_steps": 183,
+              "task_loss": 0.5212314397247577
+            },
+            {
+              "client": 8,
+              "examples_processed": 65327,
+              "optimizer_steps": 128,
+              "task_loss": 0.6353357047805618
+            },
+            {
+              "client": 9,
+              "examples_processed": 110288,
+              "optimizer_steps": 216,
+              "task_loss": 0.3938690923639674
+            },
+            {
+              "client": 10,
+              "examples_processed": 75029,
+              "optimizer_steps": 147,
+              "task_loss": 0.3258340421642377
+            },
+            {
+              "client": 11,
+              "examples_processed": 89992,
+              "optimizer_steps": 176,
+              "task_loss": 0.48338846957824505
+            },
+            {
+              "client": 12,
+              "examples_processed": 20800,
+              "optimizer_steps": 41,
+              "task_loss": 0.6413531136512757
+            },
+            {
+              "client": 13,
+              "examples_processed": 128500,
+              "optimizer_steps": 251,
+              "task_loss": 0.003073405145822412
+            },
+            {
+              "client": 14,
+              "examples_processed": 146172,
+              "optimizer_steps": 286,
+              "task_loss": 0.0024454133708958913
+            },
+            {
+              "client": 15,
+              "examples_processed": 58420,
+              "optimizer_steps": 115,
+              "task_loss": 0.6529421785072854
+            },
+            {
+              "client": 16,
+              "examples_processed": 159751,
+              "optimizer_steps": 313,
+              "task_loss": 0.32030509021859116
+            },
+            {
+              "client": 17,
+              "examples_processed": 107164,
+              "optimizer_steps": 210,
+              "task_loss": 0.0035518184942737886
+            },
+            {
+              "client": 18,
+              "examples_processed": 81400,
+              "optimizer_steps": 159,
+              "task_loss": 0.4433703885207305
+            },
+            {
+              "client": 19,
+              "examples_processed": 138808,
+              "optimizer_steps": 272,
+              "task_loss": 0.002828788064361529
+            }
+          ],
+          "corrected": [
+            {
+              "client": 0,
+              "examples_processed": 88000,
+              "optimizer_steps": 172,
+              "task_loss": 0.38979817152023316
+            },
+            {
+              "client": 1,
+              "examples_processed": 27708,
+              "optimizer_steps": 55,
+              "task_loss": 0.6487933451975857
+            },
+            {
+              "client": 2,
+              "examples_processed": 100381,
+              "optimizer_steps": 197,
+              "task_loss": 0.5191074172784791
+            },
+            {
+              "client": 3,
+              "examples_processed": 198245,
+              "optimizer_steps": 388,
+              "task_loss": 0.001213144625381765
+            },
+            {
+              "client": 4,
+              "examples_processed": 116539,
+              "optimizer_steps": 228,
+              "task_loss": 0.2762868003274726
+            },
+            {
+              "client": 5,
+              "examples_processed": 69364,
+              "optimizer_steps": 136,
+              "task_loss": 0.6823850295791974
+            },
+            {
+              "client": 6,
+              "examples_processed": 124920,
+              "optimizer_steps": 244,
+              "task_loss": 0.42763684635890664
+            },
+            {
+              "client": 7,
+              "examples_processed": 93192,
+              "optimizer_steps": 183,
+              "task_loss": 0.5221128907262209
+            },
+            {
+              "client": 8,
+              "examples_processed": 65327,
+              "optimizer_steps": 128,
+              "task_loss": 0.6350557796315732
+            },
+            {
+              "client": 9,
+              "examples_processed": 110288,
+              "optimizer_steps": 216,
+              "task_loss": 0.39382514644219085
+            },
+            {
+              "client": 10,
+              "examples_processed": 75029,
+              "optimizer_steps": 147,
+              "task_loss": 0.3242396619409479
+            },
+            {
+              "client": 11,
+              "examples_processed": 89992,
+              "optimizer_steps": 176,
+              "task_loss": 0.4815016161686516
+            },
+            {
+              "client": 12,
+              "examples_processed": 20800,
+              "optimizer_steps": 41,
+              "task_loss": 0.6475119058902447
+            },
+            {
+              "client": 13,
+              "examples_processed": 128500,
+              "optimizer_steps": 251,
+              "task_loss": 0.0030622603396680353
+            },
+            {
+              "client": 14,
+              "examples_processed": 146172,
+              "optimizer_steps": 286,
+              "task_loss": 0.0024368029286536627
+            },
+            {
+              "client": 15,
+              "examples_processed": 58420,
+              "optimizer_steps": 115,
+              "task_loss": 0.6535774951334564
+            },
+            {
+              "client": 16,
+              "examples_processed": 159751,
+              "optimizer_steps": 313,
+              "task_loss": 0.32021698340802823
+            },
+            {
+              "client": 17,
+              "examples_processed": 107164,
+              "optimizer_steps": 210,
+              "task_loss": 0.0035478803015546673
+            },
+            {
+              "client": 18,
+              "examples_processed": 81400,
+              "optimizer_steps": 159,
+              "task_loss": 0.44230759110731926
+            },
+            {
+              "client": 19,
+              "examples_processed": 138808,
+              "optimizer_steps": 272,
+              "task_loss": 0.002826976149515279
+            }
+          ]
+        },
+        "baseline_client_risk": {
+          "mean_class_ce": [
+            0.05059426717173419,
+            4.0443985068314445,
+            4.935732674561118
+          ],
+          "client_loss_sums": [
+            [
+              236.80684186914004,
+              842.0474035739899,
+              0.0
+            ],
+            [
+              771.6785047620069,
+              168.6784543991089,
+              1061.0935831069946
+            ],
+            [
+              217.14436560031027,
+              1713.942299604416,
+              0.0
+            ],
+            [
+              0.6941291911061853,
+              0.0,
+              0.0
+            ],
+            [
+              207.22712372406386,
+              0.0,
+              0.0
+            ],
+            [
+              250.37750771036372,
+              0.0,
+              1366.8888493776321
+            ],
+            [
+              18.601111727533862,
+              0.0,
+              0.0
+            ],
+            [
+              549.0120671465993,
+              945.1578640937805,
+              61.0135600566864
+            ],
+            [
+              0.0,
+              863.2615184783936,
+              416.11225056648254
+            ],
+            [
+              100.56775001483038,
+              0.0,
+              0.0
+            ],
+            [
+              1174.3821837065043,
+              15.711097002029419,
+              1378.1240936517715
+            ],
+            [
+              6.28082964499481,
+              392.5846664905548,
+              1406.870602965355
+            ],
+            [
+              464.363068300765,
+              77.9280731678009,
+              0.0
+            ],
+            [
+              375.9535441243788,
+              0.0,
+              0.0
+            ],
+            [
+              137.0611270549707,
+              0.0,
+              0.0
+            ],
+            [
+              63.06564186094329,
+              730.1867711544037,
+              62.669262170791626
+            ],
+            [
+              29.33917792874854,
+              3164.92045044899,
+              52.87779128551483
+            ],
+            [
+              574.5076385622378,
+              0.0,
+              0.0
+            ],
+            [
+              98.75218783179298,
+              755.738231420517,
+              457.79477083683014
+            ],
+            [
+              94.66547098394949,
+              0.0,
+              0.0
+            ]
+          ],
+          "client_counts": [
+            [
+              4752,
+              208,
+              0
+            ],
+            [
+              15416,
+              40,
+              212
+            ],
+            [
+              4216,
+              420,
+              0
+            ],
+            [
+              16,
+              0,
+              0
+            ],
+            [
+              4244,
+              0,
+              0
+            ],
+            [
+              5172,
+              0,
+              276
+            ],
+            [
+              368,
+              0,
+              0
+            ],
+            [
+              10784,
+              228,
+              16
+            ],
+            [
+              0,
+              220,
+              80
+            ],
+            [
+              2104,
+              0,
+              0
+            ],
+            [
+              23244,
+              4,
+              285
+            ],
+            [
+              124,
+              96,
+              284
+            ],
+            [
+              9136,
+              20,
+              0
+            ],
+            [
+              7360,
+              0,
+              0
+            ],
+            [
+              2624,
+              0,
+              0
+            ],
+            [
+              1316,
+              184,
+              12
+            ],
+            [
+              592,
+              783,
+              12
+            ],
+            [
+              10996,
+              0,
+              0
+            ],
+            [
+              1920,
+              188,
+              92
+            ],
+            [
+              1764,
+              0,
+              0
+            ]
+          ],
+          "forward_examples": 109808,
+          "forward_batches": 84
+        },
+        "search": {
+          "accepted": true,
+          "solver": {
+            "status": "certified",
+            "margin": 0.0035913451665903224,
+            "active_constraints": [
+              0,
+              1,
+              2
+            ],
+            "kkt_residual": 1.214306433183765e-17,
+            "normalized_dots": [
+              -0.0035913451665903137,
+              -0.0035913451665903276,
+              -0.0035913451665903345
+            ]
+          },
+          "trials": [
+            {
+              "scale": 1.0,
+              "accepted": true,
+              "retained_norm_fraction": 1.0004896758107824,
+              "model_sha256": "b42bfa91cba94ae254ee1ba6283a50411b5197bdfc9b8fb33f533470ef66a42f",
+              "risk": {
+                "mean_class_ce": [
+                  0.04876939602366192,
+                  3.999396543780015,
+                  4.889556626243982
+                ],
+                "client_loss_sums": [
+                  [
+                    227.21250532311387,
+                    832.0336344242096,
+                    0.0
+                  ],
+                  [
+                    743.3243950338801,
+                    167.37041997909546,
+                    1051.447317123413
+                  ],
+                  [
+                    209.06246247864328,
+                    1697.237562417984,
+                    0.0
+                  ],
+                  [
+                    0.747773798648268,
+                    0.0,
+                    0.0
+                  ],
+                  [
+                    199.5121623899322,
+                    0.0,
+                    0.0
+                  ],
+                  [
+                    242.3062108536251,
+                    0.0,
+                    1355.021066904068
+                  ],
+                  [
+                    17.808355674380437,
+                    0.0,
+                    0.0
+                  ],
+                  [
+                    529.0016335179098,
+                    933.1176447868347,
+                    59.72152662277222
+                  ],
+                  [
+                    0.0,
+                    851.4921587705612,
+                    412.87305557727814
+                  ],
+                  [
+                    96.33272103290074,
+                    0.0,
+                    0.0
+                  ],
+                  [
+                    1132.8893913860666,
+                    15.606037378311157,
+                    1362.3261760473251
+                  ],
+                  [
+                    6.20906990848016,
+                    388.1945083141327,
+                    1394.2119281291962
+                  ],
+                  [
+                    447.90291610744316,
+                    76.24430632591248,
+                    0.0
+                  ],
+                  [
+                    362.62076934135985,
+                    0.0,
+                    0.0
+                  ],
+                  [
+                    131.60530110367108,
+                    0.0,
+                    0.0
+                  ],
+                  [
+                    60.76659528783057,
+                    721.6755201816559,
+                    62.23541581630707
+                  ],
+                  [
+                    28.39194753987249,
+                    3131.0092735290527,
+                    52.338653922080994
+                  ],
+                  [
+                    553.7844938096823,
+                    0.0,
+                    0.0
+                  ],
+                  [
+                    95.86828563408926,
+                    748.5760700702667,
+                    454.6722185611725
+                  ],
+                  [
+                    91.42685889813583,
+                    0.0,
+                    0.0
+                  ]
+                ],
+                "client_counts": [
+                  [
+                    4752,
+                    208,
+                    0
+                  ],
+                  [
+                    15416,
+                    40,
+                    212
+                  ],
+                  [
+                    4216,
+                    420,
+                    0
+                  ],
+                  [
+                    16,
+                    0,
+                    0
+                  ],
+                  [
+                    4244,
+                    0,
+                    0
+                  ],
+                  [
+                    5172,
+                    0,
+                    276
+                  ],
+                  [
+                    368,
+                    0,
+                    0
+                  ],
+                  [
+                    10784,
+                    228,
+                    16
+                  ],
+                  [
+                    0,
+                    220,
+                    80
+                  ],
+                  [
+                    2104,
+                    0,
+                    0
+                  ],
+                  [
+                    23244,
+                    4,
+                    285
+                  ],
+                  [
+                    124,
+                    96,
+                    284
+                  ],
+                  [
+                    9136,
+                    20,
+                    0
+                  ],
+                  [
+                    7360,
+                    0,
+                    0
+                  ],
+                  [
+                    2624,
+                    0,
+                    0
+                  ],
+                  [
+                    1316,
+                    184,
+                    12
+                  ],
+                  [
+                    592,
+                    783,
+                    12
+                  ],
+                  [
+                    10996,
+                    0,
+                    0
+                  ],
+                  [
+                    1920,
+                    188,
+                    92
+                  ],
+                  [
+                    1764,
+                    0,
+                    0
+                  ]
+                ],
+                "forward_examples": 109808,
+                "forward_batches": 84
+              },
+              "predicted_ce_changes": [
+                -0.0021078825257657176,
+                -0.047335108463660514,
+                -0.04642300114542028
+              ],
+              "actual_ce_changes": [
+                -0.0018248711480722685,
+                -0.04500196305142934,
+                -0.046176048317136065
+              ],
+              "armijo_upper_bounds": [
+                -0.00020978825257657178,
+                -0.0047325108463660516,
+                -0.004641300114542028
+              ],
+              "rounding_displacement_norm": 4.992188537743313e-07
+            }
+          ],
+          "direction_norm_ratio": 1.0004896979147935,
+          "reason": "first_passing_scale",
+          "accepted_scale": 1.0
+        },
+        "work": {
+          "client_training_examples": 4000000,
+          "client_optimizer_steps": 7834,
+          "gradient_examples": 2000000,
+          "training_forward_evaluation_examples": 4000000,
+          "protected_risk_forward_examples": 219616,
+          "candidate_checks": 1
+        },
+        "fedavg": {
+          "mean_class_ce": [
+            0.055024142545781383,
+            0.08517740336626674,
+            1.5619722199732151,
+            2.2672354231155194,
+            4.094213971529282,
+            5.042151068870809,
+            4.022985671078595,
+            0.06109784376817626
+          ],
+          "metrics": {
+            "macro_f1": 0.41188481183017894,
+            "accuracy": 0.796321,
+            "per_class": {
+              "Benign": {
+                "precision": 0.5215510429835651,
+                "recall": 0.9949504465463316,
+                "f1": 0.6843612705900649,
+                "support": 106148
+              },
+              "DDoS": {
+                "precision": 0.7970687241245413,
+                "recall": 0.9892852385239288,
+                "f1": 0.882835473095633,
+                "support": 1178561
+              },
+              "DoS": {
+                "precision": 0.8461519489968308,
+                "recall": 0.18932849184516434,
+                "f1": 0.3094228844055231,
+                "support": 362423
+              },
+              "Recon": {
+                "precision": 0.9329832458114529,
+                "recall": 0.22517615462377596,
+                "f1": 0.3627921675397761,
+                "support": 66277
+              },
+              "Web-based": {
+                "precision": 0.0,
+                "recall": 0.0,
+                "f1": 0.0,
+                "support": 2391
+              },
+              "Brute Force": {
+                "precision": 0.0,
+                "recall": 0.0,
+                "f1": 0.0,
+                "support": 1269
+              },
+              "Spoofing": {
+                "precision": 0.9464769647696477,
+                "recall": 0.03168159655289715,
+                "f1": 0.06131092141932369,
+                "support": 44095
+              },
+              "Mirai": {
+                "precision": 0.9999830625457841,
+                "recall": 0.9887914719723995,
+                "f1": 0.9943557775911107,
+                "support": 238836
+              }
+            },
+            "benign_false_alert_rate": 0.0050495534536684206,
+            "confusion_matrix": [
+              [
+                105612,
+                5,
+                0,
+                525,
+                0,
+                0,
+                6,
+                0
+              ],
+              [
+                72,
+                1165933,
+                12382,
+                163,
+                0,
+                0,
+                8,
+                3
+              ],
+              [
+                65,
+                293630,
+                68617,
+                69,
+                0,
+                0,
+                41,
+                1
+              ],
+              [
+                50713,
+                640,
+                0,
+                14924,
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                2293,
+                0,
+                0,
+                98,
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                1211,
+                1,
+                0,
+                57,
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                42374,
+                164,
+                0,
+                160,
+                0,
+                0,
+                1397,
+                0
+              ],
+              [
+                156,
+                2403,
+                94,
+                0,
+                0,
+                0,
+                24,
+                236159
+              ]
+            ]
+          }
+        },
+        "corrected": {
+          "mean_class_ce": [
+            0.0487693960279567,
+            0.08544799738042513,
+            1.5589430849894992,
+            2.4178943228679888,
+            3.999396536201675,
+            4.889556609240923,
+            4.067286357969935,
+            0.060842920039693965
+          ],
+          "metrics": {
+            "macro_f1": 0.4062595182744806,
+            "accuracy": 0.795615,
+            "per_class": {
+              "Benign": {
+                "precision": 0.517209365960441,
+                "recall": 0.9971925990126993,
+                "f1": 0.6811366649077876,
+                "support": 106148
+              },
+              "DDoS": {
+                "precision": 0.7971945534896793,
+                "recall": 0.9892148136583512,
+                "f1": 0.8828846021320695,
+                "support": 1178561
+              },
+              "DoS": {
+                "precision": 0.8457230580288609,
+                "recall": 0.19000725671383992,
+                "f1": 0.31029992249598964,
+                "support": 362423
+              },
+              "Recon": {
+                "precision": 0.9479218121515771,
+                "recall": 0.20267966262806103,
+                "f1": 0.3339548528241846,
+                "support": 66277
+              },
+              "Web-based": {
+                "precision": 0.0,
+                "recall": 0.0,
+                "f1": 0.0,
+                "support": 2391
+              },
+              "Brute Force": {
+                "precision": 0.0,
+                "recall": 0.0,
+                "f1": 0.0,
+                "support": 1269
+              },
+              "Spoofing": {
+                "precision": 0.9404031551270815,
+                "recall": 0.02433382469667763,
+                "f1": 0.047440091962154034,
+                "support": 44095
+              },
+              "Mirai": {
+                "precision": 0.9999830626892215,
+                "recall": 0.9887998459193756,
+                "f1": 0.9943600118736592,
+                "support": 238836
+              }
+            },
+            "benign_false_alert_rate": 0.002807400987300701,
+            "confusion_matrix": [
+              [
+                105850,
+                5,
+                0,
+                289,
+                0,
+                0,
+                4,
+                0
+              ],
+              [
+                83,
+                1165850,
+                12469,
+                148,
+                0,
+                0,
+                8,
+                3
+              ],
+              [
+                70,
+                293382,
+                68863,
+                67,
+                1,
+                0,
+                39,
+                1
+              ],
+              [
+                52192,
+                652,
+                0,
+                13433,
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                2330,
+                0,
+                0,
+                61,
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                1215,
+                1,
+                0,
+                53,
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                42753,
+                149,
+                0,
+                120,
+                0,
+                0,
+                1073,
+                0
+              ],
+              [
+                163,
+                2402,
+                93,
+                0,
+                0,
+                0,
+                17,
+                236161
+              ]
+            ]
+          }
+        },
+        "elapsed_seconds": 6.4071039580740035
+      },
+      {
+        "round": 24,
+        "starting_model_sha256": {
+          "fedavg": "97a0d3f16b952039a84753ac0462b139fb92bc4844a769756ff1d09805093e6f",
+          "corrected": "b42bfa91cba94ae254ee1ba6283a50411b5197bdfc9b8fb33f533470ef66a42f"
+        },
+        "fedavg_model_sha256": "d933bf496d1edb9cb8e29450ae88340ae5bc9c2a7b4df241ff008066f5eefc3f",
+        "proposal_model_sha256": "7433ae14fd4f18c94014be6b896b0cc69022882ca938daacc741a359ee528591",
+        "corrected_model_sha256": "acdfb9496eec4f3ecb49ed509f177d85fa50d5c323aacdcc184632301a8fe959",
+        "gradient_work": {
+          "client_counts": [
+            [
+              4752,
+              26032,
+              54632,
+              368,
+              208,
+              0,
+              0,
+              2008
+            ],
+            [
+              15416,
+              432,
+              9728,
+              1300,
+              40,
+              212,
+              336,
+              244
+            ],
+            [
+              4216,
+              28304,
+              50668,
+              16773,
+              420,
+              0,
+              0,
+              0
+            ],
+            [
+              16,
+              198229,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              4244,
+              30244,
+              82051,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              5172,
+              8052,
+              4888,
+              12340,
+              0,
+              276,
+              6280,
+              32356
+            ],
+            [
+              368,
+              74324,
+              50228,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              10784,
+              54544,
+              5972,
+              8012,
+              228,
+              16,
+              488,
+              13148
+            ],
+            [
+              0,
+              7336,
+              116,
+              5188,
+              220,
+              80,
+              21775,
+              30612
+            ],
+            [
+              2104,
+              84640,
+              23544,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              23244,
+              8,
+              29148,
+              1588,
+              4,
+              285,
+              300,
+              20452
+            ],
+            [
+              124,
+              36992,
+              18360,
+              2340,
+              96,
+              284,
+              2136,
+              29660
+            ],
+            [
+              9136,
+              3976,
+              1140,
+              4204,
+              20,
+              0,
+              304,
+              2020
+            ],
+            [
+              7360,
+              121140,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              2624,
+              143548,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              1316,
+              47688,
+              1624,
+              3476,
+              184,
+              12,
+              3320,
+              800
+            ],
+            [
+              592,
+              6816,
+              27716,
+              7252,
+              783,
+              12,
+              9100,
+              107480
+            ],
+            [
+              10996,
+              96168,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              1920,
+              73052,
+              2604,
+              3436,
+              188,
+              92,
+              56,
+              52
+            ],
+            [
+              1764,
+              137036,
+              4,
+              0,
+              0,
+              0,
+              0,
+              4
+            ]
+          ],
+          "class_counts": [
+            106148,
+            1178561,
+            362423,
+            66277,
+            2391,
+            1269,
+            44095,
+            238836
+          ],
+          "mean_class_ce": [
+            0.048769396276442015,
+            0.08544799689649309,
+            1.5589430937829907,
+            2.417894292349353,
+            3.999396768886641,
+            4.889556400789061,
+            4.067286378475717,
+            0.06084291989083544
+          ],
+          "gradient_examples": 2000000,
+          "gradient_backward_batches": 1044
+        },
+        "client_work": {
+          "fedavg": [
+            {
+              "client": 0,
+              "examples_processed": 88000,
+              "optimizer_steps": 172,
+              "task_loss": 0.3892388882203536
+            },
+            {
+              "client": 1,
+              "examples_processed": 27708,
+              "optimizer_steps": 55,
+              "task_loss": 0.634976321907981
+            },
+            {
+              "client": 2,
+              "examples_processed": 100381,
+              "optimizer_steps": 197,
+              "task_loss": 0.5177431506611627
+            },
+            {
+              "client": 3,
+              "examples_processed": 198245,
+              "optimizer_steps": 388,
+              "task_loss": 0.0012509101914069919
+            },
+            {
+              "client": 4,
+              "examples_processed": 116539,
+              "optimizer_steps": 228,
+              "task_loss": 0.2747905046901859
+            },
+            {
+              "client": 5,
+              "examples_processed": 69364,
+              "optimizer_steps": 136,
+              "task_loss": 0.685405283449678
+            },
+            {
+              "client": 6,
+              "examples_processed": 124920,
+              "optimizer_steps": 244,
+              "task_loss": 0.42790741100167756
+            },
+            {
+              "client": 7,
+              "examples_processed": 93192,
+              "optimizer_steps": 183,
+              "task_loss": 0.5206934241626752
+            },
+            {
+              "client": 8,
+              "examples_processed": 65327,
+              "optimizer_steps": 128,
+              "task_loss": 0.6287421502295779
+            },
+            {
+              "client": 9,
+              "examples_processed": 110288,
+              "optimizer_steps": 216,
+              "task_loss": 0.393390441449308
+            },
+            {
+              "client": 10,
+              "examples_processed": 75029,
+              "optimizer_steps": 147,
+              "task_loss": 0.3262907037489795
+            },
+            {
+              "client": 11,
+              "examples_processed": 89992,
+              "optimizer_steps": 176,
+              "task_loss": 0.4799109422526833
+            },
+            {
+              "client": 12,
+              "examples_processed": 20800,
+              "optimizer_steps": 41,
+              "task_loss": 0.64229278417734
+            },
+            {
+              "client": 13,
+              "examples_processed": 128500,
+              "optimizer_steps": 251,
+              "task_loss": 0.00277026704285504
+            },
+            {
+              "client": 14,
+              "examples_processed": 146172,
+              "optimizer_steps": 286,
+              "task_loss": 0.002831210387826662
+            },
+            {
+              "client": 15,
+              "examples_processed": 58420,
+              "optimizer_steps": 115,
+              "task_loss": 0.650578982009336
+            },
+            {
+              "client": 16,
+              "examples_processed": 159751,
+              "optimizer_steps": 313,
+              "task_loss": 0.3194804574976343
+            },
+            {
+              "client": 17,
+              "examples_processed": 107164,
+              "optimizer_steps": 210,
+              "task_loss": 0.003433664796889001
+            },
+            {
+              "client": 18,
+              "examples_processed": 81400,
+              "optimizer_steps": 159,
+              "task_loss": 0.44703047779912736
+            },
+            {
+              "client": 19,
+              "examples_processed": 138808,
+              "optimizer_steps": 272,
+              "task_loss": 0.0029008675527849247
+            }
+          ],
+          "corrected": [
+            {
+              "client": 0,
+              "examples_processed": 88000,
+              "optimizer_steps": 172,
+              "task_loss": 0.3881333752762188
+            },
+            {
+              "client": 1,
+              "examples_processed": 27708,
+              "optimizer_steps": 55,
+              "task_loss": 0.6301309064910476
+            },
+            {
+              "client": 2,
+              "examples_processed": 100381,
+              "optimizer_steps": 197,
+              "task_loss": 0.5216579047887854
+            },
+            {
+              "client": 3,
+              "examples_processed": 198245,
+              "optimizer_steps": 388,
+              "task_loss": 0.0012509468802318429
+            },
+            {
+              "client": 4,
+              "examples_processed": 116539,
+              "optimizer_steps": 228,
+              "task_loss": 0.2747311659476233
+            },
+            {
+              "client": 5,
+              "examples_processed": 69364,
+              "optimizer_steps": 136,
+              "task_loss": 0.6897120085061473
+            },
+            {
+              "client": 6,
+              "examples_processed": 124920,
+              "optimizer_steps": 244,
+              "task_loss": 0.42790818897684607
+            },
+            {
+              "client": 7,
+              "examples_processed": 93192,
+              "optimizer_steps": 183,
+              "task_loss": 0.5223714312506046
+            },
+            {
+              "client": 8,
+              "examples_processed": 65327,
+              "optimizer_steps": 128,
+              "task_loss": 0.634053431916989
+            },
+            {
+              "client": 9,
+              "examples_processed": 110288,
+              "optimizer_steps": 216,
+              "task_loss": 0.39334245641138493
+            },
+            {
+              "client": 10,
+              "examples_processed": 75029,
+              "optimizer_steps": 147,
+              "task_loss": 0.32468627764498686
+            },
+            {
+              "client": 11,
+              "examples_processed": 89992,
+              "optimizer_steps": 176,
+              "task_loss": 0.4789742877010939
+            },
+            {
+              "client": 12,
+              "examples_processed": 20800,
+              "optimizer_steps": 41,
+              "task_loss": 0.6537459839307345
+            },
+            {
+              "client": 13,
+              "examples_processed": 128500,
+              "optimizer_steps": 251,
+              "task_loss": 0.0027347444600193736
+            },
+            {
+              "client": 14,
+              "examples_processed": 146172,
+              "optimizer_steps": 286,
+              "task_loss": 0.0027852322339152738
+            },
+            {
+              "client": 15,
+              "examples_processed": 58420,
+              "optimizer_steps": 115,
+              "task_loss": 0.6538603941225426
+            },
+            {
+              "client": 16,
+              "examples_processed": 159751,
+              "optimizer_steps": 313,
+              "task_loss": 0.32011097006212424
+            },
+            {
+              "client": 17,
+              "examples_processed": 107164,
+              "optimizer_steps": 210,
+              "task_loss": 0.0033992052016786943
+            },
+            {
+              "client": 18,
+              "examples_processed": 81400,
+              "optimizer_steps": 159,
+              "task_loss": 0.4467242197176162
+            },
+            {
+              "client": 19,
+              "examples_processed": 138808,
+              "optimizer_steps": 272,
+              "task_loss": 0.002888072939834863
+            }
+          ]
+        },
+        "baseline_client_risk": {
+          "mean_class_ce": [
+            0.04876939602366192,
+            3.999396543780015,
+            4.889556626243982
+          ],
+          "client_loss_sums": [
+            [
+              227.21250532311387,
+              832.0336344242096,
+              0.0
+            ],
+            [
+              743.3243950338801,
+              167.37041997909546,
+              1051.447317123413
+            ],
+            [
+              209.06246247864328,
+              1697.237562417984,
+              0.0
+            ],
+            [
+              0.747773798648268,
+              0.0,
+              0.0
+            ],
+            [
+              199.5121623899322,
+              0.0,
+              0.0
+            ],
+            [
+              242.3062108536251,
+              0.0,
+              1355.021066904068
+            ],
+            [
+              17.808355674380437,
+              0.0,
+              0.0
+            ],
+            [
+              529.0016335179098,
+              933.1176447868347,
+              59.72152662277222
+            ],
+            [
+              0.0,
+              851.4921587705612,
+              412.87305557727814
+            ],
+            [
+              96.33272103290074,
+              0.0,
+              0.0
+            ],
+            [
+              1132.8893913860666,
+              15.606037378311157,
+              1362.3261760473251
+            ],
+            [
+              6.20906990848016,
+              388.1945083141327,
+              1394.2119281291962
+            ],
+            [
+              447.90291610744316,
+              76.24430632591248,
+              0.0
+            ],
+            [
+              362.62076934135985,
+              0.0,
+              0.0
+            ],
+            [
+              131.60530110367108,
+              0.0,
+              0.0
+            ],
+            [
+              60.76659528783057,
+              721.6755201816559,
+              62.23541581630707
+            ],
+            [
+              28.39194753987249,
+              3131.0092735290527,
+              52.338653922080994
+            ],
+            [
+              553.7844938096823,
+              0.0,
+              0.0
+            ],
+            [
+              95.86828563408926,
+              748.5760700702667,
+              454.6722185611725
+            ],
+            [
+              91.42685889813583,
+              0.0,
+              0.0
+            ]
+          ],
+          "client_counts": [
+            [
+              4752,
+              208,
+              0
+            ],
+            [
+              15416,
+              40,
+              212
+            ],
+            [
+              4216,
+              420,
+              0
+            ],
+            [
+              16,
+              0,
+              0
+            ],
+            [
+              4244,
+              0,
+              0
+            ],
+            [
+              5172,
+              0,
+              276
+            ],
+            [
+              368,
+              0,
+              0
+            ],
+            [
+              10784,
+              228,
+              16
+            ],
+            [
+              0,
+              220,
+              80
+            ],
+            [
+              2104,
+              0,
+              0
+            ],
+            [
+              23244,
+              4,
+              285
+            ],
+            [
+              124,
+              96,
+              284
+            ],
+            [
+              9136,
+              20,
+              0
+            ],
+            [
+              7360,
+              0,
+              0
+            ],
+            [
+              2624,
+              0,
+              0
+            ],
+            [
+              1316,
+              184,
+              12
+            ],
+            [
+              592,
+              783,
+              12
+            ],
+            [
+              10996,
+              0,
+              0
+            ],
+            [
+              1920,
+              188,
+              92
+            ],
+            [
+              1764,
+              0,
+              0
+            ]
+          ],
+          "forward_examples": 109808,
+          "forward_batches": 84
+        },
+        "search": {
+          "accepted": true,
+          "solver": {
+            "status": "certified",
+            "margin": 0.003560478812146671,
+            "active_constraints": [
+              0,
+              1,
+              2
+            ],
+            "kkt_residual": 1.474514954580286e-17,
+            "normalized_dots": [
+              -0.0035604788121466682,
+              -0.0035604788121466856,
+              -0.003560478812146682
+            ]
+          },
+          "trials": [
+            {
+              "scale": 1.0,
+              "accepted": true,
+              "retained_norm_fraction": 1.000310664519015,
+              "model_sha256": "acdfb9496eec4f3ecb49ed509f177d85fa50d5c323aacdcc184632301a8fe959",
+              "risk": {
+                "mean_class_ce": [
+                  0.04678049994338289,
+                  3.9563283566299816,
+                  4.853337225433031
+                ],
+                "client_loss_sums": [
+                  [
+                    218.2908154556062,
+                    822.0739531517029,
+                    0.0
+                  ],
+                  [
+                    712.6832269869046,
+                    166.8147919178009,
+                    1044.5543028116226
+                  ],
+                  [
+                    200.4470923942281,
+                    1678.7249355316162,
+                    0.0
+                  ],
+                  [
+                    0.6886835624463856,
+                    0.0,
+                    0.0
+                  ],
+                  [
+                    190.98464441450778,
+                    0.0,
+                    0.0
+                  ],
+                  [
+                    232.52534642012324,
+                    0.0,
+                    1345.1676115989685
+                  ],
+                  [
+                    16.83045922697056,
+                    0.0,
+                    0.0
+                  ],
+                  [
+                    507.38724079017993,
+                    923.7797927856445,
+                    59.22950983047485
+                  ],
+                  [
+                    0.0,
+                    841.9715945720673,
+                    409.7799299955368
+                  ],
+                  [
+                    92.17049553315155,
+                    0.0,
+                    0.0
+                  ],
+                  [
+                    1088.2222909246339,
+                    15.780745029449463,
+                    1350.4845509529114
+                  ],
+                  [
+                    5.861122908303514,
+                    383.5877854824066,
+                    1383.5652421712875
+                  ],
+                  [
+                    429.7785636050394,
+                    75.78662848472595,
+                    0.0
+                  ],
+                  [
+                    347.7386994664557,
+                    0.0,
+                    0.0
+                  ],
+                  [
+                    126.51990051171742,
+                    0.0,
+                    0.0
+                  ],
+                  [
+                    58.40309251390863,
+                    712.9521503448486,
+                    61.96323049068451
+                  ],
+                  [
+                    27.270455496152863,
+                    3096.762946844101,
+                    51.86470150947571
+                  ],
+                  [
+                    530.9242335996823,
+                    0.0,
+                    0.0
+                  ],
+                  [
+                    91.18773114180658,
+                    741.3457765579224,
+                    452.2758597135544
+                  ],
+                  [
+                    87.7424130383879,
+                    0.0,
+                    0.0
+                  ]
+                ],
+                "client_counts": [
+                  [
+                    4752,
+                    208,
+                    0
+                  ],
+                  [
+                    15416,
+                    40,
+                    212
+                  ],
+                  [
+                    4216,
+                    420,
+                    0
+                  ],
+                  [
+                    16,
+                    0,
+                    0
+                  ],
+                  [
+                    4244,
+                    0,
+                    0
+                  ],
+                  [
+                    5172,
+                    0,
+                    276
+                  ],
+                  [
+                    368,
+                    0,
+                    0
+                  ],
+                  [
+                    10784,
+                    228,
+                    16
+                  ],
+                  [
+                    0,
+                    220,
+                    80
+                  ],
+                  [
+                    2104,
+                    0,
+                    0
+                  ],
+                  [
+                    23244,
+                    4,
+                    285
+                  ],
+                  [
+                    124,
+                    96,
+                    284
+                  ],
+                  [
+                    9136,
+                    20,
+                    0
+                  ],
+                  [
+                    7360,
+                    0,
+                    0
+                  ],
+                  [
+                    2624,
+                    0,
+                    0
+                  ],
+                  [
+                    1316,
+                    184,
+                    12
+                  ],
+                  [
+                    592,
+                    783,
+                    12
+                  ],
+                  [
+                    10996,
+                    0,
+                    0
+                  ],
+                  [
+                    1920,
+                    188,
+                    92
+                  ],
+                  [
+                    1764,
+                    0,
+                    0
+                  ]
+                ],
+                "forward_examples": 109808,
+                "forward_batches": 84
+              },
+              "predicted_ce_changes": [
+                -0.002057176696307639,
+                -0.047403801839318804,
+                -0.044924811543783305
+              ],
+              "actual_ce_changes": [
+                -0.0019888960802790304,
+                -0.04306818715003358,
+                -0.03621940081095065
+              ],
+              "armijo_upper_bounds": [
+                -0.00020471766963076394,
+                -0.004739380183931881,
+                -0.004491481154378331
+              ],
+              "rounding_displacement_norm": 4.767477363057639e-07
+            }
+          ],
+          "direction_norm_ratio": 1.0003106296617956,
+          "reason": "first_passing_scale",
+          "accepted_scale": 1.0
+        },
+        "work": {
+          "client_training_examples": 4000000,
+          "client_optimizer_steps": 7834,
+          "gradient_examples": 2000000,
+          "training_forward_evaluation_examples": 4000000,
+          "protected_risk_forward_examples": 219616,
+          "candidate_checks": 1
+        },
+        "fedavg": {
+          "mean_class_ce": [
+            0.05180256592326175,
+            0.0854793093146349,
+            1.5673023093553025,
+            2.329188112031739,
+            4.129259095138109,
+            5.0761082543455025,
+            3.980586008270496,
+            0.058409830686083034
+          ],
+          "metrics": {
+            "macro_f1": 0.41357171403562965,
+            "accuracy": 0.7967465,
+            "per_class": {
+              "Benign": {
+                "precision": 0.5214003560561602,
+                "recall": 0.9960432603534688,
+                "f1": 0.6844897628874322,
+                "support": 106148
+              },
+              "DDoS": {
+                "precision": 0.7979135932849263,
+                "recall": 0.9885343227885531,
+                "f1": 0.883053982693613,
+                "support": 1178561
+              },
+              "DoS": {
+                "precision": 0.8402761190464816,
+                "recall": 0.19413227085477466,
+                "f1": 0.31539711535228787,
+                "support": 362423
+              },
+              "Recon": {
+                "precision": 0.9406025446634584,
+                "recall": 0.21527830167328033,
+                "f1": 0.35036711440709184,
+                "support": 66277
+              },
+              "Web-based": {
+                "precision": 0.0,
+                "recall": 0.0,
+                "f1": 0.0,
+                "support": 2391
+              },
+              "Brute Force": {
+                "precision": 0.0,
+                "recall": 0.0,
+                "f1": 0.0,
+                "support": 1269
+              },
+              "Spoofing": {
+                "precision": 0.9441624365482234,
+                "recall": 0.04218165324866765,
+                "f1": 0.08075545424943015,
+                "support": 44095
+              },
+              "Mirai": {
+                "precision": 0.9999873007272451,
+                "recall": 0.9890929340635415,
+                "f1": 0.9945102826951817,
+                "support": 238836
+              }
+            },
+            "benign_false_alert_rate": 0.003956739646531204,
+            "confusion_matrix": [
+              [
+                105728,
+                5,
+                0,
+                405,
+                0,
+                0,
+                10,
+                0
+              ],
+              [
+                73,
+                1165048,
+                13281,
+                151,
+                0,
+                0,
+                6,
+                2
+              ],
+              [
+                63,
+                291892,
+                70358,
+                68,
+                0,
+                0,
+                41,
+                1
+              ],
+              [
+                51363,
+                643,
+                2,
+                14268,
+                0,
+                0,
+                1,
+                0
+              ],
+              [
+                2309,
+                0,
+                0,
+                81,
+                0,
+                0,
+                1,
+                0
+              ],
+              [
+                1213,
+                1,
+                0,
+                55,
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                41902,
+                192,
+                0,
+                141,
+                0,
+                0,
+                1860,
+                0
+              ],
+              [
+                126,
+                2337,
+                91,
+                0,
+                0,
+                0,
+                51,
+                236231
+              ]
+            ]
+          }
+        },
+        "corrected": {
+          "mean_class_ce": [
+            0.046780499945541246,
+            0.08512706826756603,
+            1.5681047905563197,
+            2.4853985038312327,
+            3.9563283576271315,
+            4.853337217823928,
+            3.978731245584452,
+            0.058308179153494566
+          ],
+          "metrics": {
+            "macro_f1": 0.4083109555652439,
+            "accuracy": 0.7959825,
+            "per_class": {
+              "Benign": {
+                "precision": 0.5171004842615012,
+                "recall": 0.99791800128123,
+                "f1": 0.6812113339078316,
+                "support": 106148
+              },
+              "DDoS": {
+                "precision": 0.7979223796204726,
+                "recall": 0.9885546866051057,
+                "f1": 0.8830674883360815,
+                "support": 1178561
+              },
+              "DoS": {
+                "precision": 0.8405274347275637,
+                "recall": 0.1941764181633064,
+                "f1": 0.3154730818627858,
+                "support": 362423
+              },
+              "Recon": {
+                "precision": 0.9556088782243551,
+                "recall": 0.19228389939194593,
+                "f1": 0.3201487194302438,
+                "support": 66277
+              },
+              "Web-based": {
+                "precision": 0.0,
+                "recall": 0.0,
+                "f1": 0.0,
+                "support": 2391
+              },
+              "Brute Force": {
+                "precision": 1.0,
+                "recall": 0.0007880220646178094,
+                "f1": 0.0015748031496062992,
+                "support": 1269
+              },
+              "Spoofing": {
+                "precision": 0.940046565774156,
+                "recall": 0.03662546774010659,
+                "f1": 0.07050400541331063,
+                "support": 44095
+              },
+              "Mirai": {
+                "precision": 0.9999788348141908,
+                "recall": 0.9890971210370296,
+                "f1": 0.994508212422091,
+                "support": 238836
+              }
+            },
+            "benign_false_alert_rate": 0.0020819987187700173,
+            "confusion_matrix": [
+              [
+                105927,
+                5,
+                0,
+                208,
+                0,
+                0,
+                8,
+                0
+              ],
+              [
+                79,
+                1165072,
+                13263,
+                139,
+                0,
+                0,
+                5,
+                3
+              ],
+              [
+                69,
+                291876,
+                70374,
+                62,
+                2,
+                0,
+                38,
+                2
+              ],
+              [
+                52868,
+                663,
+                1,
+                12744,
+                0,
+                0,
+                1,
+                0
+              ],
+              [
+                2351,
+                0,
+                0,
+                39,
+                0,
+                0,
+                1,
+                0
+              ],
+              [
+                1217,
+                1,
+                0,
+                50,
+                0,
+                1,
+                0,
+                0
+              ],
+              [
+                42211,
+                175,
+                0,
+                94,
+                0,
+                0,
+                1615,
+                0
+              ],
+              [
+                126,
+                2340,
+                88,
+                0,
+                0,
+                0,
+                50,
+                236232
+              ]
+            ]
+          }
+        },
+        "elapsed_seconds": 6.590032833162695
+      },
+      {
+        "round": 25,
+        "starting_model_sha256": {
+          "fedavg": "d933bf496d1edb9cb8e29450ae88340ae5bc9c2a7b4df241ff008066f5eefc3f",
+          "corrected": "acdfb9496eec4f3ecb49ed509f177d85fa50d5c323aacdcc184632301a8fe959"
+        },
+        "fedavg_model_sha256": "4ca0b5d7370f25025d1750f73d7a57a27aca568ff5cfc9651cd5e70407b94985",
+        "proposal_model_sha256": "b361b0fbfe2ee602717b584397478a236722abde5bb0b9c214606276bb33a1f4",
+        "corrected_model_sha256": "6d40c0849156e54a8bf9f8148ce2631587c6a80e29f04626f8f6c1f9f4c49182",
+        "gradient_work": {
+          "client_counts": [
+            [
+              4752,
+              26032,
+              54632,
+              368,
+              208,
+              0,
+              0,
+              2008
+            ],
+            [
+              15416,
+              432,
+              9728,
+              1300,
+              40,
+              212,
+              336,
+              244
+            ],
+            [
+              4216,
+              28304,
+              50668,
+              16773,
+              420,
+              0,
+              0,
+              0
+            ],
+            [
+              16,
+              198229,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              4244,
+              30244,
+              82051,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              5172,
+              8052,
+              4888,
+              12340,
+              0,
+              276,
+              6280,
+              32356
+            ],
+            [
+              368,
+              74324,
+              50228,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              10784,
+              54544,
+              5972,
+              8012,
+              228,
+              16,
+              488,
+              13148
+            ],
+            [
+              0,
+              7336,
+              116,
+              5188,
+              220,
+              80,
+              21775,
+              30612
+            ],
+            [
+              2104,
+              84640,
+              23544,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              23244,
+              8,
+              29148,
+              1588,
+              4,
+              285,
+              300,
+              20452
+            ],
+            [
+              124,
+              36992,
+              18360,
+              2340,
+              96,
+              284,
+              2136,
+              29660
+            ],
+            [
+              9136,
+              3976,
+              1140,
+              4204,
+              20,
+              0,
+              304,
+              2020
+            ],
+            [
+              7360,
+              121140,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              2624,
+              143548,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              1316,
+              47688,
+              1624,
+              3476,
+              184,
+              12,
+              3320,
+              800
+            ],
+            [
+              592,
+              6816,
+              27716,
+              7252,
+              783,
+              12,
+              9100,
+              107480
+            ],
+            [
+              10996,
+              96168,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              1920,
+              73052,
+              2604,
+              3436,
+              188,
+              92,
+              56,
+              52
+            ],
+            [
+              1764,
+              137036,
+              4,
+              0,
+              0,
+              0,
+              0,
+              4
+            ]
+          ],
+          "class_counts": [
+            106148,
+            1178561,
+            362423,
+            66277,
+            2391,
+            1269,
+            44095,
+            238836
+          ],
+          "mean_class_ce": [
+            0.046780500124554425,
+            0.08512706830792056,
+            1.5681047916408406,
+            2.4853984867815813,
+            3.9563283046784634,
+            4.853337239054266,
+            3.978731201808595,
+            0.058308178691182884
+          ],
+          "gradient_examples": 2000000,
+          "gradient_backward_batches": 1044
+        },
+        "client_work": {
+          "fedavg": [
+            {
+              "client": 0,
+              "examples_processed": 88000,
+              "optimizer_steps": 172,
+              "task_loss": 0.3887489989887584
+            },
+            {
+              "client": 1,
+              "examples_processed": 27708,
+              "optimizer_steps": 55,
+              "task_loss": 0.6545680241743448
+            },
+            {
+              "client": 2,
+              "examples_processed": 100381,
+              "optimizer_steps": 197,
+              "task_loss": 0.5150867015320206
+            },
+            {
+              "client": 3,
+              "examples_processed": 198245,
+              "optimizer_steps": 388,
+              "task_loss": 0.00116076831941522
+            },
+            {
+              "client": 4,
+              "examples_processed": 116539,
+              "optimizer_steps": 228,
+              "task_loss": 0.27503696583050763
+            },
+            {
+              "client": 5,
+              "examples_processed": 69364,
+              "optimizer_steps": 136,
+              "task_loss": 0.6718249733895828
+            },
+            {
+              "client": 6,
+              "examples_processed": 124920,
+              "optimizer_steps": 244,
+              "task_loss": 0.42587955081993445
+            },
+            {
+              "client": 7,
+              "examples_processed": 93192,
+              "optimizer_steps": 183,
+              "task_loss": 0.5249990138775065
+            },
+            {
+              "client": 8,
+              "examples_processed": 65327,
+              "optimizer_steps": 128,
+              "task_loss": 0.6267038960674329
+            },
+            {
+              "client": 9,
+              "examples_processed": 110288,
+              "optimizer_steps": 216,
+              "task_loss": 0.39188914556349724
+            },
+            {
+              "client": 10,
+              "examples_processed": 75029,
+              "optimizer_steps": 147,
+              "task_loss": 0.3262111488467308
+            },
+            {
+              "client": 11,
+              "examples_processed": 89992,
+              "optimizer_steps": 176,
+              "task_loss": 0.4821841624728605
+            },
+            {
+              "client": 12,
+              "examples_processed": 20800,
+              "optimizer_steps": 41,
+              "task_loss": 0.6386038763706501
+            },
+            {
+              "client": 13,
+              "examples_processed": 128500,
+              "optimizer_steps": 251,
+              "task_loss": 0.0029774145051548874
+            },
+            {
+              "client": 14,
+              "examples_processed": 146172,
+              "optimizer_steps": 286,
+              "task_loss": 0.0025846815902166535
+            },
+            {
+              "client": 15,
+              "examples_processed": 58420,
+              "optimizer_steps": 115,
+              "task_loss": 0.6432998684161904
+            },
+            {
+              "client": 16,
+              "examples_processed": 159751,
+              "optimizer_steps": 313,
+              "task_loss": 0.31735359683495606
+            },
+            {
+              "client": 17,
+              "examples_processed": 107164,
+              "optimizer_steps": 210,
+              "task_loss": 0.003346441905908135
+            },
+            {
+              "client": 18,
+              "examples_processed": 81400,
+              "optimizer_steps": 159,
+              "task_loss": 0.4482170768129738
+            },
+            {
+              "client": 19,
+              "examples_processed": 138808,
+              "optimizer_steps": 272,
+              "task_loss": 0.0027929030913347135
+            }
+          ],
+          "corrected": [
+            {
+              "client": 0,
+              "examples_processed": 88000,
+              "optimizer_steps": 172,
+              "task_loss": 0.38745825769684533
+            },
+            {
+              "client": 1,
+              "examples_processed": 27708,
+              "optimizer_steps": 55,
+              "task_loss": 0.6479865042475269
+            },
+            {
+              "client": 2,
+              "examples_processed": 100381,
+              "optimizer_steps": 197,
+              "task_loss": 0.5196892588469983
+            },
+            {
+              "client": 3,
+              "examples_processed": 198245,
+              "optimizer_steps": 388,
+              "task_loss": 0.0011623295485778157
+            },
+            {
+              "client": 4,
+              "examples_processed": 116539,
+              "optimizer_steps": 228,
+              "task_loss": 0.27502838779439326
+            },
+            {
+              "client": 5,
+              "examples_processed": 69364,
+              "optimizer_steps": 136,
+              "task_loss": 0.676621522559584
+            },
+            {
+              "client": 6,
+              "examples_processed": 124920,
+              "optimizer_steps": 244,
+              "task_loss": 0.4259003773889899
+            },
+            {
+              "client": 7,
+              "examples_processed": 93192,
+              "optimizer_steps": 183,
+              "task_loss": 0.5269154403094867
+            },
+            {
+              "client": 8,
+              "examples_processed": 65327,
+              "optimizer_steps": 128,
+              "task_loss": 0.6305743554193857
+            },
+            {
+              "client": 9,
+              "examples_processed": 110288,
+              "optimizer_steps": 216,
+              "task_loss": 0.3918767353368743
+            },
+            {
+              "client": 10,
+              "examples_processed": 75029,
+              "optimizer_steps": 147,
+              "task_loss": 0.3241654236611586
+            },
+            {
+              "client": 11,
+              "examples_processed": 89992,
+              "optimizer_steps": 176,
+              "task_loss": 0.4805406267637252
+            },
+            {
+              "client": 12,
+              "examples_processed": 20800,
+              "optimizer_steps": 41,
+              "task_loss": 0.6523761925330529
+            },
+            {
+              "client": 13,
+              "examples_processed": 128500,
+              "optimizer_steps": 251,
+              "task_loss": 0.0029546032933208456
+            },
+            {
+              "client": 14,
+              "examples_processed": 146172,
+              "optimizer_steps": 286,
+              "task_loss": 0.00257320087297182
+            },
+            {
+              "client": 15,
+              "examples_processed": 58420,
+              "optimizer_steps": 115,
+              "task_loss": 0.6467876707352583
+            },
+            {
+              "client": 16,
+              "examples_processed": 159751,
+              "optimizer_steps": 313,
+              "task_loss": 0.31770366008342765
+            },
+            {
+              "client": 17,
+              "examples_processed": 107164,
+              "optimizer_steps": 210,
+              "task_loss": 0.003323451822845478
+            },
+            {
+              "client": 18,
+              "examples_processed": 81400,
+              "optimizer_steps": 159,
+              "task_loss": 0.4477625989357435
+            },
+            {
+              "client": 19,
+              "examples_processed": 138808,
+              "optimizer_steps": 272,
+              "task_loss": 0.0027852866345524645
+            }
+          ]
+        },
+        "baseline_client_risk": {
+          "mean_class_ce": [
+            0.04678049994338289,
+            3.9563283566299816,
+            4.853337225433031
+          ],
+          "client_loss_sums": [
+            [
+              218.2908154556062,
+              822.0739531517029,
+              0.0
+            ],
+            [
+              712.6832269869046,
+              166.8147919178009,
+              1044.5543028116226
+            ],
+            [
+              200.4470923942281,
+              1678.7249355316162,
+              0.0
+            ],
+            [
+              0.6886835624463856,
+              0.0,
+              0.0
+            ],
+            [
+              190.98464441450778,
+              0.0,
+              0.0
+            ],
+            [
+              232.52534642012324,
+              0.0,
+              1345.1676115989685
+            ],
+            [
+              16.83045922697056,
+              0.0,
+              0.0
+            ],
+            [
+              507.38724079017993,
+              923.7797927856445,
+              59.22950983047485
+            ],
+            [
+              0.0,
+              841.9715945720673,
+              409.7799299955368
+            ],
+            [
+              92.17049553315155,
+              0.0,
+              0.0
+            ],
+            [
+              1088.2222909246339,
+              15.780745029449463,
+              1350.4845509529114
+            ],
+            [
+              5.861122908303514,
+              383.5877854824066,
+              1383.5652421712875
+            ],
+            [
+              429.7785636050394,
+              75.78662848472595,
+              0.0
+            ],
+            [
+              347.7386994664557,
+              0.0,
+              0.0
+            ],
+            [
+              126.51990051171742,
+              0.0,
+              0.0
+            ],
+            [
+              58.40309251390863,
+              712.9521503448486,
+              61.96323049068451
+            ],
+            [
+              27.270455496152863,
+              3096.762946844101,
+              51.86470150947571
+            ],
+            [
+              530.9242335996823,
+              0.0,
+              0.0
+            ],
+            [
+              91.18773114180658,
+              741.3457765579224,
+              452.2758597135544
+            ],
+            [
+              87.7424130383879,
+              0.0,
+              0.0
+            ]
+          ],
+          "client_counts": [
+            [
+              4752,
+              208,
+              0
+            ],
+            [
+              15416,
+              40,
+              212
+            ],
+            [
+              4216,
+              420,
+              0
+            ],
+            [
+              16,
+              0,
+              0
+            ],
+            [
+              4244,
+              0,
+              0
+            ],
+            [
+              5172,
+              0,
+              276
+            ],
+            [
+              368,
+              0,
+              0
+            ],
+            [
+              10784,
+              228,
+              16
+            ],
+            [
+              0,
+              220,
+              80
+            ],
+            [
+              2104,
+              0,
+              0
+            ],
+            [
+              23244,
+              4,
+              285
+            ],
+            [
+              124,
+              96,
+              284
+            ],
+            [
+              9136,
+              20,
+              0
+            ],
+            [
+              7360,
+              0,
+              0
+            ],
+            [
+              2624,
+              0,
+              0
+            ],
+            [
+              1316,
+              184,
+              12
+            ],
+            [
+              592,
+              783,
+              12
+            ],
+            [
+              10996,
+              0,
+              0
+            ],
+            [
+              1920,
+              188,
+              92
+            ],
+            [
+              1764,
+              0,
+              0
+            ]
+          ],
+          "forward_examples": 109808,
+          "forward_batches": 84
+        },
+        "search": {
+          "accepted": true,
+          "solver": {
+            "status": "certified",
+            "margin": 0.003546492314728006,
+            "active_constraints": [
+              0,
+              1,
+              2
+            ],
+            "kkt_residual": 2.0816681711721685e-17,
+            "normalized_dots": [
+              -0.003546492314728023,
+              -0.003546492314727992,
+              -0.0035464923147280267
+            ]
+          },
+          "trials": [
+            {
+              "scale": 1.0,
+              "accepted": true,
+              "retained_norm_fraction": 0.9993450342870448,
+              "model_sha256": "6d40c0849156e54a8bf9f8148ce2631587c6a80e29f04626f8f6c1f9f4c49182",
+              "risk": {
+                "mean_class_ce": [
+                  0.045258812975933704,
+                  3.905250847962849,
+                  4.809195304405417
+                ],
+                "client_loss_sums": [
+                  [
+                    211.05991833575536,
+                    812.5499160289764,
+                    0.0
+                  ],
+                  [
+                    688.7946369752754,
+                    164.2859182357788,
+                    1035.7753748893738
+                  ],
+                  [
+                    194.34848959662486,
+                    1658.9317589998245,
+                    0.0
+                  ],
+                  [
+                    0.6978173877578229,
+                    0.0,
+                    0.0
+                  ],
+                  [
+                    185.40701609896496,
+                    0.0,
+                    0.0
+                  ],
+                  [
+                    224.5335927043343,
+                    0.0,
+                    1334.9115129709244
+                  ],
+                  [
+                    16.460726867895573,
+                    0.0,
+                    0.0
+                  ],
+                  [
+                    489.80116076231934,
+                    914.1100332736969,
+                    58.169668793678284
+                  ],
+                  [
+                    0.0,
+                    827.6885849237442,
+                    406.724121928215
+                  ],
+                  [
+                    89.16362277790904,
+                    0.0,
+                    0.0
+                  ],
+                  [
+                    1055.0901683112606,
+                    15.402805089950562,
+                    1336.998951435089
+                  ],
+                  [
+                    5.729950612061657,
+                    380.183030128479,
+                    1369.1562976837158
+                  ],
+                  [
+                    415.10343968018424,
+                    74.67430925369263,
+                    0.0
+                  ],
+                  [
+                    336.3377339784056,
+                    0.0,
+                    0.0
+                  ],
+                  [
+                    121.96421903464943,
+                    0.0,
+                    0.0
+                  ],
+                  [
+                    56.04807980870828,
+                    701.6368417739868,
+                    61.22389554977417
+                  ],
+                  [
+                    26.29017641826067,
+                    3057.519019842148,
+                    51.1520414352417
+                  ],
+                  [
+                    513.5007837674348,
+                    0.0,
+                    0.0
+                  ],
+                  [
+                    88.82514556404203,
+                    730.472559928894,
+                    448.75697660446167
+                  ],
+                  [
+                    84.97580108756665,
+                    0.0,
+                    0.0
+                  ]
+                ],
+                "client_counts": [
+                  [
+                    4752,
+                    208,
+                    0
+                  ],
+                  [
+                    15416,
+                    40,
+                    212
+                  ],
+                  [
+                    4216,
+                    420,
+                    0
+                  ],
+                  [
+                    16,
+                    0,
+                    0
+                  ],
+                  [
+                    4244,
+                    0,
+                    0
+                  ],
+                  [
+                    5172,
+                    0,
+                    276
+                  ],
+                  [
+                    368,
+                    0,
+                    0
+                  ],
+                  [
+                    10784,
+                    228,
+                    16
+                  ],
+                  [
+                    0,
+                    220,
+                    80
+                  ],
+                  [
+                    2104,
+                    0,
+                    0
+                  ],
+                  [
+                    23244,
+                    4,
+                    285
+                  ],
+                  [
+                    124,
+                    96,
+                    284
+                  ],
+                  [
+                    9136,
+                    20,
+                    0
+                  ],
+                  [
+                    7360,
+                    0,
+                    0
+                  ],
+                  [
+                    2624,
+                    0,
+                    0
+                  ],
+                  [
+                    1316,
+                    184,
+                    12
+                  ],
+                  [
+                    592,
+                    783,
+                    12
+                  ],
+                  [
+                    10996,
+                    0,
+                    0
+                  ],
+                  [
+                    1920,
+                    188,
+                    92
+                  ],
+                  [
+                    1764,
+                    0,
+                    0
+                  ]
+                ],
+                "forward_examples": 109808,
+                "forward_batches": 84
+              },
+              "predicted_ce_changes": [
+                -0.00197051898788303,
+                -0.04755265239128592,
+                -0.04568197806149654
+              ],
+              "actual_ce_changes": [
+                -0.0015216869674491845,
+                -0.051077508667132676,
+                -0.04414192102761394
+              ],
+              "armijo_upper_bounds": [
+                -0.000196051898788303,
+                -0.0047542652391285925,
+                -0.004567197806149654
+              ],
+              "rounding_displacement_norm": 4.858762785978407e-07
+            }
+          ],
+          "direction_norm_ratio": 0.9993450184505461,
+          "reason": "first_passing_scale",
+          "accepted_scale": 1.0
+        },
+        "work": {
+          "client_training_examples": 4000000,
+          "client_optimizer_steps": 7834,
+          "gradient_examples": 2000000,
+          "training_forward_evaluation_examples": 4000000,
+          "protected_risk_forward_examples": 219616,
+          "candidate_checks": 1
+        },
+        "fedavg": {
+          "mean_class_ce": [
+            0.0499907725154585,
+            0.08361570865473253,
+            1.5751154332124124,
+            2.3763394394761965,
+            4.200263339074174,
+            5.076936141631094,
+            4.030008351966385,
+            0.05686299638034578
+          ],
+          "metrics": {
+            "macro_f1": 0.4173089183426414,
+            "accuracy": 0.797391,
+            "per_class": {
+              "Benign": {
+                "precision": 0.5239911893398951,
+                "recall": 0.9950540754418359,
+                "f1": 0.6864832543659537,
+                "support": 106148
+              },
+              "DDoS": {
+                "precision": 0.7980269587783143,
+                "recall": 0.9886497177490177,
+                "f1": 0.8831694485269317,
+                "support": 1178561
+              },
+              "DoS": {
+                "precision": 0.8422727218561198,
+                "recall": 0.19502349464575924,
+                "f1": 0.31671371600125464,
+                "support": 362423
+              },
+              "Recon": {
+                "precision": 0.9358082469010878,
+                "recall": 0.22325995443366478,
+                "f1": 0.36051115252957155,
+                "support": 66277
+              },
+              "Web-based": {
+                "precision": 0.0,
+                "recall": 0.0,
+                "f1": 0.0,
+                "support": 2391
+              },
+              "Brute Force": {
+                "precision": 0.0,
+                "recall": 0.0,
+                "f1": 0.0,
+                "support": 1269
+              },
+              "Spoofing": {
+                "precision": 0.9514767932489452,
+                "recall": 0.051139584986959974,
+                "f1": 0.09706230496072313,
+                "support": 44095
+              },
+              "Mirai": {
+                "precision": 0.9999830684963978,
+                "recall": 0.9891389907719105,
+                "f1": 0.9945314703566963,
+                "support": 238836
+              }
+            },
+            "benign_false_alert_rate": 0.0049459245581641165,
+            "confusion_matrix": [
+              [
+                105623,
+                6,
+                0,
+                506,
+                0,
+                0,
+                13,
+                0
+              ],
+              [
+                66,
+                1165184,
+                13158,
+                144,
+                0,
+                0,
+                7,
+                2
+              ],
+              [
+                61,
+                291569,
+                70681,
+                66,
+                0,
+                0,
+                44,
+                2
+              ],
+              [
+                50803,
+                675,
+                1,
+                14797,
+                0,
+                0,
+                1,
+                0
+              ],
+              [
+                2298,
+                0,
+                0,
+                91,
+                0,
+                0,
+                2,
+                0
+              ],
+              [
+                1211,
+                1,
+                0,
+                57,
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                41388,
+                301,
+                0,
+                151,
+                0,
+                0,
+                2255,
+                0
+              ],
+              [
+                124,
+                2345,
+                77,
+                0,
+                0,
+                0,
+                48,
+                236242
+              ]
+            ]
+          }
+        },
+        "corrected": {
+          "mean_class_ce": [
+            0.045258812970537805,
+            0.08284327838000913,
+            1.5865721150586325,
+            2.5595561321531664,
+            3.9052508436751037,
+            4.809195290032665,
+            4.014379110733984,
+            0.056516171514749816
+          ],
+          "metrics": {
+            "macro_f1": 0.41171174928806287,
+            "accuracy": 0.796392,
+            "per_class": {
+              "Benign": {
+                "precision": 0.519193157030465,
+                "recall": 0.99783321400309,
+                "f1": 0.6830048395469333,
+                "support": 106148
+              },
+              "DDoS": {
+                "precision": 0.7978315077703392,
+                "recall": 0.9887277790458024,
+                "f1": 0.8830808812802776,
+                "support": 1178561
+              },
+              "DoS": {
+                "precision": 0.8424457329052661,
+                "recall": 0.19403845782414472,
+                "f1": 0.31542569057118314,
+                "support": 362423
+              },
+              "Recon": {
+                "precision": 0.9560903369122548,
+                "recall": 0.19481871539146312,
+                "f1": 0.3236820335414003,
+                "support": 66277
+              },
+              "Web-based": {
+                "precision": 0.0,
+                "recall": 0.0,
+                "f1": 0.0,
+                "support": 2391
+              },
+              "Brute Force": {
+                "precision": 1.0,
+                "recall": 0.0015760441292356187,
+                "f1": 0.003147128245476003,
+                "support": 1269
+              },
+              "Spoofing": {
+                "precision": 0.9545867393278837,
+                "recall": 0.04766980383263408,
+                "f1": 0.09080501976369959,
+                "support": 44095
+              },
+              "Mirai": {
+                "precision": 0.99998306906973,
+                "recall": 0.9891724865598152,
+                "f1": 0.9945484013555327,
+                "support": 238836
+              }
+            },
+            "benign_false_alert_rate": 0.0021667859969100034,
+            "confusion_matrix": [
+              [
+                105918,
+                6,
+                0,
+                215,
+                0,
+                0,
+                9,
+                0
+              ],
+              [
+                68,
+                1165276,
+                13075,
+                134,
+                0,
+                0,
+                6,
+                2
+              ],
+              [
+                64,
+                291929,
+                70324,
+                60,
+                2,
+                0,
+                42,
+                2
+              ],
+              [
+                52658,
+                704,
+                1,
+                12912,
+                0,
+                0,
+                2,
+                0
+              ],
+              [
+                2350,
+                0,
+                0,
+                39,
+                0,
+                0,
+                2,
+                0
+              ],
+              [
+                1216,
+                1,
+                0,
+                50,
+                0,
+                2,
+                0,
+                0
+              ],
+              [
+                41602,
+                296,
+                0,
+                95,
+                0,
+                0,
+                2102,
+                0
+              ],
+              [
+                129,
+                2342,
+                76,
+                0,
+                0,
+                0,
+                39,
+                236250
+              ]
+            ]
+          }
+        },
+        "elapsed_seconds": 7.250282792141661
+      }
+    ],
+    "work": {
+      "client_training_examples": 20000000,
+      "client_optimizer_steps": 39170,
+      "gradient_examples": 10000000,
+      "training_forward_evaluation_examples": 20000000,
+      "protected_risk_forward_examples": 1098080,
+      "candidate_checks": 5
+    },
+    "first_step_bridge_exact": true,
+    "screen": {
+      "decision": "stop_no_detection_gain_within_budget",
+      "completed_all_rounds": true,
+      "rare_recall_gains": {
+        "Web-based": 0.0,
+        "Brute Force": 0.0015760441292356187
+      },
+      "macro_f1_change": -0.005597169054578521,
+      "false_alert_change": -0.002779138561254113,
+      "full_training_launched": false,
+      "not_a_generalization_claim": true
+    },
+    "source_unchanged": true
+  },
+  "replay": {
+    "all_non_timing_fields_exact": true,
+    "non_timing_sha256": "82a8e028378de38bbab4dbbf1c01d420e7eadd905b69bd3c28250c0401834c09",
+    "primary_receipt_sha256": "6562a24993df3893eedc933e9321de1a81a4b403b1c52b973eea35cc6697b597",
+    "replay_receipt_sha256": "e4af2eaa17e143e140be3cd483310437af7cd183d5dfade463dd4332a4cea7f9",
+    "round_elapsed_seconds": [
+      7.8762097919825464,
+      6.805792208993807,
+      7.216784292133525,
+      6.365609583910555,
+      6.582371833035722
+    ],
+    "work": {
+      "client_training_examples": 20000000,
+      "client_optimizer_steps": 39170,
+      "gradient_examples": 10000000,
+      "training_forward_evaluation_examples": 20000000,
+      "protected_risk_forward_examples": 1098080,
+      "candidate_checks": 5
+    }
+  },
+  "limitations": [
+    "Single seed and source20 continuation, not training from scratch",
+    "All metrics are on training rows; acceptance explicitly uses protected training losses",
+    "Only two Brute Force training examples detected; no Web-based true positives",
+    "The predeclared development screen fails; no extra rounds or retuning launched",
+    "No new validation or test inference; previous final test stays closed",
+    "Matched local training budgets do not include equal total computation; correction has extra probes and scalar feedback",
+    "No claim of a new globally novel algorithm, privacy guarantee or measured distributed network performance"
+  ]
+}
