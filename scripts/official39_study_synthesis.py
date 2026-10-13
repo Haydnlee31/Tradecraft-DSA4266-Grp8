@@ -5,9 +5,7 @@ attack category. Seed means remain descriptive: correlated flows are not new
 independent replications. Communication is a tensor accounting model, not traffic.
 """
 import argparse
-import json
 from pathlib import Path
-import statistics
 
 from scripts import official39_final_report as final, official39_closeout as closeout
 from src.data.label_map import CLASSES, BENIGN
@@ -92,6 +90,12 @@ def build():
     paired = {f'{a}_minus_{b}': closeout.describe([
         indexed[a, seed]['metrics']['macro_f1']-indexed[b, seed]['metrics']['macro_f1']
         for seed in closeout.SEEDS]) for a, b in (('light', 'iid'), ('iid', 'dirichlet'), ('light', 'dirichlet'))}
+    # Macro-F1 is an unweighted mean of class F1s, so these contributions
+    # add exactly to the aggregate gap. They describe WHERE the score differs,
+    # not which intervention caused it. Negative values favor the second arm.
+    contributions = {f'{a}_minus_{b}': {
+        c: (groups[a]['per_class'][c]['f1']['mean']-groups[b]['per_class'][c]['f1']['mean'])/len(CLASSES)
+        for c in CLASSES} for a, b in (('light', 'iid'), ('iid', 'dirichlet'), ('light', 'dirichlet'))}
     sg = closeout.read(REPORTS/'scaffold-results.json')['primary']
     op = closeout.read(REPORTS/'operating-points-results.json')['primary']
     arms = {}
@@ -112,6 +116,7 @@ def build():
             'class_order': CLASSES, 'source_final_test_evaluated': True,
             'new_test_inference': False, 'dataset_arrays_opened': False, 'model_trained': False,
             'records': records, 'groups': groups, 'paired_macro_f1_gaps': paired,
+            'per_class_macro_f1_gap_contributions': contributions,
             'training_only_sgd_diagnostic': arms,
             'interpretation': {
                 'seed_spread': 'Sample SD/range across training seeds, not confidence intervals across datasets or partitions',
@@ -132,9 +137,9 @@ def tables(r):
     for lane, g in r['groups'].items():
         m, costs = g['metrics']['macro_f1'], g['costs']
         lines.append(f"| {final.LANE_NAMES[lane]} | {m['mean']:.6f} ± {m['sample_sd']:.6f} | {g['error_rates'][BENIGN]['false_alerts_per_10000_benign']['mean']:.1f} | {costs['examples_processed']['mean']:,.0f} | {costs['optimizer_steps']['mean']:,.0f} | {costs['training_validation_seconds']['mean']:.2f} | {costs['fp32_parameter_bytes']['mean']:,.0f} | {g['communication']['both_directions_bytes']:,} |")
-    lines += ['', 'Exchange counts both directions over20 full-participation rounds; excludes protocol and data collection costs. Central model exchange is zero, NOT zero data-transfer cost.', '',
+    lines += ['', 'Exchange counts both directions over 20 full-participation rounds; excludes protocol and data collection costs. Central model exchange is zero, NOT zero data-transfer cost.', '',
               '## Every attack category and its two kinds of mistake', '',
-              'Percentages are equal-weight means across seeds; the three outcome columns sum to100 for each class.', '',
+              'Percentages are equal-weight means across seeds; the three outcome columns sum to 100 for each class, up to rounding.', '',
               '| Setting | True attack | Correct category | Predicted benign | Wrong attack category |',
               '| --- | --- | ---: | ---: | ---: |']
     for lane, g in r['groups'].items():
@@ -147,6 +152,14 @@ def tables(r):
     for lane, g in r['groups'].items():
         for c, m in g['per_class'].items():
             lines.append(f"| {final.LANE_NAMES[lane]} | {c} | {100*m['precision']['mean']:.3f}% | {100*m['recall']['mean']:.3f}% | {m['f1']['mean']:.6f} |")
+    lines += ['', '## Which classes account for the score gap?', '',
+              'Arithmetic contributions in macro-F1 percentage points, not causal effects. Each column sums to its total gap; negative contributions favor the second setting.', '',
+              '| Class | Central minus IID | IID minus non-IID | Central minus non-IID |',
+              '| --- | ---: | ---: | ---: |']
+    pairs = ('light_minus_iid', 'iid_minus_dirichlet', 'light_minus_dirichlet')
+    for c in CLASSES:
+        lines.append('| '+c+' | '+' | '.join(f"{100*r['per_class_macro_f1_gap_contributions'][p][c]:.3f}" for p in pairs)+' |')
+    lines.append('| Total | '+' | '.join(f"{100*r['paired_macro_f1_gaps'][p]['mean']:.3f}" for p in pairs)+' |')
     lines += ['', '## Later SGD comparison is training only', '',
               'Do NOT rank these against the final-test table above. These are one-seed frozen warm-start endpoints.', '',
               '| Arm | Argmax training macro-F1 | Training false alerts | 5 percent target audit macro-F1 | Achieved audit false alerts | Training examples | Optimizer calls | Estimated exchange bytes |',
