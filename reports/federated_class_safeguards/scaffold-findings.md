@@ -31,9 +31,10 @@ Equal local step counts prevent unequal client sizes from also creating
 unequal local optimizer-step counts. Aggregation still weights by each
 client's assigned population size, not its equal number of sampled examples.
 Small clients may repeat rows more often; this is not a full-epoch protocol
-or a claim of equal unique-row coverage. The fixed loss denominator makes
-population-weighted client gradients target the same expected objective as
-the centralized reference.
+or a claim of equal unique-row coverage. At shared model weights, the fixed
+loss denominator makes population-weighted client gradients match the expected
+gradient of the centralized objective. It does not make multi-step local
+optimization equivalent to centralized sequential updates.
 
 SCAFFOLD uses persistent client and server correction vectors to compensate
 for local drift. The implementation uses Option II, plain SGD and full
@@ -157,3 +158,8 @@ non-timing field. Actual tensors in both saved endpoint files match the
 recorded hashes for all three models and all control states. Private arrays
 and checkpoint tensors remain outside Git. Original code and comments, earlier
 failed methods and unrelated user changes are preserved.
+
+The full committed regression suite passed **634 tests in 55.180 seconds**
+in an isolated checkout of `f1e041c`, including 12 new synthetic SCAFFOLD tests
+and five new public-evidence audits. The isolated snapshot excluded unrelated
+uncommitted user work. No dependency or historical runner was changed.
