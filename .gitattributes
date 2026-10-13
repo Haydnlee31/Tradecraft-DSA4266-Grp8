@@ -62,3 +62,4 @@ src/eval/numeric_retrieval.py text eol=lf
 scripts/official39_numeric_retrieval.py text eol=lf
 src/eval/contrastive_flow.py text eol=lf
 scripts/official39_contrastive.py text eol=lf
+scripts/official39_contrastive_fit_check.py text eol=lf
