@@ -108,3 +108,5 @@ Portable checks, from the repository root:
 ```
 
 Private archives, training inputs and original model tensors remain outside Git. Existing comments and unrelated working-tree changes are preserved. The report is explanatory evidence for the centralized-versus-federated thesis, not authorization for deployment or a new training sweep.
+
+Verification: all **17 focused tests** passed. The full committed regression suite passed **668 tests in 55.935 seconds** in an isolated archive of commit `361214e`, excluding unrelated uncommitted files. Public aggregate reconstruction also passed with Python's site packages disabled. Both reports' local links resolve. This is local verification, not a claim of a new GitHub CI run; no branch push was performed for this handoff.
