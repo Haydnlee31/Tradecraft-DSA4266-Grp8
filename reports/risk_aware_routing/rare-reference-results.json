@@ -1,0 +1,2551 @@
+{
+  "status": "complete",
+  "identity": {
+    "plan": {
+      "protocol": "official39-rare-reference-count-control-v1",
+      "reference_sha256": "191e1af8d76558d22ceed38778e610e5d4b87c27b8782fb83dec79a4baf03403",
+      "reason": "post_hoc_control_for_natural_reference_count_imbalance_in_completed_diagnostic",
+      "unique_vectors_per_class": 760,
+      "seeds": [
+        7,
+        17,
+        27
+      ],
+      "selection": "uniform_without_replacement_within_class_unique_vectors_from_full_FIT_only",
+      "queries_and_geometries": "identical_to_parent_diagnostic",
+      "labels": "FIT_labels_only_for_reference_selection_query_labels_only_for_post_hoc_summary",
+      "interpretation": "reference_draw_sensitivity_not_confidence_intervals_not_a_classifier",
+      "model_trained": false,
+      "test_opened": false,
+      "audit_scored": false,
+      "cloud_authorized": false,
+      "deployment_authorized": false,
+      "independent_replay_required": true
+    },
+    "plan_sha256": "ed5dc335aaca01ac15bc83aff4996026f56ac0cf5e06370d172d0ec0a8ddc4c1",
+    "source_sha256": "57cd8566e1333f578a38980304225221f01a6fc7f5f01d2c271320f7955f0e65",
+    "upstream_identity": {
+      "plan": {
+        "protocol": "official39-frozen-rare-error-diagnostic-v1",
+        "contrastive_reference_sha256": "315351ba7cc4fb8d1643455bc709d472e4982fce96fcc7800e8922cb8b36a4dc",
+        "retrieval_reference_sha256": "53401dec0248a67ab3fa0a926e630e1424af9e4e05252cf510c3c5d1bbaa887b",
+        "scope": "post_hoc_reused_development_calibration_not_independent_confirmation",
+        "models": [
+          "tree",
+          "ple",
+          "self_context_control",
+          "retrieval",
+          "balanced_ce_control",
+          "balanced_ce_supcon"
+        ],
+        "calibration_rows": 409918,
+        "full_fitting_rows": 1229859,
+        "distance_queries": "all_772_rare_calibration_rows",
+        "distance_references": "all_full_FIT_rows_in_each_of_the_8_classes_no_enriched_bank",
+        "features": "37_retained_packed_float32_features_Number_and_Tot_sum_excluded",
+        "geometries": [
+          "packed_standardized_euclidean",
+          "historical_fit_quantile_coordinate_euclidean"
+        ],
+        "exact_overlap": "all_full_FIT_vectors_mixed_label_groups_and_class_counts",
+        "distance_rule": "nearest_one_per_class_true_label_conditioned_post_hoc_only",
+        "strata": [
+          "all",
+          "tree_correct",
+          "tree_missed_other_model_correct",
+          "all_models_missed"
+        ],
+        "oracle": "true_label_selects_among_six_existing_argmax_predictions_not_deployable_or_a_new_model_bound",
+        "model_trained": false,
+        "test_opened": false,
+        "audit_scored": false,
+        "cloud_authorized": false,
+        "deployment_authorized": false,
+        "independent_replay_required": true,
+        "decision": "diagnose_only_no_automatic_next_training_or_parameter_search",
+        "limitations": [
+          "class_density_affects_distances",
+          "geometry_is_not_semantics_or_Bayes_error",
+          "packed_float32_equality_is_not_raw_CSV_equality",
+          "one_seed_reused_development_cohort",
+          "no_device_or_causal_claims"
+        ]
+      },
+      "plan_sha256": "136822a0de3d14a1bb0fc26552554c4a9878a6424c5fa666dc4c540c4b34dcd9",
+      "sources": {
+        "src/eval/rare_error_diagnostic.py": "8307bb6522767bb43c0f0bebff8f0c87c4577824846c3ddb16312675d671b7a6",
+        "scripts/official39_rare_error_diagnostic.py": "5ac3011d12c98184eb384a42cb4f2ff4e31b015aa6d20c65b7b423de33a06127",
+        "src/eval/numeric_retrieval.py": "77490d1f9933da8b43a4ff75ab1247ca083aebd27b83136d74814027a5e33e75",
+        "src/data/label_map.py": "18f43ecb917d0f453572e497675799930ab6f76e1130b54cd45e7fd463f2d994"
+      }
+    }
+  },
+  "files": {
+    "seed7-rows.npy": "dac327a1300ba3277e99ab96b39672e947d9ae411cd3ba22f9990a771347399f",
+    "seed7-packed_standardized_euclidean.npy": "bdf2044beec078bd6b4c4c59a0eb949433e7a3a24191f82072f853297beb1d06",
+    "seed7-historical_fit_quantile_coordinate_euclidean.npy": "95c7eb8cd99401dc3f63abc3b084245aa6ff12e6f39fa8544cc3a3c0c1df3729",
+    "seed17-rows.npy": "d9588481aaa23f8bb78426e972199a3fdcf199ed3f1dd1f43e9f626eaa3d57fb",
+    "seed17-packed_standardized_euclidean.npy": "b32db0073eda30f4f2363e2eba5bab396035522f5446d5c2c3f49b9e9fccfdf7",
+    "seed17-historical_fit_quantile_coordinate_euclidean.npy": "bc1155ae608f495691b892ea8ba4dbf8043cd832e05582138c49f0ee16ac7599",
+    "seed27-rows.npy": "919f143d6f48d48f27245378b62c6a72f63aa0ab176e928a85c1f69cc197b8b8",
+    "seed27-packed_standardized_euclidean.npy": "d908b3aad40624288455fe41596644a7dbba1a351a7e3f867a126f97b1cc4cf6",
+    "seed27-historical_fit_quantile_coordinate_euclidean.npy": "715da70028bfa1e35ff31672ab85600faf061e1fcbae96336cd6b172588e634e"
+  },
+  "draws": [
+    {
+      "seed": 7,
+      "reference_counts": [
+        760,
+        760,
+        760,
+        760,
+        760,
+        760,
+        760,
+        760
+      ],
+      "proximity": {
+        "packed_standardized_euclidean": {
+          "Web-based": {
+            "all": {
+              "rows": 501,
+              "same_class_distance_quartiles": [
+                0.7945539008529978,
+                1.113559409223659,
+                1.5506277654758787
+              ],
+              "other_class_strictly_closer": 296,
+              "nearest_other_equal_distance": 0,
+              "zero_same_class_distance": 0,
+              "zero_any_class_distance": 0,
+              "comparisons": {
+                "Benign": {
+                  "other_closer": 161,
+                  "equal_distance": 0,
+                  "own_closer": 340
+                },
+                "DDoS": {
+                  "other_closer": 7,
+                  "equal_distance": 0,
+                  "own_closer": 494
+                },
+                "DoS": {
+                  "other_closer": 12,
+                  "equal_distance": 0,
+                  "own_closer": 489
+                },
+                "Recon": {
+                  "other_closer": 186,
+                  "equal_distance": 0,
+                  "own_closer": 315
+                },
+                "Brute Force": {
+                  "other_closer": 130,
+                  "equal_distance": 0,
+                  "own_closer": 371
+                },
+                "Spoofing": {
+                  "other_closer": 120,
+                  "equal_distance": 0,
+                  "own_closer": 381
+                },
+                "Mirai": {
+                  "other_closer": 1,
+                  "equal_distance": 0,
+                  "own_closer": 500
+                }
+              }
+            },
+            "tree_correct": {
+              "rows": 119,
+              "same_class_distance_quartiles": [
+                0.14954385476185422,
+                0.967412338699534,
+                1.32681629535866
+              ],
+              "other_class_strictly_closer": 46,
+              "nearest_other_equal_distance": 0,
+              "zero_same_class_distance": 0,
+              "zero_any_class_distance": 0,
+              "comparisons": {
+                "Benign": {
+                  "other_closer": 21,
+                  "equal_distance": 0,
+                  "own_closer": 98
+                },
+                "DDoS": {
+                  "other_closer": 0,
+                  "equal_distance": 0,
+                  "own_closer": 119
+                },
+                "DoS": {
+                  "other_closer": 2,
+                  "equal_distance": 0,
+                  "own_closer": 117
+                },
+                "Recon": {
+                  "other_closer": 24,
+                  "equal_distance": 0,
+                  "own_closer": 95
+                },
+                "Brute Force": {
+                  "other_closer": 23,
+                  "equal_distance": 0,
+                  "own_closer": 96
+                },
+                "Spoofing": {
+                  "other_closer": 24,
+                  "equal_distance": 0,
+                  "own_closer": 95
+                },
+                "Mirai": {
+                  "other_closer": 0,
+                  "equal_distance": 0,
+                  "own_closer": 119
+                }
+              }
+            },
+            "tree_missed_other_model_correct": {
+              "rows": 81,
+              "same_class_distance_quartiles": [
+                0.7581987587966278,
+                1.2386680200307059,
+                2.002220730080926
+              ],
+              "other_class_strictly_closer": 47,
+              "nearest_other_equal_distance": 0,
+              "zero_same_class_distance": 0,
+              "zero_any_class_distance": 0,
+              "comparisons": {
+                "Benign": {
+                  "other_closer": 18,
+                  "equal_distance": 0,
+                  "own_closer": 63
+                },
+                "DDoS": {
+                  "other_closer": 2,
+                  "equal_distance": 0,
+                  "own_closer": 79
+                },
+                "DoS": {
+                  "other_closer": 3,
+                  "equal_distance": 0,
+                  "own_closer": 78
+                },
+                "Recon": {
+                  "other_closer": 28,
+                  "equal_distance": 0,
+                  "own_closer": 53
+                },
+                "Brute Force": {
+                  "other_closer": 21,
+                  "equal_distance": 0,
+                  "own_closer": 60
+                },
+                "Spoofing": {
+                  "other_closer": 15,
+                  "equal_distance": 0,
+                  "own_closer": 66
+                },
+                "Mirai": {
+                  "other_closer": 0,
+                  "equal_distance": 0,
+                  "own_closer": 81
+                }
+              }
+            },
+            "all_models_missed": {
+              "rows": 301,
+              "same_class_distance_quartiles": [
+                0.8402849482380956,
+                1.1447988807229987,
+                1.5420859186975344
+              ],
+              "other_class_strictly_closer": 203,
+              "nearest_other_equal_distance": 0,
+              "zero_same_class_distance": 0,
+              "zero_any_class_distance": 0,
+              "comparisons": {
+                "Benign": {
+                  "other_closer": 122,
+                  "equal_distance": 0,
+                  "own_closer": 179
+                },
+                "DDoS": {
+                  "other_closer": 5,
+                  "equal_distance": 0,
+                  "own_closer": 296
+                },
+                "DoS": {
+                  "other_closer": 7,
+                  "equal_distance": 0,
+                  "own_closer": 294
+                },
+                "Recon": {
+                  "other_closer": 134,
+                  "equal_distance": 0,
+                  "own_closer": 167
+                },
+                "Brute Force": {
+                  "other_closer": 86,
+                  "equal_distance": 0,
+                  "own_closer": 215
+                },
+                "Spoofing": {
+                  "other_closer": 81,
+                  "equal_distance": 0,
+                  "own_closer": 220
+                },
+                "Mirai": {
+                  "other_closer": 1,
+                  "equal_distance": 0,
+                  "own_closer": 300
+                }
+              }
+            }
+          },
+          "Brute Force": {
+            "all": {
+              "rows": 271,
+              "same_class_distance_quartiles": [
+                0.7768972356540993,
+                1.1475830061440255,
+                1.643125751552864
+              ],
+              "other_class_strictly_closer": 129,
+              "nearest_other_equal_distance": 0,
+              "zero_same_class_distance": 0,
+              "zero_any_class_distance": 0,
+              "comparisons": {
+                "Benign": {
+                  "other_closer": 79,
+                  "equal_distance": 0,
+                  "own_closer": 192
+                },
+                "DDoS": {
+                  "other_closer": 1,
+                  "equal_distance": 0,
+                  "own_closer": 270
+                },
+                "DoS": {
+                  "other_closer": 1,
+                  "equal_distance": 0,
+                  "own_closer": 270
+                },
+                "Recon": {
+                  "other_closer": 73,
+                  "equal_distance": 0,
+                  "own_closer": 198
+                },
+                "Web-based": {
+                  "other_closer": 82,
+                  "equal_distance": 0,
+                  "own_closer": 189
+                },
+                "Spoofing": {
+                  "other_closer": 65,
+                  "equal_distance": 0,
+                  "own_closer": 206
+                },
+                "Mirai": {
+                  "other_closer": 0,
+                  "equal_distance": 0,
+                  "own_closer": 271
+                }
+              }
+            },
+            "tree_correct": {
+              "rows": 83,
+              "same_class_distance_quartiles": [
+                0.6229110235125632,
+                1.0097491503622675,
+                1.4996160601779136
+              ],
+              "other_class_strictly_closer": 6,
+              "nearest_other_equal_distance": 0,
+              "zero_same_class_distance": 0,
+              "zero_any_class_distance": 0,
+              "comparisons": {
+                "Benign": {
+                  "other_closer": 2,
+                  "equal_distance": 0,
+                  "own_closer": 81
+                },
+                "DDoS": {
+                  "other_closer": 0,
+                  "equal_distance": 0,
+                  "own_closer": 83
+                },
+                "DoS": {
+                  "other_closer": 0,
+                  "equal_distance": 0,
+                  "own_closer": 83
+                },
+                "Recon": {
+                  "other_closer": 2,
+                  "equal_distance": 0,
+                  "own_closer": 81
+                },
+                "Web-based": {
+                  "other_closer": 3,
+                  "equal_distance": 0,
+                  "own_closer": 80
+                },
+                "Spoofing": {
+                  "other_closer": 4,
+                  "equal_distance": 0,
+                  "own_closer": 79
+                },
+                "Mirai": {
+                  "other_closer": 0,
+                  "equal_distance": 0,
+                  "own_closer": 83
+                }
+              }
+            },
+            "tree_missed_other_model_correct": {
+              "rows": 35,
+              "same_class_distance_quartiles": [
+                0.7526876481039759,
+                1.0306371558117688,
+                1.3109180135222738
+              ],
+              "other_class_strictly_closer": 11,
+              "nearest_other_equal_distance": 0,
+              "zero_same_class_distance": 0,
+              "zero_any_class_distance": 0,
+              "comparisons": {
+                "Benign": {
+                  "other_closer": 5,
+                  "equal_distance": 0,
+                  "own_closer": 30
+                },
+                "DDoS": {
+                  "other_closer": 0,
+                  "equal_distance": 0,
+                  "own_closer": 35
+                },
+                "DoS": {
+                  "other_closer": 0,
+                  "equal_distance": 0,
+                  "own_closer": 35
+                },
+                "Recon": {
+                  "other_closer": 6,
+                  "equal_distance": 0,
+                  "own_closer": 29
+                },
+                "Web-based": {
+                  "other_closer": 3,
+                  "equal_distance": 0,
+                  "own_closer": 32
+                },
+                "Spoofing": {
+                  "other_closer": 7,
+                  "equal_distance": 0,
+                  "own_closer": 28
+                },
+                "Mirai": {
+                  "other_closer": 0,
+                  "equal_distance": 0,
+                  "own_closer": 35
+                }
+              }
+            },
+            "all_models_missed": {
+              "rows": 153,
+              "same_class_distance_quartiles": [
+                0.9153165628319067,
+                1.243649006889379,
+                1.8290723783318246
+              ],
+              "other_class_strictly_closer": 112,
+              "nearest_other_equal_distance": 0,
+              "zero_same_class_distance": 0,
+              "zero_any_class_distance": 0,
+              "comparisons": {
+                "Benign": {
+                  "other_closer": 72,
+                  "equal_distance": 0,
+                  "own_closer": 81
+                },
+                "DDoS": {
+                  "other_closer": 1,
+                  "equal_distance": 0,
+                  "own_closer": 152
+                },
+                "DoS": {
+                  "other_closer": 1,
+                  "equal_distance": 0,
+                  "own_closer": 152
+                },
+                "Recon": {
+                  "other_closer": 65,
+                  "equal_distance": 0,
+                  "own_closer": 88
+                },
+                "Web-based": {
+                  "other_closer": 76,
+                  "equal_distance": 0,
+                  "own_closer": 77
+                },
+                "Spoofing": {
+                  "other_closer": 54,
+                  "equal_distance": 0,
+                  "own_closer": 99
+                },
+                "Mirai": {
+                  "other_closer": 0,
+                  "equal_distance": 0,
+                  "own_closer": 153
+                }
+              }
+            }
+          }
+        },
+        "historical_fit_quantile_coordinate_euclidean": {
+          "Web-based": {
+            "all": {
+              "rows": 501,
+              "same_class_distance_quartiles": [
+                0.23385747083382452,
+                0.3623823779629822,
+                0.5373440559975109
+              ],
+              "other_class_strictly_closer": 277,
+              "nearest_other_equal_distance": 0,
+              "zero_same_class_distance": 0,
+              "zero_any_class_distance": 0,
+              "comparisons": {
+                "Benign": {
+                  "other_closer": 135,
+                  "equal_distance": 0,
+                  "own_closer": 366
+                },
+                "DDoS": {
+                  "other_closer": 1,
+                  "equal_distance": 0,
+                  "own_closer": 500
+                },
+                "DoS": {
+                  "other_closer": 5,
+                  "equal_distance": 0,
+                  "own_closer": 496
+                },
+                "Recon": {
+                  "other_closer": 160,
+                  "equal_distance": 0,
+                  "own_closer": 341
+                },
+                "Brute Force": {
+                  "other_closer": 139,
+                  "equal_distance": 0,
+                  "own_closer": 362
+                },
+                "Spoofing": {
+                  "other_closer": 121,
+                  "equal_distance": 0,
+                  "own_closer": 380
+                },
+                "Mirai": {
+                  "other_closer": 2,
+                  "equal_distance": 0,
+                  "own_closer": 499
+                }
+              }
+            },
+            "tree_correct": {
+              "rows": 119,
+              "same_class_distance_quartiles": [
+                0.09624858409438775,
+                0.2775194585892022,
+                0.4114732743989666
+              ],
+              "other_class_strictly_closer": 37,
+              "nearest_other_equal_distance": 0,
+              "zero_same_class_distance": 0,
+              "zero_any_class_distance": 0,
+              "comparisons": {
+                "Benign": {
+                  "other_closer": 9,
+                  "equal_distance": 0,
+                  "own_closer": 110
+                },
+                "DDoS": {
+                  "other_closer": 0,
+                  "equal_distance": 0,
+                  "own_closer": 119
+                },
+                "DoS": {
+                  "other_closer": 2,
+                  "equal_distance": 0,
+                  "own_closer": 117
+                },
+                "Recon": {
+                  "other_closer": 17,
+                  "equal_distance": 0,
+                  "own_closer": 102
+                },
+                "Brute Force": {
+                  "other_closer": 17,
+                  "equal_distance": 0,
+                  "own_closer": 102
+                },
+                "Spoofing": {
+                  "other_closer": 18,
+                  "equal_distance": 0,
+                  "own_closer": 101
+                },
+                "Mirai": {
+                  "other_closer": 0,
+                  "equal_distance": 0,
+                  "own_closer": 119
+                }
+              }
+            },
+            "tree_missed_other_model_correct": {
+              "rows": 81,
+              "same_class_distance_quartiles": [
+                0.25895214037553493,
+                0.3695507763284521,
+                0.5833661279362027
+              ],
+              "other_class_strictly_closer": 38,
+              "nearest_other_equal_distance": 0,
+              "zero_same_class_distance": 0,
+              "zero_any_class_distance": 0,
+              "comparisons": {
+                "Benign": {
+                  "other_closer": 9,
+                  "equal_distance": 0,
+                  "own_closer": 72
+                },
+                "DDoS": {
+                  "other_closer": 0,
+                  "equal_distance": 0,
+                  "own_closer": 81
+                },
+                "DoS": {
+                  "other_closer": 0,
+                  "equal_distance": 0,
+                  "own_closer": 81
+                },
+                "Recon": {
+                  "other_closer": 15,
+                  "equal_distance": 0,
+                  "own_closer": 66
+                },
+                "Brute Force": {
+                  "other_closer": 19,
+                  "equal_distance": 0,
+                  "own_closer": 62
+                },
+                "Spoofing": {
+                  "other_closer": 18,
+                  "equal_distance": 0,
+                  "own_closer": 63
+                },
+                "Mirai": {
+                  "other_closer": 0,
+                  "equal_distance": 0,
+                  "own_closer": 81
+                }
+              }
+            },
+            "all_models_missed": {
+              "rows": 301,
+              "same_class_distance_quartiles": [
+                0.26991885793588855,
+                0.4106844493625744,
+                0.5439627910922322
+              ],
+              "other_class_strictly_closer": 202,
+              "nearest_other_equal_distance": 0,
+              "zero_same_class_distance": 0,
+              "zero_any_class_distance": 0,
+              "comparisons": {
+                "Benign": {
+                  "other_closer": 117,
+                  "equal_distance": 0,
+                  "own_closer": 184
+                },
+                "DDoS": {
+                  "other_closer": 1,
+                  "equal_distance": 0,
+                  "own_closer": 300
+                },
+                "DoS": {
+                  "other_closer": 3,
+                  "equal_distance": 0,
+                  "own_closer": 298
+                },
+                "Recon": {
+                  "other_closer": 128,
+                  "equal_distance": 0,
+                  "own_closer": 173
+                },
+                "Brute Force": {
+                  "other_closer": 103,
+                  "equal_distance": 0,
+                  "own_closer": 198
+                },
+                "Spoofing": {
+                  "other_closer": 85,
+                  "equal_distance": 0,
+                  "own_closer": 216
+                },
+                "Mirai": {
+                  "other_closer": 2,
+                  "equal_distance": 0,
+                  "own_closer": 299
+                }
+              }
+            }
+          },
+          "Brute Force": {
+            "all": {
+              "rows": 271,
+              "same_class_distance_quartiles": [
+                0.2554976616958968,
+                0.3765758995217793,
+                0.5345524739301095
+              ],
+              "other_class_strictly_closer": 140,
+              "nearest_other_equal_distance": 0,
+              "zero_same_class_distance": 0,
+              "zero_any_class_distance": 0,
+              "comparisons": {
+                "Benign": {
+                  "other_closer": 72,
+                  "equal_distance": 0,
+                  "own_closer": 199
+                },
+                "DDoS": {
+                  "other_closer": 0,
+                  "equal_distance": 0,
+                  "own_closer": 271
+                },
+                "DoS": {
+                  "other_closer": 1,
+                  "equal_distance": 0,
+                  "own_closer": 270
+                },
+                "Recon": {
+                  "other_closer": 84,
+                  "equal_distance": 0,
+                  "own_closer": 187
+                },
+                "Web-based": {
+                  "other_closer": 84,
+                  "equal_distance": 0,
+                  "own_closer": 187
+                },
+                "Spoofing": {
+                  "other_closer": 59,
+                  "equal_distance": 0,
+                  "own_closer": 212
+                },
+                "Mirai": {
+                  "other_closer": 0,
+                  "equal_distance": 0,
+                  "own_closer": 271
+                }
+              }
+            },
+            "tree_correct": {
+              "rows": 83,
+              "same_class_distance_quartiles": [
+                0.19967375586962932,
+                0.32727994901911117,
+                0.48649866031907707
+              ],
+              "other_class_strictly_closer": 8,
+              "nearest_other_equal_distance": 0,
+              "zero_same_class_distance": 0,
+              "zero_any_class_distance": 0,
+              "comparisons": {
+                "Benign": {
+                  "other_closer": 4,
+                  "equal_distance": 0,
+                  "own_closer": 79
+                },
+                "DDoS": {
+                  "other_closer": 0,
+                  "equal_distance": 0,
+                  "own_closer": 83
+                },
+                "DoS": {
+                  "other_closer": 0,
+                  "equal_distance": 0,
+                  "own_closer": 83
+                },
+                "Recon": {
+                  "other_closer": 5,
+                  "equal_distance": 0,
+                  "own_closer": 78
+                },
+                "Web-based": {
+                  "other_closer": 6,
+                  "equal_distance": 0,
+                  "own_closer": 77
+                },
+                "Spoofing": {
+                  "other_closer": 1,
+                  "equal_distance": 0,
+                  "own_closer": 82
+                },
+                "Mirai": {
+                  "other_closer": 0,
+                  "equal_distance": 0,
+                  "own_closer": 83
+                }
+              }
+            },
+            "tree_missed_other_model_correct": {
+              "rows": 35,
+              "same_class_distance_quartiles": [
+                0.2288860402058268,
+                0.4236006924978978,
+                0.5639459496218824
+              ],
+              "other_class_strictly_closer": 16,
+              "nearest_other_equal_distance": 0,
+              "zero_same_class_distance": 0,
+              "zero_any_class_distance": 0,
+              "comparisons": {
+                "Benign": {
+                  "other_closer": 6,
+                  "equal_distance": 0,
+                  "own_closer": 29
+                },
+                "DDoS": {
+                  "other_closer": 0,
+                  "equal_distance": 0,
+                  "own_closer": 35
+                },
+                "DoS": {
+                  "other_closer": 0,
+                  "equal_distance": 0,
+                  "own_closer": 35
+                },
+                "Recon": {
+                  "other_closer": 11,
+                  "equal_distance": 0,
+                  "own_closer": 24
+                },
+                "Web-based": {
+                  "other_closer": 3,
+                  "equal_distance": 0,
+                  "own_closer": 32
+                },
+                "Spoofing": {
+                  "other_closer": 5,
+                  "equal_distance": 0,
+                  "own_closer": 30
+                },
+                "Mirai": {
+                  "other_closer": 0,
+                  "equal_distance": 0,
+                  "own_closer": 35
+                }
+              }
+            },
+            "all_models_missed": {
+              "rows": 153,
+              "same_class_distance_quartiles": [
+                0.2823169533710233,
+                0.3748444274810456,
+                0.5465343725537558
+              ],
+              "other_class_strictly_closer": 116,
+              "nearest_other_equal_distance": 0,
+              "zero_same_class_distance": 0,
+              "zero_any_class_distance": 0,
+              "comparisons": {
+                "Benign": {
+                  "other_closer": 62,
+                  "equal_distance": 0,
+                  "own_closer": 91
+                },
+                "DDoS": {
+                  "other_closer": 0,
+                  "equal_distance": 0,
+                  "own_closer": 153
+                },
+                "DoS": {
+                  "other_closer": 1,
+                  "equal_distance": 0,
+                  "own_closer": 152
+                },
+                "Recon": {
+                  "other_closer": 68,
+                  "equal_distance": 0,
+                  "own_closer": 85
+                },
+                "Web-based": {
+                  "other_closer": 75,
+                  "equal_distance": 0,
+                  "own_closer": 78
+                },
+                "Spoofing": {
+                  "other_closer": 53,
+                  "equal_distance": 0,
+                  "own_closer": 100
+                },
+                "Mirai": {
+                  "other_closer": 0,
+                  "equal_distance": 0,
+                  "own_closer": 153
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "seed": 17,
+      "reference_counts": [
+        760,
+        760,
+        760,
+        760,
+        760,
+        760,
+        760,
+        760
+      ],
+      "proximity": {
+        "packed_standardized_euclidean": {
+          "Web-based": {
+            "all": {
+              "rows": 501,
+              "same_class_distance_quartiles": [
+                0.7928677266845525,
+                1.1132923915638595,
+                1.561652549829339
+              ],
+              "other_class_strictly_closer": 304,
+              "nearest_other_equal_distance": 0,
+              "zero_same_class_distance": 0,
+              "zero_any_class_distance": 0,
+              "comparisons": {
+                "Benign": {
+                  "other_closer": 150,
+                  "equal_distance": 0,
+                  "own_closer": 351
+                },
+                "DDoS": {
+                  "other_closer": 6,
+                  "equal_distance": 0,
+                  "own_closer": 495
+                },
+                "DoS": {
+                  "other_closer": 6,
+                  "equal_distance": 0,
+                  "own_closer": 495
+                },
+                "Recon": {
+                  "other_closer": 174,
+                  "equal_distance": 0,
+                  "own_closer": 327
+                },
+                "Brute Force": {
+                  "other_closer": 139,
+                  "equal_distance": 0,
+                  "own_closer": 362
+                },
+                "Spoofing": {
+                  "other_closer": 112,
+                  "equal_distance": 0,
+                  "own_closer": 389
+                },
+                "Mirai": {
+                  "other_closer": 1,
+                  "equal_distance": 0,
+                  "own_closer": 500
+                }
+              }
+            },
+            "tree_correct": {
+              "rows": 119,
+              "same_class_distance_quartiles": [
+                0.1473970699483134,
+                0.9114511351308264,
+                1.315587829380252
+              ],
+              "other_class_strictly_closer": 43,
+              "nearest_other_equal_distance": 0,
+              "zero_same_class_distance": 0,
+              "zero_any_class_distance": 0,
+              "comparisons": {
+                "Benign": {
+                  "other_closer": 24,
+                  "equal_distance": 0,
+                  "own_closer": 95
+                },
+                "DDoS": {
+                  "other_closer": 0,
+                  "equal_distance": 0,
+                  "own_closer": 119
+                },
+                "DoS": {
+                  "other_closer": 0,
+                  "equal_distance": 0,
+                  "own_closer": 119
+                },
+                "Recon": {
+                  "other_closer": 22,
+                  "equal_distance": 0,
+                  "own_closer": 97
+                },
+                "Brute Force": {
+                  "other_closer": 18,
+                  "equal_distance": 0,
+                  "own_closer": 101
+                },
+                "Spoofing": {
+                  "other_closer": 10,
+                  "equal_distance": 0,
+                  "own_closer": 109
+                },
+                "Mirai": {
+                  "other_closer": 0,
+                  "equal_distance": 0,
+                  "own_closer": 119
+                }
+              }
+            },
+            "tree_missed_other_model_correct": {
+              "rows": 81,
+              "same_class_distance_quartiles": [
+                0.8527160985362452,
+                1.2186430034192308,
+                1.9327515742350843
+              ],
+              "other_class_strictly_closer": 54,
+              "nearest_other_equal_distance": 0,
+              "zero_same_class_distance": 0,
+              "zero_any_class_distance": 0,
+              "comparisons": {
+                "Benign": {
+                  "other_closer": 23,
+                  "equal_distance": 0,
+                  "own_closer": 58
+                },
+                "DDoS": {
+                  "other_closer": 2,
+                  "equal_distance": 0,
+                  "own_closer": 79
+                },
+                "DoS": {
+                  "other_closer": 2,
+                  "equal_distance": 0,
+                  "own_closer": 79
+                },
+                "Recon": {
+                  "other_closer": 31,
+                  "equal_distance": 0,
+                  "own_closer": 50
+                },
+                "Brute Force": {
+                  "other_closer": 32,
+                  "equal_distance": 0,
+                  "own_closer": 49
+                },
+                "Spoofing": {
+                  "other_closer": 19,
+                  "equal_distance": 0,
+                  "own_closer": 62
+                },
+                "Mirai": {
+                  "other_closer": 0,
+                  "equal_distance": 0,
+                  "own_closer": 81
+                }
+              }
+            },
+            "all_models_missed": {
+              "rows": 301,
+              "same_class_distance_quartiles": [
+                0.8423733121139456,
+                1.1420062490835243,
+                1.5882817759462624
+              ],
+              "other_class_strictly_closer": 207,
+              "nearest_other_equal_distance": 0,
+              "zero_same_class_distance": 0,
+              "zero_any_class_distance": 0,
+              "comparisons": {
+                "Benign": {
+                  "other_closer": 103,
+                  "equal_distance": 0,
+                  "own_closer": 198
+                },
+                "DDoS": {
+                  "other_closer": 4,
+                  "equal_distance": 0,
+                  "own_closer": 297
+                },
+                "DoS": {
+                  "other_closer": 4,
+                  "equal_distance": 0,
+                  "own_closer": 297
+                },
+                "Recon": {
+                  "other_closer": 121,
+                  "equal_distance": 0,
+                  "own_closer": 180
+                },
+                "Brute Force": {
+                  "other_closer": 89,
+                  "equal_distance": 0,
+                  "own_closer": 212
+                },
+                "Spoofing": {
+                  "other_closer": 83,
+                  "equal_distance": 0,
+                  "own_closer": 218
+                },
+                "Mirai": {
+                  "other_closer": 1,
+                  "equal_distance": 0,
+                  "own_closer": 300
+                }
+              }
+            }
+          },
+          "Brute Force": {
+            "all": {
+              "rows": 271,
+              "same_class_distance_quartiles": [
+                0.7768972356540993,
+                1.1475830061440255,
+                1.643125751552864
+              ],
+              "other_class_strictly_closer": 131,
+              "nearest_other_equal_distance": 0,
+              "zero_same_class_distance": 0,
+              "zero_any_class_distance": 0,
+              "comparisons": {
+                "Benign": {
+                  "other_closer": 79,
+                  "equal_distance": 0,
+                  "own_closer": 192
+                },
+                "DDoS": {
+                  "other_closer": 1,
+                  "equal_distance": 0,
+                  "own_closer": 270
+                },
+                "DoS": {
+                  "other_closer": 1,
+                  "equal_distance": 0,
+                  "own_closer": 270
+                },
+                "Recon": {
+                  "other_closer": 70,
+                  "equal_distance": 0,
+                  "own_closer": 201
+                },
+                "Web-based": {
+                  "other_closer": 89,
+                  "equal_distance": 0,
+                  "own_closer": 182
+                },
+                "Spoofing": {
+                  "other_closer": 63,
+                  "equal_distance": 0,
+                  "own_closer": 208
+                },
+                "Mirai": {
+                  "other_closer": 0,
+                  "equal_distance": 0,
+                  "own_closer": 271
+                }
+              }
+            },
+            "tree_correct": {
+              "rows": 83,
+              "same_class_distance_quartiles": [
+                0.6229110235125632,
+                1.0097491503622675,
+                1.4996160601779136
+              ],
+              "other_class_strictly_closer": 4,
+              "nearest_other_equal_distance": 0,
+              "zero_same_class_distance": 0,
+              "zero_any_class_distance": 0,
+              "comparisons": {
+                "Benign": {
+                  "other_closer": 3,
+                  "equal_distance": 0,
+                  "own_closer": 80
+                },
+                "DDoS": {
+                  "other_closer": 0,
+                  "equal_distance": 0,
+                  "own_closer": 83
+                },
+                "DoS": {
+                  "other_closer": 0,
+                  "equal_distance": 0,
+                  "own_closer": 83
+                },
+                "Recon": {
+                  "other_closer": 2,
+                  "equal_distance": 0,
+                  "own_closer": 81
+                },
+                "Web-based": {
+                  "other_closer": 3,
+                  "equal_distance": 0,
+                  "own_closer": 80
+                },
+                "Spoofing": {
+                  "other_closer": 3,
+                  "equal_distance": 0,
+                  "own_closer": 80
+                },
+                "Mirai": {
+                  "other_closer": 0,
+                  "equal_distance": 0,
+                  "own_closer": 83
+                }
+              }
+            },
+            "tree_missed_other_model_correct": {
+              "rows": 35,
+              "same_class_distance_quartiles": [
+                0.7526876481039759,
+                1.0306371558117688,
+                1.3109180135222738
+              ],
+              "other_class_strictly_closer": 11,
+              "nearest_other_equal_distance": 0,
+              "zero_same_class_distance": 0,
+              "zero_any_class_distance": 0,
+              "comparisons": {
+                "Benign": {
+                  "other_closer": 5,
+                  "equal_distance": 0,
+                  "own_closer": 30
+                },
+                "DDoS": {
+                  "other_closer": 0,
+                  "equal_distance": 0,
+                  "own_closer": 35
+                },
+                "DoS": {
+                  "other_closer": 0,
+                  "equal_distance": 0,
+                  "own_closer": 35
+                },
+                "Recon": {
+                  "other_closer": 4,
+                  "equal_distance": 0,
+                  "own_closer": 31
+                },
+                "Web-based": {
+                  "other_closer": 5,
+                  "equal_distance": 0,
+                  "own_closer": 30
+                },
+                "Spoofing": {
+                  "other_closer": 4,
+                  "equal_distance": 0,
+                  "own_closer": 31
+                },
+                "Mirai": {
+                  "other_closer": 0,
+                  "equal_distance": 0,
+                  "own_closer": 35
+                }
+              }
+            },
+            "all_models_missed": {
+              "rows": 153,
+              "same_class_distance_quartiles": [
+                0.9153165628319067,
+                1.243649006889379,
+                1.8290723783318246
+              ],
+              "other_class_strictly_closer": 116,
+              "nearest_other_equal_distance": 0,
+              "zero_same_class_distance": 0,
+              "zero_any_class_distance": 0,
+              "comparisons": {
+                "Benign": {
+                  "other_closer": 71,
+                  "equal_distance": 0,
+                  "own_closer": 82
+                },
+                "DDoS": {
+                  "other_closer": 1,
+                  "equal_distance": 0,
+                  "own_closer": 152
+                },
+                "DoS": {
+                  "other_closer": 1,
+                  "equal_distance": 0,
+                  "own_closer": 152
+                },
+                "Recon": {
+                  "other_closer": 64,
+                  "equal_distance": 0,
+                  "own_closer": 89
+                },
+                "Web-based": {
+                  "other_closer": 81,
+                  "equal_distance": 0,
+                  "own_closer": 72
+                },
+                "Spoofing": {
+                  "other_closer": 56,
+                  "equal_distance": 0,
+                  "own_closer": 97
+                },
+                "Mirai": {
+                  "other_closer": 0,
+                  "equal_distance": 0,
+                  "own_closer": 153
+                }
+              }
+            }
+          }
+        },
+        "historical_fit_quantile_coordinate_euclidean": {
+          "Web-based": {
+            "all": {
+              "rows": 501,
+              "same_class_distance_quartiles": [
+                0.23881177126825942,
+                0.3627730380867618,
+                0.5327716646587106
+              ],
+              "other_class_strictly_closer": 288,
+              "nearest_other_equal_distance": 0,
+              "zero_same_class_distance": 0,
+              "zero_any_class_distance": 0,
+              "comparisons": {
+                "Benign": {
+                  "other_closer": 128,
+                  "equal_distance": 0,
+                  "own_closer": 373
+                },
+                "DDoS": {
+                  "other_closer": 2,
+                  "equal_distance": 0,
+                  "own_closer": 499
+                },
+                "DoS": {
+                  "other_closer": 1,
+                  "equal_distance": 0,
+                  "own_closer": 500
+                },
+                "Recon": {
+                  "other_closer": 165,
+                  "equal_distance": 0,
+                  "own_closer": 336
+                },
+                "Brute Force": {
+                  "other_closer": 139,
+                  "equal_distance": 0,
+                  "own_closer": 362
+                },
+                "Spoofing": {
+                  "other_closer": 112,
+                  "equal_distance": 0,
+                  "own_closer": 389
+                },
+                "Mirai": {
+                  "other_closer": 3,
+                  "equal_distance": 0,
+                  "own_closer": 498
+                }
+              }
+            },
+            "tree_correct": {
+              "rows": 119,
+              "same_class_distance_quartiles": [
+                0.11503130195753075,
+                0.26303723839541343,
+                0.4140717318069216
+              ],
+              "other_class_strictly_closer": 35,
+              "nearest_other_equal_distance": 0,
+              "zero_same_class_distance": 0,
+              "zero_any_class_distance": 0,
+              "comparisons": {
+                "Benign": {
+                  "other_closer": 12,
+                  "equal_distance": 0,
+                  "own_closer": 107
+                },
+                "DDoS": {
+                  "other_closer": 0,
+                  "equal_distance": 0,
+                  "own_closer": 119
+                },
+                "DoS": {
+                  "other_closer": 0,
+                  "equal_distance": 0,
+                  "own_closer": 119
+                },
+                "Recon": {
+                  "other_closer": 13,
+                  "equal_distance": 0,
+                  "own_closer": 106
+                },
+                "Brute Force": {
+                  "other_closer": 18,
+                  "equal_distance": 0,
+                  "own_closer": 101
+                },
+                "Spoofing": {
+                  "other_closer": 17,
+                  "equal_distance": 0,
+                  "own_closer": 102
+                },
+                "Mirai": {
+                  "other_closer": 1,
+                  "equal_distance": 0,
+                  "own_closer": 118
+                }
+              }
+            },
+            "tree_missed_other_model_correct": {
+              "rows": 81,
+              "same_class_distance_quartiles": [
+                0.24558633533504978,
+                0.3670244017230791,
+                0.5881337770165115
+              ],
+              "other_class_strictly_closer": 34,
+              "nearest_other_equal_distance": 0,
+              "zero_same_class_distance": 0,
+              "zero_any_class_distance": 0,
+              "comparisons": {
+                "Benign": {
+                  "other_closer": 12,
+                  "equal_distance": 0,
+                  "own_closer": 69
+                },
+                "DDoS": {
+                  "other_closer": 0,
+                  "equal_distance": 0,
+                  "own_closer": 81
+                },
+                "DoS": {
+                  "other_closer": 0,
+                  "equal_distance": 0,
+                  "own_closer": 81
+                },
+                "Recon": {
+                  "other_closer": 20,
+                  "equal_distance": 0,
+                  "own_closer": 61
+                },
+                "Brute Force": {
+                  "other_closer": 16,
+                  "equal_distance": 0,
+                  "own_closer": 65
+                },
+                "Spoofing": {
+                  "other_closer": 9,
+                  "equal_distance": 0,
+                  "own_closer": 72
+                },
+                "Mirai": {
+                  "other_closer": 0,
+                  "equal_distance": 0,
+                  "own_closer": 81
+                }
+              }
+            },
+            "all_models_missed": {
+              "rows": 301,
+              "same_class_distance_quartiles": [
+                0.27062614057967244,
+                0.39508834153055683,
+                0.5496457787259336
+              ],
+              "other_class_strictly_closer": 219,
+              "nearest_other_equal_distance": 0,
+              "zero_same_class_distance": 0,
+              "zero_any_class_distance": 0,
+              "comparisons": {
+                "Benign": {
+                  "other_closer": 104,
+                  "equal_distance": 0,
+                  "own_closer": 197
+                },
+                "DDoS": {
+                  "other_closer": 2,
+                  "equal_distance": 0,
+                  "own_closer": 299
+                },
+                "DoS": {
+                  "other_closer": 1,
+                  "equal_distance": 0,
+                  "own_closer": 300
+                },
+                "Recon": {
+                  "other_closer": 132,
+                  "equal_distance": 0,
+                  "own_closer": 169
+                },
+                "Brute Force": {
+                  "other_closer": 105,
+                  "equal_distance": 0,
+                  "own_closer": 196
+                },
+                "Spoofing": {
+                  "other_closer": 86,
+                  "equal_distance": 0,
+                  "own_closer": 215
+                },
+                "Mirai": {
+                  "other_closer": 2,
+                  "equal_distance": 0,
+                  "own_closer": 299
+                }
+              }
+            }
+          },
+          "Brute Force": {
+            "all": {
+              "rows": 271,
+              "same_class_distance_quartiles": [
+                0.2554976616958968,
+                0.3765758995217793,
+                0.5345524739301095
+              ],
+              "other_class_strictly_closer": 136,
+              "nearest_other_equal_distance": 0,
+              "zero_same_class_distance": 0,
+              "zero_any_class_distance": 0,
+              "comparisons": {
+                "Benign": {
+                  "other_closer": 68,
+                  "equal_distance": 0,
+                  "own_closer": 203
+                },
+                "DDoS": {
+                  "other_closer": 0,
+                  "equal_distance": 0,
+                  "own_closer": 271
+                },
+                "DoS": {
+                  "other_closer": 1,
+                  "equal_distance": 0,
+                  "own_closer": 270
+                },
+                "Recon": {
+                  "other_closer": 71,
+                  "equal_distance": 0,
+                  "own_closer": 200
+                },
+                "Web-based": {
+                  "other_closer": 87,
+                  "equal_distance": 0,
+                  "own_closer": 184
+                },
+                "Spoofing": {
+                  "other_closer": 56,
+                  "equal_distance": 0,
+                  "own_closer": 215
+                },
+                "Mirai": {
+                  "other_closer": 0,
+                  "equal_distance": 0,
+                  "own_closer": 271
+                }
+              }
+            },
+            "tree_correct": {
+              "rows": 83,
+              "same_class_distance_quartiles": [
+                0.19967375586962932,
+                0.32727994901911117,
+                0.48649866031907707
+              ],
+              "other_class_strictly_closer": 7,
+              "nearest_other_equal_distance": 0,
+              "zero_same_class_distance": 0,
+              "zero_any_class_distance": 0,
+              "comparisons": {
+                "Benign": {
+                  "other_closer": 2,
+                  "equal_distance": 0,
+                  "own_closer": 81
+                },
+                "DDoS": {
+                  "other_closer": 0,
+                  "equal_distance": 0,
+                  "own_closer": 83
+                },
+                "DoS": {
+                  "other_closer": 0,
+                  "equal_distance": 0,
+                  "own_closer": 83
+                },
+                "Recon": {
+                  "other_closer": 4,
+                  "equal_distance": 0,
+                  "own_closer": 79
+                },
+                "Web-based": {
+                  "other_closer": 5,
+                  "equal_distance": 0,
+                  "own_closer": 78
+                },
+                "Spoofing": {
+                  "other_closer": 0,
+                  "equal_distance": 0,
+                  "own_closer": 83
+                },
+                "Mirai": {
+                  "other_closer": 0,
+                  "equal_distance": 0,
+                  "own_closer": 83
+                }
+              }
+            },
+            "tree_missed_other_model_correct": {
+              "rows": 35,
+              "same_class_distance_quartiles": [
+                0.2288860402058268,
+                0.4236006924978978,
+                0.5639459496218824
+              ],
+              "other_class_strictly_closer": 15,
+              "nearest_other_equal_distance": 0,
+              "zero_same_class_distance": 0,
+              "zero_any_class_distance": 0,
+              "comparisons": {
+                "Benign": {
+                  "other_closer": 5,
+                  "equal_distance": 0,
+                  "own_closer": 30
+                },
+                "DDoS": {
+                  "other_closer": 0,
+                  "equal_distance": 0,
+                  "own_closer": 35
+                },
+                "DoS": {
+                  "other_closer": 0,
+                  "equal_distance": 0,
+                  "own_closer": 35
+                },
+                "Recon": {
+                  "other_closer": 7,
+                  "equal_distance": 0,
+                  "own_closer": 28
+                },
+                "Web-based": {
+                  "other_closer": 5,
+                  "equal_distance": 0,
+                  "own_closer": 30
+                },
+                "Spoofing": {
+                  "other_closer": 4,
+                  "equal_distance": 0,
+                  "own_closer": 31
+                },
+                "Mirai": {
+                  "other_closer": 0,
+                  "equal_distance": 0,
+                  "own_closer": 35
+                }
+              }
+            },
+            "all_models_missed": {
+              "rows": 153,
+              "same_class_distance_quartiles": [
+                0.2823169533710233,
+                0.3748444274810456,
+                0.5465343725537558
+              ],
+              "other_class_strictly_closer": 114,
+              "nearest_other_equal_distance": 0,
+              "zero_same_class_distance": 0,
+              "zero_any_class_distance": 0,
+              "comparisons": {
+                "Benign": {
+                  "other_closer": 61,
+                  "equal_distance": 0,
+                  "own_closer": 92
+                },
+                "DDoS": {
+                  "other_closer": 0,
+                  "equal_distance": 0,
+                  "own_closer": 153
+                },
+                "DoS": {
+                  "other_closer": 1,
+                  "equal_distance": 0,
+                  "own_closer": 152
+                },
+                "Recon": {
+                  "other_closer": 60,
+                  "equal_distance": 0,
+                  "own_closer": 93
+                },
+                "Web-based": {
+                  "other_closer": 77,
+                  "equal_distance": 0,
+                  "own_closer": 76
+                },
+                "Spoofing": {
+                  "other_closer": 52,
+                  "equal_distance": 0,
+                  "own_closer": 101
+                },
+                "Mirai": {
+                  "other_closer": 0,
+                  "equal_distance": 0,
+                  "own_closer": 153
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "seed": 27,
+      "reference_counts": [
+        760,
+        760,
+        760,
+        760,
+        760,
+        760,
+        760,
+        760
+      ],
+      "proximity": {
+        "packed_standardized_euclidean": {
+          "Web-based": {
+            "all": {
+              "rows": 501,
+              "same_class_distance_quartiles": [
+                0.791963822755806,
+                1.070854715604506,
+                1.5556303724053262
+              ],
+              "other_class_strictly_closer": 298,
+              "nearest_other_equal_distance": 0,
+              "zero_same_class_distance": 0,
+              "zero_any_class_distance": 0,
+              "comparisons": {
+                "Benign": {
+                  "other_closer": 146,
+                  "equal_distance": 0,
+                  "own_closer": 355
+                },
+                "DDoS": {
+                  "other_closer": 2,
+                  "equal_distance": 0,
+                  "own_closer": 499
+                },
+                "DoS": {
+                  "other_closer": 6,
+                  "equal_distance": 0,
+                  "own_closer": 495
+                },
+                "Recon": {
+                  "other_closer": 183,
+                  "equal_distance": 0,
+                  "own_closer": 318
+                },
+                "Brute Force": {
+                  "other_closer": 126,
+                  "equal_distance": 0,
+                  "own_closer": 375
+                },
+                "Spoofing": {
+                  "other_closer": 147,
+                  "equal_distance": 0,
+                  "own_closer": 354
+                },
+                "Mirai": {
+                  "other_closer": 3,
+                  "equal_distance": 0,
+                  "own_closer": 498
+                }
+              }
+            },
+            "tree_correct": {
+              "rows": 119,
+              "same_class_distance_quartiles": [
+                0.09615959195292273,
+                0.9228758130857536,
+                1.3159850460154154
+              ],
+              "other_class_strictly_closer": 41,
+              "nearest_other_equal_distance": 0,
+              "zero_same_class_distance": 0,
+              "zero_any_class_distance": 0,
+              "comparisons": {
+                "Benign": {
+                  "other_closer": 24,
+                  "equal_distance": 0,
+                  "own_closer": 95
+                },
+                "DDoS": {
+                  "other_closer": 1,
+                  "equal_distance": 0,
+                  "own_closer": 118
+                },
+                "DoS": {
+                  "other_closer": 1,
+                  "equal_distance": 0,
+                  "own_closer": 118
+                },
+                "Recon": {
+                  "other_closer": 23,
+                  "equal_distance": 0,
+                  "own_closer": 96
+                },
+                "Brute Force": {
+                  "other_closer": 18,
+                  "equal_distance": 0,
+                  "own_closer": 101
+                },
+                "Spoofing": {
+                  "other_closer": 21,
+                  "equal_distance": 0,
+                  "own_closer": 98
+                },
+                "Mirai": {
+                  "other_closer": 0,
+                  "equal_distance": 0,
+                  "own_closer": 119
+                }
+              }
+            },
+            "tree_missed_other_model_correct": {
+              "rows": 81,
+              "same_class_distance_quartiles": [
+                0.8187747201634478,
+                1.1803527744162179,
+                2.02663865514182
+              ],
+              "other_class_strictly_closer": 52,
+              "nearest_other_equal_distance": 0,
+              "zero_same_class_distance": 0,
+              "zero_any_class_distance": 0,
+              "comparisons": {
+                "Benign": {
+                  "other_closer": 22,
+                  "equal_distance": 0,
+                  "own_closer": 59
+                },
+                "DDoS": {
+                  "other_closer": 0,
+                  "equal_distance": 0,
+                  "own_closer": 81
+                },
+                "DoS": {
+                  "other_closer": 1,
+                  "equal_distance": 0,
+                  "own_closer": 80
+                },
+                "Recon": {
+                  "other_closer": 32,
+                  "equal_distance": 0,
+                  "own_closer": 49
+                },
+                "Brute Force": {
+                  "other_closer": 24,
+                  "equal_distance": 0,
+                  "own_closer": 57
+                },
+                "Spoofing": {
+                  "other_closer": 29,
+                  "equal_distance": 0,
+                  "own_closer": 52
+                },
+                "Mirai": {
+                  "other_closer": 0,
+                  "equal_distance": 0,
+                  "own_closer": 81
+                }
+              }
+            },
+            "all_models_missed": {
+              "rows": 301,
+              "same_class_distance_quartiles": [
+                0.8308559496725517,
+                1.1366596808681602,
+                1.593568468587729
+              ],
+              "other_class_strictly_closer": 205,
+              "nearest_other_equal_distance": 0,
+              "zero_same_class_distance": 0,
+              "zero_any_class_distance": 0,
+              "comparisons": {
+                "Benign": {
+                  "other_closer": 100,
+                  "equal_distance": 0,
+                  "own_closer": 201
+                },
+                "DDoS": {
+                  "other_closer": 1,
+                  "equal_distance": 0,
+                  "own_closer": 300
+                },
+                "DoS": {
+                  "other_closer": 4,
+                  "equal_distance": 0,
+                  "own_closer": 297
+                },
+                "Recon": {
+                  "other_closer": 128,
+                  "equal_distance": 0,
+                  "own_closer": 173
+                },
+                "Brute Force": {
+                  "other_closer": 84,
+                  "equal_distance": 0,
+                  "own_closer": 217
+                },
+                "Spoofing": {
+                  "other_closer": 97,
+                  "equal_distance": 0,
+                  "own_closer": 204
+                },
+                "Mirai": {
+                  "other_closer": 3,
+                  "equal_distance": 0,
+                  "own_closer": 298
+                }
+              }
+            }
+          },
+          "Brute Force": {
+            "all": {
+              "rows": 271,
+              "same_class_distance_quartiles": [
+                0.7768972356540993,
+                1.1475830061440255,
+                1.643125751552864
+              ],
+              "other_class_strictly_closer": 133,
+              "nearest_other_equal_distance": 0,
+              "zero_same_class_distance": 0,
+              "zero_any_class_distance": 0,
+              "comparisons": {
+                "Benign": {
+                  "other_closer": 72,
+                  "equal_distance": 0,
+                  "own_closer": 199
+                },
+                "DDoS": {
+                  "other_closer": 0,
+                  "equal_distance": 0,
+                  "own_closer": 271
+                },
+                "DoS": {
+                  "other_closer": 2,
+                  "equal_distance": 0,
+                  "own_closer": 269
+                },
+                "Recon": {
+                  "other_closer": 82,
+                  "equal_distance": 0,
+                  "own_closer": 189
+                },
+                "Web-based": {
+                  "other_closer": 86,
+                  "equal_distance": 0,
+                  "own_closer": 185
+                },
+                "Spoofing": {
+                  "other_closer": 68,
+                  "equal_distance": 0,
+                  "own_closer": 203
+                },
+                "Mirai": {
+                  "other_closer": 0,
+                  "equal_distance": 0,
+                  "own_closer": 271
+                }
+              }
+            },
+            "tree_correct": {
+              "rows": 83,
+              "same_class_distance_quartiles": [
+                0.6229110235125632,
+                1.0097491503622675,
+                1.4996160601779136
+              ],
+              "other_class_strictly_closer": 9,
+              "nearest_other_equal_distance": 0,
+              "zero_same_class_distance": 0,
+              "zero_any_class_distance": 0,
+              "comparisons": {
+                "Benign": {
+                  "other_closer": 5,
+                  "equal_distance": 0,
+                  "own_closer": 78
+                },
+                "DDoS": {
+                  "other_closer": 0,
+                  "equal_distance": 0,
+                  "own_closer": 83
+                },
+                "DoS": {
+                  "other_closer": 0,
+                  "equal_distance": 0,
+                  "own_closer": 83
+                },
+                "Recon": {
+                  "other_closer": 4,
+                  "equal_distance": 0,
+                  "own_closer": 79
+                },
+                "Web-based": {
+                  "other_closer": 2,
+                  "equal_distance": 0,
+                  "own_closer": 81
+                },
+                "Spoofing": {
+                  "other_closer": 4,
+                  "equal_distance": 0,
+                  "own_closer": 79
+                },
+                "Mirai": {
+                  "other_closer": 0,
+                  "equal_distance": 0,
+                  "own_closer": 83
+                }
+              }
+            },
+            "tree_missed_other_model_correct": {
+              "rows": 35,
+              "same_class_distance_quartiles": [
+                0.7526876481039759,
+                1.0306371558117688,
+                1.3109180135222738
+              ],
+              "other_class_strictly_closer": 10,
+              "nearest_other_equal_distance": 0,
+              "zero_same_class_distance": 0,
+              "zero_any_class_distance": 0,
+              "comparisons": {
+                "Benign": {
+                  "other_closer": 4,
+                  "equal_distance": 0,
+                  "own_closer": 31
+                },
+                "DDoS": {
+                  "other_closer": 0,
+                  "equal_distance": 0,
+                  "own_closer": 35
+                },
+                "DoS": {
+                  "other_closer": 0,
+                  "equal_distance": 0,
+                  "own_closer": 35
+                },
+                "Recon": {
+                  "other_closer": 7,
+                  "equal_distance": 0,
+                  "own_closer": 28
+                },
+                "Web-based": {
+                  "other_closer": 5,
+                  "equal_distance": 0,
+                  "own_closer": 30
+                },
+                "Spoofing": {
+                  "other_closer": 3,
+                  "equal_distance": 0,
+                  "own_closer": 32
+                },
+                "Mirai": {
+                  "other_closer": 0,
+                  "equal_distance": 0,
+                  "own_closer": 35
+                }
+              }
+            },
+            "all_models_missed": {
+              "rows": 153,
+              "same_class_distance_quartiles": [
+                0.9153165628319067,
+                1.243649006889379,
+                1.8290723783318246
+              ],
+              "other_class_strictly_closer": 114,
+              "nearest_other_equal_distance": 0,
+              "zero_same_class_distance": 0,
+              "zero_any_class_distance": 0,
+              "comparisons": {
+                "Benign": {
+                  "other_closer": 63,
+                  "equal_distance": 0,
+                  "own_closer": 90
+                },
+                "DDoS": {
+                  "other_closer": 0,
+                  "equal_distance": 0,
+                  "own_closer": 153
+                },
+                "DoS": {
+                  "other_closer": 2,
+                  "equal_distance": 0,
+                  "own_closer": 151
+                },
+                "Recon": {
+                  "other_closer": 71,
+                  "equal_distance": 0,
+                  "own_closer": 82
+                },
+                "Web-based": {
+                  "other_closer": 79,
+                  "equal_distance": 0,
+                  "own_closer": 74
+                },
+                "Spoofing": {
+                  "other_closer": 61,
+                  "equal_distance": 0,
+                  "own_closer": 92
+                },
+                "Mirai": {
+                  "other_closer": 0,
+                  "equal_distance": 0,
+                  "own_closer": 153
+                }
+              }
+            }
+          }
+        },
+        "historical_fit_quantile_coordinate_euclidean": {
+          "Web-based": {
+            "all": {
+              "rows": 501,
+              "same_class_distance_quartiles": [
+                0.24055177406428063,
+                0.35936691725452713,
+                0.5219180940063377
+              ],
+              "other_class_strictly_closer": 282,
+              "nearest_other_equal_distance": 0,
+              "zero_same_class_distance": 0,
+              "zero_any_class_distance": 0,
+              "comparisons": {
+                "Benign": {
+                  "other_closer": 136,
+                  "equal_distance": 0,
+                  "own_closer": 365
+                },
+                "DDoS": {
+                  "other_closer": 2,
+                  "equal_distance": 0,
+                  "own_closer": 499
+                },
+                "DoS": {
+                  "other_closer": 6,
+                  "equal_distance": 0,
+                  "own_closer": 495
+                },
+                "Recon": {
+                  "other_closer": 158,
+                  "equal_distance": 0,
+                  "own_closer": 343
+                },
+                "Brute Force": {
+                  "other_closer": 131,
+                  "equal_distance": 0,
+                  "own_closer": 370
+                },
+                "Spoofing": {
+                  "other_closer": 115,
+                  "equal_distance": 0,
+                  "own_closer": 386
+                },
+                "Mirai": {
+                  "other_closer": 6,
+                  "equal_distance": 0,
+                  "own_closer": 495
+                }
+              }
+            },
+            "tree_correct": {
+              "rows": 119,
+              "same_class_distance_quartiles": [
+                0.0889376673565582,
+                0.2371548423335624,
+                0.40528568817306
+              ],
+              "other_class_strictly_closer": 40,
+              "nearest_other_equal_distance": 0,
+              "zero_same_class_distance": 0,
+              "zero_any_class_distance": 0,
+              "comparisons": {
+                "Benign": {
+                  "other_closer": 14,
+                  "equal_distance": 0,
+                  "own_closer": 105
+                },
+                "DDoS": {
+                  "other_closer": 0,
+                  "equal_distance": 0,
+                  "own_closer": 119
+                },
+                "DoS": {
+                  "other_closer": 0,
+                  "equal_distance": 0,
+                  "own_closer": 119
+                },
+                "Recon": {
+                  "other_closer": 12,
+                  "equal_distance": 0,
+                  "own_closer": 107
+                },
+                "Brute Force": {
+                  "other_closer": 23,
+                  "equal_distance": 0,
+                  "own_closer": 96
+                },
+                "Spoofing": {
+                  "other_closer": 14,
+                  "equal_distance": 0,
+                  "own_closer": 105
+                },
+                "Mirai": {
+                  "other_closer": 0,
+                  "equal_distance": 0,
+                  "own_closer": 119
+                }
+              }
+            },
+            "tree_missed_other_model_correct": {
+              "rows": 81,
+              "same_class_distance_quartiles": [
+                0.25976480837704813,
+                0.3670244017230791,
+                0.531327221674421
+              ],
+              "other_class_strictly_closer": 43,
+              "nearest_other_equal_distance": 0,
+              "zero_same_class_distance": 0,
+              "zero_any_class_distance": 0,
+              "comparisons": {
+                "Benign": {
+                  "other_closer": 19,
+                  "equal_distance": 0,
+                  "own_closer": 62
+                },
+                "DDoS": {
+                  "other_closer": 0,
+                  "equal_distance": 0,
+                  "own_closer": 81
+                },
+                "DoS": {
+                  "other_closer": 0,
+                  "equal_distance": 0,
+                  "own_closer": 81
+                },
+                "Recon": {
+                  "other_closer": 20,
+                  "equal_distance": 0,
+                  "own_closer": 61
+                },
+                "Brute Force": {
+                  "other_closer": 21,
+                  "equal_distance": 0,
+                  "own_closer": 60
+                },
+                "Spoofing": {
+                  "other_closer": 17,
+                  "equal_distance": 0,
+                  "own_closer": 64
+                },
+                "Mirai": {
+                  "other_closer": 0,
+                  "equal_distance": 0,
+                  "own_closer": 81
+                }
+              }
+            },
+            "all_models_missed": {
+              "rows": 301,
+              "same_class_distance_quartiles": [
+                0.27054160409010647,
+                0.39154500450739615,
+                0.5563035955987369
+              ],
+              "other_class_strictly_closer": 199,
+              "nearest_other_equal_distance": 0,
+              "zero_same_class_distance": 0,
+              "zero_any_class_distance": 0,
+              "comparisons": {
+                "Benign": {
+                  "other_closer": 103,
+                  "equal_distance": 0,
+                  "own_closer": 198
+                },
+                "DDoS": {
+                  "other_closer": 2,
+                  "equal_distance": 0,
+                  "own_closer": 299
+                },
+                "DoS": {
+                  "other_closer": 6,
+                  "equal_distance": 0,
+                  "own_closer": 295
+                },
+                "Recon": {
+                  "other_closer": 126,
+                  "equal_distance": 0,
+                  "own_closer": 175
+                },
+                "Brute Force": {
+                  "other_closer": 87,
+                  "equal_distance": 0,
+                  "own_closer": 214
+                },
+                "Spoofing": {
+                  "other_closer": 84,
+                  "equal_distance": 0,
+                  "own_closer": 217
+                },
+                "Mirai": {
+                  "other_closer": 6,
+                  "equal_distance": 0,
+                  "own_closer": 295
+                }
+              }
+            }
+          },
+          "Brute Force": {
+            "all": {
+              "rows": 271,
+              "same_class_distance_quartiles": [
+                0.2554976616958968,
+                0.3765758995217793,
+                0.5345524739301095
+              ],
+              "other_class_strictly_closer": 138,
+              "nearest_other_equal_distance": 0,
+              "zero_same_class_distance": 0,
+              "zero_any_class_distance": 0,
+              "comparisons": {
+                "Benign": {
+                  "other_closer": 72,
+                  "equal_distance": 0,
+                  "own_closer": 199
+                },
+                "DDoS": {
+                  "other_closer": 0,
+                  "equal_distance": 0,
+                  "own_closer": 271
+                },
+                "DoS": {
+                  "other_closer": 0,
+                  "equal_distance": 0,
+                  "own_closer": 271
+                },
+                "Recon": {
+                  "other_closer": 76,
+                  "equal_distance": 0,
+                  "own_closer": 195
+                },
+                "Web-based": {
+                  "other_closer": 94,
+                  "equal_distance": 0,
+                  "own_closer": 177
+                },
+                "Spoofing": {
+                  "other_closer": 66,
+                  "equal_distance": 0,
+                  "own_closer": 205
+                },
+                "Mirai": {
+                  "other_closer": 1,
+                  "equal_distance": 0,
+                  "own_closer": 270
+                }
+              }
+            },
+            "tree_correct": {
+              "rows": 83,
+              "same_class_distance_quartiles": [
+                0.19967375586962932,
+                0.32727994901911117,
+                0.48649866031907707
+              ],
+              "other_class_strictly_closer": 11,
+              "nearest_other_equal_distance": 0,
+              "zero_same_class_distance": 0,
+              "zero_any_class_distance": 0,
+              "comparisons": {
+                "Benign": {
+                  "other_closer": 2,
+                  "equal_distance": 0,
+                  "own_closer": 81
+                },
+                "DDoS": {
+                  "other_closer": 0,
+                  "equal_distance": 0,
+                  "own_closer": 83
+                },
+                "DoS": {
+                  "other_closer": 0,
+                  "equal_distance": 0,
+                  "own_closer": 83
+                },
+                "Recon": {
+                  "other_closer": 6,
+                  "equal_distance": 0,
+                  "own_closer": 77
+                },
+                "Web-based": {
+                  "other_closer": 5,
+                  "equal_distance": 0,
+                  "own_closer": 78
+                },
+                "Spoofing": {
+                  "other_closer": 5,
+                  "equal_distance": 0,
+                  "own_closer": 78
+                },
+                "Mirai": {
+                  "other_closer": 0,
+                  "equal_distance": 0,
+                  "own_closer": 83
+                }
+              }
+            },
+            "tree_missed_other_model_correct": {
+              "rows": 35,
+              "same_class_distance_quartiles": [
+                0.2288860402058268,
+                0.4236006924978978,
+                0.5639459496218824
+              ],
+              "other_class_strictly_closer": 16,
+              "nearest_other_equal_distance": 0,
+              "zero_same_class_distance": 0,
+              "zero_any_class_distance": 0,
+              "comparisons": {
+                "Benign": {
+                  "other_closer": 3,
+                  "equal_distance": 0,
+                  "own_closer": 32
+                },
+                "DDoS": {
+                  "other_closer": 0,
+                  "equal_distance": 0,
+                  "own_closer": 35
+                },
+                "DoS": {
+                  "other_closer": 0,
+                  "equal_distance": 0,
+                  "own_closer": 35
+                },
+                "Recon": {
+                  "other_closer": 9,
+                  "equal_distance": 0,
+                  "own_closer": 26
+                },
+                "Web-based": {
+                  "other_closer": 9,
+                  "equal_distance": 0,
+                  "own_closer": 26
+                },
+                "Spoofing": {
+                  "other_closer": 5,
+                  "equal_distance": 0,
+                  "own_closer": 30
+                },
+                "Mirai": {
+                  "other_closer": 0,
+                  "equal_distance": 0,
+                  "own_closer": 35
+                }
+              }
+            },
+            "all_models_missed": {
+              "rows": 153,
+              "same_class_distance_quartiles": [
+                0.2823169533710233,
+                0.3748444274810456,
+                0.5465343725537558
+              ],
+              "other_class_strictly_closer": 111,
+              "nearest_other_equal_distance": 0,
+              "zero_same_class_distance": 0,
+              "zero_any_class_distance": 0,
+              "comparisons": {
+                "Benign": {
+                  "other_closer": 67,
+                  "equal_distance": 0,
+                  "own_closer": 86
+                },
+                "DDoS": {
+                  "other_closer": 0,
+                  "equal_distance": 0,
+                  "own_closer": 153
+                },
+                "DoS": {
+                  "other_closer": 0,
+                  "equal_distance": 0,
+                  "own_closer": 153
+                },
+                "Recon": {
+                  "other_closer": 61,
+                  "equal_distance": 0,
+                  "own_closer": 92
+                },
+                "Web-based": {
+                  "other_closer": 80,
+                  "equal_distance": 0,
+                  "own_closer": 73
+                },
+                "Spoofing": {
+                  "other_closer": 56,
+                  "equal_distance": 0,
+                  "own_closer": 97
+                },
+                "Mirai": {
+                  "other_closer": 1,
+                  "equal_distance": 0,
+                  "own_closer": 152
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  ],
+  "candidate_counts": [
+    65706,
+    724403,
+    219464,
+    40913,
+    1502,
+    760,
+    27147,
+    147852
+  ],
+  "rare_rows_sha256": "c0d6efe0b324944922c0b7a898120dc408404ef571e2606ecf3b2f7a22a5b5c7",
+  "model_trained": false,
+  "test_opened": false,
+  "test_evaluated": false,
+  "audit_scored": false,
+  "cloud_used": false,
+  "independent_confirmation": false,
+  "deployment_authorized": false,
+  "elapsed_seconds": 5.711059499997646,
+  "non_timing_replay_exact": true,
+  "first_sha256": "cb3789627a950f26c1fecd9dafff088efdb220946ec3429f39e466bba3893721",
+  "replay_sha256": "b1c0326adcdd74607f6256794be7ec2c0aa177420f51dbfe1f8801eb943b13e5"
+}
