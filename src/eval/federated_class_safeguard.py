@@ -7,6 +7,7 @@ Class gradients use deterministic eval-mode CE on the assigned TRAIN examples.
 They are loss surrogates, not guarantees about recall, false alerts or privacy.
 """
 import argparse
+import ast
 import copy
 import hashlib
 import importlib.metadata
@@ -37,10 +38,39 @@ SOURCE_FILES = ('models/architectures.py', 'models/official_streaming.py',
                 'models/official_losses.py', 'models/losses.py', 'data/official_packed.py',
                 'data/label_map.py', 'utils/seed.py', 'federated/partition.py')
 
+# Reviewed git diff 1d767e2 -> 5cc8206: optional feature-mask paths were added,
+# but the default local loop and these imported functions were unchanged. Keep
+# the exact file pair AND AST guards; do not waive source checks generically.
+RUNNER_BRIDGE = (
+    '82eebe2e342c727fb79811278c9847e9debd0daeb9c2ff7debf7c29988a29646',
+    'cf7085916f6794867485802236662131c3465d1f40564d692a398c64b7ffe496',
+)
+RUNNER_FUNCTIONS = {
+    'train_epoch': '201c79d33cd8fa37cfd26efef1eb9a1b316cf517207641e04e0704694fdd1254',
+    'confusion_metrics': '8a3c6e903211cd4dd32a5f3dcb54c9e8bff21e2441528e10d30e85fd1bb43c96',
+}
+
 
 def require(condition, message):
     if not condition:
         raise ValueError(message)
+
+
+def verify_source(name, expected):
+    path = Path(__file__).parents[1]/name
+    current = sha256(path)
+    if current == expected:
+        return {'archived_sha256': expected, 'current_sha256': current, 'exact_file': True}
+    require(name == 'models/official_streaming.py' and (expected, current) == RUNNER_BRIDGE,
+            'Historical source changed: '+name)
+    tree = ast.parse(path.read_text())
+    for function, digest in RUNNER_FUNCTIONS.items():
+        node = next(n for n in tree.body if isinstance(n, ast.FunctionDef) and n.name == function)
+        require(hashlib.sha256(ast.dump(node, include_attributes=False).encode()).hexdigest() == digest,
+                'Historical function changed: '+function)
+    return {'archived_sha256': expected, 'current_sha256': current, 'exact_file': False,
+            'reviewed_bridge': '1d767e2 to 5cc8206 optional ablation; imported functions AST-exact',
+            'imported_function_ast_sha256': RUNNER_FUNCTIONS}
 
 
 class TrainOnlyData(PackedData):
@@ -233,8 +263,7 @@ def checkpoint(archive, root, step, data):
                 and control['assignment_sha256'] == saved['partition_sha256'], 'Wrong checkpoint recipe')
         with np.load(io.BytesIO(ab), allow_pickle=False) as z:
             parts = [z[f'client_{i}'].copy() for i in range(s['clients'])]
-    for name in SOURCE_FILES:
-        require(sha256(Path(__file__).parents[1]/name) == env['source_sha256'][name], 'Historical source changed: '+name)
+    source_checks = {name: verify_source(name, env['source_sha256'][name]) for name in SOURCE_FILES}
     check_exact_cover(parts, data.manifest['train_rows'])
     require([np.bincount(data.arrays['train'][1][p], minlength=8).tolist() for p in parts]
             == partition['counts'], 'Client counts changed')
@@ -242,7 +271,7 @@ def checkpoint(archive, root, step, data):
     model.load_state_dict(saved['model'])
     return model, parts, s, {'checkpoint_sha256': hashlib.sha256(cb).hexdigest(),
                             'environment_sha256': hashlib.sha256(eb).hexdigest(),
-                            'partition_sha256': saved['partition_sha256']}
+                            'partition_sha256': saved['partition_sha256'], 'source_checks': source_checks}
 
 
 def inspect_step(model, data, parts, settings, step):

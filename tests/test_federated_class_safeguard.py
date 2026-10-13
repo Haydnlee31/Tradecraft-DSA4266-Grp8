@@ -14,6 +14,7 @@ from src.data.official_packed import PackedData
 from src.eval.federated_class_safeguard import (
     TrainOnlyData, PROTECTED, project_delta, class_gradients, training_evaluation,
     fedavg_round, inspect_step, moved_model, vector, gate, state_digest,
+    verify_source, RUNNER_BRIDGE,
 )
 from src.eval.official_aggregation_probe import one_round
 from src.models.architectures import MLPClassifier, MLPConfig
@@ -42,6 +43,13 @@ class SafeguardTests(unittest.TestCase):
         p, info = project_delta(d, np.array([[1., 0., 0.], [0., 1., 0.], [0., 0., 0.]]))
         np.testing.assert_array_equal(d, p)
         self.assertFalse(info['changed'])
+
+    def test_narrow_historical_source_bridge(self):
+        checked = verify_source('models/official_streaming.py', RUNNER_BRIDGE[0])
+        self.assertFalse(checked['exact_file'])
+        self.assertIn('train_epoch', checked['imported_function_ast_sha256'])
+        with self.assertRaisesRegex(ValueError, 'source changed'):
+            verify_source('models/official_streaming.py', '0'*64)
 
     def test_projection_orthogonal_constraints_and_sign(self):
         d, _ = project_delta([2., 3., -4.], [[1., 0., 0.], [0., 1., 0.]])
