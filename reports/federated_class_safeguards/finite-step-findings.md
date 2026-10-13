@@ -9,7 +9,7 @@ that the rare-class problem is solved.
 
 The study still uses one small eight-output network and simulated federated
 learning. There is no new inference classifier, language model or human review.
-All results below concern the same two-million-row **training population**.
+All results below concern the same official39 two-million-row **training population**.
 Validation and test arrays were not opened. The previously completed final
 test remains closed; these experiments are exploratory fitting diagnostics.
 
@@ -154,3 +154,11 @@ Aggregate receipts are in [finite-step results](finite-step-results.json) and
 metrics, confusion matrices, loss checks, work counts and source hashes. Private
 data and checkpoint files are not committed. Independent replays matched all
 non-timing fields. Timings are local audit timings, not hardware benchmarks.
+
+The full committed regression suite passed **617 tests in 53.867 seconds** in
+an isolated checkout of the implementation and evidence commit `58d5f9a`.
+This includes 29 new synthetic and public-receipt tests. The earlier clean
+finite-step implementation check passed 603 tests. Both primary and replay
+endpoint weight files were also hashed from their actual tensors and matched
+their recorded round-25 model digests. Unrelated uncommitted user work was
+excluded from these isolated regression snapshots and left unchanged.
