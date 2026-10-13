@@ -1,0 +1,36 @@
+{
+  "purpose": "Five-round paired local follow-up of the successful finite-step safety diagnostic, not full training or final evaluation",
+  "source_step": 20,
+  "rounds": 5,
+  "source_member_root": "outputs/official39-controlled-noniid-2m-v1/dirichlet-seed7",
+  "archive_sha256": "c5b43c8d7fbdefde543b94b364c407707abe9655df081de7d31c014e55473152",
+  "packed_manifest_sha256": "dfd1caf01cbe233b52ce55083941001f390ec251dd89b37543630a2bc53935be",
+  "finite_step_evidence_sha256": "5ea4cea89e684d71b2828bd92e906ffca1c0fede6f3e24f435548730dc9542a4",
+  "finite_step_runner_sha256": "d6c3bdce076a578bd310b670704be7107340c1c2ed71cb448ef200682eeacdd3",
+  "arms": ["fedavg", "corrected"],
+  "pairing": "Both arms start from identical frozen round20 weights. Same seed7, 20 full-participation clients, fixed partitions, full local epochs, Adam resets, round/client seeds and minibatch ordering. Correction settings and loss are unchanged from finite-step-plan.json",
+  "rationale": "Round20 has persistent zero rare-class recall, so this is a bounded rescue diagnostic rather than another from-scratch architecture comparison. Earlier checkpoint choices will not be tried if it fails",
+  "stopping": "At most five paired rounds. If any corrected proposal has no accepted scale, preserve the last accepted weights, label the run stopped and do not fall back, retune, change start, or extend the budget",
+  "endpoint": "Last scheduled round, never best observed round. Training metrics describe fitting only, not generalization",
+  "screen": {
+    "min_rare_recall_gain": 0.01,
+    "max_macro_f1_drop": 0.005,
+    "max_false_alert_increase": 0.001,
+    "definition": "All five updates accepted; at least one rare-class recall gains >=1 percentage point over paired FedAvg, neither rare recall drops, macro-F1 loses <=0.5 percentage point, and benign false alerts increase <=0.1 percentage point. These are fixed development-screen choices, not deployment guarantees"
+  },
+  "max_work": {
+    "client_training_examples": 20000000,
+    "client_optimizer_steps": 39170,
+    "gradient_examples": 10000000,
+    "training_forward_evaluation_examples": 20000000,
+    "protected_risk_forward_examples": 2745200,
+    "candidate_checks": 20
+  },
+  "first_step_bridge": "FedAvg and corrected model hashes, gradients, client work, first-passing line search and full training metrics must exactly match the source20 finite-step evidence",
+  "independent_replay": true,
+  "validation_rows_opened": false,
+  "test_opened": false,
+  "cloud_used": false,
+  "full_training_authorized_by_this_plan": false,
+  "decision": "If screen passes, consider separately planned development-validation work. Otherwise stop this recipe and diagnose the failure, without escalating compute automatically"
+}
