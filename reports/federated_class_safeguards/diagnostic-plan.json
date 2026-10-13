@@ -1,0 +1,26 @@
+{
+  "purpose": "Local training-only mechanism diagnostic, not an optimizer sweep or new final evaluation",
+  "archive_sha256": "c5b43c8d7fbdefde543b94b364c407707abe9655df081de7d31c014e55473152",
+  "packed_manifest_sha256": "dfd1caf01cbe233b52ce55083941001f390ec251dd89b37543630a2bc53935be",
+  "checkpoints": [
+    {"step": 2, "member_root": "outputs/official39-frozen-gpu-gates-v1/2m/frozen-full"},
+    {"step": 5, "member_root": "outputs/official39-controlled-noniid-2m-v1/dirichlet-seed7-step5-snapshot"},
+    {"step": 20, "member_root": "outputs/official39-controlled-noniid-2m-v1/dirichlet-seed7"}
+  ],
+  "checkpoint_rationale": "Available same-seed/same-partition early step2, intermediate step5 and final step20; no search over validation-best models",
+  "protected_classes": ["Benign", "Web-based", "Brute Force"],
+  "loss_tolerance": 0.000001,
+  "min_retained_norm_fraction": 0.1,
+  "min_useful_checkpoints": 2,
+  "useful_checkpoint_definition": "At least one rare class has positive predicted AND actual FedAvg CE change above tolerance; projection improves that change; all protected actual losses do not increase above tolerance; retain at least 10 percent of original step norm",
+  "gate": "At least two useful checkpoints and safety at every checkpoint, otherwise stop; no automatic continuation",
+  "gradients": "All assigned training examples, eval-mode full-network 8-logit CE; no dropout. Class count weighted sums. All8 gradients for diagnosis, only3 needed for hypothetical method",
+  "actual_loss_scope": "Same training population, no generalization claim; no validation or test arrays opened",
+  "local_training": "Historical reset-Adam full epoch and original loss denominator, same RNG order and Flower aggregation; CPU diagnostic not a CUDA bitwise continuation",
+  "projection": "Closest full-network parameter displacement subject to three class-gradient dot products <=0; no tuned scaling, line search, softened constraints or repeated corrected rounds",
+  "work": {"client_training_examples": 6000000, "client_optimizer_steps": 11751, "gradient_examples": 6000000, "training_forward_evaluation_examples": 18000000},
+  "independent_replay": true,
+  "test_opened": false,
+  "validation_rows_opened": false,
+  "full_training_authorized_by_this_plan": false
+}
