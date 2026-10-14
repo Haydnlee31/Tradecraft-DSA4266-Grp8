@@ -18,7 +18,7 @@ REPORTS = ROOT / 'reports/federated_class_safeguards'
 
 
 def read(path):
-    return json.loads(path.read_text())
+    return json.loads(path.read_text(encoding='utf-8'))
 
 
 def digest(path):
@@ -41,7 +41,7 @@ class PublishedStudyEvidenceTests(unittest.TestCase):
                                    for name, digest in rebuilt['source_sha256'].items()}
         self.assertEqual(rebuilt, self.synthesis)
         self.assertEqual(synthesis.tables(self.synthesis),
-                         (REPORTS / 'study-synthesis-tables.md').read_text())
+                         (REPORTS / 'study-synthesis-tables.md').read_text(encoding='utf-8'))
 
     def test_class_gap_decomposition_preserves_the_total(self):
         for pair, classes in self.synthesis['per_class_macro_f1_gap_contributions'].items():
