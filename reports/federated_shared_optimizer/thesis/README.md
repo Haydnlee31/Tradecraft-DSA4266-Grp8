@@ -101,3 +101,11 @@ row normalization, rare-class outcome totals, cohort sizes and communication
 counters. Its tests also rebuild all figures while blocking NumPy array loading
 and verify that existing exports are preserved. The PDF is visually reviewed
 separately because document dependencies are not required for training or CI.
+
+On 14 October 2026, a clean archive of implementation commit `0202919` passed
+all 835 repository tests in 74.326 seconds, including eight new thesis-figure
+tests. Unrelated uncommitted work was excluded from that regression copy.
+The 12-page PDF was rendered and visually reviewed on every page; it embeds
+all nine figures, with no text-boundary violations. The final PNGs match the
+reviewed PDF images byte for byte. No experiment was retrained for the report;
+the regression suite uses its ordinary small synthetic test fixtures.
