@@ -1,0 +1,15 @@
+{
+  "version": "shared-optimizer-confirmation-v1",
+  "preparation_evidence_sha256": "26806dc9377b962754c92905f38a645292543373419a187f1ba468828d31ec7a",
+  "lock_sha256": "879b1ceacaaf3164523a752e4842009db64242169593c2f7c209c171e0146aa0",
+  "authorization": "User replied proceed to the explicit request to open the reserved cohort and run the final comparison locally, after reviewing the completed readiness stage.",
+  "confirmation_scoring_authorized": true,
+  "training_permitted": false,
+  "threshold_refitting_permitted": false,
+  "original_validation_scoring_permitted": false,
+  "test_scoring_permitted": false,
+  "selection_permitted": false,
+  "rule": "Consume the existing lock unchanged. Verify and reconstruct reserved rows from historical training shards; one inference pass per frozen endpoint. Independently audit saved outputs. Apply all existing safeguards per seed, preserve every outcome and finish with synthesis. No new model, threshold, seed, partition, scaler or success criterion.",
+  "device": "cpu",
+  "threads": 2
+}
