@@ -44,3 +44,7 @@ The cohort was held aside for this extension but comes from previously used rese
 3. **Finish the thesis trade-off synthesis.** Explain the aggregate quality gain, communication savings and remaining synchronization/rare-class limitations. No further classifier or parameter search is part of this plan.
 
 The promising development conclusion is unchanged: blockwise shared-gradient Adam is about 11.08 macro-F1 points above this FedAvg configuration and 1.94 points below centralized-light on average, while reducing modeled shared-gradient application payload by 86.4%. Those are the [previous development results](block-replication-findings.md), not new confirmation findings. Confirmation will test whether they carry forward; it cannot establish privacy, rare-class resolution or measured real-network/edge efficiency.
+
+## Completed follow-up
+
+After explicit user approval, the [final confirmation comparison](confirmation-findings.md) was completed locally with the unchanged lock. All three seeds passed the predeclared compression safeguards. This readiness page records the earlier preparation boundary; the linked final findings contain the newly opened cohort's results and final interpretation.
