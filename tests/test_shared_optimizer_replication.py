@@ -146,7 +146,10 @@ class SharedOptimizerReplicationTests(unittest.TestCase):
             contract_return=(p,alarm_plan,performance,old)
             output=root/'run'
             with patch.object(rep,'read_contract',return_value=contract_return), \
-                 patch.object(alarms,'load_development',return_value=(x,y,np.arange(len(y)))):
+                 patch.object(alarms,'load_development',return_value=(x,y,np.arange(len(y)))), \
+                 patch.object(rep.subprocess,'check_output',return_value='synthetic-test-commit\n'):
+                # A source archive has no .git directory. Runtime provenance is
+                # not under test here; the real-run receipt pins its actual commit.
                 summary=rep.run(root,output)
                 self.assertEqual(summary['new_training_runs'],6)
                 self.assertEqual(summary['new_backward_examples'],384)
