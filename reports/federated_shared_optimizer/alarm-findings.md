@@ -77,3 +77,5 @@ The twenty-fold modeled payload penalty remains unchanged: threshold adjustment 
 All five saved models exactly reproduce their earlier full-development default metrics. An independent sorted-order and direct-logit replay reproduces all twenty calibrated operating points and all five default audit outcomes. The diagnostic performs 1,997,760 forward-example evaluations, zero backward examples and zero new model fits; saved-logit replay requires no additional model inference.
 
 The [public receipt](alarm-results.json) records plan, data, input-group, model-checkpoint and source hashes, class counts, confusion matrices, thresholds and comparison arithmetic. Row-level logits, masks and checkpoints remain in ignored local output folders. Original comments and unrelated user changes are preserved. No cloud machine was used and the branch remains local.
+
+The complete committed regression suite passed **723 tests in 55.958 seconds** in an isolated archive of `5bef880`, excluding unrelated uncommitted work. All 21 focused alarm and prior-evidence checks passed, as did local report-link and Git whitespace checks. These are local checks, not a new GitHub CI result.
