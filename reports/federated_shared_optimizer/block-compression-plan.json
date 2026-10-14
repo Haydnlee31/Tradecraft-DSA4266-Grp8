@@ -1,0 +1,51 @@
+{
+  "version": "shared-optimizer-block-compression-v1",
+  "seed": 7,
+  "learning_rate": 0.003,
+  "parent_evidence_sha256": "1b6a388ebac76aa17c93a33e96333c9b933c3608ec0fcb6fa35f611c56d5ed86",
+  "arms": {
+    "tensor_bridge": {
+      "bits": 4,
+      "feedback": true,
+      "block_size": null
+    },
+    "block128": {
+      "bits": 4,
+      "feedback": true,
+      "block_size": 128
+    }
+  },
+  "backward_examples_per_run": 21600000,
+  "new_training_backward_examples": 43200000,
+  "recovery_replay_steps": 2,
+  "new_recovery_backward_examples": 40000,
+  "primary_target_basis_points": 500,
+  "false_alert_targets_basis_points": [
+    100,
+    500,
+    1000,
+    2000
+  ],
+  "screen": {
+    "macro_f1_drop_from_shared_max": 0.01,
+    "absolute_far_difference_from_shared_max": 0.005,
+    "any_class_recall_drop_from_shared_max": 0.05,
+    "macro_f1_gain_over_fedavg_min": 0.08,
+    "payload_ratio_to_historical_shared_max": 0.15
+  },
+  "selection": "Only block128 is eligible. It must pass every unchanged four-bit primary safeguard before paired-seed replication. The tensor bridge must exactly reproduce the frozen EF4 state and all operating points. Failure stops this screen; no post-hoc block-size search or safeguard changes.",
+  "codec": "Version 2 fixes four bits and block length 128. Header is 8 bytes (version,bits,tensor count,sequence). For each tensor: uint32 element count, one FP32 max-absolute scale per consecutive block of up to 128 elements, then packed symbols, low nibble first. Blocks never cross tensor boundaries. Same symmetric levels -7..7, ties-to-even rounding, code 15 reserved, zero padding, little endian. Tensor bridge uses the unchanged version 1 serializer.",
+  "upstream": "Each client sends quantized gradient plus its persistent FP32 compression residual. Server aggregates only decoded gradients, weighted by fixed client population. No client-local Adam updates.",
+  "downstream": "Server retains FP32 Adam moments and target weights. Clients share a delivered-model replica. With feedback send compressed target-minus-delivered weights; without feedback send compressed new-target-minus-old-target update. FP32 bridge sends absolute weights exactly. Evaluate the delivered model, not the hidden FP32 target.",
+  "accounting": "Count actual serialized application-payload lengths for 20 uploads and 20 delivered updates per step plus initial FP32 broadcast. Charge both directions, scales, counts, padding and sequence headers. Compare conservatively with the older raw FP32 shared payload. Still 2160 synchronization steps, plus startup; not measured network traffic or latency. No claim of lower round count.",
+  "fixed": "Reuse all prior seed7 settings, loss, model, initialization, sample chain, population weights, optimizer, calibration/audit mask and 2160 updates. Only four-bit scale granularity changes. Evaluate delivered weights. No new LR, checkpoint, threshold rule or block-size search.",
+  "limits": "Exploratory follow-up on previously inspected development data, one partition and one seed. Block quantization and error feedback are prior art, not a new-method claim. Does not repair the previous uncalibrated training gate. No convergence, privacy, deployment latency or generalization guarantee.",
+  "confirmation_scoring_permitted": false,
+  "original_validation_scoring_permitted": false,
+  "test_scoring_permitted": false,
+  "device": "cpu",
+  "threads": 2,
+  "expected_block_packet_bytes": 2776,
+  "expected_block_run_bytes": 240255840,
+  "expected_block_scales": 45
+}
