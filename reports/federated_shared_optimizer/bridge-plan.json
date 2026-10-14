@@ -1,0 +1,36 @@
+{
+  "purpose": "Numerical and recovery control for shared gradients plus persistent server Adam; NOT predictive performance, model selection, or MIME",
+  "packed_manifest_sha256": "dfd1caf01cbe233b52ce55083941001f390ec251dd89b37543630a2bc53935be",
+  "partition_sha256": "057d3705863bb7c0546dfd5aa980cc35c2082da25f85ef1075ccad37e7952f46",
+  "clients": 20,
+  "steps": 12,
+  "recovery_after": 6,
+  "batch_size": 512,
+  "seed": 426614,
+  "cases": [
+    {"dtype": "float64", "dropout": 0.0},
+    {"dtype": "float64", "dropout": 0.2},
+    {"dtype": "float32", "dropout": 0.0},
+    {"dtype": "float32", "dropout": 0.2}
+  ],
+  "tolerances": {
+    "float64": {"atol": 2e-11, "rtol": 2e-9},
+    "float32": {"atol": 2e-5, "rtol": 0.0002}
+  },
+  "recipe": {"lr": 0.001, "betas": [0.9, 0.999], "eps": 1e-8, "weight_decay": 0.00001, "clip_norm": 1.0},
+  "initialization": "From scratch, same seed and 39-64-32-8 LayerNorm MLP in every case; no archived model is loaded or updated",
+  "objective": "sqrt_weighted_ce with fixed_train_mean denominator from the historical training cohort; reused train-only scaling is for numerical checks only, not a new generalization experiment",
+  "reference": "Centralized weighted loss accumulation over exactly the same 20 client minibatches, one Adam step AFTER accumulation; not ordinary sequential pooled minibatch Adam",
+  "sampling": "Uniform with replacement within each fixed historical client assignment; 512 rows/client/step; identical schedule in all cases/arms. Per-client, per-step dropout seed replay and caller RNG preservation",
+  "clipping_order": "Global norm clip after gradient aggregation, then PyTorch Adam adds coupled L2; no client clipping or local optimizer",
+  "checks": "Compare raw gradients, clipped gradients, parameters, first/second Adam moments and counters at EVERY step. Require bit-exact per-arm serialized midpoint recovery and independent full-process non-timing replay",
+  "work_per_pass": {"backward_examples": 1474560, "backward_batches": 2880, "optimizer_steps": 144, "quality_evaluation_examples": 0},
+  "costs": "Count model broadcast plus gradient upload per client per synchronized update, separately for FP32/FP64. These are payload counts, not measured network traffic or a claim of affordable full training",
+  "failure_policy": "Fail closed on nonfinite values, identity/recovery/tolerance failures; preserve failed result and do not relax tolerances after observing real-data output",
+  "independent_replay": true,
+  "validation_rows_opened": false,
+  "test_opened": false,
+  "cloud_used": false,
+  "performance_training_authorized": false,
+  "next": "If numerical checks pass, specify the new from-scratch development boundary and bounded MIME comparison before quality training. No automatic long run, historical-test scoring, or adaptive-method search"
+}
