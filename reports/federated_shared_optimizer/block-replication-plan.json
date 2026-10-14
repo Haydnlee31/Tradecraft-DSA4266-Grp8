@@ -1,0 +1,44 @@
+{
+  "version": "shared-optimizer-block-replication-v1",
+  "seeds": [
+    17,
+    27
+  ],
+  "discovery_seed": 7,
+  "settings": {
+    "bits": 4,
+    "feedback": true,
+    "block_size": 128
+  },
+  "learning_rate": 0.003,
+  "parent_evidence_sha256": "7850e3b4353e2cdeabafb960234a95464e703c48e2fdf77ae0128e0ff7377d33",
+  "reference_evidence_sha256": "0782f405aaa64d033026b2235574c1fb679e732360cc4bf282c1034d43818e8c",
+  "backward_examples_per_run": 21600000,
+  "new_training_backward_examples": 43200000,
+  "recovery_replay_steps": 2,
+  "new_recovery_backward_examples": 40000,
+  "primary_target_basis_points": 500,
+  "false_alert_targets_basis_points": [
+    100,
+    500,
+    1000,
+    2000
+  ],
+  "screen": {
+    "macro_f1_drop_from_shared_max": 0.01,
+    "absolute_far_difference_from_shared_max": 0.005,
+    "any_class_recall_drop_from_shared_max": 0.05,
+    "macro_f1_gain_over_fedavg_min": 0.08,
+    "payload_ratio_to_historical_shared_max": 0.15
+  },
+  "require_every_seed_to_pass": true,
+  "decision": "Require each of seeds 7,17,27 to pass all five unchanged primary safeguards against its own seed-matched references. Both new seeds complete even if the first fails. No mean, alternate threshold, checkpoint or seed selection may rescue a failed seed. Passing only permits preparation for reserved confirmation, not automatic scoring.",
+  "fixed": "Only initialization and client sample seed change. Frozen block128 serializer, bidirectional residual feedback, persistent server Adam, loss, LR, model, fit rows, scaler, ownership, sample budget, and calibration/audit grouping are unchanged. Reuse audited same-runtime references. No cloud or fresh classifier search.",
+  "reporting": "Show all three seeds, per-seed paired differences, all class recalls and all four existing alarm targets. Describe mean, sample SD and range across 7,17,27; seed7 is reused discovery, not new replication. Also report the two new seeds separately. No significance or equivalence claim.",
+  "limits": "Previously inspected development panel and one fixed non-IID client partition. Seed sensitivity, not independent capture or partition generalization. Counts serialized application bytes, not network latency. 2160 synchronization steps remain. No privacy guarantee. Previous uncalibrated training failure remains unchanged.",
+  "confirmation_scoring_permitted": false,
+  "original_validation_scoring_permitted": false,
+  "test_scoring_permitted": false,
+  "device": "cpu",
+  "threads": 2
+}
