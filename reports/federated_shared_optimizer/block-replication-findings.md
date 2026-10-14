@@ -85,3 +85,5 @@ The result supports preparing a single locked confirmation comparison of central
 After that preparation is reviewed, evaluate the locked comparison once, then compile the final quality, class-recall, payload and synchronization trade-offs. Keep the rare-class weakness explicit. No new classifier search, larger GPU or automatic block-size sweep is justified before this stage.
 
 The useful thesis is now more specific: **in this simulation, aggregating gradients with a persistent shared optimizer approaches centralized-light aggregate quality; blockwise residual-feedback compression preserves most of that improvement at much lower payload.** The combination still costs frequent synchronization, and its underlying mechanisms are established prior art rather than a claim of a newly invented algorithm. Reserved confirmation will test whether the development conclusion carries forward.
+
+Follow-up: the [locked confirmation preparation](confirmation-readiness.md) has now reproduced all twelve checkpoints and 48 existing operating points exactly, with confirmation still closed. No further training or cloud session was needed.
