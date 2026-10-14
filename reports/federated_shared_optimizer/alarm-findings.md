@@ -66,6 +66,8 @@ Shared Adam correctly identifies only 26 of 270 Web-based examples and 24 of 130
 
 ## What to do next
 
+Follow-up completed: the [paired-seed replication](replication-findings.md) repeats the shared-gradient improvement in seeds 17 and 27. The recommendation below records the plan that preceded those runs.
+
 Keep the investigation narrow. The next useful experiment is a separately frozen robustness study of **centralized-light Adam, shared-gradient Adam and FedAvg**, using paired training seeds 17 and 27 with the already selected learning rates and the same work budgets. Repeat the same grouped calibration rule and primary 5% target without additional tuning. This would test whether the current operating-point advantage survives initialization changes; it would still not establish new-session generalization.
 
 That follow-up would be a new robustness question, not a retroactive pass of the earlier training screen or authorization to score reserved confirmation. Keep MIME and adaptive-anchor experiments on hold. If the shared-gradient advantage repeats, investigate communication reduction next with a fixed quality/false-alert tolerance. Do not claim novelty from shared-gradient Adam itself; it is an established control that now provides a more credible starting point for an extension.
