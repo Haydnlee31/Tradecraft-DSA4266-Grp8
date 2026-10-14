@@ -23,6 +23,12 @@ The [aggregate receipt](confirmation-preparation-results.json) contains the lock
 
 These measurements use the existing local CPU runtime with two threads, not a GPU or cloud instance. They exclude any future confirmation-data reconstruction. The later inference budget is nearly identical: 4,782,024 forward examples across the twelve checkpoints. The small model and bounded data processing make a larger GPU unnecessary for that task. Keep the remaining cloud credits unused unless a separate, justified experiment later needs them.
 
+## Verification and repository status
+
+All **811 tests passed in 60.218 seconds** in an isolated source archive of commit `3cc4122`, excluding unrelated uncommitted work. The fifteen new preparation/evidence tests cover preserved thresholds and identities, delivered-versus-hidden model state, malformed artifacts, metadata-only access, no refitting/training, output preservation and the public receipt. All report links and Git whitespace checks also passed. This is local regression verification, not a new GitHub CI run.
+
+The implementation and aggregate evidence are committed locally on `experiment/federated-shared-optimizer`. This extension has not been pushed, and unrelated working-tree changes were left untouched.
+
 ## One provenance issue handled before evaluation
 
 The temporary raw-training staging cache has no recorded checksum. The lock therefore does not trust or open that cache. It records the historical Parquet manifest/recipe identities and the existing fit-only scaler. Future reconstruction must stream the checksum-verified nested training shards, verify the frozen reserved row IDs and ordering, and use the same scaler without refitting it.
