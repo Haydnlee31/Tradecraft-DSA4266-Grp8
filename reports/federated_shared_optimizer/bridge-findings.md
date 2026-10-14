@@ -64,3 +64,5 @@ This stage therefore supplies a verified calculation path and a tested MIME kern
 ```
 
 The modules are separate from historical runners and frozen artifacts. Existing comments, completed model weights and unrelated working-tree changes are preserved. Implementation is on the local `experiment/federated-shared-optimizer` branch; no push or cloud launch is required for this check.
+
+All **25 focused tests** passed. The complete committed regression suite passed **693 tests in 57.350 seconds** in an isolated archive of `9b00929`, excluding unrelated uncommitted work. Local report links and Git whitespace checks also passed. These are local checks, not a new GitHub CI result.
