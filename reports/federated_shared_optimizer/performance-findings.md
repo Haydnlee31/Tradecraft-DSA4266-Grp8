@@ -80,3 +80,5 @@ The saved endpoints are independently reloaded and rescored by [the audit comman
 All ten saved endpoints reproduced their development metrics exactly. The 39 focused tests passed. The complete committed suite passed **707 tests in 56.725 seconds** in an isolated archive of `4022956`, excluding unrelated uncommitted files. Local report links and Git whitespace checks also passed. These are local results, not a new GitHub CI run.
 
 Private arrays, row IDs and model weights remain under ignored `outputs/` directories. Original source comments and unrelated working-tree changes are preserved. No cloud machine was used and this experimental branch remains local.
+
+The proposed alarm-target follow-up is now complete: see [the separate diagnostic findings](alarm-findings.md). It preserves this experiment's results and failed continuation screen.
