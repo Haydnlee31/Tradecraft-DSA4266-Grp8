@@ -4,9 +4,9 @@
     "reports/federated_shared_optimizer/thesis/chapter.md": "66ad958cb433a7703efac47a4a25c868b002b388f83d18ac7183e957db752216",
     "reports/thesis/parts/02_discussion.md": "297a95cd5e61e0dc62c68f0a42daf821db3a92ddf7a1517a58825cca28143f0d"
   },
-  "compiler_sha256": "4b49a7a5ec8084d02fc9427091917a773dbb3a90dfd66d9b925985d5d400853c",
+  "compiler_sha256": "fcde80d591c6a786d11a9346b834fe9520d16ba1a88fe0f342b808cf52281991",
   "manuscript_sha256": "ed4997595530be7549df0ac035bd4327458b41fa6e97f702d095dcc665c8dcde",
-  "figure_manifest_sha256": "514f506693fe80b7cb7bebd6f0c1d77cc6c0a4854fa67328c985f1b7e6d5c0fb",
+  "figure_manifest_sha256": "e52b7ac7ef06d4d8cd755b245cc603da0e90b12b62270ab7022d0ccc6d79aa60",
   "shared_figure_manifest_sha256": "21a33b9be546661eb6575f840d8f4115b7630ef4a5ad460257367be9a1a25753",
   "scope": "Integrated academic draft; institutional template and author details pending team review"
 }

@@ -83,5 +83,18 @@ class IntegratedThesisTests(unittest.TestCase):
             self.assertEqual(receipt,thesis.read(thesis.BASE/'thesis.manifest.json'))
             with self.assertRaisesRegex(ValueError,'Preserve'): thesis.assemble(output)
 
+    def test_manuscript_bytes_survive_windows_text_newline_translation(self):
+        # Emulate Windows' default text writer even when CI runs on Unix. JSON
+        # receipts are parsed as JSON; the manuscript itself must be byte-exact.
+        original_write_text = Path.write_text
+        def windows_write(path, text, *args, **kwargs):
+            if path.suffix == '.md' and kwargs.get('newline') != '\n':
+                return path.write_bytes(text.replace('\n', '\r\n').encode('utf-8'))
+            return original_write_text(path, text, *args, **kwargs)
+        with tempfile.TemporaryDirectory() as temp, patch.object(Path, 'write_text', windows_write):
+            output = Path(temp) / 'thesis.md'
+            thesis.assemble(output)
+            self.assertEqual(output.read_bytes(), (thesis.BASE / 'thesis.md').read_bytes())
+
 
 if __name__=='__main__': unittest.main()

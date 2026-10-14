@@ -264,7 +264,9 @@ def assemble(output,root=ROOT):
         if not target.startswith(('https://','http://')) and not (base/target.split('#')[0]).exists():
             raise ValueError(f'Broken manuscript link: {target}')
     if '\u2011' in joined or '\ufffd' in joined: raise ValueError('Unsupported prose glyph')
-    output.parent.mkdir(parents=True,exist_ok=True); output.write_text(joined)
+    # The manuscript is byte-hashed; Windows newline translation must not
+    # change its identity compared with the checked-in UTF-8/LF document.
+    output.parent.mkdir(parents=True,exist_ok=True); output.write_bytes(joined.encode('utf-8'))
     receipt={'sources':{str(p.relative_to(root)):digest(p) for p in (front,chapter,end)},
              'compiler_sha256':digest(__file__),'manuscript_sha256':digest(output),
              'figure_manifest_sha256':digest(base/'figures/manifest.json'),
