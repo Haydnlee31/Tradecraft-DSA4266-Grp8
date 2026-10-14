@@ -53,7 +53,7 @@ Full MIME supplies global gradient corrections and frozen optimizer statistics d
 
 Under the common work budget, MIME completes only 24 rounds and hence 24 global moment refreshes. Twelve million of its 21.6 million backward examples are full anchors; its 4.8 million local examples are differentiated twice. The central base makes 43,200 stochastic updates. This explains an important budget difference, but does not prove that too few refreshes caused the quality gap: that would require a separate matched ablation. This one bounded configuration is evidence against advancing it now, not proof that MIME cannot work on CICIoT2023.
 
-## Communication remains the strongest trade-off
+## Communication remains costly
 
 | Federated method | Model aggregation or gradient rounds | Logical barriers | Modeled payload per selected run |
 | --- | ---: | ---: | ---: |
@@ -76,5 +76,7 @@ Keep adaptive MIME and broader architecture searches on hold. If a useful alarm-
 ## Verification and artifacts
 
 The saved endpoints are independently reloaded and rescored by [the audit command](../../src/eval/shared_optimizer_audit.py). Its receipt, training results, source hashes, data hashes, exact work counts and all class metrics are in [performance-results.json](performance-results.json). This replay verifies saved-model inference, not an independent training seed. Synthetic tests cover exact serialized recovery for all five runners, client ownership, splitting, scaler isolation, precision-collision handling and decision criteria.
+
+All ten saved endpoints reproduced their development metrics exactly. The 39 focused tests passed. The complete committed suite passed **707 tests in 56.725 seconds** in an isolated archive of `4022956`, excluding unrelated uncommitted files. Local report links and Git whitespace checks also passed. These are local results, not a new GitHub CI run.
 
 Private arrays, row IDs and model weights remain under ignored `outputs/` directories. Original source comments and unrelated working-tree changes are preserved. No cloud machine was used and this experimental branch remains local.
