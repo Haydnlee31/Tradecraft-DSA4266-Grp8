@@ -66,6 +66,20 @@ changes, visually inspect every page; text extraction alone does not verify
 layout. No experimental training, new test inference or cloud resources are
 required for this writing stage.
 
+## Verification
+
+The content and tooling commit `0361ad2` passed all 843 tests in a clean
+`git archive` checkout (47.387 seconds). This excludes unrelated local work.
+The 16 targeted integrated-thesis and optimizer-figure tests also passed.
+The review PDF contains 24 pages, 15 figures and 25 navigation bookmarks.
+All pages were visually reviewed; automated text-boundary checks found no
+violations. The final two changed pages were inspected again at full resolution.
+The PDF SHA-256 is
+`5d7b3749f1e3f6f746094d9920e26bc4ab7c35c0f703a667d618439a061ca8e8`.
+The ignored `outputs/integrated-thesis-qa-v1/review.json` receipt records the
+PDF, manuscript and renderer identities. Regression tests include small test
+fixtures, not new study experiments; no cloud compute was used.
+
 ## Submission review still needed
 
 1. Apply the course template, page limit, author details and required references
