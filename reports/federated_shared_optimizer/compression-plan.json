@@ -1,0 +1,37 @@
+{
+  "version": "shared-optimizer-compression-v1",
+  "seed": 7,
+  "learning_rate": 0.003,
+  "parent_evidence_sha256": "0782f405aaa64d033026b2235574c1fb679e732360cc4bf282c1034d43818e8c",
+  "arms": {
+    "fp32_bridge": {"bits": 32, "feedback": true},
+    "ef4": {"bits": 4, "feedback": true},
+    "ef2": {"bits": 2, "feedback": true},
+    "noef4": {"bits": 4, "feedback": false}
+  },
+  "backward_examples_per_run": 21600000,
+  "new_training_backward_examples": 86400000,
+  "recovery_replay_steps": 2,
+  "new_recovery_backward_examples": 80000,
+  "primary_target_basis_points": 500,
+  "false_alert_targets_basis_points": [100, 500, 1000, 2000],
+  "screen": {
+    "macro_f1_drop_from_shared_max": 0.01,
+    "absolute_far_difference_from_shared_max": 0.005,
+    "any_class_recall_drop_from_shared_max": 0.05,
+    "macro_f1_gain_over_fedavg_min": 0.08,
+    "payload_ratio_to_historical_shared_max": {"ef4": 0.15, "ef2": 0.08}
+  },
+  "selection": "Only ef4 and ef2 are eligible. If both pass every primary criterion, choose fewer serialized payload bytes; ties higher primary macro-F1. noef4 is a diagnostic control, not an eligible replacement. Passing warrants paired-seed replication, not holdout scoring.",
+  "codec": "Versioned packet with 8-byte header (version,bits,tensor count,sequence); each tensor has uint32 element count, FP32 scale, packed symbols. Pre-agreed tensor schema. Symmetric per-tensor max-absolute scaling, nearest ties-to-even rounding. qmax=2^(bits-1)-1; the last symbol is reserved. Zero padding; little endian.",
+  "upstream": "Each client sends quantized gradient plus its persistent FP32 compression residual. Server aggregates only decoded gradients, weighted by fixed client population. No client-local Adam updates.",
+  "downstream": "Server retains FP32 Adam moments and target weights. Clients share a delivered-model replica. With feedback send compressed target-minus-delivered weights; without feedback send compressed new-target-minus-old-target update. FP32 bridge sends absolute weights exactly. Evaluate the delivered model, not the hidden FP32 target.",
+  "accounting": "Count actual serialized application-payload lengths for 20 uploads and 20 delivered updates per step plus initial FP32 broadcast. Charge both directions, scales, counts, padding and sequence headers. Compare conservatively with the older raw FP32 shared payload. Still 2160 synchronization steps, plus startup; not measured network traffic or latency. No claim of lower round count.",
+  "fixed": "Reuse seed7 initialization, all fitting rows, client ownership, sample sequence, 2160 shared updates, selected LR, loss, architecture and calibration/audit mask. Same 5 percent calibration target, all four target reports. No new LR, checkpoint or quantizer search.",
+  "limits": "Exploratory seed7 development comparison. Error feedback and quantized Adam are prior art. This custom bidirectional recipe is not a reproduction of 1-bit Adam and inherits no cited convergence or non-IID guarantee. Original failed training gate stays unchanged. No privacy guarantee.",
+  "confirmation_scoring_permitted": false,
+  "original_validation_scoring_permitted": false,
+  "test_scoring_permitted": false,
+  "device": "cpu",
+  "threads": 2
+}
