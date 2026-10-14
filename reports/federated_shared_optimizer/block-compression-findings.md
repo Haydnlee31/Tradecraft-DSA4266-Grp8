@@ -91,3 +91,5 @@ If the candidate survives replication, freeze it for one reserved-confirmation e
 The [codec](../../src/federated/block_shared_adam.py), [runner](../../src/eval/shared_optimizer_block_compression.py), [preliminary tests](../../tests/test_shared_optimizer_block_compression.py) and [evidence tests](../../tests/test_shared_optimizer_block_compression_evidence.py) are versioned. Private checkpoints, row-level outputs and raw data are not committed.
 
 The full committed regression suite passed **777 tests in 62.380 seconds** in an isolated source archive of `c3f84b4`, excluding unrelated uncommitted work. All 28 focused new-implementation, new-evidence and previous-evidence checks passed, along with local report-link and Git whitespace checks. These are local checks, not a new GitHub CI result. The work is committed locally on `experiment/federated-shared-optimizer` and has not been pushed.
+
+The subsequent [paired-seed replication](block-replication-findings.md) passes all five primary safeguards on seeds 17 and 27 as well. It preserves this discovery result and recommends preparing a locked reserved-confirmation comparison.
