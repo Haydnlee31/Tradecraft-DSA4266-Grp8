@@ -86,6 +86,8 @@ One inference pass per model evaluated 4,782,024 examples in total. The local CP
 
 The [aggregate evidence](confirmation-results.json) retains confusion matrices, per-class precision/recall/F1/support, attack-detection diagnostics, seed comparisons, hashes and audit checks. Private arrays, logits and checkpoints remain outside Git. Original validation and test were not reopened in this extension.
 
+All **827 tests passed in 57.915 seconds** in an isolated source archive of `4f5afc3`, excluding unrelated uncommitted work. All 31 focused confirmation/preparation checks, report links and Git whitespace checks also passed. This is local regression verification, not a new GitHub CI result. The code and aggregate evidence are committed locally on `experiment/federated-shared-optimizer`, not pushed; unrelated working-tree changes were preserved.
+
 This is a within-collection confirmation reserved for the current extension, not a completely untouched external benchmark: the source rows belong to historical training data used earlier in the project. All seeds share one client partition and one confirmation cohort. The three-seed standard deviations describe training variation; they do not establish population-level statistical significance or capture-session generalization.
 
 ## Final study conclusion and next action
