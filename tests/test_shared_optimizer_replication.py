@@ -1,5 +1,6 @@
 """Fixed seeds, permitted files, restart boundaries and paired comparisons."""
 import copy
+from contextlib import ExitStack
 from collections import Counter
 import json
 from pathlib import Path
@@ -50,7 +51,7 @@ class SharedOptimizerReplicationTests(unittest.TestCase):
         self.assertFalse(p['test_scoring_permitted'])
 
     def test_loader_only_opens_fit_whitelist(self):
-        with tempfile.TemporaryDirectory() as temp:
+        with tempfile.TemporaryDirectory() as temp, ExitStack() as mapped_files:
             root=Path(temp); base,m = self.fixture(root)
             original = np.load
             seen=[]
@@ -60,15 +61,21 @@ class SharedOptimizerReplicationTests(unittest.TestCase):
                 return original(path,*args,**kwargs)
             with patch.object(rep.np,'load',side_effect=checked):
                 data = rep.FitData(root,base,sha256(root/'manifest.json'))
+            # Keep the real disk-backed loader, but release Windows file locks
+            # before removing the fixture directory.
+            for array in data.arrays['fit']:
+                mapped_files.callback(array._mmap.close)
             self.assertEqual(set(seen),{'fit_x.npy','fit_y.npy','clients.npz'})
             self.assertEqual(tuple(data.batch(np.array([1,3]))[0].shape),(2,39))
             with self.assertRaisesRegex(ValueError,'manifest differs'):
                 rep.FitData(root,base,'wrong')
 
     def test_each_arm_resumes_exactly_and_rejects_other_seed(self):
-        with tempfile.TemporaryDirectory() as temp:
+        with tempfile.TemporaryDirectory() as temp, ExitStack() as mapped_files:
             root=Path(temp); base,m = self.fixture(root)
             data=rep.FitData(root,base,sha256(root/'manifest.json'))
+            for array in data.arrays['fit']:
+                mapped_files.callback(array._mmap.close)
             criterion=build_official_criterion('sqrt_weighted_ce',m['counts']['fit'],'fixed_train_mean')
             for arm in ('central_adam','shared_adam','fedavg_adam'):
                 lr=.003
@@ -100,9 +107,11 @@ class SharedOptimizerReplicationTests(unittest.TestCase):
                             state_digest(training.initial_model({**base,'seed':27})))
 
     def test_federated_arms_have_identical_sample_multisets(self):
-        with tempfile.TemporaryDirectory() as temp:
+        with tempfile.TemporaryDirectory() as temp, ExitStack() as mapped_files:
             root=Path(temp); base,m=self.fixture(root)
             data=rep.FitData(root,base,sha256(root/'manifest.json'))
+            for array in data.arrays['fit']:
+                mapped_files.callback(array._mmap.close)
             c,k=base['clients'],base['mime']['local_steps']
             # Shared consumes step-then-client; FedAvg consumes client-then-step.
             shared=[training.sampled_rows(data,base,u//k,client=i,step=u%k).tobytes()

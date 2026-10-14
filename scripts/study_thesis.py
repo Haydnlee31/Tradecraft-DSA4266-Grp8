@@ -267,7 +267,7 @@ def assemble(output,root=ROOT):
     # The manuscript is byte-hashed; Windows newline translation must not
     # change its identity compared with the checked-in UTF-8/LF document.
     output.parent.mkdir(parents=True,exist_ok=True); output.write_bytes(joined.encode('utf-8'))
-    receipt={'sources':{str(p.relative_to(root)):digest(p) for p in (front,chapter,end)},
+    receipt={'sources':{p.relative_to(root).as_posix():digest(p) for p in (front,chapter,end)},
              'compiler_sha256':digest(__file__),'manuscript_sha256':digest(output),
              'figure_manifest_sha256':digest(base/'figures/manifest.json'),
              'shared_figure_manifest_sha256':digest(root/'reports/federated_shared_optimizer/thesis/figures/manifest.json'),

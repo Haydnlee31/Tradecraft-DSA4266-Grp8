@@ -79,8 +79,10 @@ for a bounded pilot, not clearance for full-scale training or security deploymen
 
 Use the shared `requirements.txt` on **macOS, Linux or Windows**. It is not a
 macOS lock file: pip resolves the appropriate platform wheels. Python 3.11–3.13
-is the intended team baseline; the CI configuration checks Python 3.12 on all
-three OS families. Availability still depends on your CPU architecture and the
+is the intended core baseline; the complete CI suite uses Python 3.13 on all
+three OS families. Use Python 3.13 for the frozen research audits, whose historical
+syntax-tree hashes are interpreter-version-specific. Availability still depends
+on your CPU architecture and the
 upstream packages—this is not a guarantee for every OS/Python/hardware combination.
 
 Create and activate a virtual environment first.
@@ -95,7 +97,7 @@ source .venv/bin/activate
 Windows (PowerShell):
 
 ```powershell
-py -3.12 -m venv .venv
+py -3.13 -m venv .venv
 .\.venv\Scripts\Activate.ps1
 ```
 

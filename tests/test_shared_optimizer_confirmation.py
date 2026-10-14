@@ -1,5 +1,6 @@
 """Final scoring cannot refit thresholds, alter cohorts or hide failed seeds."""
 import copy
+from contextlib import ExitStack
 import json
 from pathlib import Path
 import tempfile
@@ -87,8 +88,13 @@ class ConfirmationTests(unittest.TestCase):
             # The fixture deliberately has no raw-training-staging.npy.
             with patch.object(original_data,'fit_scaler',side_effect=AssertionError('No fitting')):
                 r=cohort.reconstruct(data,parent,subsets,root/'result',lock,base,performance,True)
-            actual_x,actual_y=cohort.load_reconstructed(root/'result',r)
-            np.testing.assert_array_equal(actual_x,x); np.testing.assert_array_equal(actual_y,y)
+            with ExitStack() as mapped_files:
+                actual_x,actual_y=cohort.load_reconstructed(root/'result',r)
+                for array in (actual_x,actual_y):
+                    mapped_files.callback(array._mmap.close)
+                np.testing.assert_array_equal(actual_x,x); np.testing.assert_array_equal(actual_y,y)
+            # The integrity test below truncates a file deliberately. Release
+            # the successful read mappings first; Windows otherwise locks it.
             self.assertTrue(r['all_frozen_memberships_exact'])
             self.assertEqual(r['raw_rows_streamed'],2000)
             self.assertFalse(any(r['cross_cohort_input_groups'].values()))

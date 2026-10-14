@@ -8,7 +8,7 @@
     "reports/federated_shared_optimizer/performance-results.json": "5244f2655ed0176f151418861fe8df287e31760fd5639f43295d7839b420896b",
     "reports/thesis/evidence/legacy-histories.json": "852876411642e04171cd76cdb701596eab3aa1c805d279e822837167d01c57dd"
   },
-  "generator_sha256": "fcde80d591c6a786d11a9346b834fe9520d16ba1a88fe0f342b808cf52281991",
+  "generator_sha256": "d8f60121a58f387d2faf2a6a23fa5c95803df347ec69211da1e0f5567970db61",
   "shared_style_sha256": "4f938b1f7ef1ff10199946fd557d223577c8fbf7e54ea95b58641dadae40dd0e",
   "figures": [
     {

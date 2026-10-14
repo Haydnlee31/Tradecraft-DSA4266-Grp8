@@ -11,7 +11,7 @@ permissions:
 jobs:
   core:
     # These are core/sequential tests, not Ray or GPU support claims.
-    name: Python 3.12 / ${{ matrix.os }}
+    name: Python 3.13 / ${{ matrix.os }}
     strategy:
       fail-fast: false
       matrix:
@@ -25,7 +25,10 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
-          python-version: "3.12"
+          # Frozen source-audit receipts use Python 3.13's ast.dump format.
+          # Earlier interpreters serialize empty AST fields differently. Run
+          # the complete suite in its audited runtime; do not weaken the hashes.
+          python-version: "3.13"
           cache: pip
           cache-dependency-path: |
             requirements.txt

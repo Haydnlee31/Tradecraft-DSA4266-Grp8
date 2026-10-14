@@ -6,7 +6,7 @@ The original final evidence supplies quality; the new benchmark supplies cost.
 import hashlib
 import json
 import math
-from pathlib import Path
+from pathlib import Path, PureWindowsPath
 import statistics
 import unittest
 
@@ -33,7 +33,13 @@ class PublishedStudyEvidenceTests(unittest.TestCase):
         cls.plan = read(REPORTS / 'cost-benchmark-plan.json')
 
     def test_synthesis_and_tables_rebuild_from_public_counts(self):
-        self.assertEqual(synthesis.build(), self.synthesis)
+        rebuilt = synthesis.build()
+        # The frozen producer records native relative path separators. Compare
+        # portable path identities, preserving every source hash and metric.
+        # Do not edit the producer or rewrite the published historical receipt.
+        rebuilt['source_sha256'] = {PureWindowsPath(name).as_posix(): digest
+                                   for name, digest in rebuilt['source_sha256'].items()}
+        self.assertEqual(rebuilt, self.synthesis)
         self.assertEqual(synthesis.tables(self.synthesis),
                          (REPORTS / 'study-synthesis-tables.md').read_text())
 

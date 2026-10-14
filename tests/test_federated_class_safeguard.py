@@ -1,5 +1,6 @@
 """Synthetic numerical/bridge tests; no real train, validation or test rows."""
 import copy
+from contextlib import ExitStack
 import json
 from pathlib import Path
 import tempfile
@@ -121,7 +122,7 @@ class SafeguardTests(unittest.TestCase):
         self.assertEqual(a['hypothetical_extra_upload_bytes_per_client'], 3*self.model.parameter_bytes())
 
     def test_loader_succeeds_without_validation_files_and_refuses_val(self):
-        with tempfile.TemporaryDirectory() as td:
+        with tempfile.TemporaryDirectory() as td, ExitStack() as mapped_files:
             root = Path(td)
             for key, a in zip(('x', 'y'), self.data.arrays['train']):
                 np.save(root/f'train_{key}.npy', a)
@@ -131,6 +132,10 @@ class SafeguardTests(unittest.TestCase):
                      files={f'train_{k}.npy': sha256(root/f'train_{k}.npy') for k in ('x', 'y')})
             (root/'manifest.json').write_text(json.dumps(m))
             loaded = TrainOnlyData(root)
+            # Windows cannot delete a file while its NumPy mapping is open.
+            # Close mappings before TemporaryDirectory, including on failure.
+            for array in loaded.arrays['train']:
+                mapped_files.callback(array._mmap.close)
             self.assertEqual(sum(len(y) for _, y in loaded.batches('train', 8)), 80)
             with self.assertRaisesRegex(ValueError, 'Only training'):
                 list(loaded.batches('val', 8))

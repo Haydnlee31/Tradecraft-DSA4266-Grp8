@@ -21,6 +21,12 @@ were not moved or committed by this cleanup.
 
 From the repository root:
 
+Use a Python 3.13 environment for the full active and archived audit suites.
+The frozen source bridge uses the historical `ast.dump` representation, which
+differs from Python 3.12 even when source bytes are identical. See the
+[Python AST documentation](https://docs.python.org/3.13/library/ast.html#ast.dump).
+This is an audit-runtime constraint, not an operating-system-specific dependency.
+
 ```bash
 python scripts/archive_tools.py verify
 python scripts/archive_tools.py test
@@ -47,3 +53,6 @@ The source snapshot is commit `f5ae051`. It remains available through Git histor
 for a complete, exact historical checkout. Reconstruction combines the unchanged
 archived files with current shared helpers; receipt checks fail if those helpers
 later become incompatible. Do not rewrite old hashes to silence such a failure.
+
+For online browsing with the original relative links, use the
+[pre-archive snapshot](https://github.com/Haydnlee31/Tradecraft-DSA4266-Grp8/tree/f5ae051).
