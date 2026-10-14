@@ -76,6 +76,8 @@ In a separate process, both checkpoints recovered exactly from two steps before 
 
 Reserved confirmation and original validation/test arrays stayed closed. This is training-seed robustness on an already inspected development panel and one fixed non-IID partition, not independent capture-session or partition generalization. The [runner](../../src/eval/shared_optimizer_block_replication.py), [preliminary tests](../../tests/test_shared_optimizer_block_replication.py) and [evidence tests](../../tests/test_shared_optimizer_block_replication_evidence.py) preserve those boundaries.
 
+The full committed regression suite passed **796 tests in 62.639 seconds** in an isolated source archive of `24edf00`, excluding unrelated uncommitted work. All 27 focused replication and previous-evidence checks passed, along with report-link and Git whitespace checks. These are local checks, not a new GitHub CI result. The work is committed locally on `experiment/federated-shared-optimizer` and has not been pushed.
+
 ## Next stage without further tuning
 
 The result supports preparing a single locked confirmation comparison of centralized-light, FedAvg, uncompressed shared Adam and the blockwise candidate. Freeze the checkpoint identities, already calibrated primary thresholds, metrics and success interpretation before opening reserved data. Do not recalibrate or select checkpoints on the confirmation results.
