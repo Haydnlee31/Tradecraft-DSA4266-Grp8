@@ -3,6 +3,7 @@ import copy
 import io
 import json
 import unittest
+from unittest.mock import patch
 from types import SimpleNamespace
 
 import numpy as np
@@ -131,6 +132,15 @@ class SharedOptimizerPerformanceTests(unittest.TestCase):
         self.assertFalse(screen(selected,p)['mime']['passes_development_screen'])
         selected['shared_adam']['development_metrics']['benign_false_alert_rate'] = .16
         self.assertFalse(screen(selected,p)['shared_adam']['passes_development_screen'])
+
+    def test_auditor_cli_argument_names(self):
+        from pathlib import Path
+        from src.eval.shared_optimizer_audit import main
+        with patch('sys.argv',['audit','--data','data','--run-root','runs','--output','audit.json']), \
+             patch('src.eval.shared_optimizer_audit.audit',return_value={'status':'complete'}) as execute, \
+             patch('builtins.print'):
+            main()
+        execute.assert_called_once_with(data_root=Path('data'),run_root=Path('runs'),output=Path('audit.json'))
 
 
 if __name__ == '__main__':

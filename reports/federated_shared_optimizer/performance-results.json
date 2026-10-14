@@ -1,0 +1,2158 @@
+{
+  "summary": {
+    "status": "complete",
+    "contract": {
+      "plan_sha256": "18c5adc85dd34b2f20ce8d3ba96411c5748b32f3365d5b1cd4de07c8cc81426e",
+      "data_manifest_sha256": "f184b699fe9a34c46cc9218191ff43fd87457a8e2f6f366de6000eabf31a6987",
+      "sources": {
+        "src/eval/shared_optimizer_performance.py": "60b9d077c140d17041585c8847e952dcccd0aedc492edda27d244eaf31405c0b",
+        "src/data/shared_optimizer_data.py": "c0c7692fe3b62f3c1f1e58ef604abb3370a37a3c2d986d4a058577054060ec68",
+        "src/federated/shared_adam.py": "1b8c10b79d5113f6295c0c85c5cd285e36833283da7ba0765579ec71bca4e2e8",
+        "src/federated/mime_adam.py": "a23f54156136d92cb5bab519e97f682378dadfcb87cf3187f3b7186261684b8b",
+        "src/models/architectures.py": "921a1c9fd5f212d647eaea93e8c0fec8134cd0ca1b118d8ed41e7d5d7fd85526",
+        "src/models/official_losses.py": "8d2603b1e875d63ff5fe83ac270d8e410a97738dffa0982f3c37120475f49436",
+        "src/models/losses.py": "2af9a81e5fedb122316db1f83900b34436976a5204a0d8145bdfefe8d76134da"
+      }
+    },
+    "plan": {
+      "version": "shared-optimizer-performance-v1",
+      "seed": 7,
+      "split_domain": "tradecraft-shared-optimizer-development-v1:426614:",
+      "historical_training_rows": 2000000,
+      "fit_rows": 500000,
+      "split_rule": "SHA256(domain || canonical raw vector digest); first 60 percent eligible for fit, next 20 development, last 20 reserved confirmation; choose lowest fit hashes up to exactly 500000 unique vectors",
+      "collision_policy": "Require raw vectors unique; after fit-only scaling, drop development collisions with fit and confirmation collisions with fit or development before any scoring",
+      "preprocessing": "StandardScaler fit on the 500000 fit rows only; float64 transform then float32; no clipping",
+      "classes": 8,
+      "clients": 20,
+      "architecture": {
+        "hidden_dims": [
+          64,
+          32
+        ],
+        "normalization": "layer",
+        "dropout": 0.0
+      },
+      "loss": "sqrt_weighted_ce with one fixed fit-training-mean denominator",
+      "learning_rates": [
+        0.001,
+        0.003
+      ],
+      "adam": {
+        "betas": [
+          0.9,
+          0.99
+        ],
+        "eps": 0.001,
+        "weight_decay": 0.0
+      },
+      "mime": {
+        "beta1": 0.9,
+        "beta2": 0.99,
+        "eps": 0.001,
+        "initial_v": 0.0001,
+        "local_steps": 20,
+        "rounds": 24
+      },
+      "batch_size": 500,
+      "anchor_batch_size": 8192,
+      "backward_examples_per_arm": 21600000,
+      "arms": [
+        "central_adam",
+        "shared_adam",
+        "fedavg_adam",
+        "central_mime_base",
+        "mime"
+      ],
+      "total_backward_examples": 216000000,
+      "selection": "Highest final-development macro-F1 within each arm; ties choose lower learning rate. No best-epoch selection, new learning rates or architecture search.",
+      "screen": {
+        "macro_f1_gain_over_fedavg_min": 0.02,
+        "macro_f1_gap_to_central_max": 0.02,
+        "far_above_central_max": 0.005,
+        "far_above_fedavg_max": 0.005,
+        "any_class_recall_drop_from_fedavg_max": 0.05
+      },
+      "screen_scope": "Apply to selected shared_adam and MIME against selected standard central Adam and FedAvg. Passing warrants paired-seed confirmation, not a final success claim. Rare-class gain not required; zeros remain reported.",
+      "budget_interpretation": "Exact backward-example budget, not equal FLOPs or wall time. Full MIME charges all full-anchor and paired local gradients. Full-participation population weights recomputed on fit subset. Communication modeled separately; no communication-matched efficacy claim.",
+      "sampling": "Uniform with replacement within each client or pooled fit set. Same initialization and per-client round/step samples across federated arms and learning rates. One historical client partition, one exploratory training seed.",
+      "evaluation": "Only final development endpoints. Confirmation features not materialized for scoring. Original validation and test arrays remain unopened.",
+      "limitations": "Historical training rows are previously used research data; this is within-collection exploratory evidence, not independent session generalization. No privacy guarantee or physical network measurement.",
+      "device": "cpu",
+      "threads": 2,
+      "parent_manifest_sha256": "1f35e1c29599e056e0758554094425b2d3f744c4853928bafc44bc2f800a1ed3",
+      "subset_manifest_sha256": "348abf9f1cab3f9adf333ce3b201a1c55a920ed038f931319855ba5fa725fefd",
+      "historical_train_y_sha256": "3a6fdc8ebaae7aa504e85f1aadbba5268d7bd818b2cd038a4c4e520da35633ea",
+      "historical_train_x_sha256": "1d0b40de405351010d62001037e60ce952b5bc6db0657173755072cab340caf4",
+      "historical_scaler_sha256": "6731ce8c113fa568006ef551bb40b00e027169598d16f9b96e02f491ca681b9e",
+      "partition_sha256": "057d3705863bb7c0546dfd5aa980cc35c2082da25f85ef1075ccad37e7952f46"
+    },
+    "data": {
+      "status": "complete",
+      "plan_sha256": "18c5adc85dd34b2f20ce8d3ba96411c5748b32f3365d5b1cd4de07c8cc81426e",
+      "builder_sha256": "c0c7692fe3b62f3c1f1e58ef604abb3370a37a3c2d986d4a058577054060ec68",
+      "features": [
+        "Header_Length",
+        "Protocol Type",
+        "Time_To_Live",
+        "Rate",
+        "fin_flag_number",
+        "syn_flag_number",
+        "rst_flag_number",
+        "psh_flag_number",
+        "ack_flag_number",
+        "ece_flag_number",
+        "cwr_flag_number",
+        "ack_count",
+        "syn_count",
+        "fin_count",
+        "rst_count",
+        "HTTP",
+        "HTTPS",
+        "DNS",
+        "Telnet",
+        "SMTP",
+        "SSH",
+        "IRC",
+        "TCP",
+        "UDP",
+        "DHCP",
+        "ARP",
+        "ICMP",
+        "IGMP",
+        "IPv",
+        "LLC",
+        "Tot sum",
+        "Min",
+        "Max",
+        "AVG",
+        "Std",
+        "Tot size",
+        "IAT",
+        "Number",
+        "Variance"
+      ],
+      "classes": [
+        "Benign",
+        "DDoS",
+        "DoS",
+        "Recon",
+        "Web-based",
+        "Brute Force",
+        "Spoofing",
+        "Mirai"
+      ],
+      "files": {
+        "clients.npz": "3ae201ea198aa54ca613374360b6fe7558f29a4ca8464f4204bad4baafcae687",
+        "confirmation_row_ids.npy": "dc6866b45cf1599abb50a36260815f3f56160620b5f4b43bafa9c14ac9449420",
+        "development_row_ids.npy": "a67e70c2b6564c05fa315f6b0d89afc78e36cfcb6637ff0e6018c7a64a305e1b",
+        "development_x.npy": "d49fae0e677fe18a676daca789539a7f089f51537209fb42c1df72f9ff0208de",
+        "development_y.npy": "b51d3277ecb1f4121bcd25869ae50bdbbbf6fd9448b1a970945b1007ce96ab70",
+        "fit_row_ids.npy": "54d05b2c36ca47672bd2e103324b67263b3da4f0b1c23df75b1128a634d4e680",
+        "fit_x.npy": "83b25f07a59c86ea30bca2c035e3c55bcdfe4fa31f7a82e7ec5540bc889cc7cb",
+        "fit_y.npy": "f80c891ff89770c00ce9e26d4ad44b72e05ea98aa4817f1875de4e89d5547d97",
+        "scaler.json": "dc6e5e005363540adc700b2276ad3193465422df5c618be8b209453a44f714b4"
+      },
+      "counts": {
+        "fit": {
+          "Benign": 26453,
+          "DDoS": 294864,
+          "DoS": 90410,
+          "Recon": 16574,
+          "Web-based": 599,
+          "Brute Force": 332,
+          "Spoofing": 11147,
+          "Mirai": 59621
+        },
+        "development": {
+          "Benign": 21193,
+          "DDoS": 235894,
+          "DoS": 72090,
+          "Recon": 13246,
+          "Web-based": 495,
+          "Brute Force": 250,
+          "Spoofing": 8696,
+          "Mirai": 47688
+        },
+        "confirmation": {
+          "Benign": 21024,
+          "DDoS": 234764,
+          "DoS": 72208,
+          "Recon": 13308,
+          "Web-based": 500,
+          "Brute Force": 260,
+          "Spoofing": 8803,
+          "Mirai": 47635
+        }
+      },
+      "fit_client_counts": [
+        22111,
+        6856,
+        24923,
+        49734,
+        29308,
+        17357,
+        31348,
+        23378,
+        16275,
+        27439,
+        18602,
+        22566,
+        5190,
+        31977,
+        36253,
+        14654,
+        39960,
+        26665,
+        20352,
+        35052
+      ],
+      "float32_collision_rows_removed": {
+        "development": 674,
+        "confirmation": 1126
+      },
+      "raw_unique_vectors": 2000000,
+      "split_domain": "tradecraft-shared-optimizer-development-v1:426614:",
+      "source": {
+        "parent_manifest_sha256": "1f35e1c29599e056e0758554094425b2d3f744c4853928bafc44bc2f800a1ed3",
+        "subset_manifest_sha256": "348abf9f1cab3f9adf333ce3b201a1c55a920ed038f931319855ba5fa725fefd",
+        "historical_train_y_sha256": "3a6fdc8ebaae7aa504e85f1aadbba5268d7bd818b2cd038a4c4e520da35633ea",
+        "historical_train_x_sha256": "1d0b40de405351010d62001037e60ce952b5bc6db0657173755072cab340caf4",
+        "historical_scaler_sha256": "6731ce8c113fa568006ef551bb40b00e027169598d16f9b96e02f491ca681b9e",
+        "partition_sha256": "057d3705863bb7c0546dfd5aa980cc35c2082da25f85ef1075ccad37e7952f46"
+      },
+      "original_validation_opened": false,
+      "test_opened": false,
+      "confirmation_scored": false,
+      "model_trained": false
+    },
+    "runtime": {
+      "python": "3.13.9",
+      "torch": "2.14.0",
+      "numpy": "2.5.3",
+      "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
+      "git_commit": "428d9a16ebf4c74e6a1714d2eef04dfc7c3a4843"
+    },
+    "results": [
+      {
+        "status": "complete",
+        "arm": "central_adam",
+        "learning_rate": 0.001,
+        "seed": 7,
+        "units": 43200,
+        "contract": {
+          "plan_sha256": "18c5adc85dd34b2f20ce8d3ba96411c5748b32f3365d5b1cd4de07c8cc81426e",
+          "data_manifest_sha256": "f184b699fe9a34c46cc9218191ff43fd87457a8e2f6f366de6000eabf31a6987",
+          "sources": {
+            "src/eval/shared_optimizer_performance.py": "60b9d077c140d17041585c8847e952dcccd0aedc492edda27d244eaf31405c0b",
+            "src/data/shared_optimizer_data.py": "c0c7692fe3b62f3c1f1e58ef604abb3370a37a3c2d986d4a058577054060ec68",
+            "src/federated/shared_adam.py": "1b8c10b79d5113f6295c0c85c5cd285e36833283da7ba0765579ec71bca4e2e8",
+            "src/federated/mime_adam.py": "a23f54156136d92cb5bab519e97f682378dadfcb87cf3187f3b7186261684b8b",
+            "src/models/architectures.py": "921a1c9fd5f212d647eaea93e8c0fec8134cd0ca1b118d8ed41e7d5d7fd85526",
+            "src/models/official_losses.py": "8d2603b1e875d63ff5fe83ac270d8e410a97738dffa0982f3c37120475f49436",
+            "src/models/losses.py": "2af9a81e5fedb122316db1f83900b34436976a5204a0d8145bdfefe8d76134da"
+          }
+        },
+        "work": {
+          "backward_examples": 21600000,
+          "backward_batches": 43200,
+          "optimizer_steps": 43200,
+          "anchor_examples": 0,
+          "local_examples": 0,
+          "synchronization_rounds": 0,
+          "logical_barriers": 0,
+          "estimated_payload_bytes": 0
+        },
+        "initial_model_sha256": "50c4a876adc78d1b4f375d475f93a1651e02a2c53841f428bacc5a7047b5a07c",
+        "final_model_sha256": "ceae00735ccdbbc04624afe99768dfd54136304282a1bcd448fbae2d520a3255",
+        "sample_chain_sha256": "8010f01b0b1795d472e68f6f576c2034423ac87a13f4d71370463af89dcb4ebf",
+        "num_parameters": 5096,
+        "parameter_bytes": 20384,
+        "training_seconds": 50.245369624812156,
+        "evaluation_seconds": 0.06926604104228318,
+        "development_metrics": {
+          "macro_f1": 0.6608019737236197,
+          "accuracy": 0.8382838779432965,
+          "per_class": {
+            "Benign": {
+              "precision": 0.8249201915403033,
+              "recall": 0.7803520030198651,
+              "f1": 0.8020174098591207,
+              "support": 21193
+            },
+            "DDoS": {
+              "precision": 0.8900206469373709,
+              "recall": 0.877139732252622,
+              "f1": 0.8835332448000957,
+              "support": 235894
+            },
+            "DoS": {
+              "precision": 0.6174314597226633,
+              "recall": 0.6472881120821196,
+              "f1": 0.632007367979088,
+              "support": 72090
+            },
+            "Recon": {
+              "precision": 0.704862059546572,
+              "recall": 0.7792541144496452,
+              "f1": 0.740193617784152,
+              "support": 13246
+            },
+            "Web-based": {
+              "precision": 0.2358490566037736,
+              "recall": 0.15151515151515152,
+              "f1": 0.18450184501845018,
+              "support": 495
+            },
+            "Brute Force": {
+              "precision": 0.1958041958041958,
+              "recall": 0.336,
+              "f1": 0.24742268041237114,
+              "support": 250
+            },
+            "Spoofing": {
+              "precision": 0.8074985354422964,
+              "recall": 0.7925482980680773,
+              "f1": 0.7999535720503743,
+              "support": 8696
+            },
+            "Mirai": {
+              "precision": 0.9985269980219688,
+              "recall": 0.9950511659117598,
+              "f1": 0.9967860518853061,
+              "support": 47688
+            }
+          },
+          "benign_false_alert_rate": 0.21964799698013493,
+          "confusion_matrix": [
+            [
+              16538,
+              1,
+              0,
+              3290,
+              87,
+              160,
+              1117,
+              0
+            ],
+            [
+              2,
+              206912,
+              28869,
+              35,
+              0,
+              0,
+              22,
+              54
+            ],
+            [
+              3,
+              25388,
+              46663,
+              8,
+              0,
+              0,
+              12,
+              16
+            ],
+            [
+              2273,
+              2,
+              0,
+              10322,
+              81,
+              163,
+              405,
+              0
+            ],
+            [
+              95,
+              1,
+              0,
+              259,
+              75,
+              6,
+              59,
+              0
+            ],
+            [
+              59,
+              1,
+              0,
+              91,
+              2,
+              84,
+              13,
+              0
+            ],
+            [
+              1078,
+              0,
+              0,
+              637,
+              73,
+              16,
+              6892,
+              0
+            ],
+            [
+              0,
+              175,
+              44,
+              2,
+              0,
+              0,
+              15,
+              47452
+            ]
+          ]
+        },
+        "confirmation_scored": false,
+        "original_validation_opened": false,
+        "test_opened": false,
+        "test_evaluated": false,
+        "network_measured": false
+      },
+      {
+        "status": "complete",
+        "arm": "central_adam",
+        "learning_rate": 0.003,
+        "seed": 7,
+        "units": 43200,
+        "contract": {
+          "plan_sha256": "18c5adc85dd34b2f20ce8d3ba96411c5748b32f3365d5b1cd4de07c8cc81426e",
+          "data_manifest_sha256": "f184b699fe9a34c46cc9218191ff43fd87457a8e2f6f366de6000eabf31a6987",
+          "sources": {
+            "src/eval/shared_optimizer_performance.py": "60b9d077c140d17041585c8847e952dcccd0aedc492edda27d244eaf31405c0b",
+            "src/data/shared_optimizer_data.py": "c0c7692fe3b62f3c1f1e58ef604abb3370a37a3c2d986d4a058577054060ec68",
+            "src/federated/shared_adam.py": "1b8c10b79d5113f6295c0c85c5cd285e36833283da7ba0765579ec71bca4e2e8",
+            "src/federated/mime_adam.py": "a23f54156136d92cb5bab519e97f682378dadfcb87cf3187f3b7186261684b8b",
+            "src/models/architectures.py": "921a1c9fd5f212d647eaea93e8c0fec8134cd0ca1b118d8ed41e7d5d7fd85526",
+            "src/models/official_losses.py": "8d2603b1e875d63ff5fe83ac270d8e410a97738dffa0982f3c37120475f49436",
+            "src/models/losses.py": "2af9a81e5fedb122316db1f83900b34436976a5204a0d8145bdfefe8d76134da"
+          }
+        },
+        "work": {
+          "backward_examples": 21600000,
+          "backward_batches": 43200,
+          "optimizer_steps": 43200,
+          "anchor_examples": 0,
+          "local_examples": 0,
+          "synchronization_rounds": 0,
+          "logical_barriers": 0,
+          "estimated_payload_bytes": 0
+        },
+        "initial_model_sha256": "50c4a876adc78d1b4f375d475f93a1651e02a2c53841f428bacc5a7047b5a07c",
+        "final_model_sha256": "5f10cc566f9c4fcfd9e1f5bc46f45da6b06a547c9e2f3c1ab3131cde9ddd2a31",
+        "sample_chain_sha256": "8010f01b0b1795d472e68f6f576c2034423ac87a13f4d71370463af89dcb4ebf",
+        "num_parameters": 5096,
+        "parameter_bytes": 20384,
+        "training_seconds": 50.55788191710599,
+        "evaluation_seconds": 0.06599608296528459,
+        "development_metrics": {
+          "macro_f1": 0.6554599507205203,
+          "accuracy": 0.8384891078007368,
+          "per_class": {
+            "Benign": {
+              "precision": 0.8291677402731255,
+              "recall": 0.7592129476714009,
+              "f1": 0.7926498842307503,
+              "support": 21193
+            },
+            "DDoS": {
+              "precision": 0.8879424028132828,
+              "recall": 0.8820063248747319,
+              "f1": 0.8849644095948415,
+              "support": 235894
+            },
+            "DoS": {
+              "precision": 0.6233743337989395,
+              "recall": 0.6376335136634762,
+              "f1": 0.6304233040067476,
+              "support": 72090
+            },
+            "Recon": {
+              "precision": 0.7000476222872304,
+              "recall": 0.7768382908047713,
+              "f1": 0.7364465915190553,
+              "support": 13246
+            },
+            "Web-based": {
+              "precision": 0.18097447795823665,
+              "recall": 0.15757575757575756,
+              "f1": 0.16846652267818574,
+              "support": 495
+            },
+            "Brute Force": {
+              "precision": 0.18629550321199143,
+              "recall": 0.348,
+              "f1": 0.24267782426778242,
+              "support": 250
+            },
+            "Spoofing": {
+              "precision": 0.7801251956181534,
+              "recall": 0.8025528978840847,
+              "f1": 0.7911801383063145,
+              "support": 8696
+            },
+            "Mirai": {
+              "precision": 0.9983385210734416,
+              "recall": 0.9954076497232008,
+              "f1": 0.9968709311604855,
+              "support": 47688
+            }
+          },
+          "benign_false_alert_rate": 0.2407870523285991,
+          "confusion_matrix": [
+            [
+              16090,
+              1,
+              0,
+              3448,
+              139,
+              204,
+              1311,
+              0
+            ],
+            [
+              3,
+              208060,
+              27736,
+              11,
+              2,
+              0,
+              22,
+              60
+            ],
+            [
+              2,
+              26089,
+              45967,
+              2,
+              0,
+              0,
+              12,
+              18
+            ],
+            [
+              2143,
+              1,
+              0,
+              10290,
+              142,
+              156,
+              514,
+              0
+            ],
+            [
+              86,
+              0,
+              0,
+              254,
+              78,
+              6,
+              71,
+              0
+            ],
+            [
+              47,
+              0,
+              0,
+              92,
+              4,
+              87,
+              20,
+              0
+            ],
+            [
+              1034,
+              4,
+              0,
+              601,
+              63,
+              14,
+              6979,
+              1
+            ],
+            [
+              0,
+              162,
+              36,
+              1,
+              3,
+              0,
+              17,
+              47469
+            ]
+          ]
+        },
+        "confirmation_scored": false,
+        "original_validation_opened": false,
+        "test_opened": false,
+        "test_evaluated": false,
+        "network_measured": false
+      },
+      {
+        "status": "complete",
+        "arm": "shared_adam",
+        "learning_rate": 0.001,
+        "seed": 7,
+        "units": 2160,
+        "contract": {
+          "plan_sha256": "18c5adc85dd34b2f20ce8d3ba96411c5748b32f3365d5b1cd4de07c8cc81426e",
+          "data_manifest_sha256": "f184b699fe9a34c46cc9218191ff43fd87457a8e2f6f366de6000eabf31a6987",
+          "sources": {
+            "src/eval/shared_optimizer_performance.py": "60b9d077c140d17041585c8847e952dcccd0aedc492edda27d244eaf31405c0b",
+            "src/data/shared_optimizer_data.py": "c0c7692fe3b62f3c1f1e58ef604abb3370a37a3c2d986d4a058577054060ec68",
+            "src/federated/shared_adam.py": "1b8c10b79d5113f6295c0c85c5cd285e36833283da7ba0765579ec71bca4e2e8",
+            "src/federated/mime_adam.py": "a23f54156136d92cb5bab519e97f682378dadfcb87cf3187f3b7186261684b8b",
+            "src/models/architectures.py": "921a1c9fd5f212d647eaea93e8c0fec8134cd0ca1b118d8ed41e7d5d7fd85526",
+            "src/models/official_losses.py": "8d2603b1e875d63ff5fe83ac270d8e410a97738dffa0982f3c37120475f49436",
+            "src/models/losses.py": "2af9a81e5fedb122316db1f83900b34436976a5204a0d8145bdfefe8d76134da"
+          }
+        },
+        "work": {
+          "backward_examples": 21600000,
+          "backward_batches": 43200,
+          "optimizer_steps": 2160,
+          "anchor_examples": 0,
+          "local_examples": 0,
+          "synchronization_rounds": 2160,
+          "logical_barriers": 2160,
+          "estimated_payload_bytes": 1761177600
+        },
+        "initial_model_sha256": "50c4a876adc78d1b4f375d475f93a1651e02a2c53841f428bacc5a7047b5a07c",
+        "final_model_sha256": "9ce9bf399e5dadf8608794821628bade6ae2d8772847c8baf474587f491770eb",
+        "sample_chain_sha256": "09974f2df56f952a78ae7a7da7da6322c31c94b70cf8a75680f07bfed37a3ac5",
+        "num_parameters": 5096,
+        "parameter_bytes": 20384,
+        "training_seconds": 36.012435249984264,
+        "evaluation_seconds": 0.06511495914310217,
+        "development_metrics": {
+          "macro_f1": 0.6420835598806673,
+          "accuracy": 0.8216227174435368,
+          "per_class": {
+            "Benign": {
+              "precision": 0.7875915149239722,
+              "recall": 0.7918652385221535,
+              "f1": 0.7897225947624762,
+              "support": 21193
+            },
+            "DDoS": {
+              "precision": 0.9082766066885696,
+              "recall": 0.8309113415347571,
+              "f1": 0.8678732330444215,
+              "support": 235894
+            },
+            "DoS": {
+              "precision": 0.5688220856230587,
+              "recall": 0.7265362741018172,
+              "f1": 0.6380780663710346,
+              "support": 72090
+            },
+            "Recon": {
+              "precision": 0.6745751189666893,
+              "recall": 0.7491318133776235,
+              "f1": 0.7099012734296752,
+              "support": 13246
+            },
+            "Web-based": {
+              "precision": 0.2111111111111111,
+              "recall": 0.07676767676767676,
+              "f1": 0.11259259259259259,
+              "support": 495
+            },
+            "Brute Force": {
+              "precision": 0.41566265060240964,
+              "recall": 0.276,
+              "f1": 0.3317307692307692,
+              "support": 250
+            },
+            "Spoofing": {
+              "precision": 0.7358931119470749,
+              "recall": 0.6523689052437902,
+              "f1": 0.6916184090216397,
+              "support": 8696
+            },
+            "Mirai": {
+              "precision": 0.9960714285714286,
+              "recall": 0.9942333501090421,
+              "f1": 0.9951515405927294,
+              "support": 47688
+            }
+          },
+          "benign_false_alert_rate": 0.20813476147784649,
+          "confusion_matrix": [
+            [
+              16782,
+              0,
+              0,
+              3225,
+              29,
+              46,
+              1111,
+              0
+            ],
+            [
+              3,
+              196007,
+              39626,
+              73,
+              14,
+              0,
+              42,
+              129
+            ],
+            [
+              0,
+              19612,
+              52376,
+              16,
+              5,
+              1,
+              22,
+              58
+            ],
+            [
+              2517,
+              3,
+              0,
+              9923,
+              41,
+              44,
+              718,
+              0
+            ],
+            [
+              106,
+              0,
+              0,
+              249,
+              38,
+              2,
+              100,
+              0
+            ],
+            [
+              65,
+              0,
+              0,
+              89,
+              3,
+              69,
+              24,
+              0
+            ],
+            [
+              1835,
+              4,
+              1,
+              1131,
+              48,
+              4,
+              5673,
+              0
+            ],
+            [
+              0,
+              175,
+              75,
+              4,
+              2,
+              0,
+              19,
+              47413
+            ]
+          ]
+        },
+        "confirmation_scored": false,
+        "original_validation_opened": false,
+        "test_opened": false,
+        "test_evaluated": false,
+        "network_measured": false
+      },
+      {
+        "status": "complete",
+        "arm": "shared_adam",
+        "learning_rate": 0.003,
+        "seed": 7,
+        "units": 2160,
+        "contract": {
+          "plan_sha256": "18c5adc85dd34b2f20ce8d3ba96411c5748b32f3365d5b1cd4de07c8cc81426e",
+          "data_manifest_sha256": "f184b699fe9a34c46cc9218191ff43fd87457a8e2f6f366de6000eabf31a6987",
+          "sources": {
+            "src/eval/shared_optimizer_performance.py": "60b9d077c140d17041585c8847e952dcccd0aedc492edda27d244eaf31405c0b",
+            "src/data/shared_optimizer_data.py": "c0c7692fe3b62f3c1f1e58ef604abb3370a37a3c2d986d4a058577054060ec68",
+            "src/federated/shared_adam.py": "1b8c10b79d5113f6295c0c85c5cd285e36833283da7ba0765579ec71bca4e2e8",
+            "src/federated/mime_adam.py": "a23f54156136d92cb5bab519e97f682378dadfcb87cf3187f3b7186261684b8b",
+            "src/models/architectures.py": "921a1c9fd5f212d647eaea93e8c0fec8134cd0ca1b118d8ed41e7d5d7fd85526",
+            "src/models/official_losses.py": "8d2603b1e875d63ff5fe83ac270d8e410a97738dffa0982f3c37120475f49436",
+            "src/models/losses.py": "2af9a81e5fedb122316db1f83900b34436976a5204a0d8145bdfefe8d76134da"
+          }
+        },
+        "work": {
+          "backward_examples": 21600000,
+          "backward_batches": 43200,
+          "optimizer_steps": 2160,
+          "anchor_examples": 0,
+          "local_examples": 0,
+          "synchronization_rounds": 2160,
+          "logical_barriers": 2160,
+          "estimated_payload_bytes": 1761177600
+        },
+        "initial_model_sha256": "50c4a876adc78d1b4f375d475f93a1651e02a2c53841f428bacc5a7047b5a07c",
+        "final_model_sha256": "20c052cefcb999028ab1b5315d6f3dd51bc8965d7181c7f54e9b79c0bc2ab4e5",
+        "sample_chain_sha256": "09974f2df56f952a78ae7a7da7da6322c31c94b70cf8a75680f07bfed37a3ac5",
+        "num_parameters": 5096,
+        "parameter_bytes": 20384,
+        "training_seconds": 35.78688095812686,
+        "evaluation_seconds": 0.061805457808077335,
+        "development_metrics": {
+          "macro_f1": 0.652141809606875,
+          "accuracy": 0.8273791646644242,
+          "per_class": {
+            "Benign": {
+              "precision": 0.795752625437573,
+              "recall": 0.8044637380267069,
+              "f1": 0.8000844713501337,
+              "support": 21193
+            },
+            "DDoS": {
+              "precision": 0.9084020963937255,
+              "recall": 0.8391014608256251,
+              "f1": 0.8723776531979409,
+              "support": 235894
+            },
+            "DoS": {
+              "precision": 0.579697595417305,
+              "recall": 0.7243445692883895,
+              "f1": 0.6439988160426224,
+              "support": 72090
+            },
+            "Recon": {
+              "precision": 0.7361077506250504,
+              "recall": 0.6890382002113846,
+              "f1": 0.711795671670891,
+              "support": 13246
+            },
+            "Web-based": {
+              "precision": 0.20132013201320131,
+              "recall": 0.12323232323232323,
+              "f1": 0.15288220551378445,
+              "support": 495
+            },
+            "Brute Force": {
+              "precision": 0.35714285714285715,
+              "recall": 0.28,
+              "f1": 0.31390134529147984,
+              "support": 250
+            },
+            "Spoofing": {
+              "precision": 0.6890495867768595,
+              "recall": 0.7670193192272309,
+              "f1": 0.7259468872442316,
+              "support": 8696
+            },
+            "Mirai": {
+              "precision": 0.9973514388413596,
+              "recall": 0.9949463177319242,
+              "f1": 0.9961474265439162,
+              "support": 47688
+            }
+          },
+          "benign_false_alert_rate": 0.1955362619732931,
+          "confusion_matrix": [
+            [
+              17049,
+              0,
+              0,
+              2450,
+              60,
+              45,
+              1588,
+              1
+            ],
+            [
+              2,
+              197939,
+              37802,
+              45,
+              1,
+              0,
+              33,
+              72
+            ],
+            [
+              0,
+              19795,
+              52218,
+              7,
+              3,
+              0,
+              19,
+              48
+            ],
+            [
+              2737,
+              0,
+              0,
+              9127,
+              116,
+              74,
+              1191,
+              1
+            ],
+            [
+              113,
+              0,
+              0,
+              187,
+              61,
+              2,
+              132,
+              0
+            ],
+            [
+              78,
+              0,
+              1,
+              60,
+              8,
+              70,
+              33,
+              0
+            ],
+            [
+              1446,
+              0,
+              0,
+              519,
+              52,
+              5,
+              6670,
+              4
+            ],
+            [
+              0,
+              164,
+              57,
+              4,
+              2,
+              0,
+              14,
+              47447
+            ]
+          ]
+        },
+        "confirmation_scored": false,
+        "original_validation_opened": false,
+        "test_opened": false,
+        "test_evaluated": false,
+        "network_measured": false
+      },
+      {
+        "status": "complete",
+        "arm": "fedavg_adam",
+        "learning_rate": 0.001,
+        "seed": 7,
+        "units": 108,
+        "contract": {
+          "plan_sha256": "18c5adc85dd34b2f20ce8d3ba96411c5748b32f3365d5b1cd4de07c8cc81426e",
+          "data_manifest_sha256": "f184b699fe9a34c46cc9218191ff43fd87457a8e2f6f366de6000eabf31a6987",
+          "sources": {
+            "src/eval/shared_optimizer_performance.py": "60b9d077c140d17041585c8847e952dcccd0aedc492edda27d244eaf31405c0b",
+            "src/data/shared_optimizer_data.py": "c0c7692fe3b62f3c1f1e58ef604abb3370a37a3c2d986d4a058577054060ec68",
+            "src/federated/shared_adam.py": "1b8c10b79d5113f6295c0c85c5cd285e36833283da7ba0765579ec71bca4e2e8",
+            "src/federated/mime_adam.py": "a23f54156136d92cb5bab519e97f682378dadfcb87cf3187f3b7186261684b8b",
+            "src/models/architectures.py": "921a1c9fd5f212d647eaea93e8c0fec8134cd0ca1b118d8ed41e7d5d7fd85526",
+            "src/models/official_losses.py": "8d2603b1e875d63ff5fe83ac270d8e410a97738dffa0982f3c37120475f49436",
+            "src/models/losses.py": "2af9a81e5fedb122316db1f83900b34436976a5204a0d8145bdfefe8d76134da"
+          }
+        },
+        "work": {
+          "backward_examples": 21600000,
+          "backward_batches": 43200,
+          "optimizer_steps": 43200,
+          "anchor_examples": 0,
+          "local_examples": 21600000,
+          "synchronization_rounds": 108,
+          "logical_barriers": 108,
+          "estimated_payload_bytes": 88058880
+        },
+        "initial_model_sha256": "50c4a876adc78d1b4f375d475f93a1651e02a2c53841f428bacc5a7047b5a07c",
+        "final_model_sha256": "41a77d1b927f94330786189d1475128ee00e74f24363288217623115fc44b566",
+        "sample_chain_sha256": "39b17d50670c29c6a396917aff6ebf05c8062006c94b3c4d26a49d4376b2b367",
+        "num_parameters": 5096,
+        "parameter_bytes": 20384,
+        "training_seconds": 47.76644583395682,
+        "evaluation_seconds": 0.06685837497934699,
+        "development_metrics": {
+          "macro_f1": 0.48056482959572544,
+          "accuracy": 0.8020933445458914,
+          "per_class": {
+            "Benign": {
+              "precision": 0.5402554423703397,
+              "recall": 0.9859859387533619,
+              "f1": 0.6980341066626581,
+              "support": 21193
+            },
+            "DDoS": {
+              "precision": 0.7992555534686769,
+              "recall": 0.9921829296209315,
+              "f1": 0.8853306703434084,
+              "support": 235894
+            },
+            "DoS": {
+              "precision": 0.8879906874474552,
+              "recall": 0.1904702455264253,
+              "f1": 0.3136614393567325,
+              "support": 72090
+            },
+            "Recon": {
+              "precision": 0.8649453823237339,
+              "recall": 0.2630227993356485,
+              "f1": 0.40338080351974065,
+              "support": 13246
+            },
+            "Web-based": {
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0,
+              "support": 495
+            },
+            "Brute Force": {
+              "precision": 0.8305084745762712,
+              "recall": 0.196,
+              "f1": 0.31715210355987056,
+              "support": 250
+            },
+            "Spoofing": {
+              "precision": 0.8521739130434782,
+              "recall": 0.13523459061637536,
+              "f1": 0.2334259626836046,
+              "support": 8696
+            },
+            "Mirai": {
+              "precision": 0.9996391347725487,
+              "recall": 0.9875020969635967,
+              "f1": 0.9935335506397882,
+              "support": 47688
+            }
+          },
+          "benign_false_alert_rate": 0.014014061246638065,
+          "confusion_matrix": [
+            [
+              20896,
+              2,
+              0,
+              240,
+              0,
+              1,
+              54,
+              0
+            ],
+            [
+              48,
+              234050,
+              1684,
+              89,
+              0,
+              0,
+              18,
+              5
+            ],
+            [
+              7,
+              58284,
+              13731,
+              33,
+              0,
+              0,
+              23,
+              12
+            ],
+            [
+              9671,
+              20,
+              0,
+              3484,
+              0,
+              9,
+              62,
+              0
+            ],
+            [
+              458,
+              0,
+              0,
+              36,
+              0,
+              0,
+              1,
+              0
+            ],
+            [
+              185,
+              1,
+              0,
+              11,
+              0,
+              49,
+              4,
+              0
+            ],
+            [
+              7384,
+              9,
+              1,
+              126,
+              0,
+              0,
+              1176,
+              0
+            ],
+            [
+              29,
+              469,
+              47,
+              9,
+              0,
+              0,
+              42,
+              47092
+            ]
+          ]
+        },
+        "confirmation_scored": false,
+        "original_validation_opened": false,
+        "test_opened": false,
+        "test_evaluated": false,
+        "network_measured": false
+      },
+      {
+        "status": "complete",
+        "arm": "fedavg_adam",
+        "learning_rate": 0.003,
+        "seed": 7,
+        "units": 108,
+        "contract": {
+          "plan_sha256": "18c5adc85dd34b2f20ce8d3ba96411c5748b32f3365d5b1cd4de07c8cc81426e",
+          "data_manifest_sha256": "f184b699fe9a34c46cc9218191ff43fd87457a8e2f6f366de6000eabf31a6987",
+          "sources": {
+            "src/eval/shared_optimizer_performance.py": "60b9d077c140d17041585c8847e952dcccd0aedc492edda27d244eaf31405c0b",
+            "src/data/shared_optimizer_data.py": "c0c7692fe3b62f3c1f1e58ef604abb3370a37a3c2d986d4a058577054060ec68",
+            "src/federated/shared_adam.py": "1b8c10b79d5113f6295c0c85c5cd285e36833283da7ba0765579ec71bca4e2e8",
+            "src/federated/mime_adam.py": "a23f54156136d92cb5bab519e97f682378dadfcb87cf3187f3b7186261684b8b",
+            "src/models/architectures.py": "921a1c9fd5f212d647eaea93e8c0fec8134cd0ca1b118d8ed41e7d5d7fd85526",
+            "src/models/official_losses.py": "8d2603b1e875d63ff5fe83ac270d8e410a97738dffa0982f3c37120475f49436",
+            "src/models/losses.py": "2af9a81e5fedb122316db1f83900b34436976a5204a0d8145bdfefe8d76134da"
+          }
+        },
+        "work": {
+          "backward_examples": 21600000,
+          "backward_batches": 43200,
+          "optimizer_steps": 43200,
+          "anchor_examples": 0,
+          "local_examples": 21600000,
+          "synchronization_rounds": 108,
+          "logical_barriers": 108,
+          "estimated_payload_bytes": 88058880
+        },
+        "initial_model_sha256": "50c4a876adc78d1b4f375d475f93a1651e02a2c53841f428bacc5a7047b5a07c",
+        "final_model_sha256": "d08c05be1a7c531140a3234f39af5ac04f4ce3c787dc37fdbdacfd6edd556f8e",
+        "sample_chain_sha256": "39b17d50670c29c6a396917aff6ebf05c8062006c94b3c4d26a49d4376b2b367",
+        "num_parameters": 5096,
+        "parameter_bytes": 20384,
+        "training_seconds": 46.34738004091196,
+        "evaluation_seconds": 0.06025095796212554,
+        "development_metrics": {
+          "macro_f1": 0.4836826437515157,
+          "accuracy": 0.8028566995034438,
+          "per_class": {
+            "Benign": {
+              "precision": 0.542567006025348,
+              "recall": 0.9857500117963478,
+              "f1": 0.6999011675628591,
+              "support": 21193
+            },
+            "DDoS": {
+              "precision": 0.7984692487879284,
+              "recall": 0.9941753499453144,
+              "f1": 0.8856395131475097,
+              "support": 235894
+            },
+            "DoS": {
+              "precision": 0.9110116999311769,
+              "recall": 0.18361770009710085,
+              "f1": 0.3056338028169014,
+              "support": 72090
+            },
+            "Recon": {
+              "precision": 0.8921568627450981,
+              "recall": 0.26792994111429863,
+              "f1": 0.4120993961913609,
+              "support": 13246
+            },
+            "Web-based": {
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0,
+              "support": 495
+            },
+            "Brute Force": {
+              "precision": 0.7313432835820896,
+              "recall": 0.196,
+              "f1": 0.30914826498422715,
+              "support": 250
+            },
+            "Spoofing": {
+              "precision": 0.864951768488746,
+              "recall": 0.1546688132474701,
+              "f1": 0.26241342308067506,
+              "support": 8696
+            },
+            "Mirai": {
+              "precision": 0.9997034275303986,
+              "recall": 0.9895990605603087,
+              "f1": 0.9946255822285919,
+              "support": 47688
+            }
+          },
+          "benign_false_alert_rate": 0.014249988203652197,
+          "confusion_matrix": [
+            [
+              20891,
+              5,
+              0,
+              242,
+              0,
+              4,
+              51,
+              0
+            ],
+            [
+              20,
+              234520,
+              1236,
+              73,
+              0,
+              0,
+              37,
+              8
+            ],
+            [
+              6,
+              58789,
+              13237,
+              21,
+              0,
+              0,
+              31,
+              6
+            ],
+            [
+              9600,
+              10,
+              2,
+              3549,
+              0,
+              14,
+              71,
+              0
+            ],
+            [
+              459,
+              0,
+              0,
+              35,
+              0,
+              0,
+              1,
+              0
+            ],
+            [
+              187,
+              0,
+              0,
+              9,
+              0,
+              49,
+              5,
+              0
+            ],
+            [
+              7296,
+              6,
+              0,
+              49,
+              0,
+              0,
+              1345,
+              0
+            ],
+            [
+              45,
+              382,
+              55,
+              0,
+              0,
+              0,
+              14,
+              47192
+            ]
+          ]
+        },
+        "confirmation_scored": false,
+        "original_validation_opened": false,
+        "test_opened": false,
+        "test_evaluated": false,
+        "network_measured": false
+      },
+      {
+        "status": "complete",
+        "arm": "central_mime_base",
+        "learning_rate": 0.001,
+        "seed": 7,
+        "units": 43200,
+        "contract": {
+          "plan_sha256": "18c5adc85dd34b2f20ce8d3ba96411c5748b32f3365d5b1cd4de07c8cc81426e",
+          "data_manifest_sha256": "f184b699fe9a34c46cc9218191ff43fd87457a8e2f6f366de6000eabf31a6987",
+          "sources": {
+            "src/eval/shared_optimizer_performance.py": "60b9d077c140d17041585c8847e952dcccd0aedc492edda27d244eaf31405c0b",
+            "src/data/shared_optimizer_data.py": "c0c7692fe3b62f3c1f1e58ef604abb3370a37a3c2d986d4a058577054060ec68",
+            "src/federated/shared_adam.py": "1b8c10b79d5113f6295c0c85c5cd285e36833283da7ba0765579ec71bca4e2e8",
+            "src/federated/mime_adam.py": "a23f54156136d92cb5bab519e97f682378dadfcb87cf3187f3b7186261684b8b",
+            "src/models/architectures.py": "921a1c9fd5f212d647eaea93e8c0fec8134cd0ca1b118d8ed41e7d5d7fd85526",
+            "src/models/official_losses.py": "8d2603b1e875d63ff5fe83ac270d8e410a97738dffa0982f3c37120475f49436",
+            "src/models/losses.py": "2af9a81e5fedb122316db1f83900b34436976a5204a0d8145bdfefe8d76134da"
+          }
+        },
+        "work": {
+          "backward_examples": 21600000,
+          "backward_batches": 43200,
+          "optimizer_steps": 43200,
+          "anchor_examples": 0,
+          "local_examples": 0,
+          "synchronization_rounds": 0,
+          "logical_barriers": 0,
+          "estimated_payload_bytes": 0
+        },
+        "initial_model_sha256": "50c4a876adc78d1b4f375d475f93a1651e02a2c53841f428bacc5a7047b5a07c",
+        "final_model_sha256": "a21bf184382c3867f2bbf6919fd70c468ac4b4eb0640a3f2fad196d1938aa974",
+        "sample_chain_sha256": "8010f01b0b1795d472e68f6f576c2034423ac87a13f4d71370463af89dcb4ebf",
+        "num_parameters": 5096,
+        "parameter_bytes": 20384,
+        "training_seconds": 65.42853958415799,
+        "evaluation_seconds": 0.0644273329526186,
+        "development_metrics": {
+          "macro_f1": 0.6470578036215744,
+          "accuracy": 0.8347899647605318,
+          "per_class": {
+            "Benign": {
+              "precision": 0.8299861317992706,
+              "recall": 0.7624687396781956,
+              "f1": 0.7947961241453937,
+              "support": 21193
+            },
+            "DDoS": {
+              "precision": 0.895614088982121,
+              "recall": 0.8651343400001695,
+              "f1": 0.8801104019320338,
+              "support": 235894
+            },
+            "DoS": {
+              "precision": 0.603757355141119,
+              "recall": 0.671813011513386,
+              "f1": 0.635969692592544,
+              "support": 72090
+            },
+            "Recon": {
+              "precision": 0.699351757079495,
+              "recall": 0.7737430167597765,
+              "f1": 0.7346690082792732,
+              "support": 13246
+            },
+            "Web-based": {
+              "precision": 0.18149466192170818,
+              "recall": 0.10303030303030303,
+              "f1": 0.13144329896907217,
+              "support": 495
+            },
+            "Brute Force": {
+              "precision": 0.14705882352941177,
+              "recall": 0.34,
+              "f1": 0.20531400966183574,
+              "support": 250
+            },
+            "Spoofing": {
+              "precision": 0.7855230872183806,
+              "recall": 0.8099126034958601,
+              "f1": 0.797531423394859,
+              "support": 8696
+            },
+            "Mirai": {
+              "precision": 0.9983796637276151,
+              "recall": 0.9948834088240228,
+              "f1": 0.9966284699975843,
+              "support": 47688
+            }
+          },
+          "benign_false_alert_rate": 0.23753126032180438,
+          "confusion_matrix": [
+            [
+              16159,
+              1,
+              0,
+              3398,
+              83,
+              276,
+              1276,
+              0
+            ],
+            [
+              0,
+              204080,
+              31720,
+              16,
+              0,
+              0,
+              27,
+              51
+            ],
+            [
+              0,
+              23618,
+              48431,
+              3,
+              1,
+              0,
+              11,
+              26
+            ],
+            [
+              2209,
+              1,
+              1,
+              10249,
+              97,
+              187,
+              502,
+              0
+            ],
+            [
+              82,
+              0,
+              0,
+              275,
+              51,
+              9,
+              78,
+              0
+            ],
+            [
+              55,
+              0,
+              1,
+              90,
+              4,
+              85,
+              15,
+              0
+            ],
+            [
+              964,
+              1,
+              0,
+              623,
+              44,
+              21,
+              7043,
+              0
+            ],
+            [
+              0,
+              165,
+              63,
+              1,
+              1,
+              0,
+              14,
+              47444
+            ]
+          ]
+        },
+        "confirmation_scored": false,
+        "original_validation_opened": false,
+        "test_opened": false,
+        "test_evaluated": false,
+        "network_measured": false
+      },
+      {
+        "status": "complete",
+        "arm": "central_mime_base",
+        "learning_rate": 0.003,
+        "seed": 7,
+        "units": 43200,
+        "contract": {
+          "plan_sha256": "18c5adc85dd34b2f20ce8d3ba96411c5748b32f3365d5b1cd4de07c8cc81426e",
+          "data_manifest_sha256": "f184b699fe9a34c46cc9218191ff43fd87457a8e2f6f366de6000eabf31a6987",
+          "sources": {
+            "src/eval/shared_optimizer_performance.py": "60b9d077c140d17041585c8847e952dcccd0aedc492edda27d244eaf31405c0b",
+            "src/data/shared_optimizer_data.py": "c0c7692fe3b62f3c1f1e58ef604abb3370a37a3c2d986d4a058577054060ec68",
+            "src/federated/shared_adam.py": "1b8c10b79d5113f6295c0c85c5cd285e36833283da7ba0765579ec71bca4e2e8",
+            "src/federated/mime_adam.py": "a23f54156136d92cb5bab519e97f682378dadfcb87cf3187f3b7186261684b8b",
+            "src/models/architectures.py": "921a1c9fd5f212d647eaea93e8c0fec8134cd0ca1b118d8ed41e7d5d7fd85526",
+            "src/models/official_losses.py": "8d2603b1e875d63ff5fe83ac270d8e410a97738dffa0982f3c37120475f49436",
+            "src/models/losses.py": "2af9a81e5fedb122316db1f83900b34436976a5204a0d8145bdfefe8d76134da"
+          }
+        },
+        "work": {
+          "backward_examples": 21600000,
+          "backward_batches": 43200,
+          "optimizer_steps": 43200,
+          "anchor_examples": 0,
+          "local_examples": 0,
+          "synchronization_rounds": 0,
+          "logical_barriers": 0,
+          "estimated_payload_bytes": 0
+        },
+        "initial_model_sha256": "50c4a876adc78d1b4f375d475f93a1651e02a2c53841f428bacc5a7047b5a07c",
+        "final_model_sha256": "ec163dd92616e20698835b590a95d589f022f86e9f90a5a1a46105f772dad17a",
+        "sample_chain_sha256": "8010f01b0b1795d472e68f6f576c2034423ac87a13f4d71370463af89dcb4ebf",
+        "num_parameters": 5096,
+        "parameter_bytes": 20384,
+        "training_seconds": 76.87103454116732,
+        "evaluation_seconds": 0.101240708027035,
+        "development_metrics": {
+          "macro_f1": 0.6518972937713138,
+          "accuracy": 0.8369123418228416,
+          "per_class": {
+            "Benign": {
+              "precision": 0.817433046993431,
+              "recall": 0.7633180767234464,
+              "f1": 0.7894492838494009,
+              "support": 21193
+            },
+            "DDoS": {
+              "precision": 0.8920997093827844,
+              "recall": 0.8744690411795129,
+              "f1": 0.8831963966895442,
+              "support": 235894
+            },
+            "DoS": {
+              "precision": 0.6156141288061393,
+              "recall": 0.6554168400610348,
+              "f1": 0.6348922675875599,
+              "support": 72090
+            },
+            "Recon": {
+              "precision": 0.7300504301394245,
+              "recall": 0.7431677487543409,
+              "f1": 0.7365506921062477,
+              "support": 13246
+            },
+            "Web-based": {
+              "precision": 0.18731117824773413,
+              "recall": 0.12525252525252525,
+              "f1": 0.15012106537530268,
+              "support": 495
+            },
+            "Brute Force": {
+              "precision": 0.20194647201946472,
+              "recall": 0.332,
+              "f1": 0.25113464447806355,
+              "support": 250
+            },
+            "Spoofing": {
+              "precision": 0.7254862440794114,
+              "recall": 0.827851885924563,
+              "f1": 0.7732960953864332,
+              "support": 8696
+            },
+            "Mirai": {
+              "precision": 0.9971446567289524,
+              "recall": 0.9959318906223787,
+              "f1": 0.9965379046979584,
+              "support": 47688
+            }
+          },
+          "benign_false_alert_rate": 0.23668192327655357,
+          "confusion_matrix": [
+            [
+              16177,
+              0,
+              0,
+              2814,
+              99,
+              178,
+              1924,
+              1
+            ],
+            [
+              3,
+              206282,
+              29472,
+              13,
+              2,
+              0,
+              24,
+              98
+            ],
+            [
+              0,
+              24790,
+              47249,
+              2,
+              0,
+              0,
+              16,
+              33
+            ],
+            [
+              2496,
+              2,
+              0,
+              9844,
+              119,
+              131,
+              654,
+              0
+            ],
+            [
+              99,
+              0,
+              0,
+              251,
+              62,
+              7,
+              76,
+              0
+            ],
+            [
+              62,
+              0,
+              1,
+              77,
+              7,
+              83,
+              20,
+              0
+            ],
+            [
+              953,
+              4,
+              0,
+              483,
+              41,
+              12,
+              7199,
+              4
+            ],
+            [
+              0,
+              154,
+              29,
+              0,
+              1,
+              0,
+              10,
+              47494
+            ]
+          ]
+        },
+        "confirmation_scored": false,
+        "original_validation_opened": false,
+        "test_opened": false,
+        "test_evaluated": false,
+        "network_measured": false
+      },
+      {
+        "status": "complete",
+        "arm": "mime",
+        "learning_rate": 0.001,
+        "seed": 7,
+        "units": 24,
+        "contract": {
+          "plan_sha256": "18c5adc85dd34b2f20ce8d3ba96411c5748b32f3365d5b1cd4de07c8cc81426e",
+          "data_manifest_sha256": "f184b699fe9a34c46cc9218191ff43fd87457a8e2f6f366de6000eabf31a6987",
+          "sources": {
+            "src/eval/shared_optimizer_performance.py": "60b9d077c140d17041585c8847e952dcccd0aedc492edda27d244eaf31405c0b",
+            "src/data/shared_optimizer_data.py": "c0c7692fe3b62f3c1f1e58ef604abb3370a37a3c2d986d4a058577054060ec68",
+            "src/federated/shared_adam.py": "1b8c10b79d5113f6295c0c85c5cd285e36833283da7ba0765579ec71bca4e2e8",
+            "src/federated/mime_adam.py": "a23f54156136d92cb5bab519e97f682378dadfcb87cf3187f3b7186261684b8b",
+            "src/models/architectures.py": "921a1c9fd5f212d647eaea93e8c0fec8134cd0ca1b118d8ed41e7d5d7fd85526",
+            "src/models/official_losses.py": "8d2603b1e875d63ff5fe83ac270d8e410a97738dffa0982f3c37120475f49436",
+            "src/models/losses.py": "2af9a81e5fedb122316db1f83900b34436976a5204a0d8145bdfefe8d76134da"
+          }
+        },
+        "work": {
+          "backward_examples": 21600000,
+          "backward_batches": 20880,
+          "optimizer_steps": 9600,
+          "anchor_examples": 12000000,
+          "local_examples": 4800000,
+          "synchronization_rounds": 24,
+          "logical_barriers": 48,
+          "estimated_payload_bytes": 58705920
+        },
+        "initial_model_sha256": "50c4a876adc78d1b4f375d475f93a1651e02a2c53841f428bacc5a7047b5a07c",
+        "final_model_sha256": "88818008a8471471684dbb8d46f747db9c310a753ec365b101239cd78b5c332c",
+        "sample_chain_sha256": "b6572aee2099df59e41bd9a9e8d9eea94572ce2adc5856c30eabc02eb8a23c7c",
+        "num_parameters": 5096,
+        "parameter_bytes": 20384,
+        "training_seconds": 33.62323116697371,
+        "evaluation_seconds": 0.11993533396162093,
+        "development_metrics": {
+          "macro_f1": 0.5069444553630613,
+          "accuracy": 0.7792953107480378,
+          "per_class": {
+            "Benign": {
+              "precision": 0.622484462858834,
+              "recall": 0.7939885811352805,
+              "f1": 0.6978538102643856,
+              "support": 21193
+            },
+            "DDoS": {
+              "precision": 0.8647529353339718,
+              "recall": 0.8267526940066301,
+              "f1": 0.845325970586578,
+              "support": 235894
+            },
+            "DoS": {
+              "precision": 0.5128928972967688,
+              "recall": 0.5821750589540852,
+              "f1": 0.5453423251341624,
+              "support": 72090
+            },
+            "Recon": {
+              "precision": 0.5673023385300668,
+              "recall": 0.6153555790427299,
+              "f1": 0.5903527196349677,
+              "support": 13246
+            },
+            "Web-based": {
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0,
+              "support": 495
+            },
+            "Brute Force": {
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0,
+              "support": 250
+            },
+            "Spoofing": {
+              "precision": 0.6579677956690727,
+              "recall": 0.27253909843606255,
+              "f1": 0.3854285249634087,
+              "support": 8696
+            },
+            "Mirai": {
+              "precision": 0.996440225452388,
+              "recall": 0.9861181009897668,
+              "f1": 0.9912522923209882,
+              "support": 47688
+            }
+          },
+          "benign_false_alert_rate": 0.20601141886471952,
+          "confusion_matrix": [
+            [
+              16827,
+              141,
+              3,
+              3788,
+              0,
+              0,
+              434,
+              0
+            ],
+            [
+              473,
+              195026,
+              39821,
+              282,
+              0,
+              0,
+              141,
+              151
+            ],
+            [
+              232,
+              29695,
+              41969,
+              138,
+              0,
+              0,
+              40,
+              16
+            ],
+            [
+              4345,
+              258,
+              14,
+              8151,
+              0,
+              0,
+              477,
+              1
+            ],
+            [
+              228,
+              9,
+              2,
+              214,
+              0,
+              0,
+              42,
+              0
+            ],
+            [
+              87,
+              3,
+              0,
+              147,
+              0,
+              0,
+              13,
+              0
+            ],
+            [
+              4719,
+              111,
+              0,
+              1496,
+              0,
+              0,
+              2370,
+              0
+            ],
+            [
+              121,
+              285,
+              19,
+              152,
+              0,
+              0,
+              85,
+              47026
+            ]
+          ]
+        },
+        "confirmation_scored": false,
+        "original_validation_opened": false,
+        "test_opened": false,
+        "test_evaluated": false,
+        "network_measured": false
+      },
+      {
+        "status": "complete",
+        "arm": "mime",
+        "learning_rate": 0.003,
+        "seed": 7,
+        "units": 24,
+        "contract": {
+          "plan_sha256": "18c5adc85dd34b2f20ce8d3ba96411c5748b32f3365d5b1cd4de07c8cc81426e",
+          "data_manifest_sha256": "f184b699fe9a34c46cc9218191ff43fd87457a8e2f6f366de6000eabf31a6987",
+          "sources": {
+            "src/eval/shared_optimizer_performance.py": "60b9d077c140d17041585c8847e952dcccd0aedc492edda27d244eaf31405c0b",
+            "src/data/shared_optimizer_data.py": "c0c7692fe3b62f3c1f1e58ef604abb3370a37a3c2d986d4a058577054060ec68",
+            "src/federated/shared_adam.py": "1b8c10b79d5113f6295c0c85c5cd285e36833283da7ba0765579ec71bca4e2e8",
+            "src/federated/mime_adam.py": "a23f54156136d92cb5bab519e97f682378dadfcb87cf3187f3b7186261684b8b",
+            "src/models/architectures.py": "921a1c9fd5f212d647eaea93e8c0fec8134cd0ca1b118d8ed41e7d5d7fd85526",
+            "src/models/official_losses.py": "8d2603b1e875d63ff5fe83ac270d8e410a97738dffa0982f3c37120475f49436",
+            "src/models/losses.py": "2af9a81e5fedb122316db1f83900b34436976a5204a0d8145bdfefe8d76134da"
+          }
+        },
+        "work": {
+          "backward_examples": 21600000,
+          "backward_batches": 20880,
+          "optimizer_steps": 9600,
+          "anchor_examples": 12000000,
+          "local_examples": 4800000,
+          "synchronization_rounds": 24,
+          "logical_barriers": 48,
+          "estimated_payload_bytes": 58705920
+        },
+        "initial_model_sha256": "50c4a876adc78d1b4f375d475f93a1651e02a2c53841f428bacc5a7047b5a07c",
+        "final_model_sha256": "b78803800a2968ae850e29234d650d9c2be7b671bee647279e3e17256f03ca3f",
+        "sample_chain_sha256": "b6572aee2099df59e41bd9a9e8d9eea94572ce2adc5856c30eabc02eb8a23c7c",
+        "num_parameters": 5096,
+        "parameter_bytes": 20384,
+        "training_seconds": 29.862791541963816,
+        "evaluation_seconds": 0.09510287479497492,
+        "development_metrics": {
+          "macro_f1": 0.5466138793387485,
+          "accuracy": 0.7853771223770624,
+          "per_class": {
+            "Benign": {
+              "precision": 0.6347355907504698,
+              "recall": 0.7810125984995046,
+              "f1": 0.7003173259995769,
+              "support": 21193
+            },
+            "DDoS": {
+              "precision": 0.869803106976333,
+              "recall": 0.8342984560862082,
+              "f1": 0.8516809150097694,
+              "support": 235894
+            },
+            "DoS": {
+              "precision": 0.523726267576153,
+              "recall": 0.590040227493411,
+              "f1": 0.5549090719336238,
+              "support": 72090
+            },
+            "Recon": {
+              "precision": 0.6046222083884523,
+              "recall": 0.5865921787709497,
+              "f1": 0.595470743763651,
+              "support": 13246
+            },
+            "Web-based": {
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0,
+              "support": 495
+            },
+            "Brute Force": {
+              "precision": 0.24104234527687296,
+              "recall": 0.296,
+              "f1": 0.26570915619389585,
+              "support": 250
+            },
+            "Spoofing": {
+              "precision": 0.5179039301310043,
+              "recall": 0.3409613615455382,
+              "f1": 0.4112058803134318,
+              "support": 8696
+            },
+            "Mirai": {
+              "precision": 0.9997240442378315,
+              "recall": 0.9875859755074652,
+              "f1": 0.9936179414960389,
+              "support": 47688
+            }
+          },
+          "benign_false_alert_rate": 0.21898740150049545,
+          "confusion_matrix": [
+            [
+              16552,
+              0,
+              0,
+              3105,
+              0,
+              84,
+              1452,
+              0
+            ],
+            [
+              161,
+              196806,
+              38490,
+              277,
+              0,
+              4,
+              147,
+              9
+            ],
+            [
+              92,
+              29340,
+              42536,
+              70,
+              0,
+              3,
+              45,
+              4
+            ],
+            [
+              4415,
+              0,
+              22,
+              7770,
+              0,
+              117,
+              922,
+              0
+            ],
+            [
+              229,
+              0,
+              0,
+              201,
+              0,
+              2,
+              63,
+              0
+            ],
+            [
+              98,
+              0,
+              0,
+              61,
+              0,
+              74,
+              17,
+              0
+            ],
+            [
+              4432,
+              0,
+              0,
+              1299,
+              0,
+              0,
+              2965,
+              0
+            ],
+            [
+              98,
+              119,
+              170,
+              68,
+              0,
+              23,
+              114,
+              47096
+            ]
+          ]
+        },
+        "confirmation_scored": false,
+        "original_validation_opened": false,
+        "test_opened": false,
+        "test_evaluated": false,
+        "network_measured": false
+      }
+    ],
+    "selected_learning_rates": {
+      "central_adam": 0.001,
+      "shared_adam": 0.003,
+      "fedavg_adam": 0.003,
+      "central_mime_base": 0.003,
+      "mime": 0.003
+    },
+    "screen": {
+      "shared_adam": {
+        "passes_development_screen": false,
+        "checks": {
+          "macro_f1_gain_over_fedavg_min": true,
+          "macro_f1_gap_to_central_max": true,
+          "far_above_central_max": true,
+          "far_above_fedavg_max": false,
+          "any_class_recall_drop_from_fedavg_max": false
+        },
+        "macro_f1_gain_over_fedavg": 0.16845916585535925,
+        "macro_f1_gap_to_central": 0.00866016411674475,
+        "far_above_central": -0.024111735006841828,
+        "far_above_fedavg": 0.1812862737696409,
+        "largest_class_recall_drop_from_fedavg": 0.1812862737696409
+      },
+      "mime": {
+        "passes_development_screen": false,
+        "checks": {
+          "macro_f1_gain_over_fedavg_min": true,
+          "macro_f1_gap_to_central_max": false,
+          "far_above_central_max": true,
+          "far_above_fedavg_max": false,
+          "any_class_recall_drop_from_fedavg_max": false
+        },
+        "macro_f1_gain_over_fedavg": 0.06293123558723279,
+        "macro_f1_gap_to_central": 0.11418809438487121,
+        "far_above_central": -0.0006605954796394808,
+        "far_above_fedavg": 0.20473741329684325,
+        "largest_class_recall_drop_from_fedavg": 0.20473741329684325
+      }
+    },
+    "total_backward_examples": 216000000,
+    "confirmation_scored": false,
+    "original_validation_opened": false,
+    "test_opened": false,
+    "test_evaluated": false,
+    "next": "Review exploratory development endpoints before any confirmation or new method"
+  },
+  "audit": {
+    "status": "complete",
+    "summary_sha256": "6dcf8ccb0d23c549ae0ef7f802550c4b046adbd19172f7a04ca536d192f1291c",
+    "auditor_sha256": "95c77261aaf98912ed3eaded2e9397094984b42edf3899781a6ee89b09fa3eff",
+    "checks": [
+      {
+        "arm": "central_adam",
+        "learning_rate": 0.001,
+        "checkpoint_sha256": "b9eef0365802008011c06df2b37b682f55eadd070715b986eccca056f5eb5c39",
+        "development_replay_exact": true,
+        "backward_examples": 21600000
+      },
+      {
+        "arm": "central_adam",
+        "learning_rate": 0.003,
+        "checkpoint_sha256": "fc2302eb71498831e79766327c541de6364a35452fae0e3289fba7016a03ebbf",
+        "development_replay_exact": true,
+        "backward_examples": 21600000
+      },
+      {
+        "arm": "shared_adam",
+        "learning_rate": 0.001,
+        "checkpoint_sha256": "5fec75cf29c8047d6db219733544a460381fe51c070d46c830dbc9fb3e1c1948",
+        "development_replay_exact": true,
+        "backward_examples": 21600000
+      },
+      {
+        "arm": "shared_adam",
+        "learning_rate": 0.003,
+        "checkpoint_sha256": "b024e9bd8181acaf96fdf04db7a8b9e572144ed874ba27e4c720b798425c61d7",
+        "development_replay_exact": true,
+        "backward_examples": 21600000
+      },
+      {
+        "arm": "fedavg_adam",
+        "learning_rate": 0.001,
+        "checkpoint_sha256": "46f12f56500d67471d72de54af5601f4367ed9dae323137cf5d9820aea3693d7",
+        "development_replay_exact": true,
+        "backward_examples": 21600000
+      },
+      {
+        "arm": "fedavg_adam",
+        "learning_rate": 0.003,
+        "checkpoint_sha256": "5d398cee481704be02bc6f33a96ed26a986e9094795424d8dfcf0582c037508a",
+        "development_replay_exact": true,
+        "backward_examples": 21600000
+      },
+      {
+        "arm": "central_mime_base",
+        "learning_rate": 0.001,
+        "checkpoint_sha256": "5759019ee409aad3be86ecddbf6ac4e924bf521046f359f3080653edfd4ee926",
+        "development_replay_exact": true,
+        "backward_examples": 21600000
+      },
+      {
+        "arm": "central_mime_base",
+        "learning_rate": 0.003,
+        "checkpoint_sha256": "2dfc515de03c713fed63ad0449921fc66d59e6876b3ef2fdf42cbbf894cae814",
+        "development_replay_exact": true,
+        "backward_examples": 21600000
+      },
+      {
+        "arm": "mime",
+        "learning_rate": 0.001,
+        "checkpoint_sha256": "1fca23b319893893873925b32e54b65eae8b029dbff00975ef1f56a2a6687270",
+        "development_replay_exact": true,
+        "backward_examples": 21600000
+      },
+      {
+        "arm": "mime",
+        "learning_rate": 0.003,
+        "checkpoint_sha256": "b59e540216bd630aac4e5c42579aef815eb8a8b88f2df3357623b07adec0e56a",
+        "development_replay_exact": true,
+        "backward_examples": 21600000
+      }
+    ],
+    "development_evaluation_examples": 3995520,
+    "additional_backward_examples": 0,
+    "confirmation_scored": false,
+    "original_validation_opened": false,
+    "test_opened": false,
+    "test_evaluated": false,
+    "scope": "Same-runtime saved-checkpoint inference replay, not an independent training seed"
+  }
+}
