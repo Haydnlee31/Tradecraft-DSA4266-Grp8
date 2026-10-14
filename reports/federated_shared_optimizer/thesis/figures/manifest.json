@@ -1,0 +1,84 @@
+{
+  "status": "complete",
+  "generator_sha256": "4f938b1f7ef1ff10199946fd557d223577c8fbf7e54ea95b58641dadae40dd0e",
+  "sources": {
+    "reports/federated_shared_optimizer/confirmation-results.json": "a8efb197171780decefbfe82edfade5d354924e97889cb49d3df22d471b9001b",
+    "reports/federated_class_safeguards/study-synthesis-results.json": "e32b27b781ea8fa30b06cd113ce21335accdc86a078b45d3b2aa7880c06a0aa1",
+    "reports/federated_shared_optimizer/performance-results.json": "5244f2655ed0176f151418861fe8df287e31760fd5639f43295d7839b420896b"
+  },
+  "figure_count": 9,
+  "figures": [
+    {
+      "id": "01_design",
+      "title": "Study design and optimizer placement",
+      "caption": "The same light network is trained under four update designs. Rows are reserved before fitting; confirmation does not refit models or thresholds. Top arrows show workflow order, not rows migrating between cohorts. The lower arrows describe simulated computation, not physical networking."
+    },
+    {
+      "id": "02_primary",
+      "title": "Primary quality and false alerts",
+      "caption": "Each small marker is one training seed; the black diamond is the mean. No confidence interval is implied. All thresholds were fixed on development at the 5% target; actual confirmation false alerts may exceed 5%."
+    },
+    {
+      "id": "03_recall",
+      "title": "Correct category recall for all eight classes",
+      "caption": "Cells are equal-weight mean recalls across seeds at the primary target, using the same confirmation cohort. Supports are per model, not tripled. The common 0-100% color scale prevents rare-class performance from appearing stronger than it is."
+    },
+    {
+      "id": "04_confusion",
+      "title": "Where each true class is predicted",
+      "caption": "Each matrix averages three row-normalized seed matrices. All methods share supports and a 0-100% color scale. Rows are true labels and columns are predictions. Blank cells are exact zero; nonzero entries below 0.5% display <0.5."
+    },
+    {
+      "id": "05_rare_errors",
+      "title": "Detecting an attack is not identifying its category",
+      "caption": "For each rare class, the three outcomes exhaust its rows: correct category, another attack category, or benign (missed attack). Percentages are averaged across three models, not independent replicated datasets."
+    },
+    {
+      "id": "06_communication",
+      "title": "Quality gains retain communication costs",
+      "caption": "Left: primary mean macro-F1 and sample SD against counted application payload on a logarithmic horizontal axis. The dashed line is centralized-light quality, not zero centralized data-transfer cost. Right: synchronization counts. Payload is not measured traffic or latency; baseline raw accounting excludes initialization and message metadata."
+    },
+    {
+      "id": "07_operating_points",
+      "title": "Four frozen operating points",
+      "caption": "Each point is the mean actual confirmation false-alert rate and mean macro-F1 at a predeclared calibration target (1%, 5%, 10%, 20%). Lines only connect those four measured points; this is not an ROC curve or threshold sweep. Large rings identify the primary 5% target."
+    },
+    {
+      "id": "08_historical_context",
+      "title": "Earlier official39 baseline in its own evaluation",
+      "caption": "These are prior final-test results for the full39 references, with 2M training rows and argmax decisions. They are not directly comparable to the later 500k-fit, alarm-calibrated confirmation results. Seed markers and means are shown separately; no new test inference was run."
+    },
+    {
+      "id": "09_class_support",
+      "title": "Class imbalance in fitting and confirmation",
+      "caption": "The horizontal axis is logarithmic; bar lengths must not be read as linear proportions. Counts are frozen cohort metadata. Confirmation supports describe one shared population, not three times as many independent observations."
+    }
+  ],
+  "files": {
+    "01_design.png": "e4ca5e86933eb7322a2e894b574b1fb7e367e8bad3eefd8ebc547bb16bea2b28",
+    "01_design.svg": "082c2c9def135877eb98c5ca2456516b33527dbce7ba0a33191575f036504990",
+    "02_primary.png": "1a8424652be51cbaa52055562c8e961d5022f6b6d4a5dd908631d57d9c229678",
+    "02_primary.svg": "6c568ae8481d16ab948148b8d1006ef2572df761ae42835a2c7931ae0df36502",
+    "03_recall.png": "6c0664887a30cd387be5e9678109a961e60ba94955098bc35b1ccfc90b9c174b",
+    "03_recall.svg": "17db7af8557ab2f495140974f681fec0e714d1b170436340472a9a9d0990740c",
+    "04_confusion.png": "54b89f77c8fad632bc99a8afeaaec841b0c9fcac58494ba792de35e261dc2ff2",
+    "04_confusion.svg": "af376aa9f96be8230d0378dad2c939d8998cfc0af8d2cd6d0df9199ef61c6074",
+    "05_rare_errors.png": "1fdd119c48d44dc0dfc059875ce0c5197613c59bf50ffdfa8dd99b40ae4b549b",
+    "05_rare_errors.svg": "c6f4990f156ab3ebe7bd844959ed3bd0324fc32eb329634cd1971a0e8846c016",
+    "06_communication.png": "faba6af978659aa944137a8b8fe63e9436afd7030618f06f1214b44e13f9d3d2",
+    "06_communication.svg": "c443bc01d281261aaa815d86582a12af7de576bdc11a38e699978dd872b20c04",
+    "07_operating_points.png": "bf6cb679af0b491629517f812423bb082bc38892d7b6e8c48c8b5c1e1bae67f7",
+    "07_operating_points.svg": "6baaab06cf29e8551bc7de83f8509c37054ee00ce89adffae5bed845038d73c4",
+    "08_historical_context.png": "61affa559eed889c7641490db09ac7aca17ed9745e0033adb0620316b4e95a24",
+    "08_historical_context.svg": "a9b4337b8d5a5170f9be48b95521a247c625f29fc85f69297cec4e45e8d0c9af",
+    "09_class_support.png": "bed35db93aa187608e7dc521b4a411bfa382e91ad0368543ac5de6783143ece3",
+    "09_class_support.svg": "86a4fd9843d4ebac36f7bcf5fd5721d6964b0042d2f4f3eaf09c6b5be3b83933",
+    "figure-data.json": "21ac95f9cd234c46b0a77cd1b429408a83303af71f59707220bd3bd5b6b0639a"
+  },
+  "model_trained": false,
+  "new_model_inference": false,
+  "dataset_arrays_opened": false,
+  "thresholds_refitted": false,
+  "cloud_used": false,
+  "curve_policy": "No invented convergence traces; only saved endpoints and four frozen alarm targets"
+}

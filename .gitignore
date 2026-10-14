@@ -28,6 +28,8 @@ mlruns/
 
 # Reports (keep the write-up itself and figures, ignore scratch outputs)
 reports/figures/*.tmp
+# PDF review copies are delivered separately; retain editable report sources.
+output/pdf/
 
 # OS / editor
 .DS_Store
