@@ -60,3 +60,7 @@ jobs:
       - name: Import the complete study and explanation entry points
         run: python -c "import src.experiment; import src.explain.analyze; import src.eval.study"
       - run: python -m unittest discover -v
+      # Retired experiments retain their tests in a disposable old-path view.
+      # No private datasets, checkpoints, optional Laya runtime or GPU needed.
+      - name: Verify archive and run historical regression tests
+        run: python scripts/archive_tools.py test

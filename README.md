@@ -7,6 +7,19 @@ explainability translated into security-policy recommendations.
 See [CLAUDE.md](CLAUDE.md) for full project context, locked scope decisions, and the
 link to the complete narrative plan.
 
+## Start here
+
+The current deliverable is the [integrated thesis and figures](reports/thesis/README.md).
+Use the [results guide](reports/README.md) to navigate the original comparison,
+official39 study and confirmed shared-optimizer extension, and the
+[script guide](scripts/README.md) for analysis and writing commands.
+
+Retired classifier/routing searches and superseded early run dumps now live in
+the [historical archive](archive/README.md), with comments and evidence preserved.
+They are not required by the active training pipeline. The older setup and
+experiment instructions below describe the legacy46 workflow; they do not
+reproduce the later official39 or shared-optimizer protocols automatically.
+
 ## Supplementary classical baselines
 
 The separate [baseline runner](src/baselines/README.md) provides centralized and

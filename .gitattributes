@@ -1,5 +1,13 @@
+# Byte-hashed source/evidence must be identical on Linux, macOS and Windows.
+# Binary images remain binary through automatic text detection.
+* text=auto eol=lf
+
 # Shell scripts run under WSL2/Linux; CRLF breaks them
 *.sh text eol=lf
+
+# Historical source/receipt bytes must survive Windows checkout unchanged.
+# Old path declarations below document the original audit scope.
+archive/** -text
 
 # Published official-39 receipts are byte-hashed; Windows checkouts must not
 # rewrite their newlines and invalidate otherwise identical evidence.

@@ -1,0 +1,1149 @@
+{
+  "schema": 1,
+  "archived_on": "2026-10-15",
+  "source_commit": "f5ae051342a72beaae80c961cc3b07664629b45f",
+  "policy": "Byte-identical relocation. Historical paths and comments remain unchanged.",
+  "files": [
+    {
+      "original": "reports/risk_aware_routing/README.md",
+      "archived": "archive/classifier_search/reports/risk_aware_routing/README.md",
+      "sha256": "355ff6531da7dffe3d552c1d36ab18ab487271a9b52d68fe61aeb352e5ed0355",
+      "bytes": 14976,
+      "group": "classifier_search"
+    },
+    {
+      "original": "reports/risk_aware_routing/balanced-tree-findings.md",
+      "archived": "archive/classifier_search/reports/risk_aware_routing/balanced-tree-findings.md",
+      "sha256": "4bcc5358ebc88123524252dba15cbf5b0bae089c14bd7c072cdc6f9dfb2c02cb",
+      "bytes": 10575,
+      "group": "classifier_search"
+    },
+    {
+      "original": "reports/risk_aware_routing/balanced-tree-plan.json",
+      "archived": "archive/classifier_search/reports/risk_aware_routing/balanced-tree-plan.json",
+      "sha256": "a73d77a328152c2473e355e1e420995157364950acb9fb885c7b476427747a05",
+      "bytes": 1851,
+      "group": "classifier_search"
+    },
+    {
+      "original": "reports/risk_aware_routing/balanced-tree-results.json",
+      "archived": "archive/classifier_search/reports/risk_aware_routing/balanced-tree-results.json",
+      "sha256": "90142f1e19029a627da3689a22ac8840f0ba7384cd5fb55aa6409b77b5ae14af",
+      "bytes": 194897,
+      "group": "classifier_search"
+    },
+    {
+      "original": "reports/risk_aware_routing/contrastive-findings.md",
+      "archived": "archive/classifier_search/reports/risk_aware_routing/contrastive-findings.md",
+      "sha256": "3702e0cfdf540b5036d8946e8231240b194e10ce2d42615880b432e052957bfb",
+      "bytes": 9333,
+      "group": "classifier_search"
+    },
+    {
+      "original": "reports/risk_aware_routing/contrastive-fit-diagnostic.json",
+      "archived": "archive/classifier_search/reports/risk_aware_routing/contrastive-fit-diagnostic.json",
+      "sha256": "0cf873e04ad3bb90e570e5d7b46924a92a23b50396c3f6cd1d525611dd3fcc0f",
+      "bytes": 51168,
+      "group": "classifier_search"
+    },
+    {
+      "original": "reports/risk_aware_routing/contrastive-plan.json",
+      "archived": "archive/classifier_search/reports/risk_aware_routing/contrastive-plan.json",
+      "sha256": "fae8a50804bdddeee74bc0259b6469b7a68c8cce62a3a5d67281483799960536",
+      "bytes": 2342,
+      "group": "classifier_search"
+    },
+    {
+      "original": "reports/risk_aware_routing/contrastive-results.json",
+      "archived": "archive/classifier_search/reports/risk_aware_routing/contrastive-results.json",
+      "sha256": "315351ba7cc4fb8d1643455bc709d472e4982fce96fcc7800e8922cb8b36a4dc",
+      "bytes": 42649,
+      "group": "classifier_search"
+    },
+    {
+      "original": "reports/risk_aware_routing/feature-ablation-findings.md",
+      "archived": "archive/classifier_search/reports/risk_aware_routing/feature-ablation-findings.md",
+      "sha256": "2457dfdce7d51d50cc005c4ce3739d0de8fa6b138ec66f52fa51e6022eb22c64",
+      "bytes": 13501,
+      "group": "classifier_search"
+    },
+    {
+      "original": "reports/risk_aware_routing/feature-ablation-plan.json",
+      "archived": "archive/classifier_search/reports/risk_aware_routing/feature-ablation-plan.json",
+      "sha256": "0e2c8ef5bd3b1cc8d46b8762aa83099508b988a628f3c22a43f050954a5d39be",
+      "bytes": 2641,
+      "group": "classifier_search"
+    },
+    {
+      "original": "reports/risk_aware_routing/feature-ablation-results.json",
+      "archived": "archive/classifier_search/reports/risk_aware_routing/feature-ablation-results.json",
+      "sha256": "7c0b0602a4a8a3224e0a046e1b2e1257d8a56156503250c1da90d15d6f426fef",
+      "bytes": 255551,
+      "group": "classifier_search"
+    },
+    {
+      "original": "reports/risk_aware_routing/feature-expert-findings.md",
+      "archived": "archive/classifier_search/reports/risk_aware_routing/feature-expert-findings.md",
+      "sha256": "be2b0b000cf615d356087fb146cda97f97d1ea01bbd6e42d26309d7878decf93",
+      "bytes": 18774,
+      "group": "classifier_search"
+    },
+    {
+      "original": "reports/risk_aware_routing/feature-expert-plan.json",
+      "archived": "archive/classifier_search/reports/risk_aware_routing/feature-expert-plan.json",
+      "sha256": "7eaa01072466cb0a9800d83559bc94bd456e7077bb2d76882941f86197d792bb",
+      "bytes": 3056,
+      "group": "classifier_search"
+    },
+    {
+      "original": "reports/risk_aware_routing/feature-expert-results.json",
+      "archived": "archive/classifier_search/reports/risk_aware_routing/feature-expert-results.json",
+      "sha256": "53e7f1e7c8fd57247830d5604fe2f658077b6875503cb5e8c24cad554f23dd16",
+      "bytes": 741980,
+      "group": "classifier_search"
+    },
+    {
+      "original": "reports/risk_aware_routing/fusion-findings.md",
+      "archived": "archive/classifier_search/reports/risk_aware_routing/fusion-findings.md",
+      "sha256": "f000e4d542f5675df6f40cf19866592382b812c5797862647c6e5e29efb09aea",
+      "bytes": 15009,
+      "group": "classifier_search"
+    },
+    {
+      "original": "reports/risk_aware_routing/fusion-plan.json",
+      "archived": "archive/classifier_search/reports/risk_aware_routing/fusion-plan.json",
+      "sha256": "2e5ec04b03b79546864ef7384a936113074ac9b59d0101f5c855406d00ded8d4",
+      "bytes": 2273,
+      "group": "classifier_search"
+    },
+    {
+      "original": "reports/risk_aware_routing/fusion-results.json",
+      "archived": "archive/classifier_search/reports/risk_aware_routing/fusion-results.json",
+      "sha256": "873618d7785d4f22aba152156edc2a11bb94949783b34d5faf0b044ef345c7cd",
+      "bytes": 556798,
+      "group": "classifier_search"
+    },
+    {
+      "original": "reports/risk_aware_routing/hard-example-findings.md",
+      "archived": "archive/classifier_search/reports/risk_aware_routing/hard-example-findings.md",
+      "sha256": "8c4c576b14b76df0f298faeb5cfee5428cecb79b06e3d03f90ce54c91f13517c",
+      "bytes": 11086,
+      "group": "classifier_search"
+    },
+    {
+      "original": "reports/risk_aware_routing/hard-example-plan.json",
+      "archived": "archive/classifier_search/reports/risk_aware_routing/hard-example-plan.json",
+      "sha256": "2f34b748a25f2aba519afd930db3ade8f7b8b03e0da0d1541fed848f3d53f17b",
+      "bytes": 2292,
+      "group": "classifier_search"
+    },
+    {
+      "original": "reports/risk_aware_routing/hard-example-results.json",
+      "archived": "archive/classifier_search/reports/risk_aware_routing/hard-example-results.json",
+      "sha256": "5c63cfcb31eac1e1c5b0d20f8b5c17c4b200993fe22ae4814b87b5793e2a8065",
+      "bytes": 96194,
+      "group": "classifier_search"
+    },
+    {
+      "original": "reports/risk_aware_routing/headroom-plan.json",
+      "archived": "archive/classifier_search/reports/risk_aware_routing/headroom-plan.json",
+      "sha256": "b857169ae1194236f2825ab6c8d6d9b347893876d0e5aafc88dedc81ecaaf28c",
+      "bytes": 1151,
+      "group": "classifier_search"
+    },
+    {
+      "original": "reports/risk_aware_routing/headroom-results.json",
+      "archived": "archive/classifier_search/reports/risk_aware_routing/headroom-results.json",
+      "sha256": "02a23ccbf003b71c2de8b6e9f70aea46939c55d302eb0eb08c0f8b15bdee40cb",
+      "bytes": 143056,
+      "group": "classifier_search"
+    },
+    {
+      "original": "reports/risk_aware_routing/laya-environment.txt",
+      "archived": "archive/classifier_search/reports/risk_aware_routing/laya-environment.txt",
+      "sha256": "a27a7e3336d8e29f69808c7a4efcd34a06a6d8cee574f44206bca23a7964f787",
+      "bytes": 860,
+      "group": "classifier_search"
+    },
+    {
+      "original": "reports/risk_aware_routing/laya-repeatability-plan.json",
+      "archived": "archive/classifier_search/reports/risk_aware_routing/laya-repeatability-plan.json",
+      "sha256": "3461361cc2c4059d61187aa98e7b147e731ce253bfa8995d764d3eae79327475",
+      "bytes": 763,
+      "group": "classifier_search"
+    },
+    {
+      "original": "reports/risk_aware_routing/laya-screen-results.json",
+      "archived": "archive/classifier_search/reports/risk_aware_routing/laya-screen-results.json",
+      "sha256": "221a7857df27c8df983542ca5850c9deebae4957b2cac299e0bf429dc4c37f49",
+      "bytes": 432720,
+      "group": "classifier_search"
+    },
+    {
+      "original": "reports/risk_aware_routing/matched-neural-findings.md",
+      "archived": "archive/classifier_search/reports/risk_aware_routing/matched-neural-findings.md",
+      "sha256": "a3c4a0ed296d8bf64be9eeabb3dfa34a7abf407da629c448a1b3f010c40df0aa",
+      "bytes": 12226,
+      "group": "classifier_search"
+    },
+    {
+      "original": "reports/risk_aware_routing/matched-neural-plan.json",
+      "archived": "archive/classifier_search/reports/risk_aware_routing/matched-neural-plan.json",
+      "sha256": "8941a1300d857b50c813ae95d900840069a271ab1b52fd79601fbd61ce18b3a3",
+      "bytes": 1955,
+      "group": "classifier_search"
+    },
+    {
+      "original": "reports/risk_aware_routing/matched-neural-results.json",
+      "archived": "archive/classifier_search/reports/risk_aware_routing/matched-neural-results.json",
+      "sha256": "dfde216ec8560f22cb3ce2f5acf7c4f5510997dc061c19cb1d797dcb4b72f3aa",
+      "bytes": 287305,
+      "group": "classifier_search"
+    },
+    {
+      "original": "reports/risk_aware_routing/numerical-embedding-results.json",
+      "archived": "archive/classifier_search/reports/risk_aware_routing/numerical-embedding-results.json",
+      "sha256": "187c49ab0b57d784c6b5d072ee222066c7bf7482bd4d4639249dfc7a7dcf4fed",
+      "bytes": 187495,
+      "group": "classifier_search"
+    },
+    {
+      "original": "reports/risk_aware_routing/rare-error-findings.md",
+      "archived": "archive/classifier_search/reports/risk_aware_routing/rare-error-findings.md",
+      "sha256": "16c79fd86f11f77f30a08dc7622c51c7304bb5881dd197894b53278834bc81f1",
+      "bytes": 11652,
+      "group": "classifier_search"
+    },
+    {
+      "original": "reports/risk_aware_routing/rare-error-plan.json",
+      "archived": "archive/classifier_search/reports/risk_aware_routing/rare-error-plan.json",
+      "sha256": "136822a0de3d14a1bb0fc26552554c4a9878a6424c5fa666dc4c540c4b34dcd9",
+      "bytes": 1677,
+      "group": "classifier_search"
+    },
+    {
+      "original": "reports/risk_aware_routing/rare-error-results.json",
+      "archived": "archive/classifier_search/reports/risk_aware_routing/rare-error-results.json",
+      "sha256": "191e1af8d76558d22ceed38778e610e5d4b87c27b8782fb83dec79a4baf03403",
+      "bytes": 113508,
+      "group": "classifier_search"
+    },
+    {
+      "original": "reports/risk_aware_routing/rare-reference-plan.json",
+      "archived": "archive/classifier_search/reports/risk_aware_routing/rare-reference-plan.json",
+      "sha256": "ed5dc335aaca01ac15bc83aff4996026f56ac0cf5e06370d172d0ec0a8ddc4c1",
+      "bytes": 824,
+      "group": "classifier_search"
+    },
+    {
+      "original": "reports/risk_aware_routing/rare-reference-results.json",
+      "archived": "archive/classifier_search/reports/risk_aware_routing/rare-reference-results.json",
+      "sha256": "4232be72b248655a35fe490052d44ade04ca308fe1a09985c76b3283646d72c6",
+      "bytes": 83436,
+      "group": "classifier_search"
+    },
+    {
+      "original": "reports/risk_aware_routing/representation-findings.md",
+      "archived": "archive/classifier_search/reports/risk_aware_routing/representation-findings.md",
+      "sha256": "51ef70fc1a241fbe367e2f93766e253b50658b5a74e6f5b024a50056b1379589",
+      "bytes": 12709,
+      "group": "classifier_search"
+    },
+    {
+      "original": "reports/risk_aware_routing/representation-plan.json",
+      "archived": "archive/classifier_search/reports/risk_aware_routing/representation-plan.json",
+      "sha256": "b72001f063041b71a42911fd0e22eef8c3615ac42f8b576e55ba01c50df0ac7f",
+      "bytes": 2392,
+      "group": "classifier_search"
+    },
+    {
+      "original": "reports/risk_aware_routing/retrieval-findings.md",
+      "archived": "archive/classifier_search/reports/risk_aware_routing/retrieval-findings.md",
+      "sha256": "c047ffa16e48e27d4c4d188601b206baa3e41e38cd508fd4a1debadba4b4b4dc",
+      "bytes": 8961,
+      "group": "classifier_search"
+    },
+    {
+      "original": "reports/risk_aware_routing/retrieval-plan.json",
+      "archived": "archive/classifier_search/reports/risk_aware_routing/retrieval-plan.json",
+      "sha256": "256f976b958576f2709bec243ef722b389f130e8224c46241786691fb6c8e70e",
+      "bytes": 2356,
+      "group": "classifier_search"
+    },
+    {
+      "original": "reports/risk_aware_routing/retrieval-results.json",
+      "archived": "archive/classifier_search/reports/risk_aware_routing/retrieval-results.json",
+      "sha256": "53401dec0248a67ab3fa0a926e630e1424af9e4e05252cf510c3c5d1bbaa887b",
+      "bytes": 51695,
+      "group": "classifier_search"
+    },
+    {
+      "original": "reports/risk_aware_routing/router-findings.md",
+      "archived": "archive/classifier_search/reports/risk_aware_routing/router-findings.md",
+      "sha256": "b1c9005179b0d508c01eee85bb17387459ea053187ab5f9427c2809d303614d9",
+      "bytes": 11602,
+      "group": "classifier_search"
+    },
+    {
+      "original": "reports/risk_aware_routing/router-plan.json",
+      "archived": "archive/classifier_search/reports/risk_aware_routing/router-plan.json",
+      "sha256": "2925340223eef235ebbb9c931bf4ce3b4cdffced06c8e0e83c252f9bce3445cb",
+      "bytes": 2677,
+      "group": "classifier_search"
+    },
+    {
+      "original": "reports/risk_aware_routing/router-results.json",
+      "archived": "archive/classifier_search/reports/risk_aware_routing/router-results.json",
+      "sha256": "78809e15d8cbf3c5e884df10aa54f7910d79fb84bba8f4ea471e9cf34428b630",
+      "bytes": 1516583,
+      "group": "classifier_search"
+    },
+    {
+      "original": "reports/risk_aware_routing/score-adjustment-findings.md",
+      "archived": "archive/classifier_search/reports/risk_aware_routing/score-adjustment-findings.md",
+      "sha256": "ae819a945d6c80563d70dcfa0cc233a82753e8532aa699c9c938069c1ed83970",
+      "bytes": 8765,
+      "group": "classifier_search"
+    },
+    {
+      "original": "reports/risk_aware_routing/score-adjustment-plan.json",
+      "archived": "archive/classifier_search/reports/risk_aware_routing/score-adjustment-plan.json",
+      "sha256": "cdfa540e096e14d1e6a66476ffe598e881bf8f946bfe848a89bce259b5dc22d8",
+      "bytes": 1790,
+      "group": "classifier_search"
+    },
+    {
+      "original": "reports/risk_aware_routing/score-adjustment-results.json",
+      "archived": "archive/classifier_search/reports/risk_aware_routing/score-adjustment-results.json",
+      "sha256": "83674514d95dc69a1d0eb1486af20ab0e23782a0a7fb5ce799e04aeaa1e2c153",
+      "bytes": 375424,
+      "group": "classifier_search"
+    },
+    {
+      "original": "reports/risk_aware_routing/specialist-findings.md",
+      "archived": "archive/classifier_search/reports/risk_aware_routing/specialist-findings.md",
+      "sha256": "7757582723c1704af6d49bc2dfe1b15d1f2b7458cb363f7b1887960424808f6d",
+      "bytes": 12087,
+      "group": "classifier_search"
+    },
+    {
+      "original": "reports/risk_aware_routing/specialist-plan.json",
+      "archived": "archive/classifier_search/reports/risk_aware_routing/specialist-plan.json",
+      "sha256": "2f6b6195c12e7bc2bd25423094e64f0dd26fd8c21b15c84a73bb0d8cde3b682a",
+      "bytes": 2229,
+      "group": "classifier_search"
+    },
+    {
+      "original": "reports/risk_aware_routing/specialist-results.json",
+      "archived": "archive/classifier_search/reports/risk_aware_routing/specialist-results.json",
+      "sha256": "2424a832ac4182146bc4e588d6a49b72102516c41668cccca895879e7d861679",
+      "bytes": 305711,
+      "group": "classifier_search"
+    },
+    {
+      "original": "reports/risk_aware_routing/tradeoff-findings.md",
+      "archived": "archive/classifier_search/reports/risk_aware_routing/tradeoff-findings.md",
+      "sha256": "081af03288918036e8de0f5b7b7162d97b0db047cd57a60205ca91b6848a90a2",
+      "bytes": 13713,
+      "group": "classifier_search"
+    },
+    {
+      "original": "reports/risk_aware_routing/tradeoff-plan.json",
+      "archived": "archive/classifier_search/reports/risk_aware_routing/tradeoff-plan.json",
+      "sha256": "889e12e96a4a567c23429bf1c06cef11ab279c5ca2837f1c400166b3114e577e",
+      "bytes": 2102,
+      "group": "classifier_search"
+    },
+    {
+      "original": "reports/risk_aware_routing/tradeoff-results.json",
+      "archived": "archive/classifier_search/reports/risk_aware_routing/tradeoff-results.json",
+      "sha256": "9bd7c68af8492e62704af6b6921743d4c540b763e77ed0520a4f81bafdf466ac",
+      "bytes": 3896600,
+      "group": "classifier_search"
+    },
+    {
+      "original": "reports/risk_aware_routing/triage-prototype.md",
+      "archived": "archive/classifier_search/reports/risk_aware_routing/triage-prototype.md",
+      "sha256": "55108455057bb84899b032a27cd9a975c48ffee0263ee25c27e4f115ae264410",
+      "bytes": 5745,
+      "group": "classifier_search"
+    },
+    {
+      "original": "scripts/official39_balanced_tree.py",
+      "archived": "archive/classifier_search/scripts/official39_balanced_tree.py",
+      "sha256": "2c57c18e45de06889ed910c2042611a5ae03ccf0ca1feff6cd2deef712a845ee",
+      "bytes": 16073,
+      "group": "classifier_search"
+    },
+    {
+      "original": "scripts/official39_contrastive.py",
+      "archived": "archive/classifier_search/scripts/official39_contrastive.py",
+      "sha256": "e261846a30d2cfdc300c732a7cb840967c4dd4f970cf7cea1675ea5fcca23fca",
+      "bytes": 11636,
+      "group": "classifier_search"
+    },
+    {
+      "original": "scripts/official39_contrastive_fit_check.py",
+      "archived": "archive/classifier_search/scripts/official39_contrastive_fit_check.py",
+      "sha256": "afe2f98f79b75a1f2923289aaaad5f6a82a2eaa123341686cc913b161ca155b1",
+      "bytes": 3335,
+      "group": "classifier_search"
+    },
+    {
+      "original": "scripts/official39_feature_ablation.py",
+      "archived": "archive/classifier_search/scripts/official39_feature_ablation.py",
+      "sha256": "449722a24c23394835dc585558c05165031946bbacb050e8f3f2b4238df02531",
+      "bytes": 18540,
+      "group": "classifier_search"
+    },
+    {
+      "original": "scripts/official39_feature_expert.py",
+      "archived": "archive/classifier_search/scripts/official39_feature_expert.py",
+      "sha256": "efc695fe1acf9aab209998d7d3c5648843b2358562007e2f4882d1f9d9fe23a9",
+      "bytes": 24771,
+      "group": "classifier_search"
+    },
+    {
+      "original": "scripts/official39_hard_example.py",
+      "archived": "archive/classifier_search/scripts/official39_hard_example.py",
+      "sha256": "5584b7fd4bf07add81a4f09f8d6e2ca322459ece2692c74ffe0ac272d5955248",
+      "bytes": 12094,
+      "group": "classifier_search"
+    },
+    {
+      "original": "scripts/official39_laya_inference.py",
+      "archived": "archive/classifier_search/scripts/official39_laya_inference.py",
+      "sha256": "ba4f7463d8b8f4d17559c2b3edcf205e866dc5b669362ae3f27a33db3a9fae4d",
+      "bytes": 5184,
+      "group": "classifier_search"
+    },
+    {
+      "original": "scripts/official39_laya_repeatability.py",
+      "archived": "archive/classifier_search/scripts/official39_laya_repeatability.py",
+      "sha256": "01743f214c0214db4b5c6574b147c485548c5791d574b2e0612afe0e8765ff14",
+      "bytes": 5659,
+      "group": "classifier_search"
+    },
+    {
+      "original": "scripts/official39_matched_neural.py",
+      "archived": "archive/classifier_search/scripts/official39_matched_neural.py",
+      "sha256": "1392b419e5cb8fbb270c8f129177f01faf395fdb57a4cbf081146d366856e224",
+      "bytes": 17776,
+      "group": "classifier_search"
+    },
+    {
+      "original": "scripts/official39_numeric_retrieval.py",
+      "archived": "archive/classifier_search/scripts/official39_numeric_retrieval.py",
+      "sha256": "df34d930caccdcd45319dad8bcfad74b7ead577a0b2e6db141b00da03863a249",
+      "bytes": 13083,
+      "group": "classifier_search"
+    },
+    {
+      "original": "scripts/official39_policy_tradeoffs.py",
+      "archived": "archive/classifier_search/scripts/official39_policy_tradeoffs.py",
+      "sha256": "820f99ad06a6df38e0aaffb58c67903cd2ace06697df76c86d7c211e2309b4c3",
+      "bytes": 28848,
+      "group": "classifier_search"
+    },
+    {
+      "original": "scripts/official39_rare_error_diagnostic.py",
+      "archived": "archive/classifier_search/scripts/official39_rare_error_diagnostic.py",
+      "sha256": "5ac3011d12c98184eb384a42cb4f2ff4e31b015aa6d20c65b7b423de33a06127",
+      "bytes": 10127,
+      "group": "classifier_search"
+    },
+    {
+      "original": "scripts/official39_rare_reference_control.py",
+      "archived": "archive/classifier_search/scripts/official39_rare_reference_control.py",
+      "sha256": "57cd8566e1333f578a38980304225221f01a6fc7f5f01d2c271320f7955f0e65",
+      "bytes": 7897,
+      "group": "classifier_search"
+    },
+    {
+      "original": "scripts/official39_representation_pilot.py",
+      "archived": "archive/classifier_search/scripts/official39_representation_pilot.py",
+      "sha256": "44f5fb7cd786ef228acae4442d03d1c47afe82a93a1903399e319783a3859db3",
+      "bytes": 17274,
+      "group": "classifier_search"
+    },
+    {
+      "original": "scripts/official39_routing_gate.py",
+      "archived": "archive/classifier_search/scripts/official39_routing_gate.py",
+      "sha256": "423185ecfd28e2ff2dcbb69921bd0628bb39b969f5285e0f7af2d18a6601c64e",
+      "bytes": 19418,
+      "group": "classifier_search"
+    },
+    {
+      "original": "scripts/official39_routing_gate_report.py",
+      "archived": "archive/classifier_search/scripts/official39_routing_gate_report.py",
+      "sha256": "5e329f66143f102065640dd2210b46d652ef9fbd94993254f3ee81a5c170c948",
+      "bytes": 7570,
+      "group": "classifier_search"
+    },
+    {
+      "original": "scripts/official39_routing_headroom.py",
+      "archived": "archive/classifier_search/scripts/official39_routing_headroom.py",
+      "sha256": "76d6399823b73874e5f561da0290e1678576426b41fb566e62006f0ea02e566c",
+      "bytes": 20361,
+      "group": "classifier_search"
+    },
+    {
+      "original": "scripts/official39_routing_specialist.py",
+      "archived": "archive/classifier_search/scripts/official39_routing_specialist.py",
+      "sha256": "f60de9f4f499604fce12e37237f2861b7a1150c7159515920e499433c537085c",
+      "bytes": 19659,
+      "group": "classifier_search"
+    },
+    {
+      "original": "scripts/official39_score_adjustment.py",
+      "archived": "archive/classifier_search/scripts/official39_score_adjustment.py",
+      "sha256": "e4ba662d740a27f0c6ca6c76885829727289e7858426f5313706d15268e3b416",
+      "bytes": 17173,
+      "group": "classifier_search"
+    },
+    {
+      "original": "scripts/official39_score_fusion.py",
+      "archived": "archive/classifier_search/scripts/official39_score_fusion.py",
+      "sha256": "f466aff82307a2c07f766cf6b66f59e65dec073a2616508e479b0632a64d8001",
+      "bytes": 26346,
+      "group": "classifier_search"
+    },
+    {
+      "original": "scripts/official39_triage.py",
+      "archived": "archive/classifier_search/scripts/official39_triage.py",
+      "sha256": "747d809fa744f47b157d766fdac2979e30f785da2965c312b44169a6200e12a5",
+      "bytes": 10332,
+      "group": "classifier_search"
+    },
+    {
+      "original": "src/eval/balanced_tree.py",
+      "archived": "archive/classifier_search/src/eval/balanced_tree.py",
+      "sha256": "8370e7574d09fc02b0ef24bd363f3c8521ccc45f51e324cbb9f15eedc4953413",
+      "bytes": 2838,
+      "group": "classifier_search"
+    },
+    {
+      "original": "src/eval/contrastive_flow.py",
+      "archived": "archive/classifier_search/src/eval/contrastive_flow.py",
+      "sha256": "18f1382fb0123ecde10f1ecf9b17279be0b02947d35bb48a8a25a033711c0976",
+      "bytes": 7478,
+      "group": "classifier_search"
+    },
+    {
+      "original": "src/eval/feature_ablation.py",
+      "archived": "archive/classifier_search/src/eval/feature_ablation.py",
+      "sha256": "f24e9ef4e6d747b0a0df0e973f1bd0e5d933ea284213cd8b4473317d86443878",
+      "bytes": 5472,
+      "group": "classifier_search"
+    },
+    {
+      "original": "src/eval/feature_expert.py",
+      "archived": "archive/classifier_search/src/eval/feature_expert.py",
+      "sha256": "734c0e69229b371e9a44b4d013d4739ab7b5a383df8fe40ae077bf1d55d693bb",
+      "bytes": 5929,
+      "group": "classifier_search"
+    },
+    {
+      "original": "src/eval/flow_representation.py",
+      "archived": "archive/classifier_search/src/eval/flow_representation.py",
+      "sha256": "b3c5fc4271bc600fdfd230e2375322c299ebb34eefba1cadff7d9dfc775bf2a9",
+      "bytes": 4324,
+      "group": "classifier_search"
+    },
+    {
+      "original": "src/eval/hard_example_flow.py",
+      "archived": "archive/classifier_search/src/eval/hard_example_flow.py",
+      "sha256": "a90c583bb1dad61e1a87692f690781f84f5e22687a5eb878bbf35b9f4ddd3dfd",
+      "bytes": 10256,
+      "group": "classifier_search"
+    },
+    {
+      "original": "src/eval/matched_neural.py",
+      "archived": "archive/classifier_search/src/eval/matched_neural.py",
+      "sha256": "ead9dbb6809b10e590f8661fe8ea039aac4492b18d967ee5d9ec3938e4578b29",
+      "bytes": 9552,
+      "group": "classifier_search"
+    },
+    {
+      "original": "src/eval/numeric_retrieval.py",
+      "archived": "archive/classifier_search/src/eval/numeric_retrieval.py",
+      "sha256": "77490d1f9933da8b43a4ff75ab1247ca083aebd27b83136d74814027a5e33e75",
+      "bytes": 9624,
+      "group": "classifier_search"
+    },
+    {
+      "original": "src/eval/numerical_embedding.py",
+      "archived": "archive/classifier_search/src/eval/numerical_embedding.py",
+      "sha256": "7458227700c41df15b4acfcd5f40ea5d81cfd6e7e44219348fdefba884b9e3c4",
+      "bytes": 3648,
+      "group": "classifier_search"
+    },
+    {
+      "original": "src/eval/rare_error_diagnostic.py",
+      "archived": "archive/classifier_search/src/eval/rare_error_diagnostic.py",
+      "sha256": "8307bb6522767bb43c0f0bebff8f0c87c4577824846c3ddb16312675d671b7a6",
+      "bytes": 6681,
+      "group": "classifier_search"
+    },
+    {
+      "original": "src/eval/routing_gate.py",
+      "archived": "archive/classifier_search/src/eval/routing_gate.py",
+      "sha256": "069b49f3a1ebc7077216b4591d37387691b41ee6290415bd915f3b379b79cce9",
+      "bytes": 10911,
+      "group": "classifier_search"
+    },
+    {
+      "original": "src/eval/score_adjustment.py",
+      "archived": "archive/classifier_search/src/eval/score_adjustment.py",
+      "sha256": "b8ce84631aecef2f8d899ce4d25e719205cbbadbc76e095fc741840923759906",
+      "bytes": 5354,
+      "group": "classifier_search"
+    },
+    {
+      "original": "src/eval/score_fusion.py",
+      "archived": "archive/classifier_search/src/eval/score_fusion.py",
+      "sha256": "b05f698114d5ec26c49c4c370c4e7a36939e79faaa4e204929719a71e1e1ea53",
+      "bytes": 6322,
+      "group": "classifier_search"
+    },
+    {
+      "original": "src/eval/triage_preview.html",
+      "archived": "archive/classifier_search/src/eval/triage_preview.html",
+      "sha256": "000a5f67ea7c882a547d06b2eca1a605045c0fc15555e707cbf9d57b2524519c",
+      "bytes": 10277,
+      "group": "classifier_search"
+    },
+    {
+      "original": "src/eval/triage_preview.py",
+      "archived": "archive/classifier_search/src/eval/triage_preview.py",
+      "sha256": "c0ab69b4d287dbdca7849f664aa33498ad9bb57407e327bfa189c3a12e113f5a",
+      "bytes": 4250,
+      "group": "classifier_search"
+    },
+    {
+      "original": "tests/test_balanced_tree.py",
+      "archived": "archive/classifier_search/tests/test_balanced_tree.py",
+      "sha256": "d1d9f018d4fe90c7e27f10dfcf21157580a44b533b4e2ec93a43bc1c94228823",
+      "bytes": 9612,
+      "group": "classifier_search"
+    },
+    {
+      "original": "tests/test_contrastive_flow.py",
+      "archived": "archive/classifier_search/tests/test_contrastive_flow.py",
+      "sha256": "e5fe7d74f07d612f7a82b4257b2a1bc2f96549da3c4f4242eef4d1f60263232f",
+      "bytes": 4847,
+      "group": "classifier_search"
+    },
+    {
+      "original": "tests/test_contrastive_receipt.py",
+      "archived": "archive/classifier_search/tests/test_contrastive_receipt.py",
+      "sha256": "689bcd9cc68852a2cafbb1712cd49d9aa158829723f3e256281eaa8137853af0",
+      "bytes": 4626,
+      "group": "classifier_search"
+    },
+    {
+      "original": "tests/test_feature_ablation.py",
+      "archived": "archive/classifier_search/tests/test_feature_ablation.py",
+      "sha256": "d5f7acc8b6337dc014b70beffafd514e88af94f14a5979ac5507ebcd85f8de83",
+      "bytes": 10941,
+      "group": "classifier_search"
+    },
+    {
+      "original": "tests/test_feature_expert.py",
+      "archived": "archive/classifier_search/tests/test_feature_expert.py",
+      "sha256": "888b65b19c0abcb27744649a3e9b4a225cb92226d98a56311ffd15a29c894373",
+      "bytes": 10105,
+      "group": "classifier_search"
+    },
+    {
+      "original": "tests/test_flow_representation.py",
+      "archived": "archive/classifier_search/tests/test_flow_representation.py",
+      "sha256": "8337932422ca4374f5d6a7cac316fd083a0a147803f37745d4c47c6534cc4875",
+      "bytes": 3803,
+      "group": "classifier_search"
+    },
+    {
+      "original": "tests/test_hard_example_flow.py",
+      "archived": "archive/classifier_search/tests/test_hard_example_flow.py",
+      "sha256": "1fb1d155a00b7d4edc37c7aad741a56492ac0275f15193c9d139343ea520ee9a",
+      "bytes": 5138,
+      "group": "classifier_search"
+    },
+    {
+      "original": "tests/test_hard_example_receipt.py",
+      "archived": "archive/classifier_search/tests/test_hard_example_receipt.py",
+      "sha256": "44e321298a450707ce621e38a7761169461a147fe01f4ac0327b696987bbc434",
+      "bytes": 4684,
+      "group": "classifier_search"
+    },
+    {
+      "original": "tests/test_laya_repeatability.py",
+      "archived": "archive/classifier_search/tests/test_laya_repeatability.py",
+      "sha256": "15645c5fa864cdfed4e15633f1b6ec43d5f422540ca819f720a683db5a9f2961",
+      "bytes": 3462,
+      "group": "classifier_search"
+    },
+    {
+      "original": "tests/test_matched_neural.py",
+      "archived": "archive/classifier_search/tests/test_matched_neural.py",
+      "sha256": "9649dda97a3c604eecf2acc2967688804135f569ff7f17d6cb97f1707c1f76c1",
+      "bytes": 9233,
+      "group": "classifier_search"
+    },
+    {
+      "original": "tests/test_numeric_retrieval.py",
+      "archived": "archive/classifier_search/tests/test_numeric_retrieval.py",
+      "sha256": "b0a2b94fb55d7d7c31c1596a634e0af560ba864d5f67b49409bcdff0100138fa",
+      "bytes": 4170,
+      "group": "classifier_search"
+    },
+    {
+      "original": "tests/test_numeric_retrieval_receipt.py",
+      "archived": "archive/classifier_search/tests/test_numeric_retrieval_receipt.py",
+      "sha256": "59a501f185932a7c9c193c4ebb0f5ec3ccb5c5352cdda2598aaaffacedca75a4",
+      "bytes": 4474,
+      "group": "classifier_search"
+    },
+    {
+      "original": "tests/test_official_routing_headroom.py",
+      "archived": "archive/classifier_search/tests/test_official_routing_headroom.py",
+      "sha256": "1a6fdcb699ce7fb8ff8e1b654f7473a98f28d9b632beecba0f649ed3adc6896d",
+      "bytes": 13171,
+      "group": "classifier_search"
+    },
+    {
+      "original": "tests/test_official_routing_specialist.py",
+      "archived": "archive/classifier_search/tests/test_official_routing_specialist.py",
+      "sha256": "30a24fc14da1258751442f9a3f6c4120d8597a2578b8f55feae9abecf2ccee1b",
+      "bytes": 12982,
+      "group": "classifier_search"
+    },
+    {
+      "original": "tests/test_policy_tradeoffs.py",
+      "archived": "archive/classifier_search/tests/test_policy_tradeoffs.py",
+      "sha256": "2b6ffe5897ce80ff7645f34bd38f74de1eda6da6281b887295b05a714736843d",
+      "bytes": 10448,
+      "group": "classifier_search"
+    },
+    {
+      "original": "tests/test_rare_error_diagnostic.py",
+      "archived": "archive/classifier_search/tests/test_rare_error_diagnostic.py",
+      "sha256": "833064d7b53c5ccd5a65e9765708e580bd741c77c36834ad76c21023d394d2a9",
+      "bytes": 5148,
+      "group": "classifier_search"
+    },
+    {
+      "original": "tests/test_rare_reference_control.py",
+      "archived": "archive/classifier_search/tests/test_rare_reference_control.py",
+      "sha256": "333fba66f8ca0710d07413344da116f7140e579c97aa687fcf652a4a32165322",
+      "bytes": 1573,
+      "group": "classifier_search"
+    },
+    {
+      "original": "tests/test_routing_gate.py",
+      "archived": "archive/classifier_search/tests/test_routing_gate.py",
+      "sha256": "2705ad1875a943cde3bda384c6b7377c3084c1391dc842e836f613811110ac8f",
+      "bytes": 12870,
+      "group": "classifier_search"
+    },
+    {
+      "original": "tests/test_routing_gate_report.py",
+      "archived": "archive/classifier_search/tests/test_routing_gate_report.py",
+      "sha256": "7bf5bbf14c483f2bc651358c3fbdd2e266646b38a38e7753ddbf1abd99329f09",
+      "bytes": 3058,
+      "group": "classifier_search"
+    },
+    {
+      "original": "tests/test_score_adjustment.py",
+      "archived": "archive/classifier_search/tests/test_score_adjustment.py",
+      "sha256": "cf4cb5282eb3f58572cd7a53fa4a6204afa565cf74478cbf8a689ae52302590a",
+      "bytes": 9171,
+      "group": "classifier_search"
+    },
+    {
+      "original": "tests/test_score_fusion.py",
+      "archived": "archive/classifier_search/tests/test_score_fusion.py",
+      "sha256": "95fcca23cd78d1c7f2ad3f11e76a31bf4f57506309d2e36f113e5b04bf3efef6",
+      "bytes": 11177,
+      "group": "classifier_search"
+    },
+    {
+      "original": "tests/test_triage_preview.py",
+      "archived": "archive/classifier_search/tests/test_triage_preview.py",
+      "sha256": "001d8809fc66e279b5fe7365a1ac0012986f568c14e0bf3a72156a92ee29edfc",
+      "bytes": 9842,
+      "group": "classifier_search"
+    },
+    {
+      "original": "reports/centralized_heavy_weighted_ce_seed0.json",
+      "archived": "archive/early_runs/reports/centralized_heavy_weighted_ce_seed0.json",
+      "sha256": "e9aa458efab7ca780857a8bdddf81084677f328caedfe2096516d62eb0b5a631",
+      "bytes": 13143,
+      "group": "early_runs"
+    },
+    {
+      "original": "reports/centralized_light_ce_seed0.json",
+      "archived": "archive/early_runs/reports/centralized_light_ce_seed0.json",
+      "sha256": "836ae77ce40345ef4934105a23f1f8a0e373f2f6186194ac1bd42675011e0dae",
+      "bytes": 5880,
+      "group": "early_runs"
+    },
+    {
+      "original": "reports/centralized_light_ce_seed1.json",
+      "archived": "archive/early_runs/reports/centralized_light_ce_seed1.json",
+      "sha256": "52308a5279c0ad5a4090ff63ad45a0e3099eb931ab42b13bb6d108ac18103ff1",
+      "bytes": 6085,
+      "group": "early_runs"
+    },
+    {
+      "original": "reports/centralized_light_ce_seed2.json",
+      "archived": "archive/early_runs/reports/centralized_light_ce_seed2.json",
+      "sha256": "bf61d47b340fd9bc072a231eef8173892cdf4e4a5c9d237346210bb9255fd98e",
+      "bytes": 6676,
+      "group": "early_runs"
+    },
+    {
+      "original": "reports/centralized_light_focal_seed0.json",
+      "archived": "archive/early_runs/reports/centralized_light_focal_seed0.json",
+      "sha256": "f17b509eb6e342857de88ed33285bdb7698bf324aaa79c1a472c7c27c213ac5e",
+      "bytes": 5358,
+      "group": "early_runs"
+    },
+    {
+      "original": "reports/centralized_light_sqrt_weighted_ce_seed0.json",
+      "archived": "archive/early_runs/reports/centralized_light_sqrt_weighted_ce_seed0.json",
+      "sha256": "0d30b3173f542123ffbea03d8782a6481d1dfdb5c99242d45c2b8e4a6a7b4e72",
+      "bytes": 7666,
+      "group": "early_runs"
+    },
+    {
+      "original": "reports/centralized_light_sqrt_weighted_ce_seed1.json",
+      "archived": "archive/early_runs/reports/centralized_light_sqrt_weighted_ce_seed1.json",
+      "sha256": "015384013e3b2e377d40f5fa4830661239c26722c706ccae997570b0ca842c9a",
+      "bytes": 6114,
+      "group": "early_runs"
+    },
+    {
+      "original": "reports/centralized_light_sqrt_weighted_ce_seed2.json",
+      "archived": "archive/early_runs/reports/centralized_light_sqrt_weighted_ce_seed2.json",
+      "sha256": "70e69ddefb0e398c0259fb0e02396a295e34c5d3f9162f25918837ec93b1c7b3",
+      "bytes": 6102,
+      "group": "early_runs"
+    },
+    {
+      "original": "reports/centralized_light_weighted_ce_seed0.json",
+      "archived": "archive/early_runs/reports/centralized_light_weighted_ce_seed0.json",
+      "sha256": "4bdedd1442ddc7e03dd0d593a8df6f964f0a28c4d2544e98bf8f752da8109872",
+      "bytes": 6487,
+      "group": "early_runs"
+    },
+    {
+      "original": "reports/decision_summary.json",
+      "archived": "archive/early_runs/reports/decision_summary.json",
+      "sha256": "09f7b7d9aa8c71aac65f8d1700aad880c677a4d5bf636989d3ea965cd0860149",
+      "bytes": 10926,
+      "group": "early_runs"
+    },
+    {
+      "original": "reports/decision_summary.md",
+      "archived": "archive/early_runs/reports/decision_summary.md",
+      "sha256": "c906c9d047a1d8892eebdfcfd444b87fc7be8cd2aff70fdc855cee561a470c4c",
+      "bytes": 1185,
+      "group": "early_runs"
+    },
+    {
+      "original": "reports/full_run/ASSESSMENT.md",
+      "archived": "archive/early_runs/reports/full_run/ASSESSMENT.md",
+      "sha256": "9f352a343ce33706252841d680bdbfc2579f7e7ecd7bb726186f59cac67568f0",
+      "bytes": 8316,
+      "group": "early_runs"
+    },
+    {
+      "original": "reports/full_run/RESULTS.md",
+      "archived": "archive/early_runs/reports/full_run/RESULTS.md",
+      "sha256": "09c0b6e4130fdc58302d7cf36d421f505058b78773413ed055dde5f2db07dc5c",
+      "bytes": 5122,
+      "group": "early_runs"
+    },
+    {
+      "original": "reports/full_run/centralized_heavy_sqrt_weighted_ce_seed0.json",
+      "archived": "archive/early_runs/reports/full_run/centralized_heavy_sqrt_weighted_ce_seed0.json",
+      "sha256": "cef5066e43717d8bbfb3c2156528b84d61b8bae38342e263d9814f2209e78e04",
+      "bytes": 9415,
+      "group": "early_runs"
+    },
+    {
+      "original": "reports/full_run/centralized_heavy_sqrt_weighted_ce_seed1.json",
+      "archived": "archive/early_runs/reports/full_run/centralized_heavy_sqrt_weighted_ce_seed1.json",
+      "sha256": "080f4f88874c4d8ae90b43f8d579e33868beaec1c478f8b5498e4fd1a99459f6",
+      "bytes": 9619,
+      "group": "early_runs"
+    },
+    {
+      "original": "reports/full_run/centralized_heavy_sqrt_weighted_ce_seed2.json",
+      "archived": "archive/early_runs/reports/full_run/centralized_heavy_sqrt_weighted_ce_seed2.json",
+      "sha256": "f13745cc2eae1acb7a79ed650fa09325de261beb6f108de773fc637e4033f1d5",
+      "bytes": 11774,
+      "group": "early_runs"
+    },
+    {
+      "original": "reports/full_run/centralized_light_sqrt_weighted_ce_seed0.json",
+      "archived": "archive/early_runs/reports/full_run/centralized_light_sqrt_weighted_ce_seed0.json",
+      "sha256": "59c4bf86e6e5b9508a2304d5e5158457e059814dfd511a18a6f3a0ba83f692dc",
+      "bytes": 11730,
+      "group": "early_runs"
+    },
+    {
+      "original": "reports/full_run/centralized_light_sqrt_weighted_ce_seed1.json",
+      "archived": "archive/early_runs/reports/full_run/centralized_light_sqrt_weighted_ce_seed1.json",
+      "sha256": "bf78cf5064254eb9195a82e4b7ccb1c459c25f84d2987c82b16ea943d70a9c97",
+      "bytes": 10365,
+      "group": "early_runs"
+    },
+    {
+      "original": "reports/full_run/centralized_light_sqrt_weighted_ce_seed2.json",
+      "archived": "archive/early_runs/reports/full_run/centralized_light_sqrt_weighted_ce_seed2.json",
+      "sha256": "436c737d6390a7c955328a075833a33977c3f8be986bd2792d0081510eeddf98",
+      "bytes": 10176,
+      "group": "early_runs"
+    },
+    {
+      "original": "reports/full_run/data_audit.json",
+      "archived": "archive/early_runs/reports/full_run/data_audit.json",
+      "sha256": "d87ce4d3fae0152c8f20eeccedf279521d967bf5586a88d20c6367fb3d5f231b",
+      "bytes": 6557,
+      "group": "early_runs"
+    },
+    {
+      "original": "reports/full_run/decision_summary.json",
+      "archived": "archive/early_runs/reports/full_run/decision_summary.json",
+      "sha256": "485914fc32af2fdb2941a2c1b305cffe18b2e178357cbc87cdfc8c75148eb7a3",
+      "bytes": 17614,
+      "group": "early_runs"
+    },
+    {
+      "original": "reports/full_run/decision_summary.md",
+      "archived": "archive/early_runs/reports/full_run/decision_summary.md",
+      "sha256": "8fafc427ec55d66ae92a138e7a40efaa006cf8211d6585530a27bbcdc037af0e",
+      "bytes": 1488,
+      "group": "early_runs"
+    },
+    {
+      "original": "reports/full_run/environment.json",
+      "archived": "archive/early_runs/reports/full_run/environment.json",
+      "sha256": "b3f3adcc1f3d8df737e690e6576ab08c45da886d50b9631690c0ff0e3df508a8",
+      "bytes": 870,
+      "group": "early_runs"
+    },
+    {
+      "original": "reports/full_run/explanations/centralized_heavy_sqrt_weighted_ce_seed0.json",
+      "archived": "archive/early_runs/reports/full_run/explanations/centralized_heavy_sqrt_weighted_ce_seed0.json",
+      "sha256": "dbfbd4a0b2c72d909990a4216680c30b50c662378b1974366b667ccbb5aa49f0",
+      "bytes": 9334,
+      "group": "early_runs"
+    },
+    {
+      "original": "reports/full_run/explanations/centralized_heavy_sqrt_weighted_ce_seed0.md",
+      "archived": "archive/early_runs/reports/full_run/explanations/centralized_heavy_sqrt_weighted_ce_seed0.md",
+      "sha256": "83922701f58f34040395df5de4d5e89c0de2b8d0e42a14b8946eb564ab693657",
+      "bytes": 1408,
+      "group": "early_runs"
+    },
+    {
+      "original": "reports/full_run/explanations/centralized_light_sqrt_weighted_ce_seed0.json",
+      "archived": "archive/early_runs/reports/full_run/explanations/centralized_light_sqrt_weighted_ce_seed0.json",
+      "sha256": "62b01ca53d8f9c8b8061d1352afbc70c12c967f1c310589f8f7a76cacc828ab7",
+      "bytes": 9312,
+      "group": "early_runs"
+    },
+    {
+      "original": "reports/full_run/explanations/centralized_light_sqrt_weighted_ce_seed0.md",
+      "archived": "archive/early_runs/reports/full_run/explanations/centralized_light_sqrt_weighted_ce_seed0.md",
+      "sha256": "9d0a67a37e530ef23b867b9e35e0802fa837e83087fc09486c676688d3310f04",
+      "bytes": 1409,
+      "group": "early_runs"
+    },
+    {
+      "original": "reports/full_run/explanations/federated_light_sqrt_weighted_ce_a0.5_n20_seed0.json",
+      "archived": "archive/early_runs/reports/full_run/explanations/federated_light_sqrt_weighted_ce_a0.5_n20_seed0.json",
+      "sha256": "f9fed7d16169ee67317627800261bb6a2c127f91cd805e53d65efad3cd15e356",
+      "bytes": 9398,
+      "group": "early_runs"
+    },
+    {
+      "original": "reports/full_run/explanations/federated_light_sqrt_weighted_ce_a0.5_n20_seed0.md",
+      "archived": "archive/early_runs/reports/full_run/explanations/federated_light_sqrt_weighted_ce_a0.5_n20_seed0.md",
+      "sha256": "d73247357b61bfd342262c246a9669c5330789bbe71e4714345e9259a67ffc8f",
+      "bytes": 1417,
+      "group": "early_runs"
+    },
+    {
+      "original": "reports/full_run/explanations/federated_light_sqrt_weighted_ce_iid_n20_seed0.json",
+      "archived": "archive/early_runs/reports/full_run/explanations/federated_light_sqrt_weighted_ce_iid_n20_seed0.json",
+      "sha256": "3db3b4466bd9de2f6aabb51d3c62736505fe19eee4ac3a51b2b29b368928b1e4",
+      "bytes": 9345,
+      "group": "early_runs"
+    },
+    {
+      "original": "reports/full_run/explanations/federated_light_sqrt_weighted_ce_iid_n20_seed0.md",
+      "archived": "archive/early_runs/reports/full_run/explanations/federated_light_sqrt_weighted_ce_iid_n20_seed0.md",
+      "sha256": "de0c68c3c0b33e39f510c4f2788f8e2e20fd1bd47fd8e440f44cf9bb8c8baa21",
+      "bytes": 1393,
+      "group": "early_runs"
+    },
+    {
+      "original": "reports/full_run/federated_light_sqrt_weighted_ce_a0.5_n20_seed0.json",
+      "archived": "archive/early_runs/reports/full_run/federated_light_sqrt_weighted_ce_a0.5_n20_seed0.json",
+      "sha256": "55a7ae422fcf35a48026adf0498e93d659c30bf1245d8b18b18ad335da734148",
+      "bytes": 10546,
+      "group": "early_runs"
+    },
+    {
+      "original": "reports/full_run/federated_light_sqrt_weighted_ce_a0.5_n20_seed1.json",
+      "archived": "archive/early_runs/reports/full_run/federated_light_sqrt_weighted_ce_a0.5_n20_seed1.json",
+      "sha256": "ba5175288b4b66a7e6d906e9fe1160c37ebe183c07360d38522f5a4f75b92619",
+      "bytes": 18064,
+      "group": "early_runs"
+    },
+    {
+      "original": "reports/full_run/federated_light_sqrt_weighted_ce_a0.5_n20_seed2.json",
+      "archived": "archive/early_runs/reports/full_run/federated_light_sqrt_weighted_ce_a0.5_n20_seed2.json",
+      "sha256": "aa50ca31d8256b33c16f8d10af9a24b936147013ff0066f93dadd9820988db90",
+      "bytes": 8258,
+      "group": "early_runs"
+    },
+    {
+      "original": "reports/full_run/federated_light_sqrt_weighted_ce_iid_n20_seed0.json",
+      "archived": "archive/early_runs/reports/full_run/federated_light_sqrt_weighted_ce_iid_n20_seed0.json",
+      "sha256": "7c5c8337d04d360244e4cfb068c6a501f130b94a01fbdb0bb7908757221a0628",
+      "bytes": 18680,
+      "group": "early_runs"
+    },
+    {
+      "original": "reports/full_run/federated_light_sqrt_weighted_ce_iid_n20_seed1.json",
+      "archived": "archive/early_runs/reports/full_run/federated_light_sqrt_weighted_ce_iid_n20_seed1.json",
+      "sha256": "7899add555afb219c224f4292f30d120d181c3a0fab4cd9835dec01b6ffe015d",
+      "bytes": 18580,
+      "group": "early_runs"
+    },
+    {
+      "original": "reports/full_run/federated_light_sqrt_weighted_ce_iid_n20_seed2.json",
+      "archived": "archive/early_runs/reports/full_run/federated_light_sqrt_weighted_ce_iid_n20_seed2.json",
+      "sha256": "bd40a01726c302d67d45a026a8521f7d379a24d17e6f0d220aeda61b977cac30",
+      "bytes": 13213,
+      "group": "early_runs"
+    },
+    {
+      "original": "reports/full_run/normalization_audit.json",
+      "archived": "archive/early_runs/reports/full_run/normalization_audit.json",
+      "sha256": "338770625556aee31f5bac2c98cc582e2147c3b21cc66fa97e40f29e269ec38b",
+      "bytes": 20379,
+      "group": "early_runs"
+    },
+    {
+      "original": "reports/full_run/partitions/dirichlet_a0.5_n20_s0.json",
+      "archived": "archive/early_runs/reports/full_run/partitions/dirichlet_a0.5_n20_s0.json",
+      "sha256": "abe5c5b2f5279c027dc077918bf90962778b435d75c27719b64f0f62cad87221",
+      "bytes": 393,
+      "group": "early_runs"
+    },
+    {
+      "original": "reports/full_run/partitions/dirichlet_a0.5_n20_s0_counts.csv",
+      "archived": "archive/early_runs/reports/full_run/partitions/dirichlet_a0.5_n20_s0_counts.csv",
+      "sha256": "e132cfc7de194b1bb4c787c828ab6d0a4d640f02286be15787fc16e8043f956c",
+      "bytes": 840,
+      "group": "early_runs"
+    },
+    {
+      "original": "reports/full_run/partitions/dirichlet_a0.5_n20_s1.json",
+      "archived": "archive/early_runs/reports/full_run/partitions/dirichlet_a0.5_n20_s1.json",
+      "sha256": "5284e7fb343ae1d05bd52dbf9e504d4112903a2551be14837fe0dbdb16c2a433",
+      "bytes": 393,
+      "group": "early_runs"
+    },
+    {
+      "original": "reports/full_run/partitions/dirichlet_a0.5_n20_s1_counts.csv",
+      "archived": "archive/early_runs/reports/full_run/partitions/dirichlet_a0.5_n20_s1_counts.csv",
+      "sha256": "488fe48d43ef62fefa83eee718de1ae4753628e2a96083cb7ccb5d2b733cc16f",
+      "bytes": 857,
+      "group": "early_runs"
+    },
+    {
+      "original": "reports/full_run/partitions/dirichlet_a0.5_n20_s2.json",
+      "archived": "archive/early_runs/reports/full_run/partitions/dirichlet_a0.5_n20_s2.json",
+      "sha256": "10e3986b1f4ddafbce1f1f4509ddee5779bf0bf74d4e7cb1ac8caf63956b0c7f",
+      "bytes": 393,
+      "group": "early_runs"
+    },
+    {
+      "original": "reports/full_run/partitions/dirichlet_a0.5_n20_s2_counts.csv",
+      "archived": "archive/early_runs/reports/full_run/partitions/dirichlet_a0.5_n20_s2_counts.csv",
+      "sha256": "3115179ce5351c5a65ea135644c0b7d82cf8ca35e6a221a559e3248757062c6a",
+      "bytes": 853,
+      "group": "early_runs"
+    },
+    {
+      "original": "reports/full_run/recall_comparison.png",
+      "archived": "archive/early_runs/reports/full_run/recall_comparison.png",
+      "sha256": "d8b642b8d4cfb67aef97967122c3de36457202473d937d9641c96e96431e179a",
+      "bytes": 84048,
+      "group": "early_runs"
+    },
+    {
+      "original": "reports/full_run/study_summary.json",
+      "archived": "archive/early_runs/reports/full_run/study_summary.json",
+      "sha256": "f787505bea751e58d8850753a5b390c521c43772fc51b2660fc398de4bae7ebd",
+      "bytes": 11061,
+      "group": "early_runs"
+    },
+    {
+      "original": "reports/merge_2026_09_28/JOEL_COMMENT_REFERENCE.md",
+      "archived": "archive/early_runs/reports/merge_2026_09_28/JOEL_COMMENT_REFERENCE.md",
+      "sha256": "2f9b2893c5491e448430f4bc71a9b88bbc6d86f50f78fc422f0b0083897fcf9d",
+      "bytes": 23284,
+      "group": "early_runs"
+    },
+    {
+      "original": "reports/merge_2026_09_28/MERGE_NOTES.md",
+      "archived": "archive/early_runs/reports/merge_2026_09_28/MERGE_NOTES.md",
+      "sha256": "346ac956a6d66eb621567577b7ee4401589f6013e3a88c7add63203e1ac8c177",
+      "bytes": 4407,
+      "group": "early_runs"
+    },
+    {
+      "original": "reports/runtime_smoke/federated_light_sqrt_weighted_ce_iid_n2_seed0.json",
+      "archived": "archive/early_runs/reports/runtime_smoke/federated_light_sqrt_weighted_ce_iid_n2_seed0.json",
+      "sha256": "add2a5ce88316c5b10fc6149ed058024ad3fd7bd0b47eed9fda9ae97a43c1811",
+      "bytes": 4304,
+      "group": "early_runs"
+    },
+    {
+      "original": "reports/Central aligned federated updates.md",
+      "archived": "archive/proposals/reports/Central aligned federated updates.md",
+      "sha256": "f2f0957ac5e0500eac9e78c66e3ba16b83e171f298fc6c504aa1fd231b4fc78b",
+      "bytes": 8586,
+      "group": "proposals"
+    },
+    {
+      "original": "reports/Federated gradient correction proposal.md",
+      "archived": "archive/proposals/reports/Federated gradient correction proposal.md",
+      "sha256": "c46432274851a32da5814e6b2caeaa7fed95d7a224ff66ad7d8d4fdc1f4dff0f",
+      "bytes": 7440,
+      "group": "proposals"
+    },
+    {
+      "original": "research_notes/Central aligned federated updates/adaptive_anchors.md",
+      "archived": "archive/proposals/research_notes/Central aligned federated updates/adaptive_anchors.md",
+      "sha256": "835e0629239de63ee6e1e6abe39fdbf653d99aa6034e8072dabf58cd579c014c",
+      "bytes": 18399,
+      "group": "proposals"
+    },
+    {
+      "original": "research_notes/Central aligned federated updates/optimizer_methods.md",
+      "archived": "archive/proposals/research_notes/Central aligned federated updates/optimizer_methods.md",
+      "sha256": "f0b10ae662749e3d8da6775211882fca65374005ef3a34a0ea0b43031cf3936b",
+      "bytes": 12135,
+      "group": "proposals"
+    }
+  ]
+}
