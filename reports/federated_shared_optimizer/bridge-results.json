@@ -1,0 +1,5772 @@
+{
+  "status": "complete",
+  "execution_commit": "ac90e82",
+  "primary": {
+    "status": "complete",
+    "plan_sha256": "3a8ed1ac1c04ea9e1840852f1bda6a8600015af368e9bb3d5b89c7947b0a1151",
+    "source_sha256": {
+      "src/eval/shared_adam_bridge.py": "52c755393578cc5006cb5017af9471f833f9ec44a206e55436db55465b432800",
+      "src/federated/shared_adam.py": "1b8c10b79d5113f6295c0c85c5cd285e36833283da7ba0765579ec71bca4e2e8",
+      "src/models/architectures.py": "921a1c9fd5f212d647eaea93e8c0fec8134cd0ca1b118d8ed41e7d5d7fd85526",
+      "src/models/official_losses.py": "8d2603b1e875d63ff5fe83ac270d8e410a97738dffa0982f3c37120475f49436",
+      "src/models/losses.py": "2af9a81e5fedb122316db1f83900b34436976a5204a0d8145bdfefe8d76134da",
+      "src/eval/federated_class_safeguard.py": "9e998665d2424950c079df9082d210d28529582003807e494b4f283857df5ebf",
+      "src/data/official_packed.py": "e9660bcbacf6c80cf66581840b07c607cddec3ba5613676a58f7ce8cd29b7e5d"
+    },
+    "packed_manifest_sha256": "dfd1caf01cbe233b52ce55083941001f390ec251dd89b37543630a2bc53935be",
+    "partition_sha256": "057d3705863bb7c0546dfd5aa980cc35c2082da25f85ef1075ccad37e7952f46",
+    "client_population_counts": [
+      88000,
+      27708,
+      100381,
+      198245,
+      116539,
+      69364,
+      124920,
+      93192,
+      65327,
+      110288,
+      75029,
+      89992,
+      20800,
+      128500,
+      146172,
+      58420,
+      159751,
+      107164,
+      81400,
+      138808
+    ],
+    "client_class_counts": [
+      [
+        4752,
+        26032,
+        54632,
+        368,
+        208,
+        0,
+        0,
+        2008
+      ],
+      [
+        15416,
+        432,
+        9728,
+        1300,
+        40,
+        212,
+        336,
+        244
+      ],
+      [
+        4216,
+        28304,
+        50668,
+        16773,
+        420,
+        0,
+        0,
+        0
+      ],
+      [
+        16,
+        198229,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        4244,
+        30244,
+        82051,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        5172,
+        8052,
+        4888,
+        12340,
+        0,
+        276,
+        6280,
+        32356
+      ],
+      [
+        368,
+        74324,
+        50228,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        10784,
+        54544,
+        5972,
+        8012,
+        228,
+        16,
+        488,
+        13148
+      ],
+      [
+        0,
+        7336,
+        116,
+        5188,
+        220,
+        80,
+        21775,
+        30612
+      ],
+      [
+        2104,
+        84640,
+        23544,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        23244,
+        8,
+        29148,
+        1588,
+        4,
+        285,
+        300,
+        20452
+      ],
+      [
+        124,
+        36992,
+        18360,
+        2340,
+        96,
+        284,
+        2136,
+        29660
+      ],
+      [
+        9136,
+        3976,
+        1140,
+        4204,
+        20,
+        0,
+        304,
+        2020
+      ],
+      [
+        7360,
+        121140,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        2624,
+        143548,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        1316,
+        47688,
+        1624,
+        3476,
+        184,
+        12,
+        3320,
+        800
+      ],
+      [
+        592,
+        6816,
+        27716,
+        7252,
+        783,
+        12,
+        9100,
+        107480
+      ],
+      [
+        10996,
+        96168,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        1920,
+        73052,
+        2604,
+        3436,
+        188,
+        92,
+        56,
+        52
+      ],
+      [
+        1764,
+        137036,
+        4,
+        0,
+        0,
+        0,
+        0,
+        4
+      ]
+    ],
+    "class_order": [
+      "Benign",
+      "DDoS",
+      "DoS",
+      "Recon",
+      "Web-based",
+      "Brute Force",
+      "Spoofing",
+      "Mirai"
+    ],
+    "runtime": {
+      "python": "3.13.9",
+      "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
+      "torch": "2.14.0",
+      "numpy": "2.5.3",
+      "device": "cpu",
+      "threads": 2,
+      "interop_threads": 1
+    },
+    "scope": "Numerical audit only; fresh short-lived models; no predictive performance inference",
+    "validation_rows_opened": false,
+    "test_opened": false,
+    "test_evaluated": false,
+    "quality_metrics_computed": false,
+    "cloud_used": false,
+    "historical_checkpoint_loaded": false,
+    "cases": {
+      "float64-dropout0.0": {
+        "case": {
+          "dtype": "float64",
+          "dropout": 0.0
+        },
+        "initial_model_sha256": "ae9102265cc26625d079981d71aefecb547fd75c88938957a68a5c143dd5540b",
+        "num_parameters": 5096,
+        "parameter_bytes": 40768,
+        "tolerance": {
+          "atol": 2e-11,
+          "rtol": 2e-09
+        },
+        "steps": [
+          {
+            "step": 1,
+            "sample_sha256": "5551410dc3095f45f77bbad5276b4c6675a3b1378889eeaa1718e4908def4865",
+            "dropout_seeds": [
+              1580205330,
+              1366745877,
+              4977949,
+              4141286078,
+              1743658604,
+              3054960401,
+              8236658,
+              2315871295,
+              3840159680,
+              1097964177,
+              2791693258,
+              848800324,
+              1232100167,
+              2862583332,
+              3829333582,
+              1376358099,
+              3569152193,
+              69121731,
+              3827995356,
+              153866846
+            ],
+            "sample_class_counts": [
+              955,
+              5250,
+              1928,
+              490,
+              13,
+              7,
+              309,
+              1288
+            ],
+            "checks": {
+              "raw_gradient": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 1.1102230246251565e-16,
+                "l2": 5.985613378202762e-16
+              },
+              "clipped_gradient": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 5.551115123125783e-17,
+                "l2": 3.127731067676233e-16
+              },
+              "parameters": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 2.7755575615628914e-17,
+                "l2": 8.01254013809042e-17
+              },
+              "exp_avg": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 6.938893903907228e-18,
+                "l2": 3.237533364297735e-17
+              },
+              "exp_avg_sq": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 1.3552527156068805e-20,
+                "l2": 3.224751349248516e-20
+              },
+              "step": {
+                "within_tolerance": true,
+                "bit_exact": true,
+                "max_abs": 0.0,
+                "l2": 0.0
+              }
+            }
+          },
+          {
+            "step": 2,
+            "sample_sha256": "909f36467b2241c893541d64278ac1b4f71bd151e4cfa44a819eb2ac4ede1484",
+            "dropout_seeds": [
+              1171661794,
+              4030582112,
+              3055008873,
+              3739408507,
+              1111779505,
+              3829281174,
+              98944708,
+              3304776879,
+              444657593,
+              3878443146,
+              272106521,
+              1543549562,
+              1149842377,
+              219513116,
+              2443805874,
+              4165541934,
+              606723381,
+              3911117498,
+              1997295137,
+              3684514929
+            ],
+            "sample_class_counts": [
+              962,
+              5228,
+              1992,
+              518,
+              14,
+              4,
+              310,
+              1212
+            ],
+            "checks": {
+              "raw_gradient": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 1.3877787807814457e-16,
+                "l2": 6.304426376185855e-16
+              },
+              "clipped_gradient": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 8.326672684688674e-17,
+                "l2": 3.4148139849808257e-16
+              },
+              "parameters": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 5.551115123125783e-17,
+                "l2": 1.7945370335031885e-16
+              },
+              "exp_avg": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 8.673617379884035e-18,
+                "l2": 4.5252366621697294e-17
+              },
+              "exp_avg_sq": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 4.0657581468206416e-20,
+                "l2": 6.15753030379413e-20
+              },
+              "step": {
+                "within_tolerance": true,
+                "bit_exact": true,
+                "max_abs": 0.0,
+                "l2": 0.0
+              }
+            }
+          },
+          {
+            "step": 3,
+            "sample_sha256": "8d799625aa72a2324d2bd068f24cfc3eb263a4ac9bef318844e84ed1ef30c9cc",
+            "dropout_seeds": [
+              3459832559,
+              1081234997,
+              1368662077,
+              3913449170,
+              1557209752,
+              2882324453,
+              2483997408,
+              3450973247,
+              2908797892,
+              2809123944,
+              1079645706,
+              2385055416,
+              3865598158,
+              2847094638,
+              1914770833,
+              378545930,
+              785970565,
+              424670462,
+              233403578,
+              2069065138
+            ],
+            "sample_class_counts": [
+              981,
+              5196,
+              1954,
+              474,
+              19,
+              12,
+              301,
+              1303
+            ],
+            "checks": {
+              "raw_gradient": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 1.3877787807814457e-16,
+                "l2": 5.97535200918901e-16
+              },
+              "clipped_gradient": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 8.326672684688674e-17,
+                "l2": 3.510907325832508e-16
+              },
+              "parameters": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 5.551115123125783e-17,
+                "l2": 2.244394082882164e-16
+              },
+              "exp_avg": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 1.3877787807814457e-17,
+                "l2": 5.739362310069471e-17
+              },
+              "exp_avg_sq": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 6.776263578034403e-20,
+                "l2": 8.941778204441634e-20
+              },
+              "step": {
+                "within_tolerance": true,
+                "bit_exact": true,
+                "max_abs": 0.0,
+                "l2": 0.0
+              }
+            }
+          },
+          {
+            "step": 4,
+            "sample_sha256": "285161cb09aa883434257ad31b571e7d8cee033d71df85f0e8e9aa9859bdda6f",
+            "dropout_seeds": [
+              3729775696,
+              1087924455,
+              4181874286,
+              2054849144,
+              3521302645,
+              3713943874,
+              2753212447,
+              4039121106,
+              2013820703,
+              1218988339,
+              338679111,
+              2480394499,
+              3980378102,
+              2930044889,
+              3591606347,
+              4119609038,
+              3431207049,
+              1610430861,
+              1583493973,
+              2465885451
+            ],
+            "sample_class_counts": [
+              949,
+              5282,
+              1910,
+              498,
+              15,
+              11,
+              292,
+              1283
+            ],
+            "checks": {
+              "raw_gradient": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 1.3877787807814457e-16,
+                "l2": 6.183125539789787e-16
+              },
+              "clipped_gradient": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 1.3877787807814457e-16,
+                "l2": 4.916588373054482e-16
+              },
+              "parameters": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 5.551115123125783e-17,
+                "l2": 2.7270368068008685e-16
+              },
+              "exp_avg": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 2.0816681711721685e-17,
+                "l2": 7.611778262882562e-17
+              },
+              "exp_avg_sq": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 1.3552527156068805e-19,
+                "l2": 1.579539117318687e-19
+              },
+              "step": {
+                "within_tolerance": true,
+                "bit_exact": true,
+                "max_abs": 0.0,
+                "l2": 0.0
+              }
+            }
+          },
+          {
+            "step": 5,
+            "sample_sha256": "f1b1859584e294f88ea4018e476073527bbcb799cea9375f12e4c257b70b678b",
+            "dropout_seeds": [
+              2633051649,
+              2351947399,
+              3103686013,
+              3904137684,
+              2700371545,
+              932511863,
+              3390289012,
+              558851172,
+              2272305446,
+              3216563083,
+              4229155641,
+              2622782733,
+              1495533028,
+              1022165578,
+              3901201656,
+              585050044,
+              2590476046,
+              856096379,
+              2773474626,
+              1004016539
+            ],
+            "sample_class_counts": [
+              990,
+              5247,
+              1882,
+              503,
+              10,
+              11,
+              295,
+              1302
+            ],
+            "checks": {
+              "raw_gradient": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 1.3877787807814457e-16,
+                "l2": 5.833873454236096e-16
+              },
+              "clipped_gradient": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 8.673617379884035e-17,
+                "l2": 3.911962925363842e-16
+              },
+              "parameters": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 1.1102230246251565e-16,
+                "l2": 3.1868409557111226e-16
+              },
+              "exp_avg": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 2.0816681711721685e-17,
+                "l2": 8.902469623704949e-17
+              },
+              "exp_avg_sq": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 1.3552527156068805e-19,
+                "l2": 1.70299968825722e-19
+              },
+              "step": {
+                "within_tolerance": true,
+                "bit_exact": true,
+                "max_abs": 0.0,
+                "l2": 0.0
+              }
+            }
+          },
+          {
+            "step": 6,
+            "sample_sha256": "95fc939de3f7f5effb78ee701395ef316955625175f0226248ea2ae7ce81e8ef",
+            "dropout_seeds": [
+              159409264,
+              982911527,
+              1077718078,
+              3804271039,
+              3732580833,
+              2036117691,
+              3841974671,
+              3255925216,
+              2217301708,
+              4223981716,
+              1272358844,
+              256109453,
+              1075409612,
+              1815687178,
+              3794873192,
+              439358881,
+              591118076,
+              4039729755,
+              2963893118,
+              1795447697
+            ],
+            "sample_class_counts": [
+              978,
+              5180,
+              1966,
+              494,
+              17,
+              7,
+              337,
+              1261
+            ],
+            "checks": {
+              "raw_gradient": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 1.1449174941446927e-16,
+                "l2": 5.536904813781781e-16
+              },
+              "clipped_gradient": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 7.632783294297951e-17,
+                "l2": 3.701337527116457e-16
+              },
+              "parameters": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 1.1102230246251565e-16,
+                "l2": 3.5248233440031147e-16
+              },
+              "exp_avg": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 2.0816681711721685e-17,
+                "l2": 9.432576234221152e-17
+              },
+              "exp_avg_sq": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 1.3552527156068805e-19,
+                "l2": 1.7197264711375303e-19
+              },
+              "step": {
+                "within_tolerance": true,
+                "bit_exact": true,
+                "max_abs": 0.0,
+                "l2": 0.0
+              }
+            }
+          },
+          {
+            "step": 7,
+            "sample_sha256": "b85e3edbaaa3349420e3d88e58ceced0392eb6dc6c7e9d2cceddea9253ca6123",
+            "dropout_seeds": [
+              4270864983,
+              794569128,
+              3745044992,
+              1104615546,
+              3362715079,
+              774936794,
+              1332227213,
+              338927077,
+              1524642273,
+              2254438860,
+              3747636813,
+              3271877716,
+              2606199140,
+              1771183825,
+              127197957,
+              308284836,
+              1698881766,
+              2612438953,
+              1165599609,
+              1123499249
+            ],
+            "sample_class_counts": [
+              910,
+              5249,
+              2003,
+              474,
+              15,
+              15,
+              303,
+              1271
+            ],
+            "checks": {
+              "raw_gradient": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 9.71445146547012e-17,
+                "l2": 5.039858256529798e-16
+              },
+              "clipped_gradient": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 6.938893903907228e-17,
+                "l2": 3.4426511242329586e-16
+              },
+              "parameters": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 1.1102230246251565e-16,
+                "l2": 3.758502239678901e-16
+              },
+              "exp_avg": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 1.6479873021779667e-17,
+                "l2": 9.819776746724206e-17
+              },
+              "exp_avg_sq": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 1.6263032587282567e-19,
+                "l2": 1.9328158303293587e-19
+              },
+              "step": {
+                "within_tolerance": true,
+                "bit_exact": true,
+                "max_abs": 0.0,
+                "l2": 0.0
+              }
+            }
+          },
+          {
+            "step": 8,
+            "sample_sha256": "f637cf5ca3696a1d413e95e4558f3856c1128b9ed343b19c7305ce68bce64023",
+            "dropout_seeds": [
+              378441535,
+              2342504042,
+              1949762122,
+              39430365,
+              1988245132,
+              2314107527,
+              4134433510,
+              2533774343,
+              3007662377,
+              1674614354,
+              1124452883,
+              1097389477,
+              1115979886,
+              2737885514,
+              851346743,
+              4175816886,
+              2913090944,
+              1086144787,
+              3739775825,
+              2116775242
+            ],
+            "sample_class_counts": [
+              971,
+              5290,
+              1879,
+              485,
+              8,
+              11,
+              304,
+              1292
+            ],
+            "checks": {
+              "raw_gradient": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 1.6653345369377348e-16,
+                "l2": 5.709441278885688e-16
+              },
+              "clipped_gradient": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 1.1102230246251565e-16,
+                "l2": 4.0925961561203624e-16
+              },
+              "parameters": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 1.1102230246251565e-16,
+                "l2": 4.0870084144876476e-16
+              },
+              "exp_avg": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 2.0816681711721685e-17,
+                "l2": 1.0365317431151631e-16
+              },
+              "exp_avg_sq": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 1.6263032587282567e-19,
+                "l2": 1.9586643912376188e-19
+              },
+              "step": {
+                "within_tolerance": true,
+                "bit_exact": true,
+                "max_abs": 0.0,
+                "l2": 0.0
+              }
+            }
+          },
+          {
+            "step": 9,
+            "sample_sha256": "2b033e38d2f4ff0a90197e0f3c5f5465103b4c29b9abd692adec0f0bb66dc802",
+            "dropout_seeds": [
+              1325574078,
+              1266584240,
+              1265696036,
+              3416015536,
+              2001456071,
+              3172894734,
+              3477117131,
+              2456271618,
+              436237485,
+              3846334643,
+              354340132,
+              1037703802,
+              2658099483,
+              616365352,
+              3796487367,
+              2132399653,
+              4011629469,
+              2771368729,
+              1713000812,
+              3131975547
+            ],
+            "sample_class_counts": [
+              1002,
+              5233,
+              1901,
+              487,
+              16,
+              9,
+              313,
+              1279
+            ],
+            "checks": {
+              "raw_gradient": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 1.3877787807814457e-16,
+                "l2": 5.459456922680007e-16
+              },
+              "clipped_gradient": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 1.1102230246251565e-16,
+                "l2": 4.2909949487767065e-16
+              },
+              "parameters": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 1.1102230246251565e-16,
+                "l2": 4.3628763222986136e-16
+              },
+              "exp_avg": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 2.7755575615628914e-17,
+                "l2": 1.119332595024862e-16
+              },
+              "exp_avg_sq": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 1.0842021724855044e-19,
+                "l2": 1.6572806356081732e-19
+              },
+              "step": {
+                "within_tolerance": true,
+                "bit_exact": true,
+                "max_abs": 0.0,
+                "l2": 0.0
+              }
+            }
+          },
+          {
+            "step": 10,
+            "sample_sha256": "c265de77b9d0f772fe29ec652d6b41be7e18b64f269d4006df38c3d4dcdd66ae",
+            "dropout_seeds": [
+              709454385,
+              2719263350,
+              3855534977,
+              464973494,
+              618791393,
+              924286196,
+              1151703005,
+              3746154488,
+              1170930329,
+              1297742182,
+              4110101186,
+              1403809882,
+              472773325,
+              909344837,
+              4197981785,
+              760846611,
+              2898282312,
+              1425640258,
+              2001384298,
+              4153647713
+            ],
+            "sample_class_counts": [
+              956,
+              5221,
+              2008,
+              463,
+              16,
+              7,
+              281,
+              1288
+            ],
+            "checks": {
+              "raw_gradient": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 1.1796119636642288e-16,
+                "l2": 5.055471807832916e-16
+              },
+              "clipped_gradient": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 9.71445146547012e-17,
+                "l2": 3.995425072450142e-16
+              },
+              "parameters": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 1.1102230246251565e-16,
+                "l2": 4.688760657478869e-16
+              },
+              "exp_avg": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 2.42861286636753e-17,
+                "l2": 1.1449308405903468e-16
+              },
+              "exp_avg_sq": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 5.421010862427522e-20,
+                "l2": 1.4265602513143531e-19
+              },
+              "step": {
+                "within_tolerance": true,
+                "bit_exact": true,
+                "max_abs": 0.0,
+                "l2": 0.0
+              }
+            }
+          },
+          {
+            "step": 11,
+            "sample_sha256": "619dcba5c6c6cc5e17c6075eff6e36e06f279ad336c69b1277d27d988f3fa9ff",
+            "dropout_seeds": [
+              1986543735,
+              1578754281,
+              2096393158,
+              1417944838,
+              873250172,
+              2465214990,
+              1813538733,
+              3712258233,
+              1688262350,
+              4094110018,
+              778562137,
+              322299682,
+              2022039805,
+              3537409987,
+              1502288913,
+              891284279,
+              573038397,
+              2494012598,
+              136925590,
+              837184819
+            ],
+            "sample_class_counts": [
+              989,
+              5235,
+              1945,
+              483,
+              13,
+              14,
+              299,
+              1262
+            ],
+            "checks": {
+              "raw_gradient": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 1.3877787807814457e-16,
+                "l2": 4.946634638633678e-16
+              },
+              "clipped_gradient": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 1.1102230246251565e-16,
+                "l2": 4.1086798363853625e-16
+              },
+              "parameters": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 1.1102230246251565e-16,
+                "l2": 4.925349686370778e-16
+              },
+              "exp_avg": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 2.0816681711721685e-17,
+                "l2": 1.187403488905504e-16
+              },
+              "exp_avg_sq": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 5.421010862427522e-20,
+                "l2": 1.4378504137275926e-19
+              },
+              "step": {
+                "within_tolerance": true,
+                "bit_exact": true,
+                "max_abs": 0.0,
+                "l2": 0.0
+              }
+            }
+          },
+          {
+            "step": 12,
+            "sample_sha256": "ccdb70d147e5e72d9709646bf8eb056f20fc0128006ce81fd9a0caab7b29b7f6",
+            "dropout_seeds": [
+              1261883221,
+              2820370233,
+              1116065651,
+              781779086,
+              4280653550,
+              1940241591,
+              409087209,
+              3713435195,
+              1066487707,
+              2847708950,
+              2293870616,
+              2740145369,
+              4124699422,
+              4088080736,
+              2668988686,
+              1119628767,
+              3391099037,
+              465830492,
+              2105182374,
+              2441643841
+            ],
+            "sample_class_counts": [
+              1003,
+              5238,
+              1928,
+              478,
+              12,
+              15,
+              288,
+              1278
+            ],
+            "checks": {
+              "raw_gradient": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 9.71445146547012e-17,
+                "l2": 4.764767852552555e-16
+              },
+              "clipped_gradient": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 8.326672684688674e-17,
+                "l2": 4.187600519751559e-16
+              },
+              "parameters": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 1.1102230246251565e-16,
+                "l2": 5.232373163910809e-16
+              },
+              "exp_avg": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 1.734723475976807e-17,
+                "l2": 1.2592770120448122e-16
+              },
+              "exp_avg_sq": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 5.421010862427522e-20,
+                "l2": 1.3656502976688515e-19
+              },
+              "step": {
+                "within_tolerance": true,
+                "bit_exact": true,
+                "max_abs": 0.0,
+                "l2": 0.0
+              }
+            }
+          }
+        ],
+        "recovery_steps": [
+          {
+            "step": 7,
+            "sample_sha256": "b85e3edbaaa3349420e3d88e58ceced0392eb6dc6c7e9d2cceddea9253ca6123",
+            "dropout_seeds": [
+              4270864983,
+              794569128,
+              3745044992,
+              1104615546,
+              3362715079,
+              774936794,
+              1332227213,
+              338927077,
+              1524642273,
+              2254438860,
+              3747636813,
+              3271877716,
+              2606199140,
+              1771183825,
+              127197957,
+              308284836,
+              1698881766,
+              2612438953,
+              1165599609,
+              1123499249
+            ],
+            "sample_class_counts": [
+              910,
+              5249,
+              2003,
+              474,
+              15,
+              15,
+              303,
+              1271
+            ],
+            "checks": {
+              "raw_gradient": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 9.71445146547012e-17,
+                "l2": 5.039858256529798e-16
+              },
+              "clipped_gradient": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 6.938893903907228e-17,
+                "l2": 3.4426511242329586e-16
+              },
+              "parameters": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 1.1102230246251565e-16,
+                "l2": 3.758502239678901e-16
+              },
+              "exp_avg": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 1.6479873021779667e-17,
+                "l2": 9.819776746724206e-17
+              },
+              "exp_avg_sq": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 1.6263032587282567e-19,
+                "l2": 1.9328158303293587e-19
+              },
+              "step": {
+                "within_tolerance": true,
+                "bit_exact": true,
+                "max_abs": 0.0,
+                "l2": 0.0
+              }
+            }
+          },
+          {
+            "step": 8,
+            "sample_sha256": "f637cf5ca3696a1d413e95e4558f3856c1128b9ed343b19c7305ce68bce64023",
+            "dropout_seeds": [
+              378441535,
+              2342504042,
+              1949762122,
+              39430365,
+              1988245132,
+              2314107527,
+              4134433510,
+              2533774343,
+              3007662377,
+              1674614354,
+              1124452883,
+              1097389477,
+              1115979886,
+              2737885514,
+              851346743,
+              4175816886,
+              2913090944,
+              1086144787,
+              3739775825,
+              2116775242
+            ],
+            "sample_class_counts": [
+              971,
+              5290,
+              1879,
+              485,
+              8,
+              11,
+              304,
+              1292
+            ],
+            "checks": {
+              "raw_gradient": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 1.6653345369377348e-16,
+                "l2": 5.709441278885688e-16
+              },
+              "clipped_gradient": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 1.1102230246251565e-16,
+                "l2": 4.0925961561203624e-16
+              },
+              "parameters": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 1.1102230246251565e-16,
+                "l2": 4.0870084144876476e-16
+              },
+              "exp_avg": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 2.0816681711721685e-17,
+                "l2": 1.0365317431151631e-16
+              },
+              "exp_avg_sq": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 1.6263032587282567e-19,
+                "l2": 1.9586643912376188e-19
+              },
+              "step": {
+                "within_tolerance": true,
+                "bit_exact": true,
+                "max_abs": 0.0,
+                "l2": 0.0
+              }
+            }
+          },
+          {
+            "step": 9,
+            "sample_sha256": "2b033e38d2f4ff0a90197e0f3c5f5465103b4c29b9abd692adec0f0bb66dc802",
+            "dropout_seeds": [
+              1325574078,
+              1266584240,
+              1265696036,
+              3416015536,
+              2001456071,
+              3172894734,
+              3477117131,
+              2456271618,
+              436237485,
+              3846334643,
+              354340132,
+              1037703802,
+              2658099483,
+              616365352,
+              3796487367,
+              2132399653,
+              4011629469,
+              2771368729,
+              1713000812,
+              3131975547
+            ],
+            "sample_class_counts": [
+              1002,
+              5233,
+              1901,
+              487,
+              16,
+              9,
+              313,
+              1279
+            ],
+            "checks": {
+              "raw_gradient": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 1.3877787807814457e-16,
+                "l2": 5.459456922680007e-16
+              },
+              "clipped_gradient": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 1.1102230246251565e-16,
+                "l2": 4.2909949487767065e-16
+              },
+              "parameters": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 1.1102230246251565e-16,
+                "l2": 4.3628763222986136e-16
+              },
+              "exp_avg": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 2.7755575615628914e-17,
+                "l2": 1.119332595024862e-16
+              },
+              "exp_avg_sq": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 1.0842021724855044e-19,
+                "l2": 1.6572806356081732e-19
+              },
+              "step": {
+                "within_tolerance": true,
+                "bit_exact": true,
+                "max_abs": 0.0,
+                "l2": 0.0
+              }
+            }
+          },
+          {
+            "step": 10,
+            "sample_sha256": "c265de77b9d0f772fe29ec652d6b41be7e18b64f269d4006df38c3d4dcdd66ae",
+            "dropout_seeds": [
+              709454385,
+              2719263350,
+              3855534977,
+              464973494,
+              618791393,
+              924286196,
+              1151703005,
+              3746154488,
+              1170930329,
+              1297742182,
+              4110101186,
+              1403809882,
+              472773325,
+              909344837,
+              4197981785,
+              760846611,
+              2898282312,
+              1425640258,
+              2001384298,
+              4153647713
+            ],
+            "sample_class_counts": [
+              956,
+              5221,
+              2008,
+              463,
+              16,
+              7,
+              281,
+              1288
+            ],
+            "checks": {
+              "raw_gradient": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 1.1796119636642288e-16,
+                "l2": 5.055471807832916e-16
+              },
+              "clipped_gradient": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 9.71445146547012e-17,
+                "l2": 3.995425072450142e-16
+              },
+              "parameters": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 1.1102230246251565e-16,
+                "l2": 4.688760657478869e-16
+              },
+              "exp_avg": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 2.42861286636753e-17,
+                "l2": 1.1449308405903468e-16
+              },
+              "exp_avg_sq": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 5.421010862427522e-20,
+                "l2": 1.4265602513143531e-19
+              },
+              "step": {
+                "within_tolerance": true,
+                "bit_exact": true,
+                "max_abs": 0.0,
+                "l2": 0.0
+              }
+            }
+          },
+          {
+            "step": 11,
+            "sample_sha256": "619dcba5c6c6cc5e17c6075eff6e36e06f279ad336c69b1277d27d988f3fa9ff",
+            "dropout_seeds": [
+              1986543735,
+              1578754281,
+              2096393158,
+              1417944838,
+              873250172,
+              2465214990,
+              1813538733,
+              3712258233,
+              1688262350,
+              4094110018,
+              778562137,
+              322299682,
+              2022039805,
+              3537409987,
+              1502288913,
+              891284279,
+              573038397,
+              2494012598,
+              136925590,
+              837184819
+            ],
+            "sample_class_counts": [
+              989,
+              5235,
+              1945,
+              483,
+              13,
+              14,
+              299,
+              1262
+            ],
+            "checks": {
+              "raw_gradient": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 1.3877787807814457e-16,
+                "l2": 4.946634638633678e-16
+              },
+              "clipped_gradient": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 1.1102230246251565e-16,
+                "l2": 4.1086798363853625e-16
+              },
+              "parameters": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 1.1102230246251565e-16,
+                "l2": 4.925349686370778e-16
+              },
+              "exp_avg": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 2.0816681711721685e-17,
+                "l2": 1.187403488905504e-16
+              },
+              "exp_avg_sq": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 5.421010862427522e-20,
+                "l2": 1.4378504137275926e-19
+              },
+              "step": {
+                "within_tolerance": true,
+                "bit_exact": true,
+                "max_abs": 0.0,
+                "l2": 0.0
+              }
+            }
+          },
+          {
+            "step": 12,
+            "sample_sha256": "ccdb70d147e5e72d9709646bf8eb056f20fc0128006ce81fd9a0caab7b29b7f6",
+            "dropout_seeds": [
+              1261883221,
+              2820370233,
+              1116065651,
+              781779086,
+              4280653550,
+              1940241591,
+              409087209,
+              3713435195,
+              1066487707,
+              2847708950,
+              2293870616,
+              2740145369,
+              4124699422,
+              4088080736,
+              2668988686,
+              1119628767,
+              3391099037,
+              465830492,
+              2105182374,
+              2441643841
+            ],
+            "sample_class_counts": [
+              1003,
+              5238,
+              1928,
+              478,
+              12,
+              15,
+              288,
+              1278
+            ],
+            "checks": {
+              "raw_gradient": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 9.71445146547012e-17,
+                "l2": 4.764767852552555e-16
+              },
+              "clipped_gradient": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 8.326672684688674e-17,
+                "l2": 4.187600519751559e-16
+              },
+              "parameters": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 1.1102230246251565e-16,
+                "l2": 5.232373163910809e-16
+              },
+              "exp_avg": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 1.734723475976807e-17,
+                "l2": 1.2592770120448122e-16
+              },
+              "exp_avg_sq": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 5.421010862427522e-20,
+                "l2": 1.3656502976688515e-19
+              },
+              "step": {
+                "within_tolerance": true,
+                "bit_exact": true,
+                "max_abs": 0.0,
+                "l2": 0.0
+              }
+            }
+          }
+        ],
+        "work": {
+          "backward_examples": 368640,
+          "backward_batches": 720,
+          "optimizer_steps": 36,
+          "quality_evaluation_examples": 0
+        },
+        "recovery_exact": true,
+        "final_model_sha256": {
+          "federated": "8ebff3ef1cb03b3086b1b34799b2c9cec333a7edf228dea25398c5a16ee7df30",
+          "central": "95da34c04c25ce497bb8a9c9192ec0e73f46631b13d3840d4801423de972bda6"
+        },
+        "central_federated_bit_exact": false,
+        "numerical_equivalence_passed": true,
+        "elapsed_seconds": 0.7286789580248296,
+        "communication": {
+          "estimated_per_path_bytes": 19568640,
+          "sync_steps": 12,
+          "measured_network_traffic": false,
+          "includes_recovery_audit": false,
+          "transport_overhead_included": false
+        }
+      },
+      "float64-dropout0.2": {
+        "case": {
+          "dtype": "float64",
+          "dropout": 0.2
+        },
+        "initial_model_sha256": "ae9102265cc26625d079981d71aefecb547fd75c88938957a68a5c143dd5540b",
+        "num_parameters": 5096,
+        "parameter_bytes": 40768,
+        "tolerance": {
+          "atol": 2e-11,
+          "rtol": 2e-09
+        },
+        "steps": [
+          {
+            "step": 1,
+            "sample_sha256": "5551410dc3095f45f77bbad5276b4c6675a3b1378889eeaa1718e4908def4865",
+            "dropout_seeds": [
+              1580205330,
+              1366745877,
+              4977949,
+              4141286078,
+              1743658604,
+              3054960401,
+              8236658,
+              2315871295,
+              3840159680,
+              1097964177,
+              2791693258,
+              848800324,
+              1232100167,
+              2862583332,
+              3829333582,
+              1376358099,
+              3569152193,
+              69121731,
+              3827995356,
+              153866846
+            ],
+            "sample_class_counts": [
+              955,
+              5250,
+              1928,
+              490,
+              13,
+              7,
+              309,
+              1288
+            ],
+            "checks": {
+              "raw_gradient": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 1.1102230246251565e-16,
+                "l2": 4.805934043556099e-16
+              },
+              "clipped_gradient": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 8.326672684688674e-17,
+                "l2": 3.203709015878383e-16
+              },
+              "parameters": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 2.7755575615628914e-17,
+                "l2": 5.777933000744582e-17
+              },
+              "exp_avg": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 8.673617379884035e-18,
+                "l2": 3.2797930303159376e-17
+              },
+              "exp_avg_sq": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 2.0328790734103208e-20,
+                "l2": 4.117892399023118e-20
+              },
+              "step": {
+                "within_tolerance": true,
+                "bit_exact": true,
+                "max_abs": 0.0,
+                "l2": 0.0
+              }
+            }
+          },
+          {
+            "step": 2,
+            "sample_sha256": "909f36467b2241c893541d64278ac1b4f71bd151e4cfa44a819eb2ac4ede1484",
+            "dropout_seeds": [
+              1171661794,
+              4030582112,
+              3055008873,
+              3739408507,
+              1111779505,
+              3829281174,
+              98944708,
+              3304776879,
+              444657593,
+              3878443146,
+              272106521,
+              1543549562,
+              1149842377,
+              219513116,
+              2443805874,
+              4165541934,
+              606723381,
+              3911117498,
+              1997295137,
+              3684514929
+            ],
+            "sample_class_counts": [
+              962,
+              5228,
+              1992,
+              518,
+              14,
+              4,
+              310,
+              1212
+            ],
+            "checks": {
+              "raw_gradient": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 1.5265566588595902e-16,
+                "l2": 5.201679235789377e-16
+              },
+              "clipped_gradient": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 9.71445146547012e-17,
+                "l2": 3.5580283168441773e-16
+              },
+              "parameters": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 5.551115123125783e-17,
+                "l2": 1.4927996390711796e-16
+              },
+              "exp_avg": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 1.3877787807814457e-17,
+                "l2": 4.8894581340197276e-17
+              },
+              "exp_avg_sq": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 3.3881317890172014e-20,
+                "l2": 7.410399954752909e-20
+              },
+              "step": {
+                "within_tolerance": true,
+                "bit_exact": true,
+                "max_abs": 0.0,
+                "l2": 0.0
+              }
+            }
+          },
+          {
+            "step": 3,
+            "sample_sha256": "8d799625aa72a2324d2bd068f24cfc3eb263a4ac9bef318844e84ed1ef30c9cc",
+            "dropout_seeds": [
+              3459832559,
+              1081234997,
+              1368662077,
+              3913449170,
+              1557209752,
+              2882324453,
+              2483997408,
+              3450973247,
+              2908797892,
+              2809123944,
+              1079645706,
+              2385055416,
+              3865598158,
+              2847094638,
+              1914770833,
+              378545930,
+              785970565,
+              424670462,
+              233403578,
+              2069065138
+            ],
+            "sample_class_counts": [
+              981,
+              5196,
+              1954,
+              474,
+              19,
+              12,
+              301,
+              1303
+            ],
+            "checks": {
+              "raw_gradient": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 1.1102230246251565e-16,
+                "l2": 4.959132377164291e-16
+              },
+              "clipped_gradient": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 8.326672684688674e-17,
+                "l2": 3.7328632889121983e-16
+              },
+              "parameters": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 5.551115123125783e-17,
+                "l2": 2.36975867238867e-16
+              },
+              "exp_avg": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 1.3877787807814457e-17,
+                "l2": 5.885858551800967e-17
+              },
+              "exp_avg_sq": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 4.0657581468206416e-20,
+                "l2": 7.899492856650224e-20
+              },
+              "step": {
+                "within_tolerance": true,
+                "bit_exact": true,
+                "max_abs": 0.0,
+                "l2": 0.0
+              }
+            }
+          },
+          {
+            "step": 4,
+            "sample_sha256": "285161cb09aa883434257ad31b571e7d8cee033d71df85f0e8e9aa9859bdda6f",
+            "dropout_seeds": [
+              3729775696,
+              1087924455,
+              4181874286,
+              2054849144,
+              3521302645,
+              3713943874,
+              2753212447,
+              4039121106,
+              2013820703,
+              1218988339,
+              338679111,
+              2480394499,
+              3980378102,
+              2930044889,
+              3591606347,
+              4119609038,
+              3431207049,
+              1610430861,
+              1583493973,
+              2465885451
+            ],
+            "sample_class_counts": [
+              949,
+              5282,
+              1910,
+              498,
+              15,
+              11,
+              292,
+              1283
+            ],
+            "checks": {
+              "raw_gradient": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 1.3877787807814457e-16,
+                "l2": 4.80740172348834e-16
+              },
+              "clipped_gradient": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 1.3877787807814457e-16,
+                "l2": 3.700531232214835e-16
+              },
+              "parameters": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 6.071532165918825e-17,
+                "l2": 2.7793156319002696e-16
+              },
+              "exp_avg": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 2.7755575615628914e-17,
+                "l2": 7.489294897387482e-17
+              },
+              "exp_avg_sq": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 5.421010862427522e-20,
+                "l2": 9.569926330353389e-20
+              },
+              "step": {
+                "within_tolerance": true,
+                "bit_exact": true,
+                "max_abs": 0.0,
+                "l2": 0.0
+              }
+            }
+          },
+          {
+            "step": 5,
+            "sample_sha256": "f1b1859584e294f88ea4018e476073527bbcb799cea9375f12e4c257b70b678b",
+            "dropout_seeds": [
+              2633051649,
+              2351947399,
+              3103686013,
+              3904137684,
+              2700371545,
+              932511863,
+              3390289012,
+              558851172,
+              2272305446,
+              3216563083,
+              4229155641,
+              2622782733,
+              1495533028,
+              1022165578,
+              3901201656,
+              585050044,
+              2590476046,
+              856096379,
+              2773474626,
+              1004016539
+            ],
+            "sample_class_counts": [
+              990,
+              5247,
+              1882,
+              503,
+              10,
+              11,
+              295,
+              1302
+            ],
+            "checks": {
+              "raw_gradient": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 1.6653345369377348e-16,
+                "l2": 4.9371119035711405e-16
+              },
+              "clipped_gradient": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 1.1102230246251565e-16,
+                "l2": 3.707359659114417e-16
+              },
+              "parameters": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 6.418476861114186e-17,
+                "l2": 3.069127119218594e-16
+              },
+              "exp_avg": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 2.0383000842727483e-17,
+                "l2": 7.611280379403119e-17
+              },
+              "exp_avg_sq": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 2.710505431213761e-20,
+                "l2": 8.19878016782566e-20
+              },
+              "step": {
+                "within_tolerance": true,
+                "bit_exact": true,
+                "max_abs": 0.0,
+                "l2": 0.0
+              }
+            }
+          },
+          {
+            "step": 6,
+            "sample_sha256": "95fc939de3f7f5effb78ee701395ef316955625175f0226248ea2ae7ce81e8ef",
+            "dropout_seeds": [
+              159409264,
+              982911527,
+              1077718078,
+              3804271039,
+              3732580833,
+              2036117691,
+              3841974671,
+              3255925216,
+              2217301708,
+              4223981716,
+              1272358844,
+              256109453,
+              1075409612,
+              1815687178,
+              3794873192,
+              439358881,
+              591118076,
+              4039729755,
+              2963893118,
+              1795447697
+            ],
+            "sample_class_counts": [
+              978,
+              5180,
+              1966,
+              494,
+              17,
+              7,
+              337,
+              1261
+            ],
+            "checks": {
+              "raw_gradient": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 1.249000902703301e-16,
+                "l2": 4.857001476372839e-16
+              },
+              "clipped_gradient": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 1.1102230246251565e-16,
+                "l2": 3.7015635826576015e-16
+              },
+              "parameters": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 1.1102230246251565e-16,
+                "l2": 3.475194476694732e-16
+              },
+              "exp_avg": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 2.0816681711721685e-17,
+                "l2": 8.518201352842699e-17
+              },
+              "exp_avg_sq": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 2.710505431213761e-20,
+                "l2": 8.470573308783075e-20
+              },
+              "step": {
+                "within_tolerance": true,
+                "bit_exact": true,
+                "max_abs": 0.0,
+                "l2": 0.0
+              }
+            }
+          },
+          {
+            "step": 7,
+            "sample_sha256": "b85e3edbaaa3349420e3d88e58ceced0392eb6dc6c7e9d2cceddea9253ca6123",
+            "dropout_seeds": [
+              4270864983,
+              794569128,
+              3745044992,
+              1104615546,
+              3362715079,
+              774936794,
+              1332227213,
+              338927077,
+              1524642273,
+              2254438860,
+              3747636813,
+              3271877716,
+              2606199140,
+              1771183825,
+              127197957,
+              308284836,
+              1698881766,
+              2612438953,
+              1165599609,
+              1123499249
+            ],
+            "sample_class_counts": [
+              910,
+              5249,
+              2003,
+              474,
+              15,
+              15,
+              303,
+              1271
+            ],
+            "checks": {
+              "raw_gradient": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 1.474514954580286e-16,
+                "l2": 4.492188536432126e-16
+              },
+              "clipped_gradient": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 1.1622647289044608e-16,
+                "l2": 3.5939587123384135e-16
+              },
+              "parameters": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 1.1102230246251565e-16,
+                "l2": 3.759278038980532e-16
+              },
+              "exp_avg": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 2.927345865710862e-17,
+                "l2": 9.675457441853051e-17
+              },
+              "exp_avg_sq": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 4.0657581468206416e-20,
+                "l2": 9.742492277040838e-20
+              },
+              "step": {
+                "within_tolerance": true,
+                "bit_exact": true,
+                "max_abs": 0.0,
+                "l2": 0.0
+              }
+            }
+          },
+          {
+            "step": 8,
+            "sample_sha256": "f637cf5ca3696a1d413e95e4558f3856c1128b9ed343b19c7305ce68bce64023",
+            "dropout_seeds": [
+              378441535,
+              2342504042,
+              1949762122,
+              39430365,
+              1988245132,
+              2314107527,
+              4134433510,
+              2533774343,
+              3007662377,
+              1674614354,
+              1124452883,
+              1097389477,
+              1115979886,
+              2737885514,
+              851346743,
+              4175816886,
+              2913090944,
+              1086144787,
+              3739775825,
+              2116775242
+            ],
+            "sample_class_counts": [
+              971,
+              5290,
+              1879,
+              485,
+              8,
+              11,
+              304,
+              1292
+            ],
+            "checks": {
+              "raw_gradient": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 1.1102230246251565e-16,
+                "l2": 4.572513505985216e-16
+              },
+              "clipped_gradient": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 8.326672684688674e-17,
+                "l2": 3.755472055589119e-16
+              },
+              "parameters": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 1.1102230246251565e-16,
+                "l2": 4.0931181243073304e-16
+              },
+              "exp_avg": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 3.133344278483108e-17,
+                "l2": 1.0444149485600824e-16
+              },
+              "exp_avg_sq": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 5.421010862427522e-20,
+                "l2": 1.2237917138316702e-19
+              },
+              "step": {
+                "within_tolerance": true,
+                "bit_exact": true,
+                "max_abs": 0.0,
+                "l2": 0.0
+              }
+            }
+          },
+          {
+            "step": 9,
+            "sample_sha256": "2b033e38d2f4ff0a90197e0f3c5f5465103b4c29b9abd692adec0f0bb66dc802",
+            "dropout_seeds": [
+              1325574078,
+              1266584240,
+              1265696036,
+              3416015536,
+              2001456071,
+              3172894734,
+              3477117131,
+              2456271618,
+              436237485,
+              3846334643,
+              354340132,
+              1037703802,
+              2658099483,
+              616365352,
+              3796487367,
+              2132399653,
+              4011629469,
+              2771368729,
+              1713000812,
+              3131975547
+            ],
+            "sample_class_counts": [
+              1002,
+              5233,
+              1901,
+              487,
+              16,
+              9,
+              313,
+              1279
+            ],
+            "checks": {
+              "raw_gradient": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 8.326672684688674e-17,
+                "l2": 4.408852854095123e-16
+              },
+              "clipped_gradient": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 6.938893903907228e-17,
+                "l2": 3.8526249673331877e-16
+              },
+              "parameters": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 1.1102230246251565e-16,
+                "l2": 4.362557817911797e-16
+              },
+              "exp_avg": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 2.7755575615628914e-17,
+                "l2": 1.057019592146983e-16
+              },
+              "exp_avg_sq": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 5.421010862427522e-20,
+                "l2": 1.3777764419810658e-19
+              },
+              "step": {
+                "within_tolerance": true,
+                "bit_exact": true,
+                "max_abs": 0.0,
+                "l2": 0.0
+              }
+            }
+          },
+          {
+            "step": 10,
+            "sample_sha256": "c265de77b9d0f772fe29ec652d6b41be7e18b64f269d4006df38c3d4dcdd66ae",
+            "dropout_seeds": [
+              709454385,
+              2719263350,
+              3855534977,
+              464973494,
+              618791393,
+              924286196,
+              1151703005,
+              3746154488,
+              1170930329,
+              1297742182,
+              4110101186,
+              1403809882,
+              472773325,
+              909344837,
+              4197981785,
+              760846611,
+              2898282312,
+              1425640258,
+              2001384298,
+              4153647713
+            ],
+            "sample_class_counts": [
+              956,
+              5221,
+              2008,
+              463,
+              16,
+              7,
+              281,
+              1288
+            ],
+            "checks": {
+              "raw_gradient": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 1.1102230246251565e-16,
+                "l2": 4.2520511989040863e-16
+              },
+              "clipped_gradient": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 1.3877787807814457e-16,
+                "l2": 4.715303766733784e-16
+              },
+              "parameters": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 1.1102230246251565e-16,
+                "l2": 4.530927975144447e-16
+              },
+              "exp_avg": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 2.7755575615628914e-17,
+                "l2": 1.197278351772605e-16
+              },
+              "exp_avg_sq": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 5.421010862427522e-20,
+                "l2": 1.4079752752807293e-19
+              },
+              "step": {
+                "within_tolerance": true,
+                "bit_exact": true,
+                "max_abs": 0.0,
+                "l2": 0.0
+              }
+            }
+          },
+          {
+            "step": 11,
+            "sample_sha256": "619dcba5c6c6cc5e17c6075eff6e36e06f279ad336c69b1277d27d988f3fa9ff",
+            "dropout_seeds": [
+              1986543735,
+              1578754281,
+              2096393158,
+              1417944838,
+              873250172,
+              2465214990,
+              1813538733,
+              3712258233,
+              1688262350,
+              4094110018,
+              778562137,
+              322299682,
+              2022039805,
+              3537409987,
+              1502288913,
+              891284279,
+              573038397,
+              2494012598,
+              136925590,
+              837184819
+            ],
+            "sample_class_counts": [
+              989,
+              5235,
+              1945,
+              483,
+              13,
+              14,
+              299,
+              1262
+            ],
+            "checks": {
+              "raw_gradient": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 8.326672684688674e-17,
+                "l2": 4.215581515610183e-16
+              },
+              "clipped_gradient": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 6.245004513516506e-17,
+                "l2": 4.003082813922519e-16
+              },
+              "parameters": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 1.1102230246251565e-16,
+                "l2": 4.684653663266155e-16
+              },
+              "exp_avg": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 2.7755575615628914e-17,
+                "l2": 1.2173296040166583e-16
+              },
+              "exp_avg_sq": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 5.421010862427522e-20,
+                "l2": 1.5595699281487466e-19
+              },
+              "step": {
+                "within_tolerance": true,
+                "bit_exact": true,
+                "max_abs": 0.0,
+                "l2": 0.0
+              }
+            }
+          },
+          {
+            "step": 12,
+            "sample_sha256": "ccdb70d147e5e72d9709646bf8eb056f20fc0128006ce81fd9a0caab7b29b7f6",
+            "dropout_seeds": [
+              1261883221,
+              2820370233,
+              1116065651,
+              781779086,
+              4280653550,
+              1940241591,
+              409087209,
+              3713435195,
+              1066487707,
+              2847708950,
+              2293870616,
+              2740145369,
+              4124699422,
+              4088080736,
+              2668988686,
+              1119628767,
+              3391099037,
+              465830492,
+              2105182374,
+              2441643841
+            ],
+            "sample_class_counts": [
+              1003,
+              5238,
+              1928,
+              478,
+              12,
+              15,
+              288,
+              1278
+            ],
+            "checks": {
+              "raw_gradient": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 1.8041124150158794e-16,
+                "l2": 4.3722444057672775e-16
+              },
+              "clipped_gradient": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 1.734723475976807e-16,
+                "l2": 4.2534576975240454e-16
+              },
+              "parameters": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 1.1102230246251565e-16,
+                "l2": 4.948590662016838e-16
+              },
+              "exp_avg": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 2.7755575615628914e-17,
+                "l2": 1.2613125370691134e-16
+              },
+              "exp_avg_sq": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 5.421010862427522e-20,
+                "l2": 1.5508592187666488e-19
+              },
+              "step": {
+                "within_tolerance": true,
+                "bit_exact": true,
+                "max_abs": 0.0,
+                "l2": 0.0
+              }
+            }
+          }
+        ],
+        "recovery_steps": [
+          {
+            "step": 7,
+            "sample_sha256": "b85e3edbaaa3349420e3d88e58ceced0392eb6dc6c7e9d2cceddea9253ca6123",
+            "dropout_seeds": [
+              4270864983,
+              794569128,
+              3745044992,
+              1104615546,
+              3362715079,
+              774936794,
+              1332227213,
+              338927077,
+              1524642273,
+              2254438860,
+              3747636813,
+              3271877716,
+              2606199140,
+              1771183825,
+              127197957,
+              308284836,
+              1698881766,
+              2612438953,
+              1165599609,
+              1123499249
+            ],
+            "sample_class_counts": [
+              910,
+              5249,
+              2003,
+              474,
+              15,
+              15,
+              303,
+              1271
+            ],
+            "checks": {
+              "raw_gradient": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 1.474514954580286e-16,
+                "l2": 4.492188536432126e-16
+              },
+              "clipped_gradient": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 1.1622647289044608e-16,
+                "l2": 3.5939587123384135e-16
+              },
+              "parameters": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 1.1102230246251565e-16,
+                "l2": 3.759278038980532e-16
+              },
+              "exp_avg": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 2.927345865710862e-17,
+                "l2": 9.675457441853051e-17
+              },
+              "exp_avg_sq": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 4.0657581468206416e-20,
+                "l2": 9.742492277040838e-20
+              },
+              "step": {
+                "within_tolerance": true,
+                "bit_exact": true,
+                "max_abs": 0.0,
+                "l2": 0.0
+              }
+            }
+          },
+          {
+            "step": 8,
+            "sample_sha256": "f637cf5ca3696a1d413e95e4558f3856c1128b9ed343b19c7305ce68bce64023",
+            "dropout_seeds": [
+              378441535,
+              2342504042,
+              1949762122,
+              39430365,
+              1988245132,
+              2314107527,
+              4134433510,
+              2533774343,
+              3007662377,
+              1674614354,
+              1124452883,
+              1097389477,
+              1115979886,
+              2737885514,
+              851346743,
+              4175816886,
+              2913090944,
+              1086144787,
+              3739775825,
+              2116775242
+            ],
+            "sample_class_counts": [
+              971,
+              5290,
+              1879,
+              485,
+              8,
+              11,
+              304,
+              1292
+            ],
+            "checks": {
+              "raw_gradient": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 1.1102230246251565e-16,
+                "l2": 4.572513505985216e-16
+              },
+              "clipped_gradient": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 8.326672684688674e-17,
+                "l2": 3.755472055589119e-16
+              },
+              "parameters": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 1.1102230246251565e-16,
+                "l2": 4.0931181243073304e-16
+              },
+              "exp_avg": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 3.133344278483108e-17,
+                "l2": 1.0444149485600824e-16
+              },
+              "exp_avg_sq": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 5.421010862427522e-20,
+                "l2": 1.2237917138316702e-19
+              },
+              "step": {
+                "within_tolerance": true,
+                "bit_exact": true,
+                "max_abs": 0.0,
+                "l2": 0.0
+              }
+            }
+          },
+          {
+            "step": 9,
+            "sample_sha256": "2b033e38d2f4ff0a90197e0f3c5f5465103b4c29b9abd692adec0f0bb66dc802",
+            "dropout_seeds": [
+              1325574078,
+              1266584240,
+              1265696036,
+              3416015536,
+              2001456071,
+              3172894734,
+              3477117131,
+              2456271618,
+              436237485,
+              3846334643,
+              354340132,
+              1037703802,
+              2658099483,
+              616365352,
+              3796487367,
+              2132399653,
+              4011629469,
+              2771368729,
+              1713000812,
+              3131975547
+            ],
+            "sample_class_counts": [
+              1002,
+              5233,
+              1901,
+              487,
+              16,
+              9,
+              313,
+              1279
+            ],
+            "checks": {
+              "raw_gradient": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 8.326672684688674e-17,
+                "l2": 4.408852854095123e-16
+              },
+              "clipped_gradient": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 6.938893903907228e-17,
+                "l2": 3.8526249673331877e-16
+              },
+              "parameters": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 1.1102230246251565e-16,
+                "l2": 4.362557817911797e-16
+              },
+              "exp_avg": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 2.7755575615628914e-17,
+                "l2": 1.057019592146983e-16
+              },
+              "exp_avg_sq": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 5.421010862427522e-20,
+                "l2": 1.3777764419810658e-19
+              },
+              "step": {
+                "within_tolerance": true,
+                "bit_exact": true,
+                "max_abs": 0.0,
+                "l2": 0.0
+              }
+            }
+          },
+          {
+            "step": 10,
+            "sample_sha256": "c265de77b9d0f772fe29ec652d6b41be7e18b64f269d4006df38c3d4dcdd66ae",
+            "dropout_seeds": [
+              709454385,
+              2719263350,
+              3855534977,
+              464973494,
+              618791393,
+              924286196,
+              1151703005,
+              3746154488,
+              1170930329,
+              1297742182,
+              4110101186,
+              1403809882,
+              472773325,
+              909344837,
+              4197981785,
+              760846611,
+              2898282312,
+              1425640258,
+              2001384298,
+              4153647713
+            ],
+            "sample_class_counts": [
+              956,
+              5221,
+              2008,
+              463,
+              16,
+              7,
+              281,
+              1288
+            ],
+            "checks": {
+              "raw_gradient": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 1.1102230246251565e-16,
+                "l2": 4.2520511989040863e-16
+              },
+              "clipped_gradient": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 1.3877787807814457e-16,
+                "l2": 4.715303766733784e-16
+              },
+              "parameters": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 1.1102230246251565e-16,
+                "l2": 4.530927975144447e-16
+              },
+              "exp_avg": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 2.7755575615628914e-17,
+                "l2": 1.197278351772605e-16
+              },
+              "exp_avg_sq": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 5.421010862427522e-20,
+                "l2": 1.4079752752807293e-19
+              },
+              "step": {
+                "within_tolerance": true,
+                "bit_exact": true,
+                "max_abs": 0.0,
+                "l2": 0.0
+              }
+            }
+          },
+          {
+            "step": 11,
+            "sample_sha256": "619dcba5c6c6cc5e17c6075eff6e36e06f279ad336c69b1277d27d988f3fa9ff",
+            "dropout_seeds": [
+              1986543735,
+              1578754281,
+              2096393158,
+              1417944838,
+              873250172,
+              2465214990,
+              1813538733,
+              3712258233,
+              1688262350,
+              4094110018,
+              778562137,
+              322299682,
+              2022039805,
+              3537409987,
+              1502288913,
+              891284279,
+              573038397,
+              2494012598,
+              136925590,
+              837184819
+            ],
+            "sample_class_counts": [
+              989,
+              5235,
+              1945,
+              483,
+              13,
+              14,
+              299,
+              1262
+            ],
+            "checks": {
+              "raw_gradient": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 8.326672684688674e-17,
+                "l2": 4.215581515610183e-16
+              },
+              "clipped_gradient": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 6.245004513516506e-17,
+                "l2": 4.003082813922519e-16
+              },
+              "parameters": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 1.1102230246251565e-16,
+                "l2": 4.684653663266155e-16
+              },
+              "exp_avg": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 2.7755575615628914e-17,
+                "l2": 1.2173296040166583e-16
+              },
+              "exp_avg_sq": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 5.421010862427522e-20,
+                "l2": 1.5595699281487466e-19
+              },
+              "step": {
+                "within_tolerance": true,
+                "bit_exact": true,
+                "max_abs": 0.0,
+                "l2": 0.0
+              }
+            }
+          },
+          {
+            "step": 12,
+            "sample_sha256": "ccdb70d147e5e72d9709646bf8eb056f20fc0128006ce81fd9a0caab7b29b7f6",
+            "dropout_seeds": [
+              1261883221,
+              2820370233,
+              1116065651,
+              781779086,
+              4280653550,
+              1940241591,
+              409087209,
+              3713435195,
+              1066487707,
+              2847708950,
+              2293870616,
+              2740145369,
+              4124699422,
+              4088080736,
+              2668988686,
+              1119628767,
+              3391099037,
+              465830492,
+              2105182374,
+              2441643841
+            ],
+            "sample_class_counts": [
+              1003,
+              5238,
+              1928,
+              478,
+              12,
+              15,
+              288,
+              1278
+            ],
+            "checks": {
+              "raw_gradient": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 1.8041124150158794e-16,
+                "l2": 4.3722444057672775e-16
+              },
+              "clipped_gradient": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 1.734723475976807e-16,
+                "l2": 4.2534576975240454e-16
+              },
+              "parameters": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 1.1102230246251565e-16,
+                "l2": 4.948590662016838e-16
+              },
+              "exp_avg": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 2.7755575615628914e-17,
+                "l2": 1.2613125370691134e-16
+              },
+              "exp_avg_sq": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 5.421010862427522e-20,
+                "l2": 1.5508592187666488e-19
+              },
+              "step": {
+                "within_tolerance": true,
+                "bit_exact": true,
+                "max_abs": 0.0,
+                "l2": 0.0
+              }
+            }
+          }
+        ],
+        "work": {
+          "backward_examples": 368640,
+          "backward_batches": 720,
+          "optimizer_steps": 36,
+          "quality_evaluation_examples": 0
+        },
+        "recovery_exact": true,
+        "final_model_sha256": {
+          "federated": "633369e710bff81cfb8476917f3a98456357c5c21ce6d07f8723fccf31fcaff6",
+          "central": "ad0d85bc74931a29442c561f3c6cc4b779a0dae7023f831c241025126aeb41c8"
+        },
+        "central_federated_bit_exact": false,
+        "numerical_equivalence_passed": true,
+        "elapsed_seconds": 0.7616294578183442,
+        "communication": {
+          "estimated_per_path_bytes": 19568640,
+          "sync_steps": 12,
+          "measured_network_traffic": false,
+          "includes_recovery_audit": false,
+          "transport_overhead_included": false
+        }
+      },
+      "float32-dropout0.0": {
+        "case": {
+          "dtype": "float32",
+          "dropout": 0.0
+        },
+        "initial_model_sha256": "5f1cd01f2fab9bb7a50aea7c47fbd29e25f06eb6b8323e30495cb45ffeb290fe",
+        "num_parameters": 5096,
+        "parameter_bytes": 20384,
+        "tolerance": {
+          "atol": 2e-05,
+          "rtol": 0.0002
+        },
+        "steps": [
+          {
+            "step": 1,
+            "sample_sha256": "5551410dc3095f45f77bbad5276b4c6675a3b1378889eeaa1718e4908def4865",
+            "dropout_seeds": [
+              1580205330,
+              1366745877,
+              4977949,
+              4141286078,
+              1743658604,
+              3054960401,
+              8236658,
+              2315871295,
+              3840159680,
+              1097964177,
+              2791693258,
+              848800324,
+              1232100167,
+              2862583332,
+              3829333582,
+              1376358099,
+              3569152193,
+              69121731,
+              3827995356,
+              153866846
+            ],
+            "sample_class_counts": [
+              955,
+              5250,
+              1928,
+              490,
+              13,
+              7,
+              309,
+              1288
+            ],
+            "checks": {
+              "raw_gradient": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 5.960464477539063e-08,
+                "l2": 3.2227962233443037e-07
+              },
+              "clipped_gradient": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 5.960464477539063e-08,
+                "l2": 2.024658958882753e-07
+              },
+              "parameters": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 2.9802322387695312e-08,
+                "l2": 5.533586527417987e-08
+              },
+              "exp_avg": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 5.587935447692871e-09,
+                "l2": 2.05071545351069e-08
+              },
+              "exp_avg_sq": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 2.546585164964199e-11,
+                "l2": 3.470637125353239e-11
+              },
+              "step": {
+                "within_tolerance": true,
+                "bit_exact": true,
+                "max_abs": 0.0,
+                "l2": 0.0
+              }
+            }
+          },
+          {
+            "step": 2,
+            "sample_sha256": "909f36467b2241c893541d64278ac1b4f71bd151e4cfa44a819eb2ac4ede1484",
+            "dropout_seeds": [
+              1171661794,
+              4030582112,
+              3055008873,
+              3739408507,
+              1111779505,
+              3829281174,
+              98944708,
+              3304776879,
+              444657593,
+              3878443146,
+              272106521,
+              1543549562,
+              1149842377,
+              219513116,
+              2443805874,
+              4165541934,
+              606723381,
+              3911117498,
+              1997295137,
+              3684514929
+            ],
+            "sample_class_counts": [
+              962,
+              5228,
+              1992,
+              518,
+              14,
+              4,
+              310,
+              1212
+            ],
+            "checks": {
+              "raw_gradient": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 7.450580596923828e-08,
+                "l2": 3.2836089758677724e-07
+              },
+              "clipped_gradient": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 4.470348358154297e-08,
+                "l2": 1.8367538702571437e-07
+              },
+              "parameters": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 5.960464477539063e-08,
+                "l2": 1.2325830579227915e-07
+              },
+              "exp_avg": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 7.450580596923828e-09,
+                "l2": 2.7557836339695968e-08
+              },
+              "exp_avg_sq": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 2.9103830456733704e-11,
+                "l2": 4.288865448347424e-11
+              },
+              "step": {
+                "within_tolerance": true,
+                "bit_exact": true,
+                "max_abs": 0.0,
+                "l2": 0.0
+              }
+            }
+          },
+          {
+            "step": 3,
+            "sample_sha256": "8d799625aa72a2324d2bd068f24cfc3eb263a4ac9bef318844e84ed1ef30c9cc",
+            "dropout_seeds": [
+              3459832559,
+              1081234997,
+              1368662077,
+              3913449170,
+              1557209752,
+              2882324453,
+              2483997408,
+              3450973247,
+              2908797892,
+              2809123944,
+              1079645706,
+              2385055416,
+              3865598158,
+              2847094638,
+              1914770833,
+              378545930,
+              785970565,
+              424670462,
+              233403578,
+              2069065138
+            ],
+            "sample_class_counts": [
+              981,
+              5196,
+              1954,
+              474,
+              19,
+              12,
+              301,
+              1303
+            ],
+            "checks": {
+              "raw_gradient": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 1.1920928955078125e-07,
+                "l2": 3.4678848234344893e-07
+              },
+              "clipped_gradient": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 7.450580596923828e-08,
+                "l2": 2.0387581507315025e-07
+              },
+              "parameters": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 5.960464477539063e-08,
+                "l2": 1.4310444292272998e-07
+              },
+              "exp_avg": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 7.450580596923828e-09,
+                "l2": 3.3550660940672954e-08
+              },
+              "exp_avg_sq": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 4.3655745685100555e-11,
+                "l2": 6.580617858202939e-11
+              },
+              "step": {
+                "within_tolerance": true,
+                "bit_exact": true,
+                "max_abs": 0.0,
+                "l2": 0.0
+              }
+            }
+          },
+          {
+            "step": 4,
+            "sample_sha256": "285161cb09aa883434257ad31b571e7d8cee033d71df85f0e8e9aa9859bdda6f",
+            "dropout_seeds": [
+              3729775696,
+              1087924455,
+              4181874286,
+              2054849144,
+              3521302645,
+              3713943874,
+              2753212447,
+              4039121106,
+              2013820703,
+              1218988339,
+              338679111,
+              2480394499,
+              3980378102,
+              2930044889,
+              3591606347,
+              4119609038,
+              3431207049,
+              1610430861,
+              1583493973,
+              2465885451
+            ],
+            "sample_class_counts": [
+              949,
+              5282,
+              1910,
+              498,
+              15,
+              11,
+              292,
+              1283
+            ],
+            "checks": {
+              "raw_gradient": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 5.960464477539063e-08,
+                "l2": 2.9406519330223636e-07
+              },
+              "clipped_gradient": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 4.470348358154297e-08,
+                "l2": 1.7984088449424222e-07
+              },
+              "parameters": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 5.960464477539063e-08,
+                "l2": 1.5255716295708348e-07
+              },
+              "exp_avg": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 7.450580596923828e-09,
+                "l2": 3.5681920871460096e-08
+              },
+              "exp_avg_sq": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 2.9103830456733704e-11,
+                "l2": 5.580499957142737e-11
+              },
+              "step": {
+                "within_tolerance": true,
+                "bit_exact": true,
+                "max_abs": 0.0,
+                "l2": 0.0
+              }
+            }
+          },
+          {
+            "step": 5,
+            "sample_sha256": "f1b1859584e294f88ea4018e476073527bbcb799cea9375f12e4c257b70b678b",
+            "dropout_seeds": [
+              2633051649,
+              2351947399,
+              3103686013,
+              3904137684,
+              2700371545,
+              932511863,
+              3390289012,
+              558851172,
+              2272305446,
+              3216563083,
+              4229155641,
+              2622782733,
+              1495533028,
+              1022165578,
+              3901201656,
+              585050044,
+              2590476046,
+              856096379,
+              2773474626,
+              1004016539
+            ],
+            "sample_class_counts": [
+              990,
+              5247,
+              1882,
+              503,
+              10,
+              11,
+              295,
+              1302
+            ],
+            "checks": {
+              "raw_gradient": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 1.0244548320770264e-07,
+                "l2": 3.2289059830425445e-07
+              },
+              "clipped_gradient": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 6.332993507385254e-08,
+                "l2": 2.1454674299607622e-07
+              },
+              "parameters": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 5.960464477539063e-08,
+                "l2": 1.782022215276257e-07
+              },
+              "exp_avg": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 1.1874362826347351e-08,
+                "l2": 4.210199877732362e-08
+              },
+              "exp_avg_sq": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 2.9103830456733704e-11,
+                "l2": 6.036220470258283e-11
+              },
+              "step": {
+                "within_tolerance": true,
+                "bit_exact": true,
+                "max_abs": 0.0,
+                "l2": 0.0
+              }
+            }
+          },
+          {
+            "step": 6,
+            "sample_sha256": "95fc939de3f7f5effb78ee701395ef316955625175f0226248ea2ae7ce81e8ef",
+            "dropout_seeds": [
+              159409264,
+              982911527,
+              1077718078,
+              3804271039,
+              3732580833,
+              2036117691,
+              3841974671,
+              3255925216,
+              2217301708,
+              4223981716,
+              1272358844,
+              256109453,
+              1075409612,
+              1815687178,
+              3794873192,
+              439358881,
+              591118076,
+              4039729755,
+              2963893118,
+              1795447697
+            ],
+            "sample_class_counts": [
+              978,
+              5180,
+              1966,
+              494,
+              17,
+              7,
+              337,
+              1261
+            ],
+            "checks": {
+              "raw_gradient": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 5.960464477539063e-08,
+                "l2": 3.0049301324355017e-07
+              },
+              "clipped_gradient": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 3.725290298461914e-08,
+                "l2": 1.9536269212671827e-07
+              },
+              "parameters": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 5.960464477539063e-08,
+                "l2": 1.8583534153337343e-07
+              },
+              "exp_avg": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 1.1641532182693481e-08,
+                "l2": 4.568308765316119e-08
+              },
+              "exp_avg_sq": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 2.9103830456733704e-11,
+                "l2": 5.940517244201496e-11
+              },
+              "step": {
+                "within_tolerance": true,
+                "bit_exact": true,
+                "max_abs": 0.0,
+                "l2": 0.0
+              }
+            }
+          },
+          {
+            "step": 7,
+            "sample_sha256": "b85e3edbaaa3349420e3d88e58ceced0392eb6dc6c7e9d2cceddea9253ca6123",
+            "dropout_seeds": [
+              4270864983,
+              794569128,
+              3745044992,
+              1104615546,
+              3362715079,
+              774936794,
+              1332227213,
+              338927077,
+              1524642273,
+              2254438860,
+              3747636813,
+              3271877716,
+              2606199140,
+              1771183825,
+              127197957,
+              308284836,
+              1698881766,
+              2612438953,
+              1165599609,
+              1123499249
+            ],
+            "sample_class_counts": [
+              910,
+              5249,
+              2003,
+              474,
+              15,
+              15,
+              303,
+              1271
+            ],
+            "checks": {
+              "raw_gradient": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 8.940696716308594e-08,
+                "l2": 3.063408023651273e-07
+              },
+              "clipped_gradient": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 5.960464477539063e-08,
+                "l2": 2.1188218339870282e-07
+              },
+              "parameters": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 5.960464477539063e-08,
+                "l2": 1.9917924387152786e-07
+              },
+              "exp_avg": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 1.4435499906539917e-08,
+                "l2": 5.076245514819477e-08
+              },
+              "exp_avg_sq": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 2.9103830456733704e-11,
+                "l2": 6.843535597014327e-11
+              },
+              "step": {
+                "within_tolerance": true,
+                "bit_exact": true,
+                "max_abs": 0.0,
+                "l2": 0.0
+              }
+            }
+          },
+          {
+            "step": 8,
+            "sample_sha256": "f637cf5ca3696a1d413e95e4558f3856c1128b9ed343b19c7305ce68bce64023",
+            "dropout_seeds": [
+              378441535,
+              2342504042,
+              1949762122,
+              39430365,
+              1988245132,
+              2314107527,
+              4134433510,
+              2533774343,
+              3007662377,
+              1674614354,
+              1124452883,
+              1097389477,
+              1115979886,
+              2737885514,
+              851346743,
+              4175816886,
+              2913090944,
+              1086144787,
+              3739775825,
+              2116775242
+            ],
+            "sample_class_counts": [
+              971,
+              5290,
+              1879,
+              485,
+              8,
+              11,
+              304,
+              1292
+            ],
+            "checks": {
+              "raw_gradient": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 8.940696716308594e-08,
+                "l2": 2.9639924711073145e-07
+              },
+              "clipped_gradient": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 7.450580596923828e-08,
+                "l2": 2.203173736442937e-07
+              },
+              "parameters": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 5.960464477539063e-08,
+                "l2": 2.160684700828256e-07
+              },
+              "exp_avg": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 1.4901161193847656e-08,
+                "l2": 5.641597921230748e-08
+              },
+              "exp_avg_sq": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 5.820766091346741e-11,
+                "l2": 9.385081819282726e-11
+              },
+              "step": {
+                "within_tolerance": true,
+                "bit_exact": true,
+                "max_abs": 0.0,
+                "l2": 0.0
+              }
+            }
+          },
+          {
+            "step": 9,
+            "sample_sha256": "2b033e38d2f4ff0a90197e0f3c5f5465103b4c29b9abd692adec0f0bb66dc802",
+            "dropout_seeds": [
+              1325574078,
+              1266584240,
+              1265696036,
+              3416015536,
+              2001456071,
+              3172894734,
+              3477117131,
+              2456271618,
+              436237485,
+              3846334643,
+              354340132,
+              1037703802,
+              2658099483,
+              616365352,
+              3796487367,
+              2132399653,
+              4011629469,
+              2771368729,
+              1713000812,
+              3131975547
+            ],
+            "sample_class_counts": [
+              1002,
+              5233,
+              1901,
+              487,
+              16,
+              9,
+              313,
+              1279
+            ],
+            "checks": {
+              "raw_gradient": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 6.705522537231445e-08,
+                "l2": 2.8618913823961026e-07
+              },
+              "clipped_gradient": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 4.470348358154297e-08,
+                "l2": 2.1904836991291303e-07
+              },
+              "parameters": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 5.960464477539063e-08,
+                "l2": 2.281702684114866e-07
+              },
+              "exp_avg": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 1.4901161193847656e-08,
+                "l2": 5.9112927930118007e-08
+              },
+              "exp_avg_sq": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 7.275957614183426e-11,
+                "l2": 1.0399064395758832e-10
+              },
+              "step": {
+                "within_tolerance": true,
+                "bit_exact": true,
+                "max_abs": 0.0,
+                "l2": 0.0
+              }
+            }
+          },
+          {
+            "step": 10,
+            "sample_sha256": "c265de77b9d0f772fe29ec652d6b41be7e18b64f269d4006df38c3d4dcdd66ae",
+            "dropout_seeds": [
+              709454385,
+              2719263350,
+              3855534977,
+              464973494,
+              618791393,
+              924286196,
+              1151703005,
+              3746154488,
+              1170930329,
+              1297742182,
+              4110101186,
+              1403809882,
+              472773325,
+              909344837,
+              4197981785,
+              760846611,
+              2898282312,
+              1425640258,
+              2001384298,
+              4153647713
+            ],
+            "sample_class_counts": [
+              956,
+              5221,
+              2008,
+              463,
+              16,
+              7,
+              281,
+              1288
+            ],
+            "checks": {
+              "raw_gradient": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 5.960464477539063e-08,
+                "l2": 2.7379996027560445e-07
+              },
+              "clipped_gradient": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 5.960464477539063e-08,
+                "l2": 2.5268279281707395e-07
+              },
+              "parameters": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 5.960464477539063e-08,
+                "l2": 2.428396127753549e-07
+              },
+              "exp_avg": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 1.5832483768463135e-08,
+                "l2": 6.087638916442922e-08
+              },
+              "exp_avg_sq": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 4.3655745685100555e-11,
+                "l2": 8.742754450133147e-11
+              },
+              "step": {
+                "within_tolerance": true,
+                "bit_exact": true,
+                "max_abs": 0.0,
+                "l2": 0.0
+              }
+            }
+          },
+          {
+            "step": 11,
+            "sample_sha256": "619dcba5c6c6cc5e17c6075eff6e36e06f279ad336c69b1277d27d988f3fa9ff",
+            "dropout_seeds": [
+              1986543735,
+              1578754281,
+              2096393158,
+              1417944838,
+              873250172,
+              2465214990,
+              1813538733,
+              3712258233,
+              1688262350,
+              4094110018,
+              778562137,
+              322299682,
+              2022039805,
+              3537409987,
+              1502288913,
+              891284279,
+              573038397,
+              2494012598,
+              136925590,
+              837184819
+            ],
+            "sample_class_counts": [
+              989,
+              5235,
+              1945,
+              483,
+              13,
+              14,
+              299,
+              1262
+            ],
+            "checks": {
+              "raw_gradient": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 1.043081283569336e-07,
+                "l2": 2.8808521658645553e-07
+              },
+              "clipped_gradient": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 8.195638656616211e-08,
+                "l2": 2.3795056059555435e-07
+              },
+              "parameters": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 5.960464477539063e-08,
+                "l2": 2.52440102603595e-07
+              },
+              "exp_avg": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 2.3283064365386963e-08,
+                "l2": 6.612368737684582e-08
+              },
+              "exp_avg_sq": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 5.820766091346741e-11,
+                "l2": 9.583039228762237e-11
+              },
+              "step": {
+                "within_tolerance": true,
+                "bit_exact": true,
+                "max_abs": 0.0,
+                "l2": 0.0
+              }
+            }
+          },
+          {
+            "step": 12,
+            "sample_sha256": "ccdb70d147e5e72d9709646bf8eb056f20fc0128006ce81fd9a0caab7b29b7f6",
+            "dropout_seeds": [
+              1261883221,
+              2820370233,
+              1116065651,
+              781779086,
+              4280653550,
+              1940241591,
+              409087209,
+              3713435195,
+              1066487707,
+              2847708950,
+              2293870616,
+              2740145369,
+              4124699422,
+              4088080736,
+              2668988686,
+              1119628767,
+              3391099037,
+              465830492,
+              2105182374,
+              2441643841
+            ],
+            "sample_class_counts": [
+              1003,
+              5238,
+              1928,
+              478,
+              12,
+              15,
+              288,
+              1278
+            ],
+            "checks": {
+              "raw_gradient": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 5.960464477539063e-08,
+                "l2": 2.637544789131886e-07
+              },
+              "clipped_gradient": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 6.705522537231445e-08,
+                "l2": 2.6315432830333065e-07
+              },
+              "parameters": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 1.1920928955078125e-07,
+                "l2": 2.8446468601882774e-07
+              },
+              "exp_avg": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 2.421438694000244e-08,
+                "l2": 7.120499354076329e-08
+              },
+              "exp_avg_sq": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 2.9103830456733704e-11,
+                "l2": 8.53330064068387e-11
+              },
+              "step": {
+                "within_tolerance": true,
+                "bit_exact": true,
+                "max_abs": 0.0,
+                "l2": 0.0
+              }
+            }
+          }
+        ],
+        "recovery_steps": [
+          {
+            "step": 7,
+            "sample_sha256": "b85e3edbaaa3349420e3d88e58ceced0392eb6dc6c7e9d2cceddea9253ca6123",
+            "dropout_seeds": [
+              4270864983,
+              794569128,
+              3745044992,
+              1104615546,
+              3362715079,
+              774936794,
+              1332227213,
+              338927077,
+              1524642273,
+              2254438860,
+              3747636813,
+              3271877716,
+              2606199140,
+              1771183825,
+              127197957,
+              308284836,
+              1698881766,
+              2612438953,
+              1165599609,
+              1123499249
+            ],
+            "sample_class_counts": [
+              910,
+              5249,
+              2003,
+              474,
+              15,
+              15,
+              303,
+              1271
+            ],
+            "checks": {
+              "raw_gradient": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 8.940696716308594e-08,
+                "l2": 3.063408023651273e-07
+              },
+              "clipped_gradient": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 5.960464477539063e-08,
+                "l2": 2.1188218339870282e-07
+              },
+              "parameters": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 5.960464477539063e-08,
+                "l2": 1.9917924387152786e-07
+              },
+              "exp_avg": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 1.4435499906539917e-08,
+                "l2": 5.076245514819477e-08
+              },
+              "exp_avg_sq": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 2.9103830456733704e-11,
+                "l2": 6.843535597014327e-11
+              },
+              "step": {
+                "within_tolerance": true,
+                "bit_exact": true,
+                "max_abs": 0.0,
+                "l2": 0.0
+              }
+            }
+          },
+          {
+            "step": 8,
+            "sample_sha256": "f637cf5ca3696a1d413e95e4558f3856c1128b9ed343b19c7305ce68bce64023",
+            "dropout_seeds": [
+              378441535,
+              2342504042,
+              1949762122,
+              39430365,
+              1988245132,
+              2314107527,
+              4134433510,
+              2533774343,
+              3007662377,
+              1674614354,
+              1124452883,
+              1097389477,
+              1115979886,
+              2737885514,
+              851346743,
+              4175816886,
+              2913090944,
+              1086144787,
+              3739775825,
+              2116775242
+            ],
+            "sample_class_counts": [
+              971,
+              5290,
+              1879,
+              485,
+              8,
+              11,
+              304,
+              1292
+            ],
+            "checks": {
+              "raw_gradient": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 8.940696716308594e-08,
+                "l2": 2.9639924711073145e-07
+              },
+              "clipped_gradient": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 7.450580596923828e-08,
+                "l2": 2.203173736442937e-07
+              },
+              "parameters": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 5.960464477539063e-08,
+                "l2": 2.160684700828256e-07
+              },
+              "exp_avg": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 1.4901161193847656e-08,
+                "l2": 5.641597921230748e-08
+              },
+              "exp_avg_sq": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 5.820766091346741e-11,
+                "l2": 9.385081819282726e-11
+              },
+              "step": {
+                "within_tolerance": true,
+                "bit_exact": true,
+                "max_abs": 0.0,
+                "l2": 0.0
+              }
+            }
+          },
+          {
+            "step": 9,
+            "sample_sha256": "2b033e38d2f4ff0a90197e0f3c5f5465103b4c29b9abd692adec0f0bb66dc802",
+            "dropout_seeds": [
+              1325574078,
+              1266584240,
+              1265696036,
+              3416015536,
+              2001456071,
+              3172894734,
+              3477117131,
+              2456271618,
+              436237485,
+              3846334643,
+              354340132,
+              1037703802,
+              2658099483,
+              616365352,
+              3796487367,
+              2132399653,
+              4011629469,
+              2771368729,
+              1713000812,
+              3131975547
+            ],
+            "sample_class_counts": [
+              1002,
+              5233,
+              1901,
+              487,
+              16,
+              9,
+              313,
+              1279
+            ],
+            "checks": {
+              "raw_gradient": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 6.705522537231445e-08,
+                "l2": 2.8618913823961026e-07
+              },
+              "clipped_gradient": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 4.470348358154297e-08,
+                "l2": 2.1904836991291303e-07
+              },
+              "parameters": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 5.960464477539063e-08,
+                "l2": 2.281702684114866e-07
+              },
+              "exp_avg": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 1.4901161193847656e-08,
+                "l2": 5.9112927930118007e-08
+              },
+              "exp_avg_sq": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 7.275957614183426e-11,
+                "l2": 1.0399064395758832e-10
+              },
+              "step": {
+                "within_tolerance": true,
+                "bit_exact": true,
+                "max_abs": 0.0,
+                "l2": 0.0
+              }
+            }
+          },
+          {
+            "step": 10,
+            "sample_sha256": "c265de77b9d0f772fe29ec652d6b41be7e18b64f269d4006df38c3d4dcdd66ae",
+            "dropout_seeds": [
+              709454385,
+              2719263350,
+              3855534977,
+              464973494,
+              618791393,
+              924286196,
+              1151703005,
+              3746154488,
+              1170930329,
+              1297742182,
+              4110101186,
+              1403809882,
+              472773325,
+              909344837,
+              4197981785,
+              760846611,
+              2898282312,
+              1425640258,
+              2001384298,
+              4153647713
+            ],
+            "sample_class_counts": [
+              956,
+              5221,
+              2008,
+              463,
+              16,
+              7,
+              281,
+              1288
+            ],
+            "checks": {
+              "raw_gradient": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 5.960464477539063e-08,
+                "l2": 2.7379996027560445e-07
+              },
+              "clipped_gradient": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 5.960464477539063e-08,
+                "l2": 2.5268279281707395e-07
+              },
+              "parameters": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 5.960464477539063e-08,
+                "l2": 2.428396127753549e-07
+              },
+              "exp_avg": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 1.5832483768463135e-08,
+                "l2": 6.087638916442922e-08
+              },
+              "exp_avg_sq": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 4.3655745685100555e-11,
+                "l2": 8.742754450133147e-11
+              },
+              "step": {
+                "within_tolerance": true,
+                "bit_exact": true,
+                "max_abs": 0.0,
+                "l2": 0.0
+              }
+            }
+          },
+          {
+            "step": 11,
+            "sample_sha256": "619dcba5c6c6cc5e17c6075eff6e36e06f279ad336c69b1277d27d988f3fa9ff",
+            "dropout_seeds": [
+              1986543735,
+              1578754281,
+              2096393158,
+              1417944838,
+              873250172,
+              2465214990,
+              1813538733,
+              3712258233,
+              1688262350,
+              4094110018,
+              778562137,
+              322299682,
+              2022039805,
+              3537409987,
+              1502288913,
+              891284279,
+              573038397,
+              2494012598,
+              136925590,
+              837184819
+            ],
+            "sample_class_counts": [
+              989,
+              5235,
+              1945,
+              483,
+              13,
+              14,
+              299,
+              1262
+            ],
+            "checks": {
+              "raw_gradient": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 1.043081283569336e-07,
+                "l2": 2.8808521658645553e-07
+              },
+              "clipped_gradient": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 8.195638656616211e-08,
+                "l2": 2.3795056059555435e-07
+              },
+              "parameters": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 5.960464477539063e-08,
+                "l2": 2.52440102603595e-07
+              },
+              "exp_avg": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 2.3283064365386963e-08,
+                "l2": 6.612368737684582e-08
+              },
+              "exp_avg_sq": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 5.820766091346741e-11,
+                "l2": 9.583039228762237e-11
+              },
+              "step": {
+                "within_tolerance": true,
+                "bit_exact": true,
+                "max_abs": 0.0,
+                "l2": 0.0
+              }
+            }
+          },
+          {
+            "step": 12,
+            "sample_sha256": "ccdb70d147e5e72d9709646bf8eb056f20fc0128006ce81fd9a0caab7b29b7f6",
+            "dropout_seeds": [
+              1261883221,
+              2820370233,
+              1116065651,
+              781779086,
+              4280653550,
+              1940241591,
+              409087209,
+              3713435195,
+              1066487707,
+              2847708950,
+              2293870616,
+              2740145369,
+              4124699422,
+              4088080736,
+              2668988686,
+              1119628767,
+              3391099037,
+              465830492,
+              2105182374,
+              2441643841
+            ],
+            "sample_class_counts": [
+              1003,
+              5238,
+              1928,
+              478,
+              12,
+              15,
+              288,
+              1278
+            ],
+            "checks": {
+              "raw_gradient": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 5.960464477539063e-08,
+                "l2": 2.637544789131886e-07
+              },
+              "clipped_gradient": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 6.705522537231445e-08,
+                "l2": 2.6315432830333065e-07
+              },
+              "parameters": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 1.1920928955078125e-07,
+                "l2": 2.8446468601882774e-07
+              },
+              "exp_avg": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 2.421438694000244e-08,
+                "l2": 7.120499354076329e-08
+              },
+              "exp_avg_sq": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 2.9103830456733704e-11,
+                "l2": 8.53330064068387e-11
+              },
+              "step": {
+                "within_tolerance": true,
+                "bit_exact": true,
+                "max_abs": 0.0,
+                "l2": 0.0
+              }
+            }
+          }
+        ],
+        "work": {
+          "backward_examples": 368640,
+          "backward_batches": 720,
+          "optimizer_steps": 36,
+          "quality_evaluation_examples": 0
+        },
+        "recovery_exact": true,
+        "final_model_sha256": {
+          "federated": "1e73bc150d84e75c4aaefb780916618d3d2ec655065aa5a460466a1009524d75",
+          "central": "5cec6ef5b9cdf8d8c5a50264e1bec3591cf26cae1e8c4cf306809c3d2e29bede"
+        },
+        "central_federated_bit_exact": false,
+        "numerical_equivalence_passed": true,
+        "elapsed_seconds": 0.5840133749879897,
+        "communication": {
+          "estimated_per_path_bytes": 9784320,
+          "sync_steps": 12,
+          "measured_network_traffic": false,
+          "includes_recovery_audit": false,
+          "transport_overhead_included": false
+        }
+      },
+      "float32-dropout0.2": {
+        "case": {
+          "dtype": "float32",
+          "dropout": 0.2
+        },
+        "initial_model_sha256": "5f1cd01f2fab9bb7a50aea7c47fbd29e25f06eb6b8323e30495cb45ffeb290fe",
+        "num_parameters": 5096,
+        "parameter_bytes": 20384,
+        "tolerance": {
+          "atol": 2e-05,
+          "rtol": 0.0002
+        },
+        "steps": [
+          {
+            "step": 1,
+            "sample_sha256": "5551410dc3095f45f77bbad5276b4c6675a3b1378889eeaa1718e4908def4865",
+            "dropout_seeds": [
+              1580205330,
+              1366745877,
+              4977949,
+              4141286078,
+              1743658604,
+              3054960401,
+              8236658,
+              2315871295,
+              3840159680,
+              1097964177,
+              2791693258,
+              848800324,
+              1232100167,
+              2862583332,
+              3829333582,
+              1376358099,
+              3569152193,
+              69121731,
+              3827995356,
+              153866846
+            ],
+            "sample_class_counts": [
+              955,
+              5250,
+              1928,
+              490,
+              13,
+              7,
+              309,
+              1288
+            ],
+            "checks": {
+              "raw_gradient": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 5.960464477539063e-08,
+                "l2": 2.8517042344119845e-07
+              },
+              "clipped_gradient": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 4.470348358154297e-08,
+                "l2": 1.8522523186011488e-07
+              },
+              "parameters": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 1.4901161193847656e-08,
+                "l2": 3.838405768958915e-08
+              },
+              "exp_avg": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 4.6566128730773926e-09,
+                "l2": 1.879932896046231e-08
+              },
+              "exp_avg_sq": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 1.0913936421275139e-11,
+                "l2": 2.736720448022973e-11
+              },
+              "step": {
+                "within_tolerance": true,
+                "bit_exact": true,
+                "max_abs": 0.0,
+                "l2": 0.0
+              }
+            }
+          },
+          {
+            "step": 2,
+            "sample_sha256": "909f36467b2241c893541d64278ac1b4f71bd151e4cfa44a819eb2ac4ede1484",
+            "dropout_seeds": [
+              1171661794,
+              4030582112,
+              3055008873,
+              3739408507,
+              1111779505,
+              3829281174,
+              98944708,
+              3304776879,
+              444657593,
+              3878443146,
+              272106521,
+              1543549562,
+              1149842377,
+              219513116,
+              2443805874,
+              4165541934,
+              606723381,
+              3911117498,
+              1997295137,
+              3684514929
+            ],
+            "sample_class_counts": [
+              962,
+              5228,
+              1992,
+              518,
+              14,
+              4,
+              310,
+              1212
+            ],
+            "checks": {
+              "raw_gradient": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 7.450580596923828e-08,
+                "l2": 2.8060045386311245e-07
+              },
+              "clipped_gradient": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 4.470348358154297e-08,
+                "l2": 1.8465227292741017e-07
+              },
+              "parameters": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 4.470348358154297e-08,
+                "l2": 1.1296880387440994e-07
+              },
+              "exp_avg": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 9.313225746154785e-09,
+                "l2": 2.7458663427616262e-08
+              },
+              "exp_avg_sq": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 2.1827872842550278e-11,
+                "l2": 3.955428700408247e-11
+              },
+              "step": {
+                "within_tolerance": true,
+                "bit_exact": true,
+                "max_abs": 0.0,
+                "l2": 0.0
+              }
+            }
+          },
+          {
+            "step": 3,
+            "sample_sha256": "8d799625aa72a2324d2bd068f24cfc3eb263a4ac9bef318844e84ed1ef30c9cc",
+            "dropout_seeds": [
+              3459832559,
+              1081234997,
+              1368662077,
+              3913449170,
+              1557209752,
+              2882324453,
+              2483997408,
+              3450973247,
+              2908797892,
+              2809123944,
+              1079645706,
+              2385055416,
+              3865598158,
+              2847094638,
+              1914770833,
+              378545930,
+              785970565,
+              424670462,
+              233403578,
+              2069065138
+            ],
+            "sample_class_counts": [
+              981,
+              5196,
+              1954,
+              474,
+              19,
+              12,
+              301,
+              1303
+            ],
+            "checks": {
+              "raw_gradient": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 1.341104507446289e-07,
+                "l2": 2.834117933876181e-07
+              },
+              "clipped_gradient": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 8.940696716308594e-08,
+                "l2": 1.982760163354948e-07
+              },
+              "parameters": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 5.21540641784668e-08,
+                "l2": 1.498400217877706e-07
+              },
+              "exp_avg": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 1.1175870895385742e-08,
+                "l2": 3.534026223531224e-08
+              },
+              "exp_avg_sq": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 3.2741809263825417e-11,
+                "l2": 5.996276836054814e-11
+              },
+              "step": {
+                "within_tolerance": true,
+                "bit_exact": true,
+                "max_abs": 0.0,
+                "l2": 0.0
+              }
+            }
+          },
+          {
+            "step": 4,
+            "sample_sha256": "285161cb09aa883434257ad31b571e7d8cee033d71df85f0e8e9aa9859bdda6f",
+            "dropout_seeds": [
+              3729775696,
+              1087924455,
+              4181874286,
+              2054849144,
+              3521302645,
+              3713943874,
+              2753212447,
+              4039121106,
+              2013820703,
+              1218988339,
+              338679111,
+              2480394499,
+              3980378102,
+              2930044889,
+              3591606347,
+              4119609038,
+              3431207049,
+              1610430861,
+              1583493973,
+              2465885451
+            ],
+            "sample_class_counts": [
+              949,
+              5282,
+              1910,
+              498,
+              15,
+              11,
+              292,
+              1283
+            ],
+            "checks": {
+              "raw_gradient": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 5.494803190231323e-08,
+                "l2": 2.5247595475676394e-07
+              },
+              "clipped_gradient": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 3.91155481338501e-08,
+                "l2": 1.8297182137849735e-07
+              },
+              "parameters": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 5.960464477539063e-08,
+                "l2": 1.738606805465374e-07
+              },
+              "exp_avg": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 1.4901161193847656e-08,
+                "l2": 4.083544177978147e-08
+              },
+              "exp_avg_sq": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 4.3655745685100555e-11,
+                "l2": 6.543979815838514e-11
+              },
+              "step": {
+                "within_tolerance": true,
+                "bit_exact": true,
+                "max_abs": 0.0,
+                "l2": 0.0
+              }
+            }
+          },
+          {
+            "step": 5,
+            "sample_sha256": "f1b1859584e294f88ea4018e476073527bbcb799cea9375f12e4c257b70b678b",
+            "dropout_seeds": [
+              2633051649,
+              2351947399,
+              3103686013,
+              3904137684,
+              2700371545,
+              932511863,
+              3390289012,
+              558851172,
+              2272305446,
+              3216563083,
+              4229155641,
+              2622782733,
+              1495533028,
+              1022165578,
+              3901201656,
+              585050044,
+              2590476046,
+              856096379,
+              2773474626,
+              1004016539
+            ],
+            "sample_class_counts": [
+              990,
+              5247,
+              1882,
+              503,
+              10,
+              11,
+              295,
+              1302
+            ],
+            "checks": {
+              "raw_gradient": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 5.960464477539063e-08,
+                "l2": 2.479317294483591e-07
+              },
+              "clipped_gradient": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 4.470348358154297e-08,
+                "l2": 1.8309753743638026e-07
+              },
+              "parameters": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 5.960464477539063e-08,
+                "l2": 1.867208360786003e-07
+              },
+              "exp_avg": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 1.1175870895385742e-08,
+                "l2": 4.410604124931121e-08
+              },
+              "exp_avg_sq": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 4.3655745685100555e-11,
+                "l2": 7.596876149797992e-11
+              },
+              "step": {
+                "within_tolerance": true,
+                "bit_exact": true,
+                "max_abs": 0.0,
+                "l2": 0.0
+              }
+            }
+          },
+          {
+            "step": 6,
+            "sample_sha256": "95fc939de3f7f5effb78ee701395ef316955625175f0226248ea2ae7ce81e8ef",
+            "dropout_seeds": [
+              159409264,
+              982911527,
+              1077718078,
+              3804271039,
+              3732580833,
+              2036117691,
+              3841974671,
+              3255925216,
+              2217301708,
+              4223981716,
+              1272358844,
+              256109453,
+              1075409612,
+              1815687178,
+              3794873192,
+              439358881,
+              591118076,
+              4039729755,
+              2963893118,
+              1795447697
+            ],
+            "sample_class_counts": [
+              978,
+              5180,
+              1966,
+              494,
+              17,
+              7,
+              337,
+              1261
+            ],
+            "checks": {
+              "raw_gradient": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 1.043081283569336e-07,
+                "l2": 2.7588673431945575e-07
+              },
+              "clipped_gradient": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 7.450580596923828e-08,
+                "l2": 2.0964274486059796e-07
+              },
+              "parameters": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 5.960464477539063e-08,
+                "l2": 2.0461286503756403e-07
+              },
+              "exp_avg": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 1.4901161193847656e-08,
+                "l2": 4.9815746126527644e-08
+              },
+              "exp_avg_sq": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 6.548361852765083e-11,
+                "l2": 1.0152862475875092e-10
+              },
+              "step": {
+                "within_tolerance": true,
+                "bit_exact": true,
+                "max_abs": 0.0,
+                "l2": 0.0
+              }
+            }
+          },
+          {
+            "step": 7,
+            "sample_sha256": "b85e3edbaaa3349420e3d88e58ceced0392eb6dc6c7e9d2cceddea9253ca6123",
+            "dropout_seeds": [
+              4270864983,
+              794569128,
+              3745044992,
+              1104615546,
+              3362715079,
+              774936794,
+              1332227213,
+              338927077,
+              1524642273,
+              2254438860,
+              3747636813,
+              3271877716,
+              2606199140,
+              1771183825,
+              127197957,
+              308284836,
+              1698881766,
+              2612438953,
+              1165599609,
+              1123499249
+            ],
+            "sample_class_counts": [
+              910,
+              5249,
+              2003,
+              474,
+              15,
+              15,
+              303,
+              1271
+            ],
+            "checks": {
+              "raw_gradient": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 5.960464477539063e-08,
+                "l2": 2.2868711293877834e-07
+              },
+              "clipped_gradient": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 4.470348358154297e-08,
+                "l2": 2.2998340483402505e-07
+              },
+              "parameters": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 5.960464477539063e-08,
+                "l2": 2.1400339233536666e-07
+              },
+              "exp_avg": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 1.4901161193847656e-08,
+                "l2": 5.263973251944935e-08
+              },
+              "exp_avg_sq": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 7.275957614183426e-11,
+                "l2": 1.0283428813559831e-10
+              },
+              "step": {
+                "within_tolerance": true,
+                "bit_exact": true,
+                "max_abs": 0.0,
+                "l2": 0.0
+              }
+            }
+          },
+          {
+            "step": 8,
+            "sample_sha256": "f637cf5ca3696a1d413e95e4558f3856c1128b9ed343b19c7305ce68bce64023",
+            "dropout_seeds": [
+              378441535,
+              2342504042,
+              1949762122,
+              39430365,
+              1988245132,
+              2314107527,
+              4134433510,
+              2533774343,
+              3007662377,
+              1674614354,
+              1124452883,
+              1097389477,
+              1115979886,
+              2737885514,
+              851346743,
+              4175816886,
+              2913090944,
+              1086144787,
+              3739775825,
+              2116775242
+            ],
+            "sample_class_counts": [
+              971,
+              5290,
+              1879,
+              485,
+              8,
+              11,
+              304,
+              1292
+            ],
+            "checks": {
+              "raw_gradient": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 4.470348358154297e-08,
+                "l2": 2.4194547431970863e-07
+              },
+              "clipped_gradient": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 3.725290298461914e-08,
+                "l2": 2.0418474534967098e-07
+              },
+              "parameters": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 6.705522537231445e-08,
+                "l2": 2.3092862466318087e-07
+              },
+              "exp_avg": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 1.4901161193847656e-08,
+                "l2": 5.5155942790094e-08
+              },
+              "exp_avg_sq": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 5.820766091346741e-11,
+                "l2": 9.074574091833254e-11
+              },
+              "step": {
+                "within_tolerance": true,
+                "bit_exact": true,
+                "max_abs": 0.0,
+                "l2": 0.0
+              }
+            }
+          },
+          {
+            "step": 9,
+            "sample_sha256": "2b033e38d2f4ff0a90197e0f3c5f5465103b4c29b9abd692adec0f0bb66dc802",
+            "dropout_seeds": [
+              1325574078,
+              1266584240,
+              1265696036,
+              3416015536,
+              2001456071,
+              3172894734,
+              3477117131,
+              2456271618,
+              436237485,
+              3846334643,
+              354340132,
+              1037703802,
+              2658099483,
+              616365352,
+              3796487367,
+              2132399653,
+              4011629469,
+              2771368729,
+              1713000812,
+              3131975547
+            ],
+            "sample_class_counts": [
+              1002,
+              5233,
+              1901,
+              487,
+              16,
+              9,
+              313,
+              1279
+            ],
+            "checks": {
+              "raw_gradient": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 4.470348358154297e-08,
+                "l2": 2.2351189611951107e-07
+              },
+              "clipped_gradient": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 2.9802322387695312e-08,
+                "l2": 2.1265609442080284e-07
+              },
+              "parameters": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 6.705522537231445e-08,
+                "l2": 2.4349247829477123e-07
+              },
+              "exp_avg": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 2.2351741790771484e-08,
+                "l2": 5.937816806458726e-08
+              },
+              "exp_avg_sq": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 7.275957614183426e-11,
+                "l2": 1.0627317804573512e-10
+              },
+              "step": {
+                "within_tolerance": true,
+                "bit_exact": true,
+                "max_abs": 0.0,
+                "l2": 0.0
+              }
+            }
+          },
+          {
+            "step": 10,
+            "sample_sha256": "c265de77b9d0f772fe29ec652d6b41be7e18b64f269d4006df38c3d4dcdd66ae",
+            "dropout_seeds": [
+              709454385,
+              2719263350,
+              3855534977,
+              464973494,
+              618791393,
+              924286196,
+              1151703005,
+              3746154488,
+              1170930329,
+              1297742182,
+              4110101186,
+              1403809882,
+              472773325,
+              909344837,
+              4197981785,
+              760846611,
+              2898282312,
+              1425640258,
+              2001384298,
+              4153647713
+            ],
+            "sample_class_counts": [
+              956,
+              5221,
+              2008,
+              463,
+              16,
+              7,
+              281,
+              1288
+            ],
+            "checks": {
+              "raw_gradient": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 5.960464477539063e-08,
+                "l2": 2.2328539296979896e-07
+              },
+              "clipped_gradient": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 3.725290298461914e-08,
+                "l2": 2.2845792529221317e-07
+              },
+              "parameters": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 6.705522537231445e-08,
+                "l2": 2.6345670203709767e-07
+              },
+              "exp_avg": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 1.4901161193847656e-08,
+                "l2": 6.073630057330148e-08
+              },
+              "exp_avg_sq": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 7.275957614183426e-11,
+                "l2": 1.1924673507410953e-10
+              },
+              "step": {
+                "within_tolerance": true,
+                "bit_exact": true,
+                "max_abs": 0.0,
+                "l2": 0.0
+              }
+            }
+          },
+          {
+            "step": 11,
+            "sample_sha256": "619dcba5c6c6cc5e17c6075eff6e36e06f279ad336c69b1277d27d988f3fa9ff",
+            "dropout_seeds": [
+              1986543735,
+              1578754281,
+              2096393158,
+              1417944838,
+              873250172,
+              2465214990,
+              1813538733,
+              3712258233,
+              1688262350,
+              4094110018,
+              778562137,
+              322299682,
+              2022039805,
+              3537409987,
+              1502288913,
+              891284279,
+              573038397,
+              2494012598,
+              136925590,
+              837184819
+            ],
+            "sample_class_counts": [
+              989,
+              5235,
+              1945,
+              483,
+              13,
+              14,
+              299,
+              1262
+            ],
+            "checks": {
+              "raw_gradient": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 4.470348358154297e-08,
+                "l2": 2.1100250465411063e-07
+              },
+              "clipped_gradient": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 3.725290298461914e-08,
+                "l2": 1.9609249577276727e-07
+              },
+              "parameters": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 7.450580596923828e-08,
+                "l2": 2.8032522444633407e-07
+              },
+              "exp_avg": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 1.4901161193847656e-08,
+                "l2": 6.002993140465162e-08
+              },
+              "exp_avg_sq": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 7.275957614183426e-11,
+                "l2": 1.20207251238351e-10
+              },
+              "step": {
+                "within_tolerance": true,
+                "bit_exact": true,
+                "max_abs": 0.0,
+                "l2": 0.0
+              }
+            }
+          },
+          {
+            "step": 12,
+            "sample_sha256": "ccdb70d147e5e72d9709646bf8eb056f20fc0128006ce81fd9a0caab7b29b7f6",
+            "dropout_seeds": [
+              1261883221,
+              2820370233,
+              1116065651,
+              781779086,
+              4280653550,
+              1940241591,
+              409087209,
+              3713435195,
+              1066487707,
+              2847708950,
+              2293870616,
+              2740145369,
+              4124699422,
+              4088080736,
+              2668988686,
+              1119628767,
+              3391099037,
+              465830492,
+              2105182374,
+              2441643841
+            ],
+            "sample_class_counts": [
+              1003,
+              5238,
+              1928,
+              478,
+              12,
+              15,
+              288,
+              1278
+            ],
+            "checks": {
+              "raw_gradient": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 5.21540641784668e-08,
+                "l2": 2.1820371414333574e-07
+              },
+              "clipped_gradient": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 5.029141902923584e-08,
+                "l2": 2.1011747010130687e-07
+              },
+              "parameters": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 7.450580596923828e-08,
+                "l2": 2.9205008095369684e-07
+              },
+              "exp_avg": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 7.450580596923828e-09,
+                "l2": 6.067584027883077e-08
+              },
+              "exp_avg_sq": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 7.275957614183426e-11,
+                "l2": 1.215447310951554e-10
+              },
+              "step": {
+                "within_tolerance": true,
+                "bit_exact": true,
+                "max_abs": 0.0,
+                "l2": 0.0
+              }
+            }
+          }
+        ],
+        "recovery_steps": [
+          {
+            "step": 7,
+            "sample_sha256": "b85e3edbaaa3349420e3d88e58ceced0392eb6dc6c7e9d2cceddea9253ca6123",
+            "dropout_seeds": [
+              4270864983,
+              794569128,
+              3745044992,
+              1104615546,
+              3362715079,
+              774936794,
+              1332227213,
+              338927077,
+              1524642273,
+              2254438860,
+              3747636813,
+              3271877716,
+              2606199140,
+              1771183825,
+              127197957,
+              308284836,
+              1698881766,
+              2612438953,
+              1165599609,
+              1123499249
+            ],
+            "sample_class_counts": [
+              910,
+              5249,
+              2003,
+              474,
+              15,
+              15,
+              303,
+              1271
+            ],
+            "checks": {
+              "raw_gradient": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 5.960464477539063e-08,
+                "l2": 2.2868711293877834e-07
+              },
+              "clipped_gradient": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 4.470348358154297e-08,
+                "l2": 2.2998340483402505e-07
+              },
+              "parameters": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 5.960464477539063e-08,
+                "l2": 2.1400339233536666e-07
+              },
+              "exp_avg": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 1.4901161193847656e-08,
+                "l2": 5.263973251944935e-08
+              },
+              "exp_avg_sq": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 7.275957614183426e-11,
+                "l2": 1.0283428813559831e-10
+              },
+              "step": {
+                "within_tolerance": true,
+                "bit_exact": true,
+                "max_abs": 0.0,
+                "l2": 0.0
+              }
+            }
+          },
+          {
+            "step": 8,
+            "sample_sha256": "f637cf5ca3696a1d413e95e4558f3856c1128b9ed343b19c7305ce68bce64023",
+            "dropout_seeds": [
+              378441535,
+              2342504042,
+              1949762122,
+              39430365,
+              1988245132,
+              2314107527,
+              4134433510,
+              2533774343,
+              3007662377,
+              1674614354,
+              1124452883,
+              1097389477,
+              1115979886,
+              2737885514,
+              851346743,
+              4175816886,
+              2913090944,
+              1086144787,
+              3739775825,
+              2116775242
+            ],
+            "sample_class_counts": [
+              971,
+              5290,
+              1879,
+              485,
+              8,
+              11,
+              304,
+              1292
+            ],
+            "checks": {
+              "raw_gradient": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 4.470348358154297e-08,
+                "l2": 2.4194547431970863e-07
+              },
+              "clipped_gradient": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 3.725290298461914e-08,
+                "l2": 2.0418474534967098e-07
+              },
+              "parameters": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 6.705522537231445e-08,
+                "l2": 2.3092862466318087e-07
+              },
+              "exp_avg": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 1.4901161193847656e-08,
+                "l2": 5.5155942790094e-08
+              },
+              "exp_avg_sq": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 5.820766091346741e-11,
+                "l2": 9.074574091833254e-11
+              },
+              "step": {
+                "within_tolerance": true,
+                "bit_exact": true,
+                "max_abs": 0.0,
+                "l2": 0.0
+              }
+            }
+          },
+          {
+            "step": 9,
+            "sample_sha256": "2b033e38d2f4ff0a90197e0f3c5f5465103b4c29b9abd692adec0f0bb66dc802",
+            "dropout_seeds": [
+              1325574078,
+              1266584240,
+              1265696036,
+              3416015536,
+              2001456071,
+              3172894734,
+              3477117131,
+              2456271618,
+              436237485,
+              3846334643,
+              354340132,
+              1037703802,
+              2658099483,
+              616365352,
+              3796487367,
+              2132399653,
+              4011629469,
+              2771368729,
+              1713000812,
+              3131975547
+            ],
+            "sample_class_counts": [
+              1002,
+              5233,
+              1901,
+              487,
+              16,
+              9,
+              313,
+              1279
+            ],
+            "checks": {
+              "raw_gradient": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 4.470348358154297e-08,
+                "l2": 2.2351189611951107e-07
+              },
+              "clipped_gradient": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 2.9802322387695312e-08,
+                "l2": 2.1265609442080284e-07
+              },
+              "parameters": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 6.705522537231445e-08,
+                "l2": 2.4349247829477123e-07
+              },
+              "exp_avg": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 2.2351741790771484e-08,
+                "l2": 5.937816806458726e-08
+              },
+              "exp_avg_sq": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 7.275957614183426e-11,
+                "l2": 1.0627317804573512e-10
+              },
+              "step": {
+                "within_tolerance": true,
+                "bit_exact": true,
+                "max_abs": 0.0,
+                "l2": 0.0
+              }
+            }
+          },
+          {
+            "step": 10,
+            "sample_sha256": "c265de77b9d0f772fe29ec652d6b41be7e18b64f269d4006df38c3d4dcdd66ae",
+            "dropout_seeds": [
+              709454385,
+              2719263350,
+              3855534977,
+              464973494,
+              618791393,
+              924286196,
+              1151703005,
+              3746154488,
+              1170930329,
+              1297742182,
+              4110101186,
+              1403809882,
+              472773325,
+              909344837,
+              4197981785,
+              760846611,
+              2898282312,
+              1425640258,
+              2001384298,
+              4153647713
+            ],
+            "sample_class_counts": [
+              956,
+              5221,
+              2008,
+              463,
+              16,
+              7,
+              281,
+              1288
+            ],
+            "checks": {
+              "raw_gradient": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 5.960464477539063e-08,
+                "l2": 2.2328539296979896e-07
+              },
+              "clipped_gradient": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 3.725290298461914e-08,
+                "l2": 2.2845792529221317e-07
+              },
+              "parameters": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 6.705522537231445e-08,
+                "l2": 2.6345670203709767e-07
+              },
+              "exp_avg": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 1.4901161193847656e-08,
+                "l2": 6.073630057330148e-08
+              },
+              "exp_avg_sq": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 7.275957614183426e-11,
+                "l2": 1.1924673507410953e-10
+              },
+              "step": {
+                "within_tolerance": true,
+                "bit_exact": true,
+                "max_abs": 0.0,
+                "l2": 0.0
+              }
+            }
+          },
+          {
+            "step": 11,
+            "sample_sha256": "619dcba5c6c6cc5e17c6075eff6e36e06f279ad336c69b1277d27d988f3fa9ff",
+            "dropout_seeds": [
+              1986543735,
+              1578754281,
+              2096393158,
+              1417944838,
+              873250172,
+              2465214990,
+              1813538733,
+              3712258233,
+              1688262350,
+              4094110018,
+              778562137,
+              322299682,
+              2022039805,
+              3537409987,
+              1502288913,
+              891284279,
+              573038397,
+              2494012598,
+              136925590,
+              837184819
+            ],
+            "sample_class_counts": [
+              989,
+              5235,
+              1945,
+              483,
+              13,
+              14,
+              299,
+              1262
+            ],
+            "checks": {
+              "raw_gradient": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 4.470348358154297e-08,
+                "l2": 2.1100250465411063e-07
+              },
+              "clipped_gradient": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 3.725290298461914e-08,
+                "l2": 1.9609249577276727e-07
+              },
+              "parameters": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 7.450580596923828e-08,
+                "l2": 2.8032522444633407e-07
+              },
+              "exp_avg": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 1.4901161193847656e-08,
+                "l2": 6.002993140465162e-08
+              },
+              "exp_avg_sq": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 7.275957614183426e-11,
+                "l2": 1.20207251238351e-10
+              },
+              "step": {
+                "within_tolerance": true,
+                "bit_exact": true,
+                "max_abs": 0.0,
+                "l2": 0.0
+              }
+            }
+          },
+          {
+            "step": 12,
+            "sample_sha256": "ccdb70d147e5e72d9709646bf8eb056f20fc0128006ce81fd9a0caab7b29b7f6",
+            "dropout_seeds": [
+              1261883221,
+              2820370233,
+              1116065651,
+              781779086,
+              4280653550,
+              1940241591,
+              409087209,
+              3713435195,
+              1066487707,
+              2847708950,
+              2293870616,
+              2740145369,
+              4124699422,
+              4088080736,
+              2668988686,
+              1119628767,
+              3391099037,
+              465830492,
+              2105182374,
+              2441643841
+            ],
+            "sample_class_counts": [
+              1003,
+              5238,
+              1928,
+              478,
+              12,
+              15,
+              288,
+              1278
+            ],
+            "checks": {
+              "raw_gradient": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 5.21540641784668e-08,
+                "l2": 2.1820371414333574e-07
+              },
+              "clipped_gradient": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 5.029141902923584e-08,
+                "l2": 2.1011747010130687e-07
+              },
+              "parameters": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 7.450580596923828e-08,
+                "l2": 2.9205008095369684e-07
+              },
+              "exp_avg": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 7.450580596923828e-09,
+                "l2": 6.067584027883077e-08
+              },
+              "exp_avg_sq": {
+                "within_tolerance": true,
+                "bit_exact": false,
+                "max_abs": 7.275957614183426e-11,
+                "l2": 1.215447310951554e-10
+              },
+              "step": {
+                "within_tolerance": true,
+                "bit_exact": true,
+                "max_abs": 0.0,
+                "l2": 0.0
+              }
+            }
+          }
+        ],
+        "work": {
+          "backward_examples": 368640,
+          "backward_batches": 720,
+          "optimizer_steps": 36,
+          "quality_evaluation_examples": 0
+        },
+        "recovery_exact": true,
+        "final_model_sha256": {
+          "federated": "cff0f1bf03c4c44c22d63e3350837c9b1cd96c323edc6fff134b18e459c2e254",
+          "central": "4c6ba336fdf1a782097aec3dff42a3335013ab4d3c49021c33234ef31733e8fe"
+        },
+        "central_federated_bit_exact": false,
+        "numerical_equivalence_passed": true,
+        "elapsed_seconds": 0.6473573339171708,
+        "communication": {
+          "estimated_per_path_bytes": 9784320,
+          "sync_steps": 12,
+          "measured_network_traffic": false,
+          "includes_recovery_audit": false,
+          "transport_overhead_included": false
+        }
+      }
+    },
+    "total_work": {
+      "backward_examples": 1474560,
+      "backward_batches": 2880,
+      "optimizer_steps": 144,
+      "quality_evaluation_examples": 0
+    },
+    "next": "Numerical gate only passed; design separate from-scratch MIME development comparison"
+  },
+  "independent_replay": {
+    "non_timing_exact": true,
+    "elapsed_seconds": {
+      "float64-dropout0.0": 0.9119117090012878,
+      "float64-dropout0.2": 0.709604499861598,
+      "float32-dropout0.0": 0.5318728338461369,
+      "float32-dropout0.2": 0.6125477079767734
+    }
+  },
+  "source_files_sha256": {
+    "outputs/shared-adam-bridge-v1/result.json": "65534e0c7b847399dd09fe1adc361c5beadcd22428bd507a88f3d9bdc5040245",
+    "outputs/shared-adam-bridge-replay-v1/result.json": "43ddb3286bf3d80451f0cc30ec9c3c6901fa97704c5051e76d66082e223e78a5"
+  },
+  "scope": "Numerical identity and recovery only; no predictive quality metrics or held-out scoring"
+}
