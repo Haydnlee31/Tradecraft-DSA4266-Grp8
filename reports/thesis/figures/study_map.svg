@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="720pt" height="381.6pt" viewBox="0 0 720 381.6" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.11.2, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 381.6
+L 720 381.6
+L 720 0
+L 0 0
+z
+" style="fill: #ffffff"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 31.68 175.3452
+L 688.32 175.3452
+Q 695.232 175.3452 695.232 172.40688
+L 695.232 101.8872
+Q 695.232 98.94888 688.32 98.94888
+L 31.68 98.94888
+Q 24.768 98.94888 24.768 101.8872
+L 24.768 172.40688
+Q 24.768 175.3452 31.68 175.3452
+z
+" clip-path="url(#pb9e79969cf)" style="fill: #edeaf4; stroke: #b9c7d1; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_3">
+    <path d="M 31.68 263.4948
+L 688.32 263.4948
+Q 695.232 263.4948 695.232 260.55648
+L 695.232 190.0368
+Q 695.232 187.09848 688.32 187.09848
+L 31.68 187.09848
+Q 24.768 187.09848 24.768 190.0368
+L 24.768 260.55648
+Q 24.768 263.4948 31.68 263.4948
+z
+" clip-path="url(#pb9e79969cf)" style="fill: #e5f0f6; stroke: #b9c7d1; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_4">
+    <path d="M 31.68 351.6444
+L 688.32 351.6444
+Q 695.232 351.6444 695.232 348.70608
+L 695.232 278.1864
+Q 695.232 275.24808 688.32 275.24808
+L 31.68 275.24808
+Q 24.768 275.24808 24.768 278.1864
+L 24.768 348.70608
+Q 24.768 351.6444 31.68 351.6444
+z
+" clip-path="url(#pb9e79969cf)" style="fill: #e5f4ed; stroke: #b9c7d1; stroke-linejoin: miter"/>
+   </g>
+   <g id="text_1">
+    <text style="font-weight: 700; font-size: 12px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #203344" x="48.96" y="119.51712" transform="rotate(-0 48.96 119.51712)">A  Original configured models</text>
+   </g>
+   <g id="text_2">
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'; fill: #203344" transform="translate(48.96 146.96616)">46 features | 440,594 fitting rows</text>
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'; fill: #203344" transform="translate(48.96 159.012644)">327,257 validation rows | seeds 0/1/2</text>
+   </g>
+   <g id="text_3">
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'; fill: #203344" transform="translate(429.12 146.96616)">Heavy vs light vs IID/non-IID</text>
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'; fill: #203344" transform="translate(429.12 158.968894)">Validation-selected checkpoints</text>
+   </g>
+   <g id="text_4">
+    <text style="font-weight: 700; font-size: 12px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #203344" x="48.96" y="207.66672" transform="rotate(-0 48.96 207.66672)">B  Official39 baseline</text>
+   </g>
+   <g id="text_5">
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'; fill: #203344" transform="translate(48.96 235.11576)">39 features | 2M training rows</text>
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'; fill: #203344" transform="translate(48.96 247.162244)">2,040,729 primary test rows | seeds 7/17/27</text>
+   </g>
+   <g id="text_6">
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'; fill: #203344" transform="translate(429.12 235.11576)">Same light architecture</text>
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'; fill: #203344" transform="translate(429.12 247.118494)">Fixed step-20 references and masks</text>
+   </g>
+   <g id="text_7">
+    <text style="font-weight: 700; font-size: 12px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #203344" x="48.96" y="295.81632" transform="rotate(-0 48.96 295.81632)">C  Shared optimizer extension</text>
+   </g>
+   <g id="text_8">
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'; fill: #203344" transform="translate(48.96 323.26536)">39 features | 500k fitting rows</text>
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'; fill: #203344" transform="translate(48.96 335.311844)">398,502 reserved rows | seeds 7/17/27</text>
+   </g>
+   <g id="text_9">
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'; fill: #203344" transform="translate(429.12 323.26536)">Shared updates and compression</text>
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'; fill: #203344" transform="translate(429.12 335.268094)">Frozen checkpoints and alarm thresholds</text>
+   </g>
+  </g>
+  <g id="text_10">
+   <text style="font-weight: 700; font-size: 16px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #203344" x="28.8" y="19.7895" transform="rotate(-0 28.8 19.7895)">One research question, three distinct evaluation settings</text>
+  </g>
+  <g id="text_11">
+   <text style="font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #566875" x="28.8" y="41.942437" transform="rotate(-0 28.8 41.942437)">Does compact federated learning preserve useful eight-class coverage at acceptable cost?</text>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="pb9e79969cf">
+   <rect x="14.4" y="72.504" width="691.2" height="293.832"/>
+  </clipPath>
+ </defs>
+</svg>

@@ -23,7 +23,7 @@ def inline(text):
     return text
 
 
-def render(source, output):
+def render(source, output, title=None, footer_label=None):
     # Keep document-only packages optional, and independent of training imports.
     from reportlab.lib import colors
     from reportlab.lib.enums import TA_LEFT
@@ -114,14 +114,23 @@ def render(source, output):
         canvas.line(18 * mm, 14 * mm, A4[0]-18 * mm, 14 * mm)
         canvas.setFont('Helvetica', 8)
         canvas.setFillColor(colors.HexColor('#566875'))
-        canvas.drawString(18 * mm, 9.5 * mm, 'TRADECRAFT  |  Methods, results and discussion draft')
+        canvas.drawString(18 * mm, 9.5 * mm, footer_label or 'TRADECRAFT  |  Methods, results and discussion draft')
         canvas.drawRightString(A4[0]-18 * mm, 9.5 * mm, str(document.page))
         canvas.restoreState()
 
     output.parent.mkdir(parents=True, exist_ok=True)
-    document = SimpleDocTemplate(str(output), pagesize=A4,
+    class ThesisDocument(SimpleDocTemplate):
+        """Make the long review copy navigable without hard-coded page numbers."""
+        def afterFlowable(self, flowable):
+            if isinstance(flowable, Paragraph) and flowable.style.name in ('Title', 'Section'):
+                key = f'section-{self.seq.nextf("outline")}'
+                self.canv.bookmarkPage(key)
+                self.canv.addOutlineEntry(flowable.getPlainText(), key,
+                    level=0 if flowable.style.name == 'Title' else 1, closed=False)
+
+    document = ThesisDocument(str(output), pagesize=A4,
         leftMargin=18*mm, rightMargin=18*mm, topMargin=17*mm, bottomMargin=20*mm,
-        title='Tradecraft: shared optimization for federated intrusion classification',
+        title=title or 'Tradecraft: shared optimization for federated intrusion classification',
         author='Tradecraft project', subject='Illustrated methods, results and discussion draft')
     document.build(story, onFirstPage=footer, onLaterPages=footer)
     return output
@@ -131,5 +140,7 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--source', type=Path, required=True)
     parser.add_argument('--output', type=Path, required=True)
+    parser.add_argument('--title')
+    parser.add_argument('--footer-label')
     args = parser.parse_args()
-    print(render(args.source, args.output))
+    print(render(args.source, args.output, args.title, args.footer_label))

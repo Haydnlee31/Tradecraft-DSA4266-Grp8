@@ -1,0 +1,58 @@
+{
+  "status": "complete",
+  "sources": {
+    "reports/confirmation_2026_10_05/results/summary.json": "5abb339532f682118c088371d06ac13f78c3de260e228a47aa98ce6237d1ce79",
+    "reports/explanations_2026_10_05/results/summary.json": "00fdd87c53df786dc26e9a9bd81b8ffcebad4860326bd7129860351dece19628",
+    "reports/federated_shared_optimizer/confirmation-results.json": "a8efb197171780decefbfe82edfade5d354924e97889cb49d3df22d471b9001b",
+    "reports/federated_class_safeguards/study-synthesis-results.json": "e32b27b781ea8fa30b06cd113ce21335accdc86a078b45d3b2aa7880c06a0aa1",
+    "reports/federated_shared_optimizer/performance-results.json": "5244f2655ed0176f151418861fe8df287e31760fd5639f43295d7839b420896b",
+    "reports/thesis/evidence/legacy-histories.json": "852876411642e04171cd76cdb701596eab3aa1c805d279e822837167d01c57dd"
+  },
+  "generator_sha256": "4b49a7a5ec8084d02fc9427091917a773dbb3a90dfd66d9b925985d5d400853c",
+  "shared_style_sha256": "4f938b1f7ef1ff10199946fd557d223577c8fbf7e54ea95b58641dadae40dd0e",
+  "figures": [
+    {
+      "id": "study_map",
+      "title": "Three separate studies answer different questions"
+    },
+    {
+      "id": "legacy_quality",
+      "title": "Configured-model quality, alarm burden and size"
+    },
+    {
+      "id": "legacy_recall",
+      "title": "Legacy correct-category recall"
+    },
+    {
+      "id": "legacy_curves",
+      "title": "Saved validation trajectories, not new experiments"
+    },
+    {
+      "id": "official_gap",
+      "title": "Which classes account for the official39 gap?"
+    },
+    {
+      "id": "explanation_quality",
+      "title": "Stable rankings do not guarantee accurate attribution sums"
+    }
+  ],
+  "files": {
+    "explanation_quality.png": "31b13de078df3637f99b5c0fbab7a16f9e247cdc4b16fcad3e378b8451a0a3ef",
+    "explanation_quality.svg": "99c10de44ff42755418d4d5d4d59e4071dcc3413eb3a469da3c84f42e425948e",
+    "figure-data.json": "218b2653ea03b1baf9d529e4cc058635474481a2203c73a208a99d601fc04ff2",
+    "legacy_curves.png": "56259b947691fe795d8b54d17d04dc3a789f604f0d260d78f50c9b239bb92bb3",
+    "legacy_curves.svg": "12904a95ae4da7a4b9b9bd4f91b584c9d32990c1cfa7dd32a7712f5e85c97355",
+    "legacy_quality.png": "1870e9110cb2c24fcc2b936d894979934dc0466903cad442b7611a2ded46ff63",
+    "legacy_quality.svg": "7796e0f33ddb594156812d22e886f25143fbde2dd8e1de5adc64e634cc0dd510",
+    "legacy_recall.png": "ef6ec742ba5e02dd3914255c98c2aac3dea1f567b906503dcbb665ef63a3fc01",
+    "legacy_recall.svg": "60aaf149de4e08320ae490054383648cc881b3d7d83c6d7caf1bd8de168c1866",
+    "official_gap.png": "2a3ed9f4b7bc6ed0c888f2bf83f4f011e407b61bbde292d24a6c86aa0ad2c1cb",
+    "official_gap.svg": "8fdf19e4f22f2f9e69b8922b4ae5bc0ad27654ba3d0be18540111d1d4e19434a",
+    "study_map.png": "ccfb1c3a3a0553290b8937c986c0c27ace1bb468fef75f7a611e7a63736197e4",
+    "study_map.svg": "54eebfb6c5d70e745f184b8add699ad6f9b24fcc5d1c369cc9f8b669fdde064a"
+  },
+  "model_trained": false,
+  "new_model_inference": false,
+  "dataset_arrays_opened": false,
+  "cloud_used": false
+}
