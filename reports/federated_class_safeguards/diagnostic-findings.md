@@ -121,7 +121,7 @@ sweep or full run has been launched to rescue this failed gate.
 The immediate contribution is a directly measured mechanism and an identified
 failure of the first safeguard, not a novel high-performance classifier.
 The gradient-projection prior art and novelty limitations remain as described
-in the [proposal](../Federated%20gradient%20correction%20proposal.md).
+in the [archived proposal](../../archive/proposals/reports/Federated%20gradient%20correction%20proposal.md).
 
 ## Verification and cost
 

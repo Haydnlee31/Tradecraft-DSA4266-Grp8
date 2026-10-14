@@ -2,7 +2,7 @@
 
 14 October 2026. **The shared-gradient/server-Adam control reproduces its matched centralized updates within floating-point tolerance.** All four real-training-data cases pass, including active dropout, and saved midpoint states resume to bit-identical endpoints within each arm. Independent execution reproduces every non-timing receipt field.
 
-This completes the first implementation gate in the [shared-optimizer proposal](../Central%20aligned%20federated%20updates.md). A separate full-MIME kernel also passes synthetic mathematical and recovery checks. Neither result establishes improved attack classification: no quality scores or new held-out predictions were computed. The completed study's results remain unchanged.
+This completes the first implementation gate in the [archived shared-optimizer proposal](../../archive/proposals/reports/Central%20aligned%20federated%20updates.md). A separate full-MIME kernel also passes synthetic mathematical and recovery checks. Neither result establishes improved attack classification: no quality scores or new held-out predictions were computed. The completed study's results remain unchanged.
 
 ## What the successful comparison means
 

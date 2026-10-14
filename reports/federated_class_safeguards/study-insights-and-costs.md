@@ -86,7 +86,7 @@ The later ten-round SCAFFOLD diagnostic doubles this model/control payload relat
 
 The historical federated Adam recipe initializes a new client optimizer each round, whereas centralized Adam retains its optimizer history. The SCAFFOLD comparison tested plain SGD; it did **not** settle whether sharing adaptive optimizer information helps. This is a plausible mechanism, not an isolated cause already demonstrated by the evidence.
 
-The [focused literature-backed proposal](../Central%20aligned%20federated%20updates.md) recommends one sequence:
+The [archived literature-backed proposal](../../archive/proposals/reports/Central%20aligned%20federated%20updates.md) recommends one sequence:
 
 1. Establish a numerical control: aggregate same-weights client gradients and apply persistent server Adam; compare with the *same weighted centralized accumulated-batch update*. This is not equivalent to sequential centralized minibatch Adam, and potentially frequent communication must be counted.
 2. Test established **MIME-Adam**, which combines shared optimizer statistics with local gradient correction, against newly matched centralized and FedAvg controls. Do not rename it as a novel algorithm.
