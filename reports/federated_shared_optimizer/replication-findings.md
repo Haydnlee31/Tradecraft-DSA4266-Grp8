@@ -82,6 +82,8 @@ The supported insight is that this federated gradient calculation can approach c
 
 ## Next experiment
 
+Follow-up completed: the [compression comparison](compression-findings.md) retains much of the aggregate quality with substantially smaller messages, but neither candidate passes every class safeguard. The recommendation below records the plan preceding that experiment.
+
 Proceed to one bounded **communication-reduction experiment**, keeping the shared-gradient result as the quality reference and FedAvg as the lower-communication reference. Define the allowable quality loss and communication budget before scoring candidates. Any extension should retain globally consistent optimizer information while testing how much synchronization or transmitted payload can be removed. Report both bytes and barriers; fewer bytes alone do not resolve round-trip latency.
 
 Do not return to a broad classifier search, expand model size or reopen MIME tuning at this stage. The immediate contribution to pursue is a better measured quality-versus-communication trade-off, not an unsupported claim that a new method already exists. Keep this next experiment local and development-only. Once a method and its settings are fixed, the reserved confirmation can support a separately authorized evaluation.
