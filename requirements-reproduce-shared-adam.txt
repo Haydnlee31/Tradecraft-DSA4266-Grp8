@@ -1,0 +1,12 @@
+# Frozen local reproduction stack, not the project's general requirements.
+# Python 3.13.9, CPU, two threads. Original platform: macOS arm64.
+# Same package versions do not guarantee bitwise equality across CPU/OS builds.
+# These packages cover the runner's imports; Flower/Ray/CUDA are not needed.
+torch==2.14.0
+numpy==2.5.3
+polars==1.44.2
+pyarrow==25.0.1
+scikit-learn==1.9.1
+scipy==1.18.1
+joblib==1.6.0
+threadpoolctl==3.7.0

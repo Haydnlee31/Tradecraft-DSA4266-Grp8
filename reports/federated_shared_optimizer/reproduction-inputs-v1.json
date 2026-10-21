@@ -1,0 +1,76 @@
+{
+  "version": "shared-adam-reproduction-inputs-v1",
+  "python": "3.13.9",
+  "download_url": "https://github.com/Haydnlee31/Tradecraft-DSA4266-Grp8/releases/download/shared-adam-reproduction-v1/tradecraft-shared-adam-inputs-v1.tgz",
+  "archive": {
+    "name": "tradecraft-shared-adam-inputs-v1.tgz",
+    "sha256": "e9ba6c30dea0d99975fc0d1f02b8a9cbc015c03c895ff10980468915264a94dc",
+    "bytes": 36271183
+  },
+  "files": {
+    "outputs/shared-optimizer-development-data-v1/manifest.json": {
+      "sha256": "f184b699fe9a34c46cc9218191ff43fd87457a8e2f6f366de6000eabf31a6987",
+      "bytes": 3599
+    },
+    "outputs/shared-optimizer-development-data-v1/scaler.json": {
+      "sha256": "dc6e5e005363540adc700b2276ad3193465422df5c618be8b209453a44f714b4",
+      "bytes": 2909
+    },
+    "outputs/shared-optimizer-development-data-v1/fit_x.npy": {
+      "sha256": "83b25f07a59c86ea30bca2c035e3c55bcdfe4fa31f7a82e7ec5540bc889cc7cb",
+      "bytes": 78000128
+    },
+    "outputs/shared-optimizer-development-data-v1/fit_y.npy": {
+      "sha256": "f80c891ff89770c00ce9e26d4ad44b72e05ea98aa4817f1875de4e89d5547d97",
+      "bytes": 4000128
+    },
+    "outputs/shared-optimizer-development-data-v1/clients.npz": {
+      "sha256": "3ae201ea198aa54ca613374360b6fe7558f29a4ca8464f4204bad4baafcae687",
+      "bytes": 806885
+    },
+    "outputs/shared-optimizer-development-data-v1/fit_row_ids.npy": {
+      "sha256": "54d05b2c36ca47672bd2e103324b67263b3da4f0b1c23df75b1128a634d4e680",
+      "bytes": 4000128
+    },
+    "outputs/shared-optimizer-development-data-v1/development_x.npy": {
+      "sha256": "d49fae0e677fe18a676daca789539a7f089f51537209fb42c1df72f9ff0208de",
+      "bytes": 62330240
+    },
+    "outputs/shared-optimizer-development-data-v1/development_y.npy": {
+      "sha256": "b51d3277ecb1f4121bcd25869ae50bdbbbf6fd9448b1a970945b1007ce96ab70",
+      "bytes": 3196544
+    },
+    "outputs/shared-optimizer-development-data-v1/development_row_ids.npy": {
+      "sha256": "a67e70c2b6564c05fa315f6b0d89afc78e36cfcb6637ff0e6018c7a64a305e1b",
+      "bytes": 3196544
+    },
+    "outputs/shared-optimizer-development-data-v1/confirmation_row_ids.npy": {
+      "sha256": "dc6866b45cf1599abb50a36260815f3f56160620b5f4b43bafa9c14ac9449420",
+      "bytes": 3188144
+    },
+    "outputs/shared-optimizer-confirmation-v1/data/manifest.json": {
+      "sha256": "1f54dffeb692fc4fa020f5d6abd3d2f51192a6f66cabde47df06a258ab31d536",
+      "bytes": 3289
+    },
+    "outputs/shared-optimizer-confirmation-v1/data/confirmation_x.npy": {
+      "sha256": "a445047166efc26103e11730cba7d8fc8723f5f3b25d765d74aac8764f6b9bfd",
+      "bytes": 62166440
+    },
+    "outputs/shared-optimizer-confirmation-v1/data/confirmation_y.npy": {
+      "sha256": "304908e8fa81e7aadacf35be51df072ef012e4beec45128e505a278f9aefa2bc",
+      "bytes": 3188144
+    },
+    "outputs/shared-optimizer-block-compression-v1/block128/last.pt": {
+      "sha256": "abaa6bb188a7bad84bf1d879121c85b96aba8b7955e57ddce41fd37da9b74238",
+      "bytes": 558987
+    },
+    "outputs/shared-optimizer-block-replication-v1/seed17-block128/last.pt": {
+      "sha256": "053f643c279b0233df0f0ecdc23feba1a1fe3a8ecf2a3dcb1fe94ad20dd1f9a7",
+      "bytes": 559243
+    },
+    "outputs/shared-optimizer-block-replication-v1/seed27-block128/last.pt": {
+      "sha256": "f6815b60e6e7749f4be7845514e6d7eac7e06d190becbcf9c870a391402a80e3",
+      "bytes": 559243
+    }
+  }
+}

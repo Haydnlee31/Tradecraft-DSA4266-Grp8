@@ -1,0 +1,67 @@
+{
+  "status": "complete",
+  "verified_date": "2026-10-21",
+  "scope": "Fresh three-seed training from frozen prepared inputs in a newly installed isolated environment on the same macOS ARM machine; not raw-CSV reconstruction or cross-platform equivalence.",
+  "summary_sha256": "489065fb05d99ec25e13d3a4d9204c48231c6a68ed571097f0bb77445cb25027",
+  "runner_sha256": "e24a1f3cf982877bebc7ae3f5443bb2d7ccf3baebbd19e81638882b031523a71",
+  "published_evidence_sha256": "a8efb197171780decefbfe82edfade5d354924e97889cb49d3df22d471b9001b",
+  "runtime": {
+    "python": "3.13.9",
+    "torch": "2.14.0",
+    "numpy": "2.5.3",
+    "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
+    "machine": "arm64",
+    "device": "cpu",
+    "threads": 2,
+    "git_commit": "f723eba9e8c0427d0a27dc196439ed94121f74c4"
+  },
+  "mean_macro_f1": 0.6325367323327683,
+  "sample_sd": 0.0038160281392305927,
+  "backward_examples": 64800000,
+  "elapsed_seconds": 172.97670870786533,
+  "confirmation_rows_per_seed": 398502,
+  "results": [
+    {
+      "seed": 7,
+      "from_scratch": true,
+      "full_training_state_exact": true,
+      "development_logits_exact": true,
+      "development_thresholds_exact": true,
+      "confirmation_logits_exact": true,
+      "confirmation_metrics_exact": true,
+      "model_sha256": "66feb76773741239d05575cefbb451e07224f24ea92254a11041afdfa0246033",
+      "sample_chain_sha256": "09974f2df56f952a78ae7a7da7da6322c31c94b70cf8a75680f07bfed37a3ac5",
+      "training_seconds": 54.04371220804751,
+      "macro_f1": 0.630267419693709
+    },
+    {
+      "seed": 17,
+      "from_scratch": true,
+      "full_training_state_exact": true,
+      "development_logits_exact": true,
+      "development_thresholds_exact": true,
+      "confirmation_logits_exact": true,
+      "confirmation_metrics_exact": true,
+      "model_sha256": "6e5b2784b63c9eabdf7d1f07a708f75907e6118fd157fa512b1fb759afbf0b4b",
+      "sample_chain_sha256": "055c016ac6d3a0c6506ca7e21595a74f24fa139dd3640367aff22d792740d151",
+      "training_seconds": 53.688410124974325,
+      "macro_f1": 0.630400343579381
+    },
+    {
+      "seed": 27,
+      "from_scratch": true,
+      "full_training_state_exact": true,
+      "development_logits_exact": true,
+      "development_thresholds_exact": true,
+      "confirmation_logits_exact": true,
+      "confirmation_metrics_exact": true,
+      "model_sha256": "fdfe70b033be0f43242cc07eb0d35d7a0ac9379c1bec77566e473a3b269a3690",
+      "sample_chain_sha256": "7e6ce8b986c83949376f77a450bcb3f2e645f0a89a14624c5f983ad3276a8e16",
+      "training_seconds": 62.733634625095874,
+      "macro_f1": 0.6369424337252149
+    }
+  ],
+  "original_validation_opened": false,
+  "original_test_opened": false,
+  "confirmation_thresholds_refitted": false
+}

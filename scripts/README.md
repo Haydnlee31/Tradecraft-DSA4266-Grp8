@@ -7,6 +7,7 @@ writing rather than automatically launching a new experiment.
 
 | Scripts | Purpose |
 | --- | --- |
+| `reproduce_shared_adam.py` | Download/check frozen inputs, set up an isolated environment and explicitly retrain the three-seed compressed Shared Adam result; see the [reproduction guide](../reports/federated_shared_optimizer/reproduction-guide.md) |
 | `study_thesis.py`, `shared_optimizer_thesis_figures.py`, `render_thesis_pdf.py` | Rebuild the [thesis and figures](../reports/thesis/README.md) from saved evidence |
 | `official39_study_synthesis.py`, `official39_final_report.py`, `official39_closeout.py` | Audit and summarize completed official39 results |
 | `official39_ablation_confirmation.py`, `official39_final_evaluation.py`, `official39_test_panel.py` | Frozen historical evaluation tooling; read the locked protocol before use |

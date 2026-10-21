@@ -11,6 +11,8 @@ __pycache__/
 *.pyc
 .venv/
 .venv-cloud/
+.venv-shared-adam/
+.venv-reproduce/
 venv/
 *.egg-info/
 
