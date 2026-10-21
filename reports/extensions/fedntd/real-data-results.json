@@ -1,0 +1,606 @@
+{
+  "status": "verified",
+  "scope": "Seed-7 FedNTD exploratory development screen; argmax, no alarm tuning",
+  "data": {
+    "fit_rows": 500000,
+    "development_rows": 399552,
+    "clients": 20,
+    "features": 39
+  },
+  "runtime": {
+    "python": "3.13.9",
+    "torch": "2.14.0",
+    "numpy": "2.5.3",
+    "platform": "macOS-15.5-arm64-arm-64bit-Mach-O"
+  },
+  "plan": {
+    "version": "fedntd-development-v1",
+    "seed": 7,
+    "betas": [
+      0.0,
+      0.1,
+      1.0
+    ],
+    "temperature": 1.0,
+    "learning_rate": 0.003,
+    "local_steps": 20,
+    "batch_size": 500,
+    "backward_examples_per_arm": 21600000,
+    "clients": 20,
+    "fit_rows": 500000,
+    "features": 39,
+    "architecture": {
+      "hidden_dims": [
+        64,
+        32
+      ],
+      "normalization": "layer",
+      "dropout": 0.0
+    },
+    "adam": {
+      "betas": [
+        0.9,
+        0.99
+      ],
+      "eps": 0.001,
+      "weight_decay": 0.0
+    },
+    "threads": 2,
+    "evaluation": "Final development argmax only. Exploratory; no test/confirmation access, alarm tuning or best-round selection.",
+    "comparison": "Paired population-weighted FedAvg with reset client Adam; beta zero is the matched control. Teacher forward work is additional, not free. No claim of a strict original-paper reproduction."
+  },
+  "input_manifest_sha256": "f184b699fe9a34c46cc9218191ff43fd87457a8e2f6f366de6000eabf31a6987",
+  "run_summary_sha256": "3e13b69fd06dfd38c0387827e03aa8f815870145ff5e36b33273628343ac661d",
+  "audit_script_sha256": "8571faa2dc50267f3cfc9be29d052eea6dee0face73033990110e13ad90f19e4",
+  "checks": {
+    "source_and_data_hashes_match": true,
+    "all_three_checkpoints_replayed": true,
+    "independent_sklearn_metrics_match": true,
+    "beta_zero_original_weights_metrics_samples_exact": true,
+    "all_arms_identical_sample_chain": true,
+    "work_and_payload_counts_match": true
+  },
+  "results": [
+    {
+      "beta": 0.0,
+      "temperature": 1.0,
+      "rounds": 108,
+      "work": {
+        "backward_examples": 21600000,
+        "backward_batches": 43200,
+        "optimizer_steps": 43200,
+        "teacher_forward_examples": 0,
+        "teacher_forward_batches": 0,
+        "synchronization_rounds": 108,
+        "logical_barriers": 108,
+        "estimated_payload_bytes": 88058880
+      },
+      "training_seconds_sim_host": 59.10351729502145,
+      "sample_chain_sha256": "39b17d50670c29c6a396917aff6ebf05c8062006c94b3c4d26a49d4376b2b367",
+      "checkpoint_sha256": "4d9c410415a96c82c78ac76e44e9428815f44b4056356c9dd1a3abcad956b8fa",
+      "development_metrics": {
+        "macro_f1": 0.4836826437515157,
+        "accuracy": 0.8028566995034438,
+        "per_class": {
+          "Benign": {
+            "precision": 0.542567006025348,
+            "recall": 0.9857500117963478,
+            "f1": 0.6999011675628591,
+            "support": 21193
+          },
+          "DDoS": {
+            "precision": 0.7984692487879284,
+            "recall": 0.9941753499453144,
+            "f1": 0.8856395131475097,
+            "support": 235894
+          },
+          "DoS": {
+            "precision": 0.9110116999311769,
+            "recall": 0.18361770009710085,
+            "f1": 0.3056338028169014,
+            "support": 72090
+          },
+          "Recon": {
+            "precision": 0.8921568627450981,
+            "recall": 0.26792994111429863,
+            "f1": 0.4120993961913609,
+            "support": 13246
+          },
+          "Web-based": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "support": 495
+          },
+          "Brute Force": {
+            "precision": 0.7313432835820896,
+            "recall": 0.196,
+            "f1": 0.30914826498422715,
+            "support": 250
+          },
+          "Spoofing": {
+            "precision": 0.864951768488746,
+            "recall": 0.1546688132474701,
+            "f1": 0.26241342308067506,
+            "support": 8696
+          },
+          "Mirai": {
+            "precision": 0.9997034275303986,
+            "recall": 0.9895990605603087,
+            "f1": 0.9946255822285919,
+            "support": 47688
+          }
+        },
+        "benign_false_alert_rate": 0.014249988203652197,
+        "confusion_matrix": [
+          [
+            20891,
+            5,
+            0,
+            242,
+            0,
+            4,
+            51,
+            0
+          ],
+          [
+            20,
+            234520,
+            1236,
+            73,
+            0,
+            0,
+            37,
+            8
+          ],
+          [
+            6,
+            58789,
+            13237,
+            21,
+            0,
+            0,
+            31,
+            6
+          ],
+          [
+            9600,
+            10,
+            2,
+            3549,
+            0,
+            14,
+            71,
+            0
+          ],
+          [
+            459,
+            0,
+            0,
+            35,
+            0,
+            0,
+            1,
+            0
+          ],
+          [
+            187,
+            0,
+            0,
+            9,
+            0,
+            49,
+            5,
+            0
+          ],
+          [
+            7296,
+            6,
+            0,
+            49,
+            0,
+            0,
+            1345,
+            0
+          ],
+          [
+            45,
+            382,
+            55,
+            0,
+            0,
+            0,
+            14,
+            47192
+          ]
+        ],
+        "decision_rule": "argmax"
+      },
+      "num_parameters": 5096,
+      "parameter_bytes": 20384
+    },
+    {
+      "beta": 0.1,
+      "temperature": 1.0,
+      "rounds": 108,
+      "work": {
+        "backward_examples": 21600000,
+        "backward_batches": 43200,
+        "optimizer_steps": 43200,
+        "teacher_forward_examples": 21600000,
+        "teacher_forward_batches": 43200,
+        "synchronization_rounds": 108,
+        "logical_barriers": 108,
+        "estimated_payload_bytes": 88058880
+      },
+      "training_seconds_sim_host": 83.66707858499285,
+      "sample_chain_sha256": "39b17d50670c29c6a396917aff6ebf05c8062006c94b3c4d26a49d4376b2b367",
+      "checkpoint_sha256": "f35dc9540904e9865d1c711239d536ce347a9ef14f4c5a4d2f7343934c4ffef7",
+      "development_metrics": {
+        "macro_f1": 0.47810319004201335,
+        "accuracy": 0.8039854637193657,
+        "per_class": {
+          "Benign": {
+            "precision": 0.5373443452913652,
+            "recall": 0.9916010003302977,
+            "f1": 0.6969918079002355,
+            "support": 21193
+          },
+          "DDoS": {
+            "precision": 0.8011383459778214,
+            "recall": 0.9928866355227348,
+            "f1": 0.886765307204192,
+            "support": 235894
+          },
+          "DoS": {
+            "precision": 0.8997547324067668,
+            "recall": 0.19846025801081982,
+            "f1": 0.3251923492175336,
+            "support": 72090
+          },
+          "Recon": {
+            "precision": 0.9096250699496362,
+            "recall": 0.24543258342141025,
+            "f1": 0.38656361474435197,
+            "support": 13246
+          },
+          "Web-based": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "support": 495
+          },
+          "Brute Force": {
+            "precision": 0.9772727272727273,
+            "recall": 0.172,
+            "f1": 0.2925170068027211,
+            "support": 250
+          },
+          "Spoofing": {
+            "precision": 0.8943506969919296,
+            "recall": 0.14017939282428704,
+            "f1": 0.2423700169002883,
+            "support": 8696
+          },
+          "Mirai": {
+            "precision": 0.999491600821912,
+            "recall": 0.9894103338366046,
+            "f1": 0.9944254175667844,
+            "support": 47688
+          }
+        },
+        "benign_false_alert_rate": 0.008398999669702256,
+        "confusion_matrix": [
+          [
+            21015,
+            4,
+            0,
+            153,
+            0,
+            0,
+            21,
+            0
+          ],
+          [
+            22,
+            234216,
+            1548,
+            60,
+            0,
+            0,
+            33,
+            15
+          ],
+          [
+            7,
+            57726,
+            14307,
+            13,
+            0,
+            0,
+            28,
+            9
+          ],
+          [
+            9961,
+            10,
+            0,
+            3251,
+            0,
+            1,
+            23,
+            0
+          ],
+          [
+            464,
+            0,
+            0,
+            30,
+            0,
+            0,
+            1,
+            0
+          ],
+          [
+            200,
+            0,
+            0,
+            7,
+            0,
+            43,
+            0,
+            0
+          ],
+          [
+            7412,
+            8,
+            0,
+            57,
+            0,
+            0,
+            1219,
+            0
+          ],
+          [
+            28,
+            390,
+            46,
+            3,
+            0,
+            0,
+            38,
+            47183
+          ]
+        ],
+        "decision_rule": "argmax"
+      },
+      "num_parameters": 5096,
+      "parameter_bytes": 20384
+    },
+    {
+      "beta": 1.0,
+      "temperature": 1.0,
+      "rounds": 108,
+      "work": {
+        "backward_examples": 21600000,
+        "backward_batches": 43200,
+        "optimizer_steps": 43200,
+        "teacher_forward_examples": 21600000,
+        "teacher_forward_batches": 43200,
+        "synchronization_rounds": 108,
+        "logical_barriers": 108,
+        "estimated_payload_bytes": 88058880
+      },
+      "training_seconds_sim_host": 120.09111270603171,
+      "sample_chain_sha256": "39b17d50670c29c6a396917aff6ebf05c8062006c94b3c4d26a49d4376b2b367",
+      "checkpoint_sha256": "d7682ae416574b0745c2caa25c5a5c4719b814308f971f1cd62ad4b4912b23f6",
+      "development_metrics": {
+        "macro_f1": 0.4704828510384502,
+        "accuracy": 0.8012098550376422,
+        "per_class": {
+          "Benign": {
+            "precision": 0.5280384355528864,
+            "recall": 0.9957061293823433,
+            "f1": 0.690103996337236,
+            "support": 21193
+          },
+          "DDoS": {
+            "precision": 0.7993254809954782,
+            "recall": 0.9936624076915903,
+            "f1": 0.885962127225309,
+            "support": 235894
+          },
+          "DoS": {
+            "precision": 0.9077549929864405,
+            "recall": 0.18851435705368288,
+            "f1": 0.31219489783025695,
+            "support": 72090
+          },
+          "Recon": {
+            "precision": 0.9357072205736894,
+            "recall": 0.21425335950475616,
+            "f1": 0.3486700657288531,
+            "support": 13246
+          },
+          "Web-based": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "support": 495
+          },
+          "Brute Force": {
+            "precision": 0.7746478873239436,
+            "recall": 0.22,
+            "f1": 0.3426791277258567,
+            "support": 250
+          },
+          "Spoofing": {
+            "precision": 0.9273461150353178,
+            "recall": 0.10568077276908924,
+            "f1": 0.18973882522968927,
+            "support": 8696
+          },
+          "Mirai": {
+            "precision": 0.9988366436110583,
+            "recall": 0.9902281496393223,
+            "f1": 0.9945137682304007,
+            "support": 47688
+          }
+        },
+        "benign_false_alert_rate": 0.0042938706176567365,
+        "confusion_matrix": [
+          [
+            21102,
+            1,
+            0,
+            73,
+            0,
+            5,
+            12,
+            0
+          ],
+          [
+            19,
+            234399,
+            1361,
+            55,
+            0,
+            0,
+            23,
+            37
+          ],
+          [
+            7,
+            58451,
+            13590,
+            12,
+            0,
+            0,
+            12,
+            18
+          ],
+          [
+            10373,
+            7,
+            0,
+            2838,
+            0,
+            11,
+            17,
+            0
+          ],
+          [
+            472,
+            0,
+            0,
+            21,
+            0,
+            0,
+            2,
+            0
+          ],
+          [
+            194,
+            0,
+            0,
+            1,
+            0,
+            55,
+            0,
+            0
+          ],
+          [
+            7741,
+            5,
+            0,
+            31,
+            0,
+            0,
+            919,
+            0
+          ],
+          [
+            55,
+            383,
+            20,
+            2,
+            0,
+            0,
+            6,
+            47222
+          ]
+        ],
+        "decision_rule": "argmax"
+      },
+      "num_parameters": 5096,
+      "parameter_bytes": 20384
+    }
+  ],
+  "comparisons_to_paired_fedavg": [
+    {
+      "beta": 0.1,
+      "macro_f1_delta": -0.005579453709502358,
+      "far_delta": -0.005850988533949941,
+      "per_class_recall_delta": {
+        "Benign": 0.005850988533949941,
+        "DDoS": -0.0012887144225796066,
+        "DoS": 0.014842557913718968,
+        "Recon": -0.02249735769288838,
+        "Web-based": 0.0,
+        "Brute Force": -0.02400000000000002,
+        "Spoofing": -0.014489420423183047,
+        "Mirai": -0.00018872672370406907
+      }
+    },
+    {
+      "beta": 1.0,
+      "macro_f1_delta": -0.013199792713065484,
+      "far_delta": -0.009956117585995461,
+      "per_class_recall_delta": {
+        "Benign": 0.009956117585995461,
+        "DDoS": -0.0005129422537241135,
+        "DoS": 0.004896656956582035,
+        "Recon": -0.05367658160954247,
+        "Web-based": 0.0,
+        "Brute Force": 0.023999999999999994,
+        "Spoofing": -0.048988040478380845,
+        "Mirai": 0.0006290890790136006
+      }
+    }
+  ],
+  "baseline_reproduction": {
+    "mean_macro_f1": 0.6325367323327683,
+    "summary_sha256": "e3e13f2eb4532fc8eec68890529493ba12e25d0a1fd699394fac1e743d4e2bfd",
+    "seeds": [
+      {
+        "seed": 7,
+        "macro_f1": 0.630267419693709,
+        "full_training_state_exact": true,
+        "confirmation_metrics_exact": true
+      },
+      {
+        "seed": 17,
+        "macro_f1": 0.630400343579381,
+        "full_training_state_exact": true,
+        "confirmation_metrics_exact": true
+      },
+      {
+        "seed": 27,
+        "macro_f1": 0.6369424337252149,
+        "full_training_state_exact": true,
+        "confirmation_metrics_exact": true
+      }
+    ],
+    "scope": "Previously published Shared Adam confirmation results with 5% target calibration; separate from FedNTD comparison"
+  },
+  "fedntd_test_opened": false,
+  "fedntd_confirmation_scored": false,
+  "audit_new_training_examples": 0,
+  "audit_development_inference_examples": 1198656,
+  "limitations": [
+    "One training seed and one fixed client partition.",
+    "Development cohort has informed earlier research.",
+    "No independent holdout or calibrated-FAR FedNTD comparison.",
+    "Simulation-host time; modeled communication bytes, no edge/network measurements."
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "version": "fedntd-development-v1",
+  "seed": 7,
+  "betas": [0.0, 0.1, 1.0],
+  "temperature": 1.0,
+  "learning_rate": 0.003,
+  "local_steps": 20,
+  "batch_size": 500,
+  "backward_examples_per_arm": 21600000,
+  "clients": 20,
+  "fit_rows": 500000,
+  "features": 39,
+  "architecture": {"hidden_dims": [64, 32], "normalization": "layer", "dropout": 0.0},
+  "adam": {"betas": [0.9, 0.99], "eps": 0.001, "weight_decay": 0.0},
+  "threads": 2,
+  "evaluation": "Final development argmax only. Exploratory; no test/confirmation access, alarm tuning or best-round selection.",
+  "comparison": "Paired population-weighted FedAvg with reset client Adam; beta zero is the matched control. Teacher forward work is additional, not free. No claim of a strict original-paper reproduction."
+}
