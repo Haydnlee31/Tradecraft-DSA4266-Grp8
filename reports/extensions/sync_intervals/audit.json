@@ -1,0 +1,1107 @@
+{
+  "status": "verified",
+  "plan": {
+    "version": "sync-interval-development-v1",
+    "seed": 7,
+    "arms": [
+      {
+        "name": "shared_adam_k1",
+        "kind": "interval",
+        "interval": 1
+      },
+      {
+        "name": "normalized_fedopt_k4",
+        "kind": "interval",
+        "interval": 4
+      },
+      {
+        "name": "normalized_fedopt_k20",
+        "kind": "interval",
+        "interval": 20
+      },
+      {
+        "name": "fedavg_sgd_k20",
+        "kind": "fedavg_sgd",
+        "interval": 20
+      },
+      {
+        "name": "fedavg_adam_k20",
+        "kind": "fedavg_adam",
+        "interval": 20
+      }
+    ],
+    "server_learning_rate": 0.003,
+    "local_learning_rate": 0.003,
+    "control_adam_learning_rate": 0.003,
+    "sample_block_steps": 20,
+    "batch_size": 500,
+    "backward_examples_per_arm": 21600000,
+    "clients": 20,
+    "fit_rows": 500000,
+    "features": 39,
+    "architecture": {
+      "hidden_dims": [
+        64,
+        32
+      ],
+      "normalization": "layer",
+      "dropout": 0.0
+    },
+    "adam": {
+      "betas": [
+        0.9,
+        0.99
+      ],
+      "eps": 0.001,
+      "weight_decay": 0.0
+    },
+    "threads": 2,
+    "checkpoint_every": 180,
+    "retention_gate": {
+      "macro_f1_loss_max": 0.01,
+      "far_increase_max": 0.005,
+      "any_class_recall_loss_max": 0.05,
+      "barrier_reduction_min": 4
+    },
+    "evaluation": "Final development argmax only; no test, confirmation, threshold search or best-round selection.",
+    "interpretation": "One seed, fixed learning rates, normalized FedOpt-inspired adaptation. Equal backward examples do not match server updates, wall time or effective aggregation batch size. Compression disabled. Gates fixed before new outcomes."
+  },
+  "runtime": {
+    "python": "3.13.9",
+    "torch": "2.14.0",
+    "numpy": "2.5.3",
+    "platform": "macOS-15.5-arm64-arm-64bit-Mach-O"
+  },
+  "data_manifest_sha256": "f184b699fe9a34c46cc9218191ff43fd87457a8e2f6f366de6000eabf31a6987",
+  "summary_sha256": "17c46d7494821ac4b93397f8fcdddada1b7f884b6b6e67c04b76ca31277cb8f6",
+  "audit_source_sha256": "b74985db69cfc9f1a572fce746b6ce9f5fab463967a3be671716d61ef150f9a2",
+  "results": [
+    {
+      "status": "complete",
+      "arm": {
+        "name": "shared_adam_k1",
+        "kind": "interval",
+        "interval": 1
+      },
+      "rounds": 2160,
+      "work": {
+        "backward_examples": 21600000,
+        "backward_batches": 43200,
+        "local_optimizer_steps": 0,
+        "server_adam_steps": 2160,
+        "synchronization_rounds": 2160,
+        "logical_barriers": 2160,
+        "estimated_payload_bytes": 1761177600
+      },
+      "training_seconds_sim_host": 52.96308337771916,
+      "development_metrics": {
+        "macro_f1": 0.652141809606875,
+        "accuracy": 0.8273791646644242,
+        "per_class": {
+          "Benign": {
+            "precision": 0.795752625437573,
+            "recall": 0.8044637380267069,
+            "f1": 0.8000844713501337,
+            "support": 21193
+          },
+          "DDoS": {
+            "precision": 0.9084020963937255,
+            "recall": 0.8391014608256251,
+            "f1": 0.8723776531979409,
+            "support": 235894
+          },
+          "DoS": {
+            "precision": 0.579697595417305,
+            "recall": 0.7243445692883895,
+            "f1": 0.6439988160426224,
+            "support": 72090
+          },
+          "Recon": {
+            "precision": 0.7361077506250504,
+            "recall": 0.6890382002113846,
+            "f1": 0.711795671670891,
+            "support": 13246
+          },
+          "Web-based": {
+            "precision": 0.20132013201320131,
+            "recall": 0.12323232323232323,
+            "f1": 0.15288220551378445,
+            "support": 495
+          },
+          "Brute Force": {
+            "precision": 0.35714285714285715,
+            "recall": 0.28,
+            "f1": 0.31390134529147984,
+            "support": 250
+          },
+          "Spoofing": {
+            "precision": 0.6890495867768595,
+            "recall": 0.7670193192272309,
+            "f1": 0.7259468872442316,
+            "support": 8696
+          },
+          "Mirai": {
+            "precision": 0.9973514388413596,
+            "recall": 0.9949463177319242,
+            "f1": 0.9961474265439162,
+            "support": 47688
+          }
+        },
+        "benign_false_alert_rate": 0.1955362619732931,
+        "confusion_matrix": [
+          [
+            17049,
+            0,
+            0,
+            2450,
+            60,
+            45,
+            1588,
+            1
+          ],
+          [
+            2,
+            197939,
+            37802,
+            45,
+            1,
+            0,
+            33,
+            72
+          ],
+          [
+            0,
+            19795,
+            52218,
+            7,
+            3,
+            0,
+            19,
+            48
+          ],
+          [
+            2737,
+            0,
+            0,
+            9127,
+            116,
+            74,
+            1191,
+            1
+          ],
+          [
+            113,
+            0,
+            0,
+            187,
+            61,
+            2,
+            132,
+            0
+          ],
+          [
+            78,
+            0,
+            1,
+            60,
+            8,
+            70,
+            33,
+            0
+          ],
+          [
+            1446,
+            0,
+            0,
+            519,
+            52,
+            5,
+            6670,
+            4
+          ],
+          [
+            0,
+            164,
+            57,
+            4,
+            2,
+            0,
+            14,
+            47447
+          ]
+        ],
+        "decision_rule": "argmax"
+      },
+      "client_sample_chains": [
+        "4177b7058a12a9fd5b9a029a0b88c2906233ebc6eb2b15a316dc0445b5d1451a",
+        "675a8ee3660d3ae3b12dd2fd4800b30c8acbe25cc0b4beb0ead0aa00d7760c19",
+        "1468891cfe0aaedd889f3ad391fb000cf886df7dbd900f6cf4f72ec112cd47c3",
+        "31d4cedd77c5050569d9f24c3db6d41ea9e20159626352a91c6e972542882d5e",
+        "f119474e0a0855289ec1c064502da7df77d692670e17d86aab248a3fb2cfd050",
+        "4c138c5d837fab07476a777f77126da204e89ee77af6d33f8a52c2e980288113",
+        "fa616d8196b4cc1d6a29defaf2d8a1ff6fe4baacd7519bc319af52c532473106",
+        "e8e7e7a243c28ae1e6c8b7527cce905f22986660518ba536870c581363df4dc2",
+        "2f28feac6c335f816e15dc098b9cbdc6f9c2936645f27db464f7f3515ed89146",
+        "4ca8637694f3cc2d5a149354da0a6370b98548e55afedd2053c68ed5f2426033",
+        "5c87a5e0486903c9811fef2eea2e9e81935a254fcd8f2619bb4a71917fc730ce",
+        "e97138ddb83baf4b9ea8b75004f0e6bd332fddd347bf97f093a6077817da5db5",
+        "30bf2568d8cbc63c6671bc063012e83339889524c9bbaa05cf46fc934984c577",
+        "0f8c4799cac2220f3f15ee1570eac9bd653de68ac389aea2bc02938edf6c6b27",
+        "5a0a0548dcb1b5f2b08ee231f595fd9feb55138afb33633607833cc005d8ad03",
+        "372330314f5b9f163437136cb4bf3ff6a4b78e12dde3b687bc0aab9773696ed6",
+        "99f52c2d290efe5c9b1d2316409c01a7e74fd0427d6fdd6148c0d47dbe67929a",
+        "7c876e7431b3696b2e87e153baa17c9c1c9ad4a5a7772dbaf45aa43af413d816",
+        "bb1cc2381b6cd0b6a8d86b93f0085c5f53517cd84a6ed1e46a43fc36dad029d0",
+        "38ea484a5b571ded1e1859693b87d80d64a2dd05c07597921d4404b6bb86f556"
+      ],
+      "traversal_sample_chain": "09974f2df56f952a78ae7a7da7da6322c31c94b70cf8a75680f07bfed37a3ac5",
+      "checkpoint_sha256": "e9369d37cc9c964284b3a10d2e3b2d872292efbdff63cd12abf8b4490456e78e",
+      "recovery_sha256": "dc345b2221bfd76d9cd88f90bfb0e03455cb0cb796826a26af0f7828b5ff8dc8",
+      "num_parameters": 5096,
+      "test_opened": false,
+      "confirmation_scored": false,
+      "network_measured": false,
+      "recovery_bit_exact": true,
+      "independent_metrics_match": true,
+      "historical_exact_bridge": "shared_adam"
+    },
+    {
+      "status": "complete",
+      "arm": {
+        "name": "normalized_fedopt_k4",
+        "kind": "interval",
+        "interval": 4
+      },
+      "rounds": 540,
+      "work": {
+        "backward_examples": 21600000,
+        "backward_batches": 43200,
+        "local_optimizer_steps": 43200,
+        "server_adam_steps": 540,
+        "synchronization_rounds": 540,
+        "logical_barriers": 540,
+        "estimated_payload_bytes": 440294400
+      },
+      "training_seconds_sim_host": 58.63604069307621,
+      "development_metrics": {
+        "macro_f1": 0.611024887013099,
+        "accuracy": 0.8381562349831811,
+        "per_class": {
+          "Benign": {
+            "precision": 0.741887417218543,
+            "recall": 0.8457509555041759,
+            "f1": 0.7904218023063524,
+            "support": 21193
+          },
+          "DDoS": {
+            "precision": 0.8431758308881669,
+            "recall": 0.9538351971648282,
+            "f1": 0.8950983297762095,
+            "support": 235894
+          },
+          "DoS": {
+            "precision": 0.7397939251880067,
+            "recall": 0.420294076848384,
+            "f1": 0.5360472727916069,
+            "support": 72090
+          },
+          "Recon": {
+            "precision": 0.7031383848609921,
+            "recall": 0.6816397402989581,
+            "f1": 0.6922221796297006,
+            "support": 13246
+          },
+          "Web-based": {
+            "precision": 0.09497206703910614,
+            "recall": 0.03434343434343434,
+            "f1": 0.050445103857566766,
+            "support": 495
+          },
+          "Brute Force": {
+            "precision": 0.22629969418960244,
+            "recall": 0.296,
+            "f1": 0.2564991334488735,
+            "support": 250
+          },
+          "Spoofing": {
+            "precision": 0.7814589665653495,
+            "recall": 0.5913063477460901,
+            "f1": 0.6732128829536528,
+            "support": 8696
+          },
+          "Mirai": {
+            "precision": 0.9945862011079403,
+            "recall": 0.9939188055695353,
+            "f1": 0.994252391340829,
+            "support": 47688
+          }
+        },
+        "benign_false_alert_rate": 0.1542490444958241,
+        "confusion_matrix": [
+          [
+            17924,
+            0,
+            0,
+            2392,
+            39,
+            103,
+            735,
+            0
+          ],
+          [
+            9,
+            225004,
+            10572,
+            68,
+            13,
+            4,
+            45,
+            179
+          ],
+          [
+            10,
+            41659,
+            30299,
+            18,
+            3,
+            1,
+            21,
+            79
+          ],
+          [
+            3508,
+            2,
+            0,
+            9029,
+            67,
+            122,
+            518,
+            0
+          ],
+          [
+            160,
+            0,
+            0,
+            228,
+            17,
+            6,
+            84,
+            0
+          ],
+          [
+            88,
+            0,
+            0,
+            69,
+            1,
+            74,
+            18,
+            0
+          ],
+          [
+            2461,
+            2,
+            0,
+            1036,
+            38,
+            17,
+            5142,
+            0
+          ],
+          [
+            0,
+            186,
+            85,
+            1,
+            1,
+            0,
+            17,
+            47398
+          ]
+        ],
+        "decision_rule": "argmax"
+      },
+      "client_sample_chains": [
+        "4177b7058a12a9fd5b9a029a0b88c2906233ebc6eb2b15a316dc0445b5d1451a",
+        "675a8ee3660d3ae3b12dd2fd4800b30c8acbe25cc0b4beb0ead0aa00d7760c19",
+        "1468891cfe0aaedd889f3ad391fb000cf886df7dbd900f6cf4f72ec112cd47c3",
+        "31d4cedd77c5050569d9f24c3db6d41ea9e20159626352a91c6e972542882d5e",
+        "f119474e0a0855289ec1c064502da7df77d692670e17d86aab248a3fb2cfd050",
+        "4c138c5d837fab07476a777f77126da204e89ee77af6d33f8a52c2e980288113",
+        "fa616d8196b4cc1d6a29defaf2d8a1ff6fe4baacd7519bc319af52c532473106",
+        "e8e7e7a243c28ae1e6c8b7527cce905f22986660518ba536870c581363df4dc2",
+        "2f28feac6c335f816e15dc098b9cbdc6f9c2936645f27db464f7f3515ed89146",
+        "4ca8637694f3cc2d5a149354da0a6370b98548e55afedd2053c68ed5f2426033",
+        "5c87a5e0486903c9811fef2eea2e9e81935a254fcd8f2619bb4a71917fc730ce",
+        "e97138ddb83baf4b9ea8b75004f0e6bd332fddd347bf97f093a6077817da5db5",
+        "30bf2568d8cbc63c6671bc063012e83339889524c9bbaa05cf46fc934984c577",
+        "0f8c4799cac2220f3f15ee1570eac9bd653de68ac389aea2bc02938edf6c6b27",
+        "5a0a0548dcb1b5f2b08ee231f595fd9feb55138afb33633607833cc005d8ad03",
+        "372330314f5b9f163437136cb4bf3ff6a4b78e12dde3b687bc0aab9773696ed6",
+        "99f52c2d290efe5c9b1d2316409c01a7e74fd0427d6fdd6148c0d47dbe67929a",
+        "7c876e7431b3696b2e87e153baa17c9c1c9ad4a5a7772dbaf45aa43af413d816",
+        "bb1cc2381b6cd0b6a8d86b93f0085c5f53517cd84a6ed1e46a43fc36dad029d0",
+        "38ea484a5b571ded1e1859693b87d80d64a2dd05c07597921d4404b6bb86f556"
+      ],
+      "traversal_sample_chain": "59cee05862b2dcd58715189d8a5777fe8a75148ec2db6b2bb21e76447be6fdcc",
+      "checkpoint_sha256": "ef632443573ac97123fccb68d2afc7f77b0d544f7c4c8e23fc2074314d5e2f90",
+      "recovery_sha256": "1099e5f8fdfdb3d5ea4960f534fc98960b4de78acd9b4d5ff84439d8c3179676",
+      "num_parameters": 5096,
+      "test_opened": false,
+      "confirmation_scored": false,
+      "network_measured": false,
+      "recovery_bit_exact": true,
+      "independent_metrics_match": true,
+      "historical_exact_bridge": null
+    },
+    {
+      "status": "complete",
+      "arm": {
+        "name": "normalized_fedopt_k20",
+        "kind": "interval",
+        "interval": 20
+      },
+      "rounds": 108,
+      "work": {
+        "backward_examples": 21600000,
+        "backward_batches": 43200,
+        "local_optimizer_steps": 43200,
+        "server_adam_steps": 108,
+        "synchronization_rounds": 108,
+        "logical_barriers": 108,
+        "estimated_payload_bytes": 88058880
+      },
+      "training_seconds_sim_host": 53.444224657010636,
+      "development_metrics": {
+        "macro_f1": 0.574382337876632,
+        "accuracy": 0.8104702266538523,
+        "per_class": {
+          "Benign": {
+            "precision": 0.7075302834783332,
+            "recall": 0.8020100976737602,
+            "f1": 0.751813517338995,
+            "support": 21193
+          },
+          "DDoS": {
+            "precision": 0.8618386345037864,
+            "recall": 0.8795179190653429,
+            "f1": 0.8705885314931802,
+            "support": 235894
+          },
+          "DoS": {
+            "precision": 0.5805920320498553,
+            "recall": 0.5427798585101956,
+            "f1": 0.5610495752231422,
+            "support": 72090
+          },
+          "Recon": {
+            "precision": 0.645897638360491,
+            "recall": 0.6792994111429865,
+            "f1": 0.6621775766272952,
+            "support": 13246
+          },
+          "Web-based": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "support": 495
+          },
+          "Brute Force": {
+            "precision": 0.14356435643564355,
+            "recall": 0.348,
+            "f1": 0.20327102803738317,
+            "support": 250
+          },
+          "Spoofing": {
+            "precision": 0.7028998398861412,
+            "recall": 0.45434682612695493,
+            "f1": 0.5519312705175665,
+            "support": 8696
+          },
+          "Mirai": {
+            "precision": 0.9989415749364945,
+            "recall": 0.9895571212883745,
+            "f1": 0.994227203775493,
+            "support": 47688
+          }
+        },
+        "benign_false_alert_rate": 0.1979899023262398,
+        "confusion_matrix": [
+          [
+            16997,
+            14,
+            0,
+            3139,
+            0,
+            300,
+            741,
+            2
+          ],
+          [
+            12,
+            207473,
+            28159,
+            93,
+            1,
+            0,
+            118,
+            38
+          ],
+          [
+            4,
+            32875,
+            39129,
+            25,
+            0,
+            1,
+            47,
+            9
+          ],
+          [
+            3327,
+            59,
+            0,
+            8998,
+            0,
+            216,
+            645,
+            1
+          ],
+          [
+            174,
+            3,
+            0,
+            264,
+            0,
+            2,
+            52,
+            0
+          ],
+          [
+            75,
+            0,
+            0,
+            71,
+            0,
+            87,
+            17,
+            0
+          ],
+          [
+            3430,
+            3,
+            1,
+            1311,
+            0,
+            0,
+            3951,
+            0
+          ],
+          [
+            4,
+            306,
+            106,
+            30,
+            2,
+            0,
+            50,
+            47190
+          ]
+        ],
+        "decision_rule": "argmax"
+      },
+      "client_sample_chains": [
+        "4177b7058a12a9fd5b9a029a0b88c2906233ebc6eb2b15a316dc0445b5d1451a",
+        "675a8ee3660d3ae3b12dd2fd4800b30c8acbe25cc0b4beb0ead0aa00d7760c19",
+        "1468891cfe0aaedd889f3ad391fb000cf886df7dbd900f6cf4f72ec112cd47c3",
+        "31d4cedd77c5050569d9f24c3db6d41ea9e20159626352a91c6e972542882d5e",
+        "f119474e0a0855289ec1c064502da7df77d692670e17d86aab248a3fb2cfd050",
+        "4c138c5d837fab07476a777f77126da204e89ee77af6d33f8a52c2e980288113",
+        "fa616d8196b4cc1d6a29defaf2d8a1ff6fe4baacd7519bc319af52c532473106",
+        "e8e7e7a243c28ae1e6c8b7527cce905f22986660518ba536870c581363df4dc2",
+        "2f28feac6c335f816e15dc098b9cbdc6f9c2936645f27db464f7f3515ed89146",
+        "4ca8637694f3cc2d5a149354da0a6370b98548e55afedd2053c68ed5f2426033",
+        "5c87a5e0486903c9811fef2eea2e9e81935a254fcd8f2619bb4a71917fc730ce",
+        "e97138ddb83baf4b9ea8b75004f0e6bd332fddd347bf97f093a6077817da5db5",
+        "30bf2568d8cbc63c6671bc063012e83339889524c9bbaa05cf46fc934984c577",
+        "0f8c4799cac2220f3f15ee1570eac9bd653de68ac389aea2bc02938edf6c6b27",
+        "5a0a0548dcb1b5f2b08ee231f595fd9feb55138afb33633607833cc005d8ad03",
+        "372330314f5b9f163437136cb4bf3ff6a4b78e12dde3b687bc0aab9773696ed6",
+        "99f52c2d290efe5c9b1d2316409c01a7e74fd0427d6fdd6148c0d47dbe67929a",
+        "7c876e7431b3696b2e87e153baa17c9c1c9ad4a5a7772dbaf45aa43af413d816",
+        "bb1cc2381b6cd0b6a8d86b93f0085c5f53517cd84a6ed1e46a43fc36dad029d0",
+        "38ea484a5b571ded1e1859693b87d80d64a2dd05c07597921d4404b6bb86f556"
+      ],
+      "traversal_sample_chain": "39b17d50670c29c6a396917aff6ebf05c8062006c94b3c4d26a49d4376b2b367",
+      "checkpoint_sha256": "71058e71b73acfa23a8028f84e40fa90909f7daf8f9ee35e84009978f222de59",
+      "recovery_sha256": "4c5a73178d31c37bc2ba82568f45111c26d73c8a68485d59f1802127ea391e49",
+      "num_parameters": 5096,
+      "test_opened": false,
+      "confirmation_scored": false,
+      "network_measured": false,
+      "recovery_bit_exact": true,
+      "independent_metrics_match": true,
+      "historical_exact_bridge": null
+    },
+    {
+      "status": "complete",
+      "arm": {
+        "name": "fedavg_sgd_k20",
+        "kind": "fedavg_sgd",
+        "interval": 20
+      },
+      "rounds": 108,
+      "work": {
+        "backward_examples": 21600000,
+        "backward_batches": 43200,
+        "local_optimizer_steps": 43200,
+        "server_adam_steps": 0,
+        "synchronization_rounds": 108,
+        "logical_barriers": 108,
+        "estimated_payload_bytes": 88058880
+      },
+      "training_seconds_sim_host": 52.79324354996788,
+      "development_metrics": {
+        "macro_f1": 0.493946528465669,
+        "accuracy": 0.7718694938330931,
+        "per_class": {
+          "Benign": {
+            "precision": 0.6318958982565485,
+            "recall": 0.7080167979993394,
+            "f1": 0.6677941209194687,
+            "support": 21193
+          },
+          "DDoS": {
+            "precision": 0.8488699957877363,
+            "recall": 0.837210781113551,
+            "f1": 0.84300007683311,
+            "support": 235894
+          },
+          "DoS": {
+            "precision": 0.5159511888150154,
+            "recall": 0.5231654875849633,
+            "f1": 0.5195332947626525,
+            "support": 72090
+          },
+          "Recon": {
+            "precision": 0.5178561257618044,
+            "recall": 0.6863958930998038,
+            "f1": 0.5903321105087167,
+            "support": 13246
+          },
+          "Web-based": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "support": 495
+          },
+          "Brute Force": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "support": 250
+          },
+          "Spoofing": {
+            "precision": 0.6228119706380576,
+            "recall": 0.2536798528058878,
+            "f1": 0.3605164242523288,
+            "support": 8696
+          },
+          "Mirai": {
+            "precision": 0.9578388315800225,
+            "recall": 0.9832872001342057,
+            "f1": 0.9703962004490755,
+            "support": 47688
+          }
+        },
+        "benign_false_alert_rate": 0.29198320200066064,
+        "confusion_matrix": [
+          [
+            15005,
+            235,
+            1,
+            5249,
+            0,
+            0,
+            702,
+            1
+          ],
+          [
+            868,
+            197493,
+            35333,
+            276,
+            0,
+            0,
+            54,
+            1870
+          ],
+          [
+            370,
+            33754,
+            37715,
+            95,
+            0,
+            0,
+            24,
+            132
+          ],
+          [
+            3228,
+            451,
+            1,
+            9092,
+            0,
+            0,
+            457,
+            17
+          ],
+          [
+            173,
+            16,
+            0,
+            266,
+            0,
+            0,
+            40,
+            0
+          ],
+          [
+            68,
+            52,
+            0,
+            122,
+            0,
+            0,
+            8,
+            0
+          ],
+          [
+            3811,
+            331,
+            0,
+            2304,
+            0,
+            0,
+            2206,
+            44
+          ],
+          [
+            223,
+            322,
+            48,
+            153,
+            0,
+            0,
+            51,
+            46891
+          ]
+        ],
+        "decision_rule": "argmax"
+      },
+      "client_sample_chains": [
+        "4177b7058a12a9fd5b9a029a0b88c2906233ebc6eb2b15a316dc0445b5d1451a",
+        "675a8ee3660d3ae3b12dd2fd4800b30c8acbe25cc0b4beb0ead0aa00d7760c19",
+        "1468891cfe0aaedd889f3ad391fb000cf886df7dbd900f6cf4f72ec112cd47c3",
+        "31d4cedd77c5050569d9f24c3db6d41ea9e20159626352a91c6e972542882d5e",
+        "f119474e0a0855289ec1c064502da7df77d692670e17d86aab248a3fb2cfd050",
+        "4c138c5d837fab07476a777f77126da204e89ee77af6d33f8a52c2e980288113",
+        "fa616d8196b4cc1d6a29defaf2d8a1ff6fe4baacd7519bc319af52c532473106",
+        "e8e7e7a243c28ae1e6c8b7527cce905f22986660518ba536870c581363df4dc2",
+        "2f28feac6c335f816e15dc098b9cbdc6f9c2936645f27db464f7f3515ed89146",
+        "4ca8637694f3cc2d5a149354da0a6370b98548e55afedd2053c68ed5f2426033",
+        "5c87a5e0486903c9811fef2eea2e9e81935a254fcd8f2619bb4a71917fc730ce",
+        "e97138ddb83baf4b9ea8b75004f0e6bd332fddd347bf97f093a6077817da5db5",
+        "30bf2568d8cbc63c6671bc063012e83339889524c9bbaa05cf46fc934984c577",
+        "0f8c4799cac2220f3f15ee1570eac9bd653de68ac389aea2bc02938edf6c6b27",
+        "5a0a0548dcb1b5f2b08ee231f595fd9feb55138afb33633607833cc005d8ad03",
+        "372330314f5b9f163437136cb4bf3ff6a4b78e12dde3b687bc0aab9773696ed6",
+        "99f52c2d290efe5c9b1d2316409c01a7e74fd0427d6fdd6148c0d47dbe67929a",
+        "7c876e7431b3696b2e87e153baa17c9c1c9ad4a5a7772dbaf45aa43af413d816",
+        "bb1cc2381b6cd0b6a8d86b93f0085c5f53517cd84a6ed1e46a43fc36dad029d0",
+        "38ea484a5b571ded1e1859693b87d80d64a2dd05c07597921d4404b6bb86f556"
+      ],
+      "traversal_sample_chain": "39b17d50670c29c6a396917aff6ebf05c8062006c94b3c4d26a49d4376b2b367",
+      "checkpoint_sha256": "af509b74a218a2f842d51192cb03f1afcc51eefc66f0510de05a9190cc42012e",
+      "recovery_sha256": "5104c0bdc85621b01a62dada4dec8caa0f083029bf5425ff566f012222ad3e20",
+      "num_parameters": 5096,
+      "test_opened": false,
+      "confirmation_scored": false,
+      "network_measured": false,
+      "recovery_bit_exact": true,
+      "independent_metrics_match": true,
+      "historical_exact_bridge": null
+    },
+    {
+      "status": "complete",
+      "arm": {
+        "name": "fedavg_adam_k20",
+        "kind": "fedavg_adam",
+        "interval": 20
+      },
+      "rounds": 108,
+      "work": {
+        "backward_examples": 21600000,
+        "backward_batches": 43200,
+        "local_optimizer_steps": 43200,
+        "server_adam_steps": 0,
+        "synchronization_rounds": 108,
+        "logical_barriers": 108,
+        "estimated_payload_bytes": 88058880
+      },
+      "training_seconds_sim_host": 59.95728599592985,
+      "development_metrics": {
+        "macro_f1": 0.4836826437515157,
+        "accuracy": 0.8028566995034438,
+        "per_class": {
+          "Benign": {
+            "precision": 0.542567006025348,
+            "recall": 0.9857500117963478,
+            "f1": 0.6999011675628591,
+            "support": 21193
+          },
+          "DDoS": {
+            "precision": 0.7984692487879284,
+            "recall": 0.9941753499453144,
+            "f1": 0.8856395131475097,
+            "support": 235894
+          },
+          "DoS": {
+            "precision": 0.9110116999311769,
+            "recall": 0.18361770009710085,
+            "f1": 0.3056338028169014,
+            "support": 72090
+          },
+          "Recon": {
+            "precision": 0.8921568627450981,
+            "recall": 0.26792994111429863,
+            "f1": 0.4120993961913609,
+            "support": 13246
+          },
+          "Web-based": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "support": 495
+          },
+          "Brute Force": {
+            "precision": 0.7313432835820896,
+            "recall": 0.196,
+            "f1": 0.30914826498422715,
+            "support": 250
+          },
+          "Spoofing": {
+            "precision": 0.864951768488746,
+            "recall": 0.1546688132474701,
+            "f1": 0.26241342308067506,
+            "support": 8696
+          },
+          "Mirai": {
+            "precision": 0.9997034275303986,
+            "recall": 0.9895990605603087,
+            "f1": 0.9946255822285919,
+            "support": 47688
+          }
+        },
+        "benign_false_alert_rate": 0.014249988203652197,
+        "confusion_matrix": [
+          [
+            20891,
+            5,
+            0,
+            242,
+            0,
+            4,
+            51,
+            0
+          ],
+          [
+            20,
+            234520,
+            1236,
+            73,
+            0,
+            0,
+            37,
+            8
+          ],
+          [
+            6,
+            58789,
+            13237,
+            21,
+            0,
+            0,
+            31,
+            6
+          ],
+          [
+            9600,
+            10,
+            2,
+            3549,
+            0,
+            14,
+            71,
+            0
+          ],
+          [
+            459,
+            0,
+            0,
+            35,
+            0,
+            0,
+            1,
+            0
+          ],
+          [
+            187,
+            0,
+            0,
+            9,
+            0,
+            49,
+            5,
+            0
+          ],
+          [
+            7296,
+            6,
+            0,
+            49,
+            0,
+            0,
+            1345,
+            0
+          ],
+          [
+            45,
+            382,
+            55,
+            0,
+            0,
+            0,
+            14,
+            47192
+          ]
+        ],
+        "decision_rule": "argmax"
+      },
+      "client_sample_chains": [
+        "4177b7058a12a9fd5b9a029a0b88c2906233ebc6eb2b15a316dc0445b5d1451a",
+        "675a8ee3660d3ae3b12dd2fd4800b30c8acbe25cc0b4beb0ead0aa00d7760c19",
+        "1468891cfe0aaedd889f3ad391fb000cf886df7dbd900f6cf4f72ec112cd47c3",
+        "31d4cedd77c5050569d9f24c3db6d41ea9e20159626352a91c6e972542882d5e",
+        "f119474e0a0855289ec1c064502da7df77d692670e17d86aab248a3fb2cfd050",
+        "4c138c5d837fab07476a777f77126da204e89ee77af6d33f8a52c2e980288113",
+        "fa616d8196b4cc1d6a29defaf2d8a1ff6fe4baacd7519bc319af52c532473106",
+        "e8e7e7a243c28ae1e6c8b7527cce905f22986660518ba536870c581363df4dc2",
+        "2f28feac6c335f816e15dc098b9cbdc6f9c2936645f27db464f7f3515ed89146",
+        "4ca8637694f3cc2d5a149354da0a6370b98548e55afedd2053c68ed5f2426033",
+        "5c87a5e0486903c9811fef2eea2e9e81935a254fcd8f2619bb4a71917fc730ce",
+        "e97138ddb83baf4b9ea8b75004f0e6bd332fddd347bf97f093a6077817da5db5",
+        "30bf2568d8cbc63c6671bc063012e83339889524c9bbaa05cf46fc934984c577",
+        "0f8c4799cac2220f3f15ee1570eac9bd653de68ac389aea2bc02938edf6c6b27",
+        "5a0a0548dcb1b5f2b08ee231f595fd9feb55138afb33633607833cc005d8ad03",
+        "372330314f5b9f163437136cb4bf3ff6a4b78e12dde3b687bc0aab9773696ed6",
+        "99f52c2d290efe5c9b1d2316409c01a7e74fd0427d6fdd6148c0d47dbe67929a",
+        "7c876e7431b3696b2e87e153baa17c9c1c9ad4a5a7772dbaf45aa43af413d816",
+        "bb1cc2381b6cd0b6a8d86b93f0085c5f53517cd84a6ed1e46a43fc36dad029d0",
+        "38ea484a5b571ded1e1859693b87d80d64a2dd05c07597921d4404b6bb86f556"
+      ],
+      "traversal_sample_chain": "39b17d50670c29c6a396917aff6ebf05c8062006c94b3c4d26a49d4376b2b367",
+      "checkpoint_sha256": "1ad089b92d73f0ae578f7aa4c9096949f76d9dee35695f3871c8a223279b0966",
+      "recovery_sha256": "2b47af202e10f0372b8417f64eba2c253475f1952b1b57540f6e0c3d2025bc35",
+      "num_parameters": 5096,
+      "test_opened": false,
+      "confirmation_scored": false,
+      "network_measured": false,
+      "recovery_bit_exact": true,
+      "independent_metrics_match": true,
+      "historical_exact_bridge": "fedavg_adam"
+    }
+  ],
+  "comparisons_to_k1": [
+    {
+      "arm": {
+        "name": "normalized_fedopt_k4",
+        "kind": "interval",
+        "interval": 4
+      },
+      "macro_f1_delta": -0.04111692259377597,
+      "far_delta": -0.041287217477468996,
+      "max_class_recall_loss": 0.30405049244000554,
+      "barrier_reduction": 4.0,
+      "checks": {
+        "macro_f1_retained": false,
+        "far_retained": true,
+        "class_recalls_retained": false,
+        "barriers_reduced": true
+      },
+      "passes_retention_gate": false
+    },
+    {
+      "arm": {
+        "name": "normalized_fedopt_k20",
+        "kind": "interval",
+        "interval": 20
+      },
+      "macro_f1_delta": -0.077759471730243,
+      "far_delta": 0.0024536403529467066,
+      "max_class_recall_loss": 0.31267249310027595,
+      "barrier_reduction": 20.0,
+      "checks": {
+        "macro_f1_retained": false,
+        "far_retained": true,
+        "class_recalls_retained": false,
+        "barriers_reduced": true
+      },
+      "passes_retention_gate": false
+    },
+    {
+      "arm": {
+        "name": "fedavg_sgd_k20",
+        "kind": "fedavg_sgd",
+        "interval": 20
+      },
+      "macro_f1_delta": -0.15819528114120596,
+      "far_delta": 0.09644694002736753,
+      "max_class_recall_loss": 0.5133394664213431,
+      "barrier_reduction": 20.0,
+      "checks": {
+        "macro_f1_retained": false,
+        "far_retained": false,
+        "class_recalls_retained": false,
+        "barriers_reduced": true
+      },
+      "passes_retention_gate": false
+    },
+    {
+      "arm": {
+        "name": "fedavg_adam_k20",
+        "kind": "fedavg_adam",
+        "interval": 20
+      },
+      "macro_f1_delta": -0.16845916585535925,
+      "far_delta": -0.1812862737696409,
+      "max_class_recall_loss": 0.6123505059797608,
+      "barrier_reduction": 20.0,
+      "checks": {
+        "macro_f1_retained": false,
+        "far_retained": true,
+        "class_recalls_retained": false,
+        "barriers_reduced": true
+      },
+      "passes_retention_gate": false
+    }
+  ],
+  "all_client_streams_identical": true,
+  "audit_backward_examples": 650000,
+  "audit_inference_examples": 1997760,
+  "fit_rows": 500000,
+  "development_rows": 399552,
+  "test_opened": false,
+  "confirmation_scored": false,
+  "scope": "Single-seed exploratory development argmax screen"
+}

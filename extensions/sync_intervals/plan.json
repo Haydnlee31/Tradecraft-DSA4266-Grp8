@@ -1,0 +1,27 @@
+{
+  "version": "sync-interval-development-v1",
+  "seed": 7,
+  "arms": [
+    {"name": "shared_adam_k1", "kind": "interval", "interval": 1},
+    {"name": "normalized_fedopt_k4", "kind": "interval", "interval": 4},
+    {"name": "normalized_fedopt_k20", "kind": "interval", "interval": 20},
+    {"name": "fedavg_sgd_k20", "kind": "fedavg_sgd", "interval": 20},
+    {"name": "fedavg_adam_k20", "kind": "fedavg_adam", "interval": 20}
+  ],
+  "server_learning_rate": 0.003,
+  "local_learning_rate": 0.003,
+  "control_adam_learning_rate": 0.003,
+  "sample_block_steps": 20,
+  "batch_size": 500,
+  "backward_examples_per_arm": 21600000,
+  "clients": 20,
+  "fit_rows": 500000,
+  "features": 39,
+  "architecture": {"hidden_dims": [64, 32], "normalization": "layer", "dropout": 0.0},
+  "adam": {"betas": [0.9, 0.99], "eps": 0.001, "weight_decay": 0.0},
+  "threads": 2,
+  "checkpoint_every": 180,
+  "retention_gate": {"macro_f1_loss_max": 0.01, "far_increase_max": 0.005, "any_class_recall_loss_max": 0.05, "barrier_reduction_min": 4},
+  "evaluation": "Final development argmax only; no test, confirmation, threshold search or best-round selection.",
+  "interpretation": "One seed, fixed learning rates, normalized FedOpt-inspired adaptation. Equal backward examples do not match server updates, wall time or effective aggregation batch size. Compression disabled. Gates fixed before new outcomes."
+}
