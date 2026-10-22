@@ -151,6 +151,8 @@ def call(python, *args):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("action", choices=("setup", "check", "run"))
+    parser.add_argument("--mode", choices=("strict", "portable"), default="strict",
+                        help="Strict requires exact replay; portable reports cross-platform numerical differences")
     source = parser.add_mutually_exclusive_group()
     source.add_argument("--archive", type=Path, help="Local versioned data-only archive")
     source.add_argument("--url", help="Approved HTTPS location of the identical pinned archive")
@@ -182,11 +184,14 @@ def main():
             call(python, "-m", "pip", "install", "-r", "requirements-reproduce-shared-adam.txt")
         call(python, "-m", "pip", "check")
     check_python(python, config["python"])
+    # Keep the historical strict path as the default. Portable is an explicit
+    # protocol replication, never a silent downgrade after an exact check fails.
+    module = "src.eval.shared_optimizer_" + ("reproduce" if args.mode == "strict" else "portable")
     if args.action == "run":
-        call(python, "-u", "-m", "src.eval.shared_optimizer_reproduce", "run", "--output", str(args.output.absolute()))
+        call(python, "-u", "-m", module, "run", "--output", str(args.output.absolute()))
     else:
-        call(python, "-m", "src.eval.shared_optimizer_reproduce", "check")
-        print("READY: run python scripts/reproduce_shared_adam.py run --output outputs/my-reproduction", flush=True)
+        call(python, "-m", module, "check")
+        print(f"READY: run python scripts/reproduce_shared_adam.py run --mode {args.mode} --output outputs/my-reproduction", flush=True)
         if args.python:
             print(f"Include --python {python} again to reuse your existing environment.", flush=True)
 

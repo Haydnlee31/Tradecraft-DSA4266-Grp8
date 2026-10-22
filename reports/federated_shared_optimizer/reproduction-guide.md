@@ -11,7 +11,82 @@ initialization on the exact prepared fit inputs. It does not rerun the earlier
 model search, choose better checkpoints, change the partition, or tune against
 confirmation labels. Historical checkpoints are comparison targets only.
 
-## Two commands after cloning the release
+## Choose strict or portable replication
+
+Release `shared-adam-reproduction-v1.1` adds an explicit `--mode portable` for
+Linux/WSL and other platforms. It reuses the **identical v1 input archive** and
+does not change the frozen trainer. The original v1 release remains available.
+
+- **Strict (default):** requires the recorded runtime strings and exact training
+  state, logits, thresholds and metrics. This is the original Mac replay.
+- **Portable:** accepts PyTorch 2.14.0 wheels including `+cpu` and `+cu130`
+  (other numeric CUDA suffixes are also accepted), while retaining Python 3.13.9
+  and NumPy 2.5.3. It trains on CPU, even when the wheel includes CUDA support.
+  It reports the actual results and signed differences from the Mac reference.
+  Completion is **not** proof of numerical equivalence or a promise of 0.6325.
+
+Both modes retain source, array, provenance, checkpoint, partition, sampled-row
+and work-budget checks. Do not edit the frozen runtime-checking modules to remove
+their guards: their source hashes are part of the study's integrity chain.
+
+For each portable seed, the runner repeats the original threshold-calibration
+procedure on the **same development calibration subset**, saves those thresholds,
+then applies them unchanged to confirmation. Confirmation labels never fit
+thresholds or select models. Thresholds may differ from the Mac values; this is
+replication of the procedure, not replay of identical predictions. The primary
+target remains 5%, and all three seeds and secondary operating points are kept.
+
+### Existing WSL environment and downloaded inputs
+
+Sherwin can keep his working `.venv` and all verified inputs. First inspect the
+checkout; if `git status --short` shows tracked edits, preserve them and ask for
+help before switching. Untracked `.venv/` or `outputs/` are not tracked edits.
+
+```bash
+cd ~/dsa4266/Tradecraft-reproduce
+git status --short
+git fetch origin tag shared-adam-reproduction-v1.1
+git switch --detach shared-adam-reproduction-v1.1
+.venv/bin/python scripts/reproduce_shared_adam.py check --python .venv/bin/python --mode portable
+```
+
+After `PASS`, start the three-seed CPU run in a new output directory:
+
+```bash
+.venv/bin/python scripts/reproduce_shared_adam.py run --python .venv/bin/python --mode portable --output outputs/shared-adam-wsl-portable-v1
+```
+
+Send `outputs/shared-adam-wsl-portable-v1/summary.json` to Haydn. It includes the
+full runtime/build, actual mean and per-seed macro-F1, false-alert rates,
+per-class metrics, signed primary-metric differences and individual exact-match
+flags. A `false` numerical-match flag is reported, not hidden. Data/source/work
+mismatches still stop the run. Large numerical differences need investigation;
+there is no automatic tolerance that declares them acceptable.
+
+The [local verification record](portable-verification.json) records a full
+three-seed portable run on macOS: all recorded comparisons matched exactly and
+the mean remained 0.6325367323327683. This does not establish numerical equality
+on WSL; that requires the teammate's actual run.
+
+### New Linux or WSL installation with uv
+
+If system Python lacks `venv`/`ensurepip`, use a **new clone and environment**:
+
+```bash
+git clone --branch shared-adam-reproduction-v1.1 https://github.com/Haydnlee31/Tradecraft-DSA4266-Grp8.git Tradecraft-reproduce
+cd Tradecraft-reproduce
+uv venv --seed --python 3.13.9 .venv
+uv pip install --python .venv/bin/python -r requirements-reproduce-shared-adam.txt
+.venv/bin/python scripts/reproduce_shared_adam.py setup --python .venv/bin/python --mode portable
+.venv/bin/python scripts/reproduce_shared_adam.py run --python .venv/bin/python --mode portable --output outputs/shared-adam-portable-v1
+```
+
+`--seed` installs pip, which setup uses for `pip check`. Do not recreate an
+existing environment. If pip alone is missing from an existing uv environment,
+`uv pip install --python .venv/bin/python pip` adds it without deleting the
+environment. No GPU or cloud session is needed.
+
+## Strict reproduction after cloning the release
 
 Use the versioned `shared-adam-reproduction-v1` release rather than the generic
 legacy training entry point. With Python **3.13.9** installed:
@@ -83,7 +158,7 @@ requirements. No GPU, Flower server, Ray cluster or RONIN session is needed.
 
 Exact equality is verified on Haydn's local runtime. Matching versions alone
 does not guarantee bitwise equality on different CPUs, operating systems or
-PyTorch builds. The runner stops if runtime versions or results differ; do not
+PyTorch builds. The strict runner stops if runtime versions or results differ; do not
 remove those checks and call the run an exact reproduction. The old RONIN
 Python 3.12 / PyTorch 2.7 environment is not this frozen runtime.
 
@@ -160,7 +235,7 @@ Expected values:
 Each per-seed `result.json` also contains all per-class precision, recall, F1,
 support, confusion matrices, false-alert rates and secondary operating points.
 
-## What a successful run proves
+## What a successful strict run proves
 
 For every seed, the runner verifies exact equality of the entire final training
 state: server and delivered model weights, Adam optimizer state, compression

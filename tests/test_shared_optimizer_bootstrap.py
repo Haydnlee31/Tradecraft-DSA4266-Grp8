@@ -27,6 +27,20 @@ def bundle(root, items):
 
 
 class BootstrapTests(unittest.TestCase):
+    def test_mode_dispatch_is_explicit_and_strict_by_default(self):
+        for mode, module in ((None, "reproduce"), ("strict", "reproduce"), ("portable", "portable")):
+            for action in ("check", "run"):
+                args = ["reproduce_shared_adam.py", action, "--python", "my-python"]
+                if mode:
+                    args += ["--mode", mode]
+                if action == "run":
+                    args += ["--output", "outputs/new"]
+                with patch.object(setup.sys, "argv", args), patch.object(setup, "check_python"), \
+                     patch.object(setup, "call") as call:
+                    setup.main()
+                    self.assertIn("src.eval.shared_optimizer_" + module, call.call_args.args)
+                    self.assertIn(action, call.call_args.args)
+
     def test_install_and_idempotent_repeat(self):
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)
