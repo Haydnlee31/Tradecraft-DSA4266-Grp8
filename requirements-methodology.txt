@@ -1,0 +1,6 @@
+# Recorded environment for the matched methodology supplement (CPU, Python 3.13.9).
+# The runner preserves the historical strict runtime guard; this is not a claim
+# of exact numerical reproduction on every OS or PyTorch wheel build.
+-r requirements-reproduce-shared-adam.txt
+flwr==1.38.0
+matplotlib==3.11.2

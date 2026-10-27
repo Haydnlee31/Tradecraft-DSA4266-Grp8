@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="792pt" height="432pt" viewBox="0 0 792 432" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2026-10-27T18:14:10.550966</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.11.2, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 432
+L 792 432
+L 792 0
+L 0 0
+z
+" style="fill: #ffffff"/>
+  </g>
+  <g id="axes_1">
+   <g id="text_1">
+    <g id="patch_2">
+     <path d="M 313.463047 131.757161
+L 478.536953 131.757161
+Q 486.236953 131.757161 486.236953 124.057161
+L 486.236953 97.651145
+Q 486.236953 89.951145 478.536953 89.951145
+L 313.463047 89.951145
+Q 305.763047 89.951145 305.763047 97.651145
+L 305.763047 124.057161
+Q 305.763047 131.757161 313.463047 131.757161
+z
+" style="fill: #e9f2f3; stroke: #46717c; stroke-linejoin: miter"/>
+    </g>
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'" transform="translate(332.769766 107.110501)">Historical training view</text>
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'" transform="translate(313.463047 120.313509)">2,000,000 raw unique vectors</text>
+   </g>
+   <g id="text_2">
+    <g id="patch_3">
+     <path d="M 76.834484 243.41994
+L 206.701516 243.41994
+Q 214.401516 243.41994 214.401516 235.71994
+L 214.401516 196.110916
+Q 214.401516 188.410916 206.701516 188.410916
+L 76.834484 188.410916
+Q 69.134484 188.410916 69.134484 196.110916
+L 69.134484 235.71994
+Q 69.134484 243.41994 76.834484 243.41994
+z
+" style="fill: #e9f2f3; stroke: #46717c; stroke-linejoin: miter"/>
+    </g>
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'" transform="translate(98.314563 205.570272)">Fitting: 500,000</text>
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'" transform="translate(76.834484 218.77328)">Fit scaler, class weights</text>
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'" transform="translate(78.896125 231.976288)">and model parameters</text>
+   </g>
+   <g id="text_3">
+    <g id="patch_4">
+     <path d="M 332.627969 243.41994
+L 459.372031 243.41994
+Q 467.072031 243.41994 467.072031 235.71994
+L 467.072031 196.110916
+Q 467.072031 188.410916 459.372031 188.410916
+L 332.627969 188.410916
+Q 324.927969 188.410916 324.927969 196.110916
+L 324.927969 235.71994
+Q 324.927969 243.41994 332.627969 243.41994
+z
+" style="fill: #e9f2f3; stroke: #46717c; stroke-linejoin: miter"/>
+    </g>
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'" transform="translate(332.627969 205.570272)">Development: 399,552</text>
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'" transform="translate(343.688125 218.77328)">Previously used for</text>
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'" transform="translate(333.247578 231.976288)">development selection</text>
+   </g>
+   <g id="text_4">
+    <g id="patch_5">
+     <path d="M 570.079812 243.41994
+L 730.384187 243.41994
+Q 738.084187 243.41994 738.084187 235.71994
+L 738.084187 196.110916
+Q 738.084187 188.410916 730.384187 188.410916
+L 570.079812 188.410916
+Q 562.379812 188.410916 562.379812 196.110916
+L 562.379812 235.71994
+Q 562.379812 243.41994 570.079812 243.41994
+z
+" style="fill: #e9f2f3; stroke: #46717c; stroke-linejoin: miter"/>
+    </g>
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'" transform="translate(588.303719 205.570272)">Confirmation: 398,502</text>
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'" transform="translate(573.6445 218.77328)">Frozen-threshold evaluation</text>
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'" transform="translate(570.079812 231.976288)">Already evaluated previously</text>
+   </g>
+   <g id="patch_6">
+    <path d="M 394.02545 140.70863
+Q 268.88403 160.101621 145.39988 179.237788
+" style="fill: none; stroke: #46717c; stroke-width: 1.5; stroke-linecap: round"/>
+    <path d="M 149.658979 180.601634
+L 145.39988 179.237788
+L 149.046416 176.648816
+" style="fill: none; stroke: #46717c; stroke-width: 1.5; stroke-linecap: round"/>
+   </g>
+   <g id="patch_7">
+    <path d="M 396 142.398506
+Q 396 160.097392 396 176.119227
+" style="fill: none; stroke: #46717c; stroke-width: 1.5; stroke-linecap: round"/>
+    <path d="M 398 172.119227
+L 396 176.119227
+L 394 172.119227
+" style="fill: none; stroke: #46717c; stroke-width: 1.5; stroke-linecap: round"/>
+   </g>
+   <g id="patch_8">
+    <path d="M 397.97455 140.70863
+Q 523.11597 160.101621 646.60012 179.237788
+" style="fill: none; stroke: #46717c; stroke-width: 1.5; stroke-linecap: round"/>
+    <path d="M 642.953584 176.648816
+L 646.60012 179.237788
+L 642.341021 180.601634
+" style="fill: none; stroke: #46717c; stroke-width: 1.5; stroke-linecap: round"/>
+   </g>
+   <g id="text_5">
+    <g id="patch_9">
+     <path d="M 231.508313 351.76438
+L 360.187688 351.76438
+Q 367.887688 351.76438 367.887688 344.06438
+L 367.887688 304.455356
+Q 367.887688 296.755356 360.187688 296.755356
+L 231.508313 296.755356
+Q 223.808313 296.755356 223.808313 304.455356
+L 223.808313 344.06438
+Q 223.808313 351.76438 231.508313 351.76438
+z
+" style="fill: #f1f3f7; stroke: #46717c; stroke-linejoin: miter"/>
+    </g>
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'" transform="translate(239.577844 313.914712)">Calibration: 200,022</text>
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'" transform="translate(233.402375 327.11772)">Threshold uses 10,562</text>
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'" transform="translate(231.508313 340.320727)">benign calibration rows</text>
+   </g>
+   <g id="text_6">
+    <g id="patch_10">
+     <path d="M 438.986938 351.76438
+L 568.725063 351.76438
+Q 576.425062 351.76438 576.425062 344.06438
+L 576.425062 304.455356
+Q 576.425062 296.755356 568.725063 296.755356
+L 438.986938 296.755356
+Q 431.286938 296.755356 431.286938 304.455356
+L 431.286938 344.06438
+Q 431.286938 351.76438 438.986938 351.76438
+z
+" style="fill: #f1f3f7; stroke: #46717c; stroke-linejoin: miter"/>
+    </g>
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'" transform="translate(463.08725 313.914712)">Audit: 199,530</text>
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'" transform="translate(447.591 327.11772)">Report development</text>
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'" transform="translate(438.986938 340.320727)">operating-point metrics</text>
+   </g>
+   <g id="patch_11">
+    <path d="M 394.101978 255.935612
+Q 345.924006 271.729229 299.339641 287.000431
+" style="fill: none; stroke: #46717c; stroke-width: 1.5; stroke-linecap: round"/>
+    <path d="M 303.763631 287.65489
+L 299.339641 287.000431
+L 302.517602 283.853915
+" style="fill: none; stroke: #46717c; stroke-width: 1.5; stroke-linecap: round"/>
+   </g>
+   <g id="patch_12">
+    <path d="M 397.912364 255.895535
+Q 449.928788 271.72947 500.340846 287.075033
+" style="fill: none; stroke: #46717c; stroke-width: 1.5; stroke-linecap: round"/>
+    <path d="M 497.096628 283.996876
+L 500.340846 287.075033
+L 495.93179 287.823513
+" style="fill: none; stroke: #46717c; stroke-width: 1.5; stroke-linecap: round"/>
+   </g>
+  </g>
+  <g id="text_7">
+   <text style="font-size: 15px; font-family: 'DejaVu Sans'; text-anchor: middle" x="396" y="20.037656" transform="rotate(-0 396 20.037656)">Data boundaries for the shared-optimizer comparison</text>
+  </g>
+  <g id="text_8">
+   <text style="font-size: 9px; font-family: 'DejaVu Sans'; fill: #455968" transform="translate(212.193984 406.077539)">Hash-based membership; fit-only scaling; cross-cohort float32 matches removed.</text>
+   <text style="font-size: 9px; font-family: 'DejaVu Sans'; fill: #455968" transform="translate(181.688906 416.88)">700,146 fit-eligible rows unused; 674 development and 1,126 confirmation collisions excluded.</text>
+  </g>
+ </g>
+</svg>
