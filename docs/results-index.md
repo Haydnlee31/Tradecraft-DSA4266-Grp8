@@ -5,6 +5,7 @@
 | Primary matched methods | Development + retrospective confirmation | 21.6M backward examples | [Results](../reports/methodology_comparison/results.md) |
 | Original shared-optimizer confirmation | Previously reserved confirmation, now exposed | 21.6M | [Findings](../reports/federated_shared_optimizer/confirmation-findings.md) |
 | MimeLite supplement | Development audit only | 23.1M | [Results](../reports/mimelite_fair_comparison/results.md) |
+| Bounded FedLC / trees / PLE | Development audit; existing frozen candidate confirmation replay | Neural 21.6M; tree capacity control with separate row-work | [Results](../reports/bounded_extensions/results.md) |
 | Earlier source/architecture studies | Different legacy/official39 populations | Historical protocols | [Index](../studies/historical/README.md) |
 
 The first two share original control endpoints; do not count them as independent

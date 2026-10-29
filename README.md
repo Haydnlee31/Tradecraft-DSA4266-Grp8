@@ -12,6 +12,7 @@ The primary study uses the downloaded CICIoT2023 **39-feature** representation, 
 | Sources, row selection and split meanings | [Data protocol](docs/data-protocol.md) |
 | Run the report's experiments | [Reproduction](docs/reproduction.md) |
 | Main results and figures | [Primary study](studies/primary/README.md) |
+| FedLC, cyclic XGBoost and PLE | [Bounded extensions and reproduction](studies/bounded-extensions/README.md) |
 | Additional MimeLite comparison | [Separate supplement](studies/mimelite-supplement/README.md) |
 | Earlier Kaggle/cloud/SHAP studies | [Historical index](studies/historical/README.md) |
 | Cleanup and verification | [Repository maintenance](docs/repository-maintenance.md) |

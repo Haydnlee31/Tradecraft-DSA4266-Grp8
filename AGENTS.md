@@ -11,6 +11,7 @@ Read this before changing architecture, dependencies, study boundaries or result
 - Frozen primary protocol: `reports/methodology_comparison/plan.json`; 11 configurations, seeds 7/17/27, 21.6M backward examples each.
 - Report macro-F1, all class recalls, actual benign false alerts, application bytes, rounds and logical barriers. A common calibration target does not imply identical realized FAR.
 - Confirmation was already evaluated. No new independent-test claim, threshold refitting on confirmation, favorable-seed selection or silent budget extension.
+- User-authorized bounded extensions: neural FedLC, FedLC cyclic XGBoost and PLE. See `studies/bounded-extensions/README.md`. Keep paired controls and separate work/capacity/cost limitations; compressed Shared Adam remains the primary choice without claiming highest accuracy. Existing confirmation replays are reproducibility checks, not new selection data.
 - MimeLite is a separate 23.1M-budget, development-only supplement. Never merge its endpoints into the primary confirmation table.
 
 ## Scientific boundaries

@@ -12,3 +12,5 @@ Use **`python scripts/study.py --help`** for the primary workflow: `setup`, `che
 | `official39_*` | Frozen historical tooling; follow its locked protocol |
 
 Retired classifier scripts and the superseded single-seed table audit live in `archive/`. Restore them with `archive_tools.py`; do not execute them directly from relocated paths. No script starts cloud infrastructure.
+
+Bounded FedLC / cyclic XGBoost / PLE extensions: [guide](../studies/bounded-extensions/README.md). Primary, MimeLite and extension evidence retain separate protocols.

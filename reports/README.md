@@ -9,3 +9,5 @@ The original [shared-optimizer confirmation](federated_shared_optimizer/confirma
 [Historical studies](../studies/historical/README.md) cover legacy46, official39 cloud baselines, SHAP and diagnostics. The [older integrated manuscript](thesis/README.md) combines those phases; it is context, not the canonical primary-only draft.
 
 Older evidence directories remain where checksum contracts or thesis sources depend on them. They are not invitations to restart every experiment. Use [the supported reproduction guide](../docs/reproduction.md) instead of dated next-step instructions. Fresh outputs belong under ignored `outputs/`.
+
+Bounded FedLC / cyclic XGBoost / PLE extensions: [guide](../studies/bounded-extensions/README.md). Primary, MimeLite and extension evidence retain separate protocols.
