@@ -1,0 +1,28 @@
+{
+  "version": "mimelite-fair-comparison-2026-10-29-v1",
+  "purpose": "Fixed-setting development-only comparison with all anchor and correction work charged; no attempt to reproduce untraceable MimeLite claims",
+  "seeds": [7, 17, 27],
+  "backward_examples_per_run": 23100000,
+  "total_training_backward_examples": 485100000,
+  "arms": {
+    "central_adam": {"lr": 0.001},
+    "shared_adam": {"lr": 0.003},
+    "mimelite5": {"lr": 0.003, "local_steps": 5},
+    "mimelite20": {"lr": 0.003, "local_steps": 20},
+    "mime": {"lr": 0.003, "local_steps": 20},
+    "fedavg_adam": {"lr": 0.003, "local_steps": 20},
+    "central_mime_base": {"lr": 0.003}
+  },
+  "budget_rationale": "23.1M is divisible by both MimeLite round costs (550k and 700k). FedAvg has 115 full rounds plus 10 local steps in round 116; full MIME has 25 full rounds plus 5 local steps in round 26. No wasted anchor-only padding and no discarded gradients.",
+  "settings": "Reuse frozen 500k fit, 399552 development, 39-feature LayerNorm MLP, loss, batch500, 20 full-participation clients, population weights, initializations and ownership. MimeLite uses the full-MIME lagged-v Adam base: beta1=.9, beta2=.99, epsilon=.001, initial_v=.0001; state fixed within each local block, one full-anchor server-state update per round.",
+  "learning_rates": "Existing arms retain historical fixed rates. Both MimeLite variants use the existing MIME/central-base rate .003. No new rate sweep, best-epoch selection or equal-optimization-effort claim.",
+  "sampling": "Existing deterministic per-seed, round, client and step streams. Equal-K local methods share sampled local rows for common rounds; different K/anchor budgets imply different total sampled exposure. Centralized sampling remains pooled.",
+  "evaluation": "Final endpoints only, development full argmax plus grouped development-audit operating points. Same benign-only calibration partition and targets 1/5/10/20 percent; primary 5 percent. Actual FAR and every class recall reported. Already exposed development; no independent test claim.",
+  "communication": "Report round count and logical barriers separately. Count all FP32 model/moment/anchor/model messages, not measured traffic. Equal backward work is not equal wall time, FLOPs, message volume, local steps, optimizer calls or unique examples.",
+  "historical_bridge": "Five existing arms must reproduce the historical 21.6M model, logits, metrics, sample stream and work before continuing to the new budget, for all three seeds.",
+  "device": "cpu",
+  "threads": 2,
+  "confirmation_evaluated": false,
+  "original_validation_evaluated": false,
+  "test_evaluated": false
+}
