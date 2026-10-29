@@ -10,6 +10,8 @@ unit tests do not guarantee bitwise numerical equality of full training.
 From a new clone of branch `cleanup/focused-study`, with Python 3.13.9 installed:
 
 ```bash
+git clone --branch cleanup/focused-study https://github.com/Haydnlee31/Tradecraft-DSA4266-Grp8.git Tradecraft-focused
+cd Tradecraft-focused
 python3.13 -m venv .venv
 source .venv/bin/activate
 python -m pip install -r requirements-methodology.txt
@@ -68,6 +70,10 @@ development/confirmation metrics, logits, settings, work and recovery results
 for all 33 runs. Wall times and serialization packaging are not equality targets.
 The comparison receipt is `reproduction-checks.json`; the complete command also
 writes `report/` under the run directory.
+
+The reused input bootstrap may print an example for the older compressed-only
+runner. For the primary 33-run study, follow `scripts/study.py` commands above;
+the complete `reproduce` action continues to the primary trainer automatically.
 
 The historical primary trainer has final-two-step recovery tests but **no
 user-facing interrupted-job resume**. Preserve a partial run and choose a new

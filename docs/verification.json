@@ -1,0 +1,47 @@
+{
+  "status": "complete",
+  "date": "2026-10-29",
+  "validated_commit": "9fa11c9265a8fa2ab13584b027c3bde705329978",
+  "clean_checkout": true,
+  "environment": "Existing recorded Python environment reused; all code and data from clean checkout/public release",
+  "input_download": {
+    "source": "https://github.com/Haydnlee31/Tradecraft-DSA4266-Grp8/releases/download/shared-adam-reproduction-v1/tradecraft-shared-adam-inputs-v1.tgz",
+    "sha256": "e9ba6c30dea0d99975fc0d1f02b8a9cbc015c03c895ff10980468915264a94dc",
+    "bytes": 36271183
+  },
+  "tests": {
+    "tests": {
+      "passed": 661,
+      "log_sha256": "b6fadbf5224765399a5dfdaa2154ba1ecd6509c838b438abe36936eaf4290ca7"
+    },
+    "archive-tests": {
+      "passed": 246,
+      "log_sha256": "baba1154e77d38ccf574af9910f4c2548ef105fdfd17751abdd995b30701df6d"
+    }
+  },
+  "archive_files_verified": 172,
+  "protected_sources_unchanged": 25,
+  "unrelated_working_files_unchanged": 18,
+  "primary_training_runs": 33,
+  "primary_backward_examples": 712800000,
+  "recovery_checks": 33,
+  "scientific_endpoints_exact": 33,
+  "confusion_endpoints_checked": 363,
+  "fresh_summary_sha256": "8ca3f81b3b0ec1d8aedcf57c0bfd0c8c89d7ec3b1e26b73a2660596ae2df1af7",
+  "comparison_receipt_sha256": "d3b663cebe1dce8b96ac80fd699285722df66dcc89ecf81b913b2410acaf289c",
+  "published_analysis_exact_except_elapsed_times": true,
+  "published_results_markdown_exact": true,
+  "published_csv_cells_exact": true,
+  "csv_serialization_note": "Historical renderer writes CRLF; Git stores the reference CSV with LF. Cell values match exactly.",
+  "report_figures_inspected": [
+    "data-boundaries.png",
+    "quality.png",
+    "recall.png"
+  ],
+  "confirmation_previously_evaluated": true,
+  "confirmation_thresholds_refitted": false,
+  "original_validation_evaluated": false,
+  "original_test_evaluated": false,
+  "full_raw_csv_reconstruction_rerun": false,
+  "cloud_used": false
+}

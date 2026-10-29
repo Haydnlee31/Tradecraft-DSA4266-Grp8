@@ -1,5 +1,11 @@
 # Integrated Tradecraft thesis draft
 
+**Historical integrated draft:** this manuscript preserves the wider project
+history. The current focused thesis starts with the
+[primary matched study](../../studies/primary/README.md) and its
+[methodology entry point](../../docs/methodology.md). The manuscript and frozen
+figure/evidence manifests below have not been rewritten by the repository cleanup.
+
 [Read the integrated manuscript](thesis.md). It connects the original heavy/light
 comparison, official39 study, explanation work and confirmed shared-optimizer
 extension. This is an academic content draft, not a university-formatted final

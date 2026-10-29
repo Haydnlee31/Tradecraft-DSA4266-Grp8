@@ -1,5 +1,10 @@
 # Matched comparison for the methodology chapter
 
+This is the **primary thesis study**. Start with the current
+[study index](../../studies/primary/README.md) and
+[unified reproduction workflow](../../docs/reproduction.md). The lower-level
+commands below remain supported; numerical protocols and evidence are unchanged.
+
 The six requested method families are implemented in the repository. What was
 missing was one matched comparison spanning all of them. Historical FedProx used
 the older feature/split protocol; historical SCAFFOLD was a continuation of a

@@ -31,13 +31,24 @@ navigation, not physically moved in a way that would break reproduction.
 
 ## Verification contract
 
-Before publishing cleanup, use a separate checkout containing only committed
-files. Validate source identities, all active tests, archived restoration/tests,
-the approved input download, strict preflight, fresh training/evaluation of all
-33 primary endpoints, exact scientific comparisons, and report reconstruction.
-Use the same recorded numerical environment; a shared interpreter is acceptable,
-but no workspace datasets, checkpoints or untracked modules may supply the test.
-Record actual checks in `verification.json` after they complete.
+Completed on candidate commit `9fa11c9` in a separate committed-only checkout.
+The [verification receipt](verification.json) records:
+
+- 661 active tests and 246 restored historical tests passed.
+- 172 preserved archive files verified; all 25 protected sources unchanged.
+- The public input asset downloaded and matched its SHA-256; all 16 members verified.
+- All 33 primary models trained afresh; 33 serialized recovery checks passed.
+- All 33 development/confirmation scientific endpoints matched the published report
+  exactly, including weights, sample streams, logits, metrics, settings and work.
+- All 363 confusion-matrix endpoints independently checked.
+- The scientific report analysis, Markdown table and CSV cells matched; elapsed
+  times are excluded from equality. CSV CRLF/LF differences are recorded.
+- Rebuilt figures were visually inspected; fresh-run PNGs match those inspected
+  images byte-for-byte. No workspace data/checkpoints/untracked modules supplied
+  the clean run. The existing pinned Python environment was reused.
+
+The remaining post-validation edits are documentation links and this receipt;
+the validated numerical implementations and workflow adapter are unchanged.
 
 The MimeLite numerical code/evidence is unchanged and remains a separate study;
 cleanup does not require another search. The raw ~46M-record reconstruction is
