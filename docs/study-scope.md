@@ -25,6 +25,17 @@ The separate [MimeLite supplement](../studies/mimelite-supplement/README.md) use
 23.1M backward examples and development-only scoring. Neither its endpoint
 values nor the earlier unverified MimeLite claims belong in the primary table.
 
+## Bounded extensions
+
+The user-authorized [FedLC, cyclic XGBoost and PLE comparisons](../studies/bounded-extensions/README.md)
+are retained as supporting studies. Neural FedLC has paired unchanged controls;
+PLE has a centralized representation control and a raw capacity control; cyclic
+XGBoost has a paired uncalibrated control and a central tree-capacity control.
+They explain mechanisms and costs without replacing the frozen primary protocol.
+Compressed Shared Adam remains the selected primary method, not a claim to the
+highest score among every model family. New controls use development only;
+existing candidate confirmation results are replayed solely for reproducibility.
+
 ## Conclusions to emphasize
 
 Shared Adam substantially narrows the observed centralized/FedAvg gap. Compression

@@ -19,7 +19,8 @@ PLAN = ROOT / 'studies/bounded-extensions/plan.json'
 
 
 def digest(path):
-    return hashlib.file_digest(Path(path).open('rb'), 'sha256').hexdigest()
+    with Path(path).open('rb') as stream:
+        return hashlib.file_digest(stream, 'sha256').hexdigest()
 
 
 def read(path):
@@ -61,6 +62,7 @@ def tree_train(data_root, out):
     records = []
     for seed in plan['seeds']:
         for arm in ('central_xgb', 'cyclic_xgb', 'cyclic_fedlc'):
+            print(f'START {arm} seed={seed} (central trees may take several minutes)', flush=True)
             started = time.perf_counter()
             full_wire = {'uplink_bytes': 0, 'downlink_bytes': 0, 'visits': 0}
             if arm == 'central_xgb':
@@ -153,6 +155,7 @@ def ple_train(data_root, out):
     records = []
     for seed in read(PLAN)['seeds']:
         for arm in ('central_ple', 'compressed_ple', 'compressed_raw_wide'):
+            print(f'START {arm} seed={seed}', flush=True)
             started = time.perf_counter()
             encoder = Raw(39) if arm == 'compressed_raw_wide' else ple
             architecture = {'hidden_dims': [214,32] if arm == 'compressed_raw_wide' else [64,32], 'dropout': 0., 'normalization': 'layer'}

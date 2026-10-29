@@ -74,6 +74,11 @@ def collect(args):
             'model_bytes':r['model_bytes'],'work':{'boosting_rounds':r['boosting_rounds'],'fit_row_visits_per_boosting_round_sum':r['fit_row_visits_per_boosting_round_sum']},
             'historical_exact':r.get('historical_model_exact'),'evidence':'fresh tree run; full-model transfer accounting'})
     replay={family:read(folder/'confirmation-replay.json') for family,folder in [('ple',args.ple),('xgboost',args.trees)]}
+    for family, recorded in replay.items():
+        historical=read(ROOT/f'reports/federated_{family}/confirmation-results.json')
+        for target, expected in historical['all_targets_mean'].items():
+            actual=statistics.mean(r['metrics'][target]['macro_f1'] for r in recorded['results'])
+            assert abs(actual-expected)<1e-14, (family,target,'historical target mean differs')
     return {'status':'complete','scope':'bounded exploratory extensions; primary selection retained', 'rows':rows,
         'neural_assessment':neural['assessment'],'confirmation_replay':replay,
         'verification':{'neural_control_bridges_exact':6,'ple_model_and_threshold_bridges_exact':sum(r.get('historical_model_and_thresholds_exact',False) for r in ple['results']),
@@ -122,6 +127,19 @@ def render(evidence,out):
     lines+=['','Neural rows use 21.6M backward examples; larger PLE networks require more computation per example. Tree rows match 200 boosting rounds, not compute: central sees 100M row-visits versus 5M cyclic. Tree payload is full-model UBJSON uplink + downlink; historical cached-tree estimates (~54 MB for FedLC) are preserved in JSON but are not an implemented transport. No numbers here measure real network latency.','','## Class recall','','| Method | '+' | '.join(CLASSES)+' |','| --- | '+' | '.join(['---']*len(CLASSES))+' |']
     for s in stats:
         lines.append('| '+s['arm']+' | '+' | '.join(f"{100*s['per_class_recall'][c]:.1f}%" for c in CLASSES)+' |')
+    pairs=[('trees','cyclic_fedlc','trees','cyclic_xgb'),
+           ('ple','compressed_ple','primary','block128'),
+           ('ple','compressed_ple','ple','compressed_raw_wide'),
+           ('ple','central_ple','ple','compressed_ple'),
+           ('trees','central_xgb','trees','cyclic_fedlc')]
+    by={(r['family'],r['arm'],r['seed']):r for r in evidence['rows']}
+    lines+=['','## Paired comparisons at the same seed','','Differences are treatment minus comparator. FAR differences are percentage points, not percentages of the comparator. Tree/central and PLE/raw contrasts retain the work and capacity limitations above.','','| Treatment vs comparator | Mean macro-F1 difference | Largest absolute FAR difference |','| --- | --- | --- |']
+    for f,a,g,b in pairs:
+        deltas=[];fars=[]
+        for seed in (7,17,27):
+            x,y=[point(by[(family,arm,seed)]['evaluation']) for family,arm in ((f,a),(g,b))]
+            deltas.append(x['macro_f1']-y['macro_f1']);fars.append(abs(x['benign_false_alert_rate']-y['benign_false_alert_rate']))
+        lines.append(f'| {a} vs {b} | {statistics.mean(deltas):+.4f} | {100*max(fars):.2f} pp |')
     lines+=['','## Existing confirmation replay','','These are replays of already exposed frozen models and thresholds, not additional model selection. New central PLE controls and neural FedLC are not evaluated on confirmation.','','| Candidate | Macro-F1 | Actual FAR | Exact historical seeds |','| --- | --- | --- | --- |']
     for family,r in evidence['confirmation_replay'].items():
         m=[s['metrics']['500'] for s in r['results']]

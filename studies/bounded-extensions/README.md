@@ -105,3 +105,30 @@ Primary, development and MimeLite tables remain separate.
 
 This repository simulates the cyclic mechanism; these extension runs are not
 physical Flower client deployments.
+
+The integration executes independent local jobs concurrently. Recorded elapsed
+times are provenance only, not a controlled runtime comparison. A timing study
+would need isolated repeated runs on the same hardware. Central tree intercepts
+are initialized from pooled fitting data, whereas cyclic trees start with the
+first client; this is part of the algorithm difference. The ±FedLC tree pair
+shares that same first client and subsequent visit order.
+
+Two different operations use the word *calibration*: **FedLC** changes the logits
+inside each client's training loss; **alarm calibration** sets a post-training
+benign-versus-attack threshold on the development calibration half. Every method,
+including controls without FedLC, uses the latter evaluation rule. PLE instead
+turns each numerical feature into positions within fitting-data quantile ranges;
+it changes the representation supplied to the neural network.
+
+Payload accounting covers training model/gradient messages. It excludes shared
+preprocessing setup (scaler, class-weight and PLE-bin distribution), raw-data
+upload for centralized training, transport framing and retransmissions. Those
+costs are not silently treated as measured zeros. A tree's 200 sequential client
+visits are not equivalent to 200 full-participation neural synchronization rounds.
+
+The tree capacity control matches the **maximum depth and boosting-round count**,
+not the realized number of leaves or model bytes. With no subsampling, this
+centralized tree configuration is deterministic across the requested seeds;
+identical repeats are not evidence of zero population uncertainty. Cyclic seeds
+change client visit order. Neural seed error bars are descriptive training
+variation on one fixed dataset and partition, not confidence intervals.

@@ -26,6 +26,18 @@ class ExtensionContractTests(unittest.TestCase):
                 with self.assertRaisesRegex(ValueError, 'Confirmation file differs'):
                     study.validate_confirmation(root)
 
+    def test_metric_audit_rejects_tampered_macro_and_false_alerts(self):
+        import copy
+        from scripts.bounded_extensions_report import audit_metric
+        evidence = study.read(study.ROOT/'reports/methodology_comparison/results.json')
+        metric = evidence['summary']['results'][0]['development']['operating_points'][0]['audit_metrics']
+        self.assertEqual(audit_metric(metric),199530)
+        for key in ('macro_f1','benign_false_alert_rate'):
+            altered=copy.deepcopy(metric)
+            altered[key] += .01
+            with self.assertRaises(AssertionError):
+                audit_metric(altered)
+
     def test_historical_source_bytes_are_unchanged(self):
         saved = study.read(study.ROOT/'studies/primary/preserved-sources.json')
         for path, expected in saved['files'].items():

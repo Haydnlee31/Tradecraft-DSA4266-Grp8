@@ -1,9 +1,10 @@
 # FedLC extension
 
-**Status: implemented, not yet run.** The tests in `test_fedlc.py` have not been
-executed. This extension was written on a Windows machine where PyTorch cannot
-load. Run the tests (below) in the project's full environment before the first
-real run, and agree and commit `plan.json` before seeing any result.
+**Status: integrated for validation.** The plan was frozen before local training
+on branch `study/bounded-extensions`. The original teammate implementation and
+comments are retained. See the [bounded extension guide](../../studies/bounded-extensions/README.md)
+for the current run commands and consolidated results. CI includes these tests
+through `tests/test_neural_fedlc.py`.
 
 This opt-in experiment adds **client-specific logit calibration (FedLC)** to two
 existing federated methods: population-weighted FedAvg with reset client Adam,
