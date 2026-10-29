@@ -1,0 +1,38 @@
+{
+  "version": "federated-xgboost-mechanism-study-v1",
+  "purpose": "Port federated-learning mechanisms that transfer to boosted trees onto component-tuned cyclic XGBoost and test whether any improves it",
+  "parent": "federated-xgboost-component-study-v1 (commit d3093d8): base config + cosine eta decay, 10 passes x 1 round per visit; development mean 0.6240 vs block128 0.6219, DoS recall 46.6%",
+  "intercept": "All arms (including a rerun reference) use base_margin = log(global fit class prior) + arm offset during training and log(global prior) at prediction, replacing XGBoost's data-fitted base_score so arms share one intercept",
+  "arms": {
+    "reference": {"scheme": "cyclic eta_decay", "offset": "none"},
+    "fedlc": {"scheme": "cyclic eta_decay", "offset": "-tau * n_ic^(-1/4) per class, n_ic = client training count (min 1), tau = 1.0",
+              "source": "FedLC, Zhang et al., ICML 2022 (label-distribution calibration of local logits)"},
+    "local_prior": {"scheme": "cyclic eta_decay", "offset": "log(pi_local_ic) - log(pi_global_c), pi_local Laplace-smoothed (+1 counts)",
+                    "source": "logit-adjustment family for label skew (local prior correction)"},
+    "bagging": {"scheme": "FedXgbBagging analog: 10 global rounds; every client boosts 1 round from the same global model with eta 1.0; server appends all clients' new trees with leaf values scaled by population weight p_i",
+                "budget": "200 client-rounds, same tree count and payload accounting as cyclic",
+                "source": "Flower FedXgbBagging / FedAvg in function space"}
+  },
+  "amendment_1": {
+    "recorded_after": "first tuning run (before any development scoring): with the fixed log-prior intercept, reference 0.6269 / fedlc 0.6307 / local_prior 0.6322 holdout means, versus 0.6397 for the committed eta_decay scheme on the same holdout and seeds; bagging collapsed to DDoS-only predictions (0.1041)",
+    "diagnosis": "The shared fixed intercept handicapped every arm, so comparisons against the paired reference would overstate the mechanisms. Bagging with averaged eta-1.0 steps diverges; a small eta needs ~20x more client-rounds and payload (~1.1 GB), so it is dropped as structurally unfit for the cost objective.",
+    "change": "Keep XGBoost's data-fitted intercept: the first visit trains exactly as the committed scheme; from the second visit the client trains with base_margin = fitted intercept (read exactly from the booster) + its offset. Prediction uses the booster without base_margin. The reference arm is the committed code path and its holdout margins must equal the committed stage-2 base-eta_decay margins byte for byte.",
+    "arms_now": ["reference", "fedlc", "local_prior"]
+  },
+  "not_ported": {
+    "FedNTD": "With one boosting round per visit the local model equals the global model at the start of each visit, so the not-true distillation term is identically zero; longer visits already degraded cyclic v1",
+    "FedPGP": "Requires a learned representation/prototypes; trees have none",
+    "FedProx_SCAFFOLD": "Act on a shared parameter vector or gradient; trees have no shared parameter vector. Per-class offsets (FedLC) are the nearest tree analog"
+  },
+  "fixed": "Stage-1 base XGBoost config (depth 6, eta 0.05, 200 rounds, sqrt global class weights, hist, 256 bins, 2 threads); cyclic order default_rng(SeedSequence([seed, pass, 777]))",
+  "tuning": "Hashed 20% fit-row holdout from the component study; seeds 7 and 17; 5% benign FAR calibrated on holdout benign rows; select the highest mean holdout macro-F1. Stage b (declared now): if the winner is an offset arm, also run it with power0.75 class weights and keep it only if its holdout mean is higher.",
+  "final": "Winner and reference trained on all fit rows at seeds 7/17/27, scored once on the frozen development alarm split",
+  "rule": "Winner passes if: development mean macro-F1 >= paired reference mean + 0.005; at EVERY seed macro-F1 >= same-seed block128 - 0.01 and |actual FAR - block128| <= 0.005; payload <= 88,058,880 bytes. DoS and rare recall reported.",
+  "payload": "Serialized UBJSON: each client's new trees uploaded once and downloaded by the other 19 clients",
+  "alarm_split_domain": "tradecraft-shared-optimizer-alarm-calibration-v1:426614:",
+  "alarm_calibration_mask_sha256": "3eb0e3ce0cc9c463cb5012b97b7795398d0731fc6ffef16bdd196580ef126c4d",
+  "limitations": "Development rows previously used by three cyclic XGBoost checks; one client partition; global prior and class weights are simulation conveniences. Exploratory only.",
+  "confirmation_scoring_permitted": false,
+  "original_validation_scoring_permitted": false,
+  "test_scoring_permitted": false
+}

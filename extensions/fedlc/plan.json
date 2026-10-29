@@ -1,0 +1,54 @@
+{
+  "version": "fedlc-development-v1",
+  "status": "Frozen before the first real-data neural FedLC run on 2026-10-29; user authorized all three bounded extensions.",
+  "seeds": [
+    7,
+    17,
+    27
+  ],
+  "methods": {
+    "fedavg_adam": {
+      "learning_rate": 0.003
+    },
+    "block128": {
+      "learning_rate": 0.003,
+      "bits": 4,
+      "feedback": true,
+      "block_size": 128
+    }
+  },
+  "base_loss": "sqrt_weighted_ce_fixed_train_mean",
+  "fedlc": {
+    "tau": 1.0,
+    "count_floor": 1
+  },
+  "expected_backward_examples_per_run": 21600000,
+  "false_alert_targets_basis_points": [
+    100,
+    500,
+    1000,
+    2000
+  ],
+  "primary_target_basis_points": 500,
+  "assessment": {
+    "target_classes": [
+      "Web-based",
+      "Brute Force",
+      "Spoofing"
+    ],
+    "min_mean_target_recall_gain": 0.02,
+    "min_mean_target_f1_gain": 0.0,
+    "max_macro_f1_drop_per_seed": 0.01,
+    "max_abs_far_difference_per_seed": 0.005,
+    "max_other_class_recall_drop_per_seed": 0.05
+  },
+  "require_published_bridge": true,
+  "threads": 2,
+  "inference_batch_size": 8192,
+  "design": "Each method is trained twice per seed: the unchanged published control and the same run with FedLC. Within a seed both arms share initialization, client partition, sampled rows, learning rate and work. Only the training loss changes.",
+  "loss_choice": "FedLC calibrates logits before the frozen fixed-training-mean sqrt-weighted CE, so the controls are exactly the published runs. Stacking FedLC on class weights may correct imbalance twice; a separate plan with base_loss 'ce' tests FedLC on ordinary CE against an ordinary-CE control.",
+  "fedlc_rule": "Client c trains on z_j - tau * max(n_cj, count_floor)**(-1/4), with n_cj its fit-population count of class j in raw rows. tau=1 follows the authors' default and is not tuned here. Inference uses unadjusted logits.",
+  "evaluation": "Final endpoints only, on development data. Reuse the published grouped calibration/audit split and strict-margin order-statistic thresholds; fit each threshold on calibration benign rows, then score the audit half once. Report all four targets; assess at the 5% target. No threshold, checkpoint, tau or seed selection.",
+  "decision": "A method supports FedLC only if, at the 5% target, every seed keeps macro-F1 within 0.01 of its control, actual FAR within 0.5 points, and every non-target class recall within 5 points; and, averaged over seeds, the mean recall of Web-based/Brute Force/Spoofing rises by at least 2 points with no fall in their mean F1. These are new proposed engineering targets, not existing project gates.",
+  "limits": "Previously examined development data, one fixed 20-client non-IID partition and three training seeds. No confirmation, original validation or test scoring. Not a new capture-session generalization, privacy, edge or deployment result."
+}

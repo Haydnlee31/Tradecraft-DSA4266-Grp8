@@ -1,0 +1,18 @@
+{
+  "version": "fedlc-cyclic-xgboost-confirmation-v1",
+  "purpose": "Score the frozen FedLC cyclic XGBoost once on the reserved shared-optimizer confirmation cohort, using the same procedure that produced block128's 0.6325",
+  "authorization": "User authorized a single confirmation scoring of FedLC only on 2026-10-22, accepting that the cohort was previously opened for the shared-optimizer study",
+  "candidate": "mechanism study arm fedlc:sqrt (commit 5f95601): base XGBoost config, cosine eta decay, 10 passes x 1 round per visit, FedLC offsets -n_ic^(-1/4) from the second visit, trained on all fit rows at seeds 7, 17, 27",
+  "freeze": "Retrain each seed with the committed code; its development margins must equal outputs/fedxgb-mechanisms/final/fedlc-sqrt-seed{seed}-margins.npy byte for byte. Save the boosters; record model, development-margin and threshold hashes in confirmation-freeze.json and commit it before any confirmation inference.",
+  "thresholds": "The four development-calibrated thresholds per seed (1%, 5%, 10%, 20% targets) from the mechanism study's development scoring, calibrated on the development calibration half; no refitting on confirmation",
+  "confirmation_data": "outputs/shared-optimizer-confirmation-v1/data; manifest sha256 1f54dffeb692fc4fa020f5d6abd3d2f51192a6f66cabde47df06a258ab31d536 (equals the committed confirmation results' data receipt); array hashes verified against the manifest",
+  "decision_rule": "Identical to the shared-optimizer confirmation decisions: attack score = max attack margin - benign margin; predict the top attack category only if score > frozen threshold, ties stay benign",
+  "comparison": "Same-seed block128, FedAvg and centralized-light confirmation metrics from reports/federated_shared_optimizer/confirmation-results.json",
+  "primary_target_basis_points": 500,
+  "rule": "Declared before scoring and unchanged from development: FedLC passes if at EVERY seed its 5% macro-F1 >= same-seed block128 - 0.01 and its absolute actual FAR difference from block128 <= 0.005, with payload <= 88,058,880 bytes. Superiority is claimed only if the three-seed mean also exceeds block128's 0.6325, and is described as descriptive, not a significance test.",
+  "reporting": "All four targets, all eight class recalls and precisions, actual FAR, payload and model bytes; per seed and mean. A failure is reported as a failure.",
+  "limitations": "Cohort previously opened and its block128/FedAvg/central scores known while choosing which methods to explore; FedLC itself was never scored on it. One client partition; within-collection rows.",
+  "no_further_use": "After this scoring the cohort is not used to tune or select anything further",
+  "original_validation_scoring_permitted": false,
+  "test_scoring_permitted": false
+}

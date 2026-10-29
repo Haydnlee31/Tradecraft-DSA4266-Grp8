@@ -1,0 +1,30 @@
+{
+  "version": "ple-shared-adam-followup-v1",
+  "purpose": "Separate representation from capacity and test seed stability for compressed shared Adam with PLE",
+  "seeds": [7, 17, 27],
+  "seed_semantics": "As in the historical block128 replication: the seed sets initialization and client sampling ({**base, seed}); sample chains must equal historical block128 at each seed",
+  "arms": {
+    "compressed_ple": {"encoding": "ple", "hidden_dims": [64, 32]},
+    "compressed_raw_wide": {"encoding": "raw", "hidden_dims": [214, 32]}
+  },
+  "capacity_note": "Raw 39 -> 214 -> 32 LayerNorm network has 16,196 parameters versus 16,232 for PLE (213 -> 64 -> 32), following the archived pilot's wider-first-layer capacity control",
+  "learning_rate": 0.003,
+  "synchronizations": 2160,
+  "bins": 16,
+  "references": "Historical block128 at seeds 7/17/27 from reports/federated_shared_optimizer/block-replication-results.json, same calibration split",
+  "primary_target_basis_points": 500,
+  "false_alert_targets_basis_points": [100, 500, 1000, 2000],
+  "alarm_split_domain": "tradecraft-shared-optimizer-alarm-calibration-v1:426614:",
+  "alarm_calibration_mask_sha256": "3eb0e3ce0cc9c463cb5012b97b7795398d0731fc6ffef16bdd196580ef126c4d",
+  "replication_rule": "compressed_ple must, at EVERY seed versus same-seed block128: gain >= 0.01 macro-F1, absolute FAR difference <= 0.005, largest class recall drop <= 0.05",
+  "capacity_rule": "Mean compressed_ple macro-F1 across the three seeds must exceed mean compressed_raw_wide by >= 0.01; otherwise attribute the gain to capacity",
+  "decision": "Keep PLE only if both rules pass; otherwise scrap the extension",
+  "architecture_fixed": {"normalization": "layer", "dropout": 0.0},
+  "limitations": "Same historical client partition and previously examined development rows; exploratory only",
+  "confirmation_scoring_permitted": false,
+  "original_validation_scoring_permitted": false,
+  "test_scoring_permitted": false,
+  "device": "cpu",
+  "threads": 2,
+  "inference_batch_size": 8192
+}

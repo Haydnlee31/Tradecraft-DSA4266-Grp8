@@ -1,0 +1,59 @@
+{
+  "version": "federated-xgboost-component-study-v1",
+  "purpose": "Improve cyclic federated XGBoost by enhancing components separately (base learner, then cyclic federation), then recombine and test once on development data",
+  "history": "Cyclic XGBoost v1 (2 passes x 5 rounds) and v2 (10 passes x 1 round) were screened and scrapped on development data; v2 mean 0.6244 vs block128 0.6219 but failed at seed 27 by 0.1 pt; DoS recall ~49% vs 72%. This study is development-adaptive in motivation, so selection is moved off the development rows.",
+  "data_manifest_sha256": "f184b699fe9a34c46cc9218191ff43fd87457a8e2f6f366de6000eabf31a6987",
+  "tuning_split": "Fit rows with sha256('tradecraft-xgb-tuning-v1:' || int64 row id) first byte < 51 (~20%) form the tuning holdout; the rest is tuning-train. Each client keeps its own tuning-train rows. Development rows are not used in stages 1-2.",
+  "tuning_metric": "Macro-F1 on the tuning holdout at a 5% benign false-alert threshold calibrated on the holdout's own benign rows (selection metric only; slightly optimistic and identical for all variants). Per-class recall, DoS recall and serialized model bytes are reported.",
+  "stage1_central": {
+    "base": {"objective": "multi:softprob", "num_class": 8, "tree_method": "hist", "max_depth": 6, "eta": 0.05,
+             "lambda": 1.0, "max_bin": 256, "nthread": 2, "rounds": 200, "weights": "sqrt", "multi_strategy": "one_output_per_tree"},
+    "variants": {
+      "base": {},
+      "depth8": {"max_depth": 8},
+      "depth4": {"max_depth": 4},
+      "rounds400": {"rounds": 400},
+      "eta0.1": {"eta": 0.1},
+      "weights_balanced": {"weights": "balanced"},
+      "weights_none": {"weights": "none"},
+      "multi_output_tree": {"multi_strategy": "multi_output_tree"},
+      "min_child_weight5": {"min_child_weight": 5}
+    },
+    "selection": "One-at-a-time variants first. Then at most three predeclared-style combinations of improving variants (chosen after stage-1a, still on the tuning holdout). Prefer the smaller serialized model when tuning macro-F1 is within 0.005."
+  },
+  "stage1b_amendment": {
+    "recorded_after": "stage-1a holdout results: base 0.6983 (3.91 MB); rounds400 0.6994 (8.11 MB); multi_output_tree 0.6882 (1.72 MB); balanced weights 0.6549 with DoS 0.901, Web 0.439, Brute 0.409; others <= base",
+    "added": {
+      "power0.75": {"weights": "power0.75", "why": "between sqrt and balanced; DoS is the class lost in cyclic federation"},
+      "mot_rounds400": {"multi_strategy": "multi_output_tree", "rounds": 400, "why": "recover multi_output_tree quality at < base size"},
+      "mot_power0.75": {"multi_strategy": "multi_output_tree", "weights": "power0.75"}
+    },
+    "stage2_inputs": "Carry forward the best tuning-F1 configuration and the smallest configuration within 0.01 of it (cost candidate)",
+    "stage1b_results": "power0.75 0.6864 (DoS 0.844, Web 0.293, Brute 0.318, 3.95 MB); mot_rounds400 0.6952 (3.46 MB); mot_power0.75 0.6737 (1.71 MB)",
+    "stage2_inputs_resolved": "rounds400 is best (0.6994) but ~2x base model size, so its cyclic payload (~115 MB) cannot meet the 88 MB stage-3 ceiling; it is replaced by base (0.6983, within 0.0011). Cost candidate: mot_rounds400 (0.6952, 3.46 MB). Also carried: power0.75, because DoS recall is the observed cyclic failure and it is the strongest DoS lever with tuning F1 within 0.013 of best. Recorded before any stage-2 run."
+  },
+  "stage2_cyclic": {
+    "base_scheme": "v2: 10 passes x 1 boosting round per visit, per-pass permutation default_rng(SeedSequence([seed, pass, 777]))",
+    "variants": {
+      "v2": {},
+      "eta_decay": "eta per pass = stage-1 eta x cosine factor from 1.0 to 0.3 across passes",
+      "size_weighted": "Each pass visits clients in proportion to tuning-train size (same 200 total visits), order shuffled per pass",
+      "subsample0.8": "Row subsample 0.8 per tree"
+    },
+    "seeds": [7, 17],
+    "selection": "Highest mean tuning macro-F1 across seeds 7 and 17; ties prefer lower payload"
+  },
+  "stage3_final": {
+    "train": "Selected configuration and scheme on all fit rows of each client (no holdout), seeds 7/17/27",
+    "evaluation": "Development audit at the frozen alarm split, once",
+    "rule": "Unchanged from v1/v2: at EVERY seed macro-F1 >= same-seed block128 - 0.01, absolute actual FAR difference <= 0.005, payload <= 88,058,880 bytes; additionally mean macro-F1 >= block128 mean. Class drops > 0.10 vs block128 flagged."
+  },
+  "payload": "Serialized UBJSON: each visit uploads its new trees; every tree downloaded once by each of the other 19 clients",
+  "process_isolation": "Training imports numpy and xgboost only; scoring runs in a separate torch process",
+  "alarm_split_domain": "tradecraft-shared-optimizer-alarm-calibration-v1:426614:",
+  "alarm_calibration_mask_sha256": "3eb0e3ce0cc9c463cb5012b97b7795398d0731fc6ffef16bdd196580ef126c4d",
+  "limitations": "One client partition; development rows previously examined in v1/v2; global class weights. Exploratory only.",
+  "confirmation_scoring_permitted": false,
+  "original_validation_scoring_permitted": false,
+  "test_scoring_permitted": false
+}

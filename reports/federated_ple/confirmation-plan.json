@@ -1,0 +1,17 @@
+{
+  "version": "ple-compressed-shared-adam-confirmation-v1",
+  "purpose": "Score the frozen PLE16 + block128 compressed shared Adam once on the reserved shared-optimizer confirmation cohort, so all compared methods have confirmation numbers",
+  "authorization": "User requested confirmation scores for all compared methods on 2026-10-22; this is the cohort's third use (block128 study, FedLC cyclic XGBoost, this run)",
+  "candidate": "compressed_ple from the PLE follow-up (commit 24e9daa): PLE16 inputs (213 columns, bins fitted on the 500,000 fit rows), 64-32 LayerNorm MLP, block128 four-bit compressed shared Adam, lr 0.003, 2,160 synchronizations, seeds 7, 17, 27; evaluated model = delivered replica",
+  "freeze": "Retrain each seed with the committed code; its delivered-model digest must equal final_model_sha256 in outputs/ple-followup-v1/compressed_ple-seed{seed}.json (sha256 seed7 0afc6c01..., seed17 362d9c0e..., seed27 f034baac...). Save state dicts; record model hashes and the four development-calibrated thresholds per seed in confirmation-freeze.json and commit before confirmation inference.",
+  "thresholds": "Development-calibrated thresholds from the follow-up results (1%, 5%, 10%, 20% targets); no refitting",
+  "confirmation_data": "outputs/shared-optimizer-confirmation-v1/data; manifest sha256 1f54dffeb692fc4fa020f5d6abd3d2f51192a6f66cabde47df06a258ab31d536; standardized with the same fit-only scaler (sha256 dc6e5e00...) as the PLE training data",
+  "decision_rule": "Attack score = max attack logit - benign logit; predict the top attack only if score > frozen threshold",
+  "comparison": "Same-seed block128 from reports/federated_shared_optimizer/confirmation-results.json",
+  "primary_target_basis_points": 500,
+  "rule": "Same as the PLE development criteria, declared before scoring: at EVERY seed macro-F1 gain over block128 >= 0.01, absolute actual FAR difference <= 0.005, largest class recall drop <= 0.05. Payload (752 MB) is reported, not gated.",
+  "limitations": "Third use of a previously opened cohort; PLE itself never scored on it. Within-collection rows, one partition.",
+  "no_further_use": "After this scoring the cohort is not used to tune or select anything further",
+  "original_validation_scoring_permitted": false,
+  "test_scoring_permitted": false
+}

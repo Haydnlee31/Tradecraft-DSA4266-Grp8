@@ -1,0 +1,42 @@
+{
+  "plan_sha256": "adde55a513ebfc611e14e6000d34d8a605a1fb2a0d7cc0babf4b56bc8eb27a17",
+  "ple_input_dim": 213,
+  "seeds": {
+    "7": {
+      "model_digest": "b8f639a92e2c9dd95e628ade23b8f5afb0ee0dc1c02329cd26e68f5143cbc489",
+      "state_dict_sha256": "73c2a471e0b50ed2a8358e288b75d08d63636cf14cf96adc1760524422f71f45",
+      "payload_bytes": 752289120,
+      "parameters": 16232,
+      "thresholds": {
+        "100": 1.7997395992279053,
+        "500": 0.6307535171508789,
+        "1000": 0.07773494720458984,
+        "2000": -0.635901927947998
+      }
+    },
+    "17": {
+      "model_digest": "11eb3e0fa179538d0c293b3b3f50eaa5a37e3ad3515a881c23b9db83130ba3aa",
+      "state_dict_sha256": "a16c43cd4787de20e0d242ab63f9987e083e40042977f4369ce882e1cf03b285",
+      "payload_bytes": 752289120,
+      "parameters": 16232,
+      "thresholds": {
+        "100": 2.454705238342285,
+        "500": 1.156996726989746,
+        "1000": 0.48687028884887695,
+        "2000": -0.40395474433898926
+      }
+    },
+    "27": {
+      "model_digest": "14be56ea5bbb7a0a8529d27cdb055c9b14590e48884bf8514c2d26cb37809801",
+      "state_dict_sha256": "edfb93ca2144f3e5b22e38e2ea9ba6be4febd2873aad5a39653c8c1dcaf72561",
+      "payload_bytes": 752289120,
+      "parameters": 16232,
+      "thresholds": {
+        "100": 2.6202290058135986,
+        "500": 1.4097404479980469,
+        "1000": 0.7443420886993408,
+        "2000": -0.1259765625
+      }
+    }
+  }
+}
