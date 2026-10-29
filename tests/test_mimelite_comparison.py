@@ -2,8 +2,12 @@
 import copy
 import io
 import json
+from pathlib import Path
+import tempfile
 import unittest
+from unittest.mock import patch
 
+import numpy as np
 import torch
 
 from src.federated import mime_lite
@@ -94,6 +98,34 @@ class MimeLiteTests(unittest.TestCase):
             a['work']['anchor_examples']+=1
             with self.assertRaisesRegex(ValueError,'counter mismatch'):
                 study.check_work(a,base,arm,data,ks)
+
+    def test_interrupted_job_resumes_exactly_and_rejects_changed_artifact(self):
+        fixture=SharedOptimizerPerformanceTests();base=fixture.plan();data,criterion=fixture.fixture()
+        settings={'lr':.003,'local_steps':2};arm='mimelite5'
+        ks=study.schedule(base,arm,settings,1008)
+        x,y=data.arrays['development'];mask=np.arange(len(y))<8
+        evaluation=(x,y,mask,{'inference_batch_size':8})
+        with tempfile.TemporaryDirectory() as tmp:
+            complete=Path(tmp)/'complete';resume=Path(tmp)/'resumed'
+            complete.mkdir();resume.mkdir()
+            args=(base,arm,settings,ks,data,criterion,{'test':True},evaluation,[])
+            expected=study.run_one(complete,*args)
+            original=study.advance;calls=0
+            def interrupted(*a,**kw):
+                nonlocal calls
+                calls+=1
+                if calls==4:raise RuntimeError('simulated interruption')
+                return original(*a,**kw)
+            with patch.object(study,'advance',side_effect=interrupted),self.assertRaisesRegex(RuntimeError,'interruption'):
+                study.run_one(resume,*args)
+            actual=study.run_one(resume,*args)
+            for key in ('model_sha256','logits_sha256','sample_chain_sha256','work','development','recovery_exact'):
+                self.assertEqual(actual[key],expected[key],key)
+            self.assertEqual(study.run_one(resume,*args),actual)
+            path=resume/f"seed{base['seed']}-{arm}"/'logits.npy'
+            path.write_bytes(b'changed')
+            with self.assertRaisesRegex(ValueError,'Completed output changed'):
+                study.run_one(resume,*args)
 
 
 if __name__ == '__main__':

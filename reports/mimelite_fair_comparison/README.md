@@ -6,9 +6,44 @@ MIME-base control is included because MIME's lagged-moment updater is not
 ordinary bias-corrected Adam. The old untraceable MimeLite scores are not targets
 and do not count as results of this pipeline.
 
+## Completed evidence
+
+- [Results and figures](results.md): all seven configurations, three seeds each,
+  equal backward-example budgets, actual false alerts and per-class recall.
+- [Interpretation](findings.md): observed trade-offs and why the earlier proposed
+  MimeLite round counts would imply substantially more computation.
+- [Numerical evidence](results.json) and [per-seed CSV](per-seed-metrics.csv).
+- [Verification](verification.json): 659 working-checkout tests, 21 exact
+  serialized-recovery checks, 15 exact historical checkpoints and 126 independently
+  recalculated metric endpoints. Completed-job resume reused all 21 outputs with
+  an unchanged summary hash.
+
+The primary 5% calibration target gives 35/36 paired actual-FAR differences
+within 0.5 percentage points. The seed-7 MimeLite-5/FedAvg exception is retained
+and explained in the interpretation; it is not silently treated as matched.
+
+## Executable implementation inventory
+
+All seven configurations run through the same
+[comparison entry point](../../src/eval/mimelite_comparison.py).
+
+| Method | Training implementation |
+| --- | --- |
+| Central Adam | Existing pooled updater in [shared_optimizer_performance.py](../../src/eval/shared_optimizer_performance.py) |
+| Shared Adam | Existing [shared_adam.py](../../src/federated/shared_adam.py) kernel and performance runner |
+| MimeLite, 5 or 20 local steps | New [mime_lite.py](../../src/federated/mime_lite.py), parameterized by local-step count |
+| Full MIME | Existing [mime_adam.py](../../src/federated/mime_adam.py), with an explicitly budgeted short final block |
+| FedAvg-Adam | Existing reset-client-Adam performance runner, with an explicitly budgeted short final block |
+| Central MIME base | Existing pooled MIME-base updater in the performance runner |
+
+This is a single-machine federated simulation with explicit client ownership
+and aggregation. It does not measure a physically distributed Flower deployment.
+
 ## Protocol fixed before training
 
 The [plan](plan.json) specifies seven configurations and seeds 7, 17 and 27.
+The training implementation and plan were committed as `b188cb3` before these
+new runs began.
 Every run processes exactly **23,100,000 backward examples**, including all
 full-anchor gradients and MIME's two gradients per local correction. No
 anchor-only padding or unused gradients are added to manufacture equal totals.
@@ -88,13 +123,37 @@ Use the prepared inputs and strict local CPU environment described in the
 `requirements-methodology.txt` remains sufficient; no new training dependency
 was added. This run uses macOS ARM CPU, not a cloud GPU.
 
+For a new compatible Mac checkout, create a new environment using Python
+3.13.9, install `requirements-methodology.txt`, then fetch the approved,
+checksum-pinned prepared inputs using the existing bootstrap:
+
 ```bash
-.venv/bin/python -m unittest tests.test_mimelite_comparison tests.test_mime_adam tests.test_methodology_comparison -q
-.venv/bin/python -m src.eval.mimelite_comparison check
-.venv/bin/python -u -m src.eval.mimelite_comparison train --output outputs/my-mimelite-comparison
+python3.13 -m venv .venv
+.venv/bin/python -m pip install -r requirements-methodology.txt
+.venv/bin/python scripts/reproduce_shared_adam.py setup --python .venv/bin/python
 ```
 
-If the process is interrupted, rerun the last command with `--resume`. The runner
+Only create `.venv` if it does not already exist; preserve a working environment.
+The [input reproduction guide](../federated_shared_optimizer/reproduction-guide.md)
+describes the release archive and local-file alternative. Stay on this comparison
+branch: switching to an older release tag would remove the new MimeLite code.
+The bootstrap's final suggested compressed-model training command is for the
+older experiment; use the commands below for this seven-configuration comparison.
+
+```bash
+.venv/bin/python -m unittest tests.test_mimelite_comparison tests.test_mimelite_report tests.test_mime_adam tests.test_methodology_comparison -q
+.venv/bin/python -m src.eval.mimelite_comparison check
+.venv/bin/python -u -m src.eval.mimelite_comparison train --output outputs/my-mimelite-comparison
+.venv/bin/python scripts/mimelite_report.py --run outputs/my-mimelite-comparison --output outputs/my-mimelite-report
+```
+
+If training is interrupted, rerun the **train** command with `--resume`:
+
+```bash
+.venv/bin/python -u -m src.eval.mimelite_comparison train --output outputs/my-mimelite-comparison --resume
+```
+
+The runner
 checks identical source/configuration/data and runtime, restores optimizer state
 and deterministic sample positions, and preserves verified completed jobs. It
 does not change settings or silently restart from model weights alone.
@@ -104,3 +163,9 @@ The [comparison runner](../../src/eval/mimelite_comparison.py) produces one
 an aggregate `summary.json`. A completed result is reused only with matching
 job settings, checkpoint hash and logits hash. Source changes require a new
 output directory and a new comparison.
+
+The report generator refuses missing runs, changed settings, unequal work,
+failed historical/recovery checks and metrics inconsistent with confusion
+counts. It produces complete numerical evidence, a per-seed CSV, a quality/FAR
+plot, an eight-class recall heatmap and a work-allocation figure. The CSV is an
+export of metrics, not a copy of private training inputs.

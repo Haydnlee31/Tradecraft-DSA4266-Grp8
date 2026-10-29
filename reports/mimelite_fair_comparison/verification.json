@@ -1,0 +1,26 @@
+{
+  "status": "complete",
+  "date": "2026-10-29",
+  "pre_training_commit": "b188cb31e991f03ee5e180ce36b75e3ee8b7e3f5",
+  "training_runs": 21,
+  "working_checkout_tests_passed": 659,
+  "test_log_sha256": "1f9b686355a2886b4af16be5f9352740029bb39641c3ff31ddfeacf6f7baec35",
+  "serialized_recovery_checks": 21,
+  "historical_bridges_exact": 15,
+  "confusion_endpoints_checked": 126,
+  "completed_job_reuse": {
+    "runs_reused_without_training": 21,
+    "summary_hash_unchanged": true,
+    "summary_sha256": "10fe4123e12cceb5a3baef8ad6d82ae700bc4d4228973fb14cc37a21e9c29a90",
+    "log_sha256": "c7196adb38ed2584cd46cfff11e75b8ffceac784637af63943f5df1dd33f03fc"
+  },
+  "partial_job_resume": "Automated synthetic interruption test passed; real-data jobs were not deliberately interrupted",
+  "figures_visually_inspected": [
+    "quality.png",
+    "recall.png",
+    "work.png"
+  ],
+  "confirmation_evaluated": false,
+  "original_validation_evaluated": false,
+  "test_evaluated": false
+}
