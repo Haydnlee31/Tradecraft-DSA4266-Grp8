@@ -1144,6 +1144,84 @@
       "sha256": "f0b10ae662749e3d8da6775211882fca65374005ef3a34a0ea0b43031cf3936b",
       "bytes": 12135,
       "group": "proposals"
+    },
+    {
+      "original": "README.md",
+      "archived": "archive/superseded_docs/README.md",
+      "group": "superseded_docs",
+      "active_replacement": true,
+      "sha256": "9c499cb57ae9d056d0d1c719d911038cc5ff617375c9f7aa1bdc067f1c4752cf",
+      "bytes": 14656,
+      "source_commit": "8ccbe8766aabf8280b69dd2a2ccf628c14688307"
+    },
+    {
+      "original": "AGENTS.md",
+      "archived": "archive/superseded_docs/AGENTS.md",
+      "group": "superseded_docs",
+      "active_replacement": true,
+      "sha256": "fd070177c740ee4dfa94a8c994f11d94b15f7eae564e5d300400c5bb7fef99f6",
+      "bytes": 7449,
+      "source_commit": "8ccbe8766aabf8280b69dd2a2ccf628c14688307"
+    },
+    {
+      "original": "CLAUDE.md",
+      "archived": "archive/superseded_docs/CLAUDE.md",
+      "group": "superseded_docs",
+      "active_replacement": true,
+      "sha256": "28215c556ba3b55b52592d792c1f0a3ed53c30a1c3395a01f5e4020fb4bce8e0",
+      "bytes": 7462,
+      "source_commit": "8ccbe8766aabf8280b69dd2a2ccf628c14688307"
+    },
+    {
+      "original": "reports/README.md",
+      "archived": "archive/superseded_docs/reports/README.md",
+      "group": "superseded_docs",
+      "active_replacement": true,
+      "sha256": "b6fa7cb773640848454d0db8cbb0db0a6e390dfc1fddf04cd1de2e654a5f2730",
+      "bytes": 1749,
+      "source_commit": "8ccbe8766aabf8280b69dd2a2ccf628c14688307"
+    },
+    {
+      "original": "scripts/README.md",
+      "archived": "archive/superseded_docs/scripts/README.md",
+      "group": "superseded_docs",
+      "active_replacement": true,
+      "sha256": "ce7f56d1498304470e1b9fe0629429a533acdf70ce75e4cc44881f7e4f6d5a27",
+      "bytes": 1583,
+      "source_commit": "8ccbe8766aabf8280b69dd2a2ccf628c14688307"
+    },
+    {
+      "original": "scripts/validate_seed7_method_table.py",
+      "archived": "archive/table_audit/scripts/validate_seed7_method_table.py",
+      "group": "table_audit",
+      "sha256": "9f733be8b7e6377e52c58b93966dee77e433572b0b62817693a8ccb8c2890f93",
+      "bytes": 5715,
+      "source_commit": "8ccbe8766aabf8280b69dd2a2ccf628c14688307"
+    },
+    {
+      "original": "reports/method_table_validation_2026_10_29/README.md",
+      "archived": "archive/table_audit/reports/method_table_validation_2026_10_29/README.md",
+      "group": "table_audit",
+      "sha256": "4417b54e2f8491631a158194e34d8bb82a8f83eb82c95037c07d7e340f2a6acc",
+      "bytes": 6662,
+      "source_commit": "8ccbe8766aabf8280b69dd2a2ccf628c14688307"
+    },
+    {
+      "original": "reports/method_table_validation_2026_10_29/branch-search.json",
+      "archived": "archive/table_audit/reports/method_table_validation_2026_10_29/branch-search.json",
+      "group": "table_audit",
+      "sha256": "3e72cafdc978ab2f4e92f1d6d9b8f7b8f0132df789991072b7886b39cfbdc2a7",
+      "bytes": 3351,
+      "source_commit": "8ccbe8766aabf8280b69dd2a2ccf628c14688307"
+    },
+    {
+      "original": "reports/method_table_validation_2026_10_29/results.json",
+      "archived": "archive/table_audit/reports/method_table_validation_2026_10_29/results.json",
+      "group": "table_audit",
+      "sha256": "477deb5cd9d49f55de0e825ab5ecfa13f9150e0409e9c068c08d32f53295f6ca",
+      "bytes": 128570,
+      "source_commit": "8ccbe8766aabf8280b69dd2a2ccf628c14688307"
     }
-  ]
+  ],
+  "cleanup_snapshot_commit": "8ccbe8766aabf8280b69dd2a2ccf628c14688307"
 }

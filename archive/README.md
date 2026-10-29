@@ -1,7 +1,7 @@
 # Historical experiments archive
 
-This archive separates retired classifier searches and early run dumps from the
-active centralized-versus-federated study. Nothing was deleted. All 163 relocated
+This archive separates retired experiments and superseded documentation from the
+active centralized-versus-federated study. Nothing was deleted. All 172 preserved
 files retain their original bytes, including comments, results and provenance.
 The [manifest](manifest.json) maps each old path to its archive location and SHA-256.
 
@@ -10,10 +10,13 @@ The [manifest](manifest.json) maps each old path to its archive location and SHA
 | [Classifier search](classifier_search/reports/risk_aware_routing/README.md) | 110 files: routing, specialists, score fusion, trees, Laya, embeddings, retrieval and associated tests | Retired exploratory directions, not the final method |
 | [Early runs](early_runs/reports/full_run/RESULTS.md) | 49 files: initial model reports, early decisions, smoke result and teammate merge notes | Superseded runs; the synthetic smoke result is not study evidence |
 | [Proposals](proposals/reports/Central%20aligned%20federated%20updates.md) | Four tracked proposal and literature-note files | Design history; not claims that every proposal succeeded |
+| Superseded documentation | Five previous root/context/index documents under `superseded_docs/` | Byte-identical snapshots; focused active replacements remain at the original paths |
+| Single-seed table audit | Four files under `table_audit/` | Superseded by the complete primary and MimeLite studies; the original missing-MimeLite finding remains historical |
 
-The final [thesis](../reports/thesis/README.md), [official39 results](../reports/full_data_extension/final-closeout.md)
-and [confirmed shared optimizer](../reports/federated_shared_optimizer/confirmation-findings.md)
-remain active. Older reports cited by their audited evidence also remain in place.
+Start with the [primary study](../studies/primary/README.md). The older integrated
+[thesis](../reports/thesis/README.md), [official39 results](../reports/full_data_extension/final-closeout.md)
+and [original shared-optimizer confirmation](../reports/federated_shared_optimizer/confirmation-findings.md)
+remain available. Reports and source dependencies required by their audited evidence stay in place.
 Untracked personal drafts, private datasets, checkpoints and local output folders
 were not moved or committed by this cleanup.
 
@@ -53,6 +56,13 @@ The source snapshot is commit `f5ae051`. It remains available through Git histor
 for a complete, exact historical checkout. Reconstruction combines the unchanged
 archived files with current shared helpers; receipt checks fail if those helpers
 later become incompatible. Do not rewrite old hashes to silence such a failure.
+
+The 29 October additions use snapshot `8ccbe87`, recorded per entry. Restoring
+superseded documents intentionally installs their historical contents in the
+disposable review copy, not their active replacements. The previous locally
+modified README and unrelated drafts were separately backed up under ignored
+`outputs/repository-cleanup-preservation-2026-10-29-v1/`; those working files are
+not published as historical committed evidence.
 
 For online browsing with the original relative links, use the
 [pre-archive snapshot](https://github.com/Haydnlee31/Tradecraft-DSA4266-Grp8/tree/f5ae051).

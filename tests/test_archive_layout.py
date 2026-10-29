@@ -27,11 +27,12 @@ class ArchiveLayoutTests(unittest.TestCase):
 
     def test_all_relocated_bytes_and_expected_scope(self):
         manifest = archive.verify()
-        self.assertEqual(len(manifest['files']), 163)
+        self.assertEqual(len(manifest['files']), 172)
         self.assertEqual(len(archive.archive_tests(manifest)), 22)
-        self.assertEqual(sum(e['bytes'] for e in manifest['files']), 10646119)
+        self.assertEqual(sum(e['bytes'] for e in manifest['files']), 10823316)
         for entry in manifest['files']:
-            self.assertFalse((archive.ROOT / entry['original']).is_file(), entry['original'])
+            self.assertEqual((archive.ROOT / entry['original']).is_file(),
+                             entry.get('active_replacement', False), entry['original'])
         # Hash-pinned active reports and their figure sources were not moved.
         for name in ('thesis/thesis.md', 'federated_shared_optimizer/confirmation-results.json',
                      'full_data_extension/final-closeout.md',

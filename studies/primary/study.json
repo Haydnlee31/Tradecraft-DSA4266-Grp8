@@ -1,0 +1,17 @@
+{
+  "study_id": "primary-matched-v1",
+  "status": "published-retrospective",
+  "plan": "reports/methodology_comparison/plan.json",
+  "evidence": "reports/methodology_comparison/results.json",
+  "methodology": "reports/methodology_comparison/methodology-draft.md",
+  "entrypoint": "scripts/study.py",
+  "seeds": [
+    7,
+    17,
+    27
+  ],
+  "configurations": 11,
+  "backward_examples_per_run": 21600000,
+  "primary_population": "previously_evaluated_confirmation",
+  "supplement": "studies/mimelite-supplement/README.md"
+}

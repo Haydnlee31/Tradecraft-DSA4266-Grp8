@@ -1,131 +1,33 @@
-# Tradecraft — Project Context for Codex
+# Tradecraft: active project scope
 
-This file gives Codex the working context for this repository. Read it before
-making architectural suggestions, adding dependencies, or re-opening scope decisions
-that are already settled below. The full narrative plan (rationale, timeline, decision
-log) lives in the published artifact linked at the bottom — this file is the condensed,
-implementation-facing version of the same plan.
+Read this before changing architecture, dependencies, study boundaries or results. The project now focuses on **centralized versus federated learning and the quality/communication cost of closing their performance gap**. The earlier heavy/light outline is historical context, not the default run protocol.
 
-## What this project is
+## Primary study
 
-A semester deep learning project on IoT network security, built on the CICIoT2023
-dataset. The task: classify network flows into 8 classes (benign + 7 attack categories)
-and compare three training/deployment settings for that same task — centralized-heavy,
-centralized-light, and federated-light — then use explainability (SHAP) to translate
-the trained model's behavior into concrete security-policy recommendations.
+- Downloaded official CICIoT2023 **39 numeric features**, eight classes. The partial Kaggle 46-feature study remains separate. Never zero-fill columns or reuse its scaler/checkpoints to combine representations.
+- 500,000 fitting rows, 399,552 development rows, 398,502 confirmation rows, derived deterministically from the historical 2M-row official training view. Models do not train on all 2M rows. See `docs/data-protocol.md`.
+- One 39 -> 64 -> 32 -> 8 LayerNorm MLP; 20 fixed non-IID virtual clients; full participation; fitting-population aggregation weights.
+- Main narrative: Central Adam, FedAvg-Adam, Shared Adam, block128 four-bit bidirectional residual-feedback compressed Shared Adam. Supporting methods: FedProx, SCAFFOLD, full MIME, with SGD/MIME-base optimizer controls.
+- Frozen primary protocol: `reports/methodology_comparison/plan.json`; 11 configurations, seeds 7/17/27, 21.6M backward examples each.
+- Report macro-F1, all class recalls, actual benign false alerts, application bytes, rounds and logical barriers. A common calibration target does not imply identical realized FAR.
+- Confirmation was already evaluated. No new independent-test claim, threshold refitting on confirmation, favorable-seed selection or silent budget extension.
+- MimeLite is a separate 23.1M-budget, development-only supplement. Never merge its endpoints into the primary confirmation table.
 
-This is deliberately **not** a pure accuracy leaderboard. The point of the project is
-the trade-off: is a small, federated-trained model good enough to justify skipping a
-heavy centralized one, and can the model's reasoning be turned into something a
-security team could act on.
+## Scientific boundaries
 
-## Locked decisions — do not re-litigate
+Federation is simulated on one machine with client-owned rows and explicit aggregation. The main runner uses custom PyTorch updates and some Flower helpers; it is not a physically distributed Flower deployment. Public flow features have no device identity: no device graph or per-device vulnerability claims. No physical-edge, power, privacy or measured wide-area-network claims. Compression reduces bytes, not synchronization frequency. Rare-class detection remains unresolved. Shared Adam is not claimed to be a new optimizer theorem.
 
-These were evaluated and decided already. Re-raising them costs a review cycle; only
-revisit if new evidence contradicts the stated reason.
+Earlier cloud runs used NVIDIA Tesla T4. Primary runs used local macOS ARM CPU. Never relabel hardware based on similar scores. The compressed portable route reports cross-platform differences; it does not establish all-method GPU equivalence. Read `docs/reproduction.md` before training.
 
-- **Classification target: 8-class (benign + 7 CICIoT2023 attack categories)** —
-  DDoS, DoS, Recon, Web-based, Brute Force, Spoofing, Mirai, Benign. Not binary
-  (too narrow — that's what the reference paper already did), not full 33-attack
-  granularity (several subclasses have too few samples for stable evaluation this
-  semester; may be a stretch goal, not the baseline).
-- **No device-topology GNN.** The public CICIoT2023 flow CSVs (47 columns: 46 flow
-  statistics + label) contain no Src/Dst IP, MAC, or device-ID field. Building a real
-  device graph would require the raw ~548 GB pcap release plus custom flow-to-device
-  correlation — out of scope. Do not suggest "build a graph of the 105 devices" as a
-  quick add-on; it isn't one.
-- **No physical edge hardware.** All "edge feasibility" numbers (latency, memory,
-  power) are *projected*, calibrated against the reference paper's measured NVIDIA
-  Jetson Orin Nano benchmarks (~1s/flow inference, ~300 MB RAM, 10–12 W power,
-  ~20 epochs to >90% accuracy on-device). Do not present projected numbers as measured.
-- **No per-device vulnerability claims.** Because device identity isn't in the data,
-  explainability output (Section 07 of the plan) stays at the protocol/feature level
-  (e.g. "SYN-flag concentration drives DoS classification") — never "device type X is
-  most vulnerable."
-- **Federated learning is simulated**, not physically distributed. Multiple virtual
-  clients on one machine via Flower, non-IID partitioning by attack-category mix. This
-  is a stated scope choice, not a limitation to quietly work around.
+## Engineering conventions
 
-## Reference paper (base comparison point)
+- Use `scripts/study.py` for the supported primary workflow. It delegates to frozen implementations rather than replacing numerical behavior.
+- Do not modify hash-pinned sources/plans/results or update old hashes to make a refactor pass. Use a versioned adapter and prove endpoint equivalence.
+- Older `src/` modules can remain active dependencies. Check imports, source contracts and report references before archiving.
+- Preserve explanatory comments and unfavorable results. Use archive manifests and restoration tests. Preserve unrelated working drafts.
+- Stream raw CSV preparation; never load all ~46M occurrences into RAM. Preserve provenance, feature-group membership and row ordering.
+- Fit scaler/class weights on fitting rows only. Keep float32 collision checks. Label ordering/mapping lives in `src/data/label_map.py`.
+- Keep raw inputs/checkpoints/caches out of Git. Use checksum-verified prepared release assets for default reproduction.
+- Synthetic tests are not real-data training evidence. Distinguish report reconstruction, fresh training and raw-data reconstruction.
 
-Díaz-Gorrin, J.; Caballero-Gil, C.; Brankovic, L. *Enhancing Network Security with
-Generative AI on Jetson Orin Nano.* Appl. Sci. 2026, 16, 1442. Their scope: binary
-TCP DoS/DDoS detection only, using an AC-GAN, deployed on a real Jetson Orin Nano.
-Their measured hardware numbers are our calibration anchor (see above). Their dataset
-preprocessing (11 hand-picked TCP flow features, 10k balanced samples) is a useful
-reference for feature selection but not binding — this project uses the fuller
-46-feature set and the full attack taxonomy, not their TCP-only slice.
-
-## Dataset notes (CICIoT2023)
-
-- 105 real IoT devices, 33 attacks across 7 categories, ~46M+ flow records across
-  ~169 CSV files, 47 columns (46 numeric flow-statistic features + label).
-- Features are flow-level aggregates only: header length, protocol flags
-  (fin/syn/rst/psh/ack/ece/cwr counts), rate/Srate/Drate, inter-arrival time stats,
-  protocol indicator flags (HTTP/HTTPS/DNS/TCP/UDP/ICMP/etc.), and statistical
-  moments (min/max/avg/std/magnitude/radius/covariance/variance/weight).
-- **Do not attempt to load the full dataset into memory at once.** Use stratified,
-  chunked sampling from the start. Preserve per-file provenance in the sampling
-  script so results are reproducible.
-- Severe class imbalance: DDoS and Mirai dominate; Brute Force and Web-based are thin
-  slices. Never report bare accuracy as the headline metric — macro-F1 and per-class
-  recall are the real metrics. A model that ignores rare classes and still scores
-  95%+ accuracy is a failure, not a result.
-- The Kaggle mirror (`himadri07/ciciot2023`) **is confirmed partial/merged**: it ships
-  pre-split into `train.csv`/`validation.csv`/`test.csv` (~7.84M rows total, not the
-  original 169-file layout), roughly 17% of the official ~46M-row release. All 34 raw
-  labels are present in every split and match `src/data/label_map.py` exactly (47
-  columns, same names assumed there). Because the split boundary is already fixed
-  upstream, the pipeline respects it (`src/data/sample_dataset.py` samples within each
-  given split rather than re-splitting) instead of building its own train/val/test
-  split from a pooled sample.
-
-## Repository structure (target)
-
-```
-data/
-  raw/            # untouched CSVs (or a pointer/download script — do not commit raw data)
-  sampled/        # stratified samples used for training, with a manifest of source files
-  splits/         # fixed train/val/test splits (seeded, no flow leakage across splits)
-src/
-  data/           # sampling, label mapping (33 attacks -> 8 classes), preprocessing
-  models/         # heavy / light architectures, shared training loop
-  federated/      # Flower client/server setup, FedAvg orchestration
-  eval/           # metrics (macro-F1, per-class recall), FLOPs/size accounting
-  explain/        # SHAP pipeline, policy-recommendation generation
-notebooks/        # exploration only — nothing load-bearing lives only in a notebook
-reports/          # final write-up, figures, trade-off tables
-```
-
-## Tech stack
-
-- Python 3.11+
-- Polars or Dask for large-CSV handling (not plain pandas on the full dataset)
-- PyTorch for model training
-- Flower (`flwr`) for federated simulation
-- scikit-learn for baselines and metrics
-- SHAP for explainability
-
-## Conventions
-
-- Every training run is seeded and logs which sampled files/rows it used.
-- Label mapping (33 attacks → 7 categories + benign) lives in one place
-  (`src/data/label_map.py`) — do not hardcode category strings elsewhere.
-- Any number presented as "measured" must have been actually run in this repo;
-  anything derived from the reference paper's hardware is labeled "projected"
-  in code comments, plots, and the report.
-- Metrics reporting always includes per-class recall, not just an aggregate score.
-
-## Current phase
-
-Check `reports/` or ask the user — phases are: (1) scoping/literature, (2) data
-engineering, (3) centralized baselines, (4) federated simulation, (5) efficiency/
-trade-off analysis, (6) explainability & policy synthesis, (7) write-up. Full
-week-by-week timeline is in the plan artifact below.
-
-## Full plan
-
-The complete narrative plan — problem statement, decision log with reasoning, dataset
-constraints, the three-lane architecture comparison, evaluation plan, illustrative
-explainability output format, and risks/limitations — is published here:
-https://Codex.ai/code/artifact/7d3aa32f-7fba-4f1f-9c01-7aa711009230
+SHAP remains supporting feature-level interpretation if required by the course. No new dashboard, LLM router, classifier search or autonomous security actions are needed. See `studies/historical/README.md` and `archive/README.md` for preserved history and scope documents.

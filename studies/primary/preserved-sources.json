@@ -1,0 +1,31 @@
+{
+  "snapshot": "8ccbe87",
+  "purpose": "Frozen source identities retained through cleanup; never rehash to silence a difference",
+  "files": {
+    "src/eval/shared_optimizer_performance.py": "60b9d077c140d17041585c8847e952dcccd0aedc492edda27d244eaf31405c0b",
+    "src/data/shared_optimizer_data.py": "c0c7692fe3b62f3c1f1e58ef604abb3370a37a3c2d986d4a058577054060ec68",
+    "src/federated/shared_adam.py": "1b8c10b79d5113f6295c0c85c5cd285e36833283da7ba0765579ec71bca4e2e8",
+    "src/federated/mime_adam.py": "a23f54156136d92cb5bab519e97f682378dadfcb87cf3187f3b7186261684b8b",
+    "src/models/architectures.py": "921a1c9fd5f212d647eaea93e8c0fec8134cd0ca1b118d8ed41e7d5d7fd85526",
+    "src/models/official_losses.py": "8d2603b1e875d63ff5fe83ac270d8e410a97738dffa0982f3c37120475f49436",
+    "src/models/losses.py": "2af9a81e5fedb122316db1f83900b34436976a5204a0d8145bdfefe8d76134da",
+    "src/eval/shared_optimizer_alarms.py": "61fa55b840225c700013a422630ddbc39d88dd014cff5a8216d489c5b9330b8a",
+    "src/models/official_streaming.py": "cf7085916f6794867485802236662131c3465d1f40564d692a398c64b7ffe496",
+    "src/data/official_quality.py": "678b8eb1f9385304055ca1eb296644808e495f1d227f853274e4e3b242ae36e7",
+    "src/data/label_map.py": "18f43ecb917d0f453572e497675799930ab6f76e1130b54cd45e7fd463f2d994",
+    "src/eval/shared_optimizer_replication.py": "90211ebd5685fc0d269b0add7ed302de4477f5303e3d29acd2556e3ecda9b7ba",
+    "src/models/research.py": "63f34f4a7911ea2d2cb9f0dd2573bcdadb5a7d3fbae171037e76f7d9ee7e7e88",
+    "src/eval/federated_class_safeguard.py": "9e998665d2424950c079df9082d210d28529582003807e494b4f283857df5ebf",
+    "src/federated/compressed_shared_adam.py": "06a94fe11b80a9ac74264562e5a40c0bed10cbc85ce7bdc3d9f948319157ed86",
+    "src/eval/shared_optimizer_compression.py": "6d83d96e290a16d8a2ad018a10e03ee4178dfe405d80b9c5d4f509623ab15f13",
+    "src/federated/block_shared_adam.py": "9d3de59579e236b628d8a317c444f38cc7727d2c9ab4882e229151bd4fed0f92",
+    "src/eval/shared_optimizer_block_compression.py": "5e800d8c22cf68ae160f321c4eaef9b0f5f331729e2b17b73c90acf983a2458f",
+    "src/eval/shared_optimizer_block_replication.py": "f2f8af987a5fc9c45e4544088ffaa32e1f4a4407d4eaf19279d3f06e092638d9",
+    "src/eval/shared_optimizer_confirmation_prepare.py": "ba5e8df7ad3957f99b5af2cc82cacafad86aed639cadb8a87627f811da9f4b88",
+    "src/data/official_subsets.py": "bc93681a578a5febbf0be2ddd86a220156a191196cdb92fea7efe54ffcf7628c",
+    "src/data/official_loader.py": "1ca5b6d48df7b4980cdd04a3eac7d9b2c112afb56000505193aa18ec07dfe431",
+    "src/data/official_inventory.py": "db739e192c9538b89c2abbf93531bd917a0eb57e7a0289b05a474274b967351a",
+    "src/data/shared_optimizer_confirmation.py": "68538dcedbd92ea7367310fea0de7bb7b6b721d13c2085314bd7a2e3b5dccfcd",
+    "src/eval/shared_optimizer_confirmation.py": "30300a5c9e1d5cdd015c0068e07eafe1bfafd32c844be5ada309634a860480a1"
+  }
+}

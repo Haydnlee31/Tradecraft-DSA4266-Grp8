@@ -1,23 +1,11 @@
-# Study results and thesis guide
+# Results index
 
-Start with the [integrated thesis](thesis/README.md): it connects the original
-heavy/light comparison, the official39 study and the confirmed shared-optimizer
-extension. The three populations have different protocols and must not be treated
-as one accuracy leaderboard.
+The primary thesis evidence is [methodology_comparison](methodology_comparison/README.md): 11 configurations, 3 seeds, 21.6M backward examples, development and retrospective confirmation. Read the [results](methodology_comparison/results.md), [interpretation](methodology_comparison/findings.md) and [methodology draft](methodology_comparison/methodology-draft.md).
 
-| Study | Main findings | Evidence |
-| --- | --- | --- |
-| Original configured heavy/light/federated models | [Three-seed comparison](confirmation_2026_10_05/README.md) | [Aggregate results](confirmation_2026_10_05/results/summary.json) |
-| Official39 centralized and federated light models | [Final closeout](full_data_extension/final-closeout.md) | [Class and cost synthesis](federated_class_safeguards/study-synthesis-tables.md) |
-| Shared optimizer and compression | [Reserved confirmation findings](federated_shared_optimizer/confirmation-findings.md) | [Audited results](federated_shared_optimizer/confirmation-results.json) |
-| Explanations | [Original SHAP audit](explanations_2026_10_05/README.md) and [official39 analysis](full_data_extension/explanation-study.md) | Feature-level interpretation, not device vulnerability or causal rules |
+The original [shared-optimizer confirmation](federated_shared_optimizer/confirmation-findings.md) is historical four-arm evidence. The broader matched study reproduces those controls while adding methods; these are not independent generalization studies.
 
-The dated convergence, loss, normalization, screening, cloud and diagnostic
-folders are supporting evidence. They remain at their existing paths because
-active summaries and receipt checks depend on them. Completed evaluations are
-not instructions to keep tuning on their exposed test sets.
+[MimeLite](mimelite_fair_comparison/README.md) is a separate supplement with 23.1M backward examples and development-only evaluation. Its scores do not replace the primary confirmation results.
 
-Retired classifier searches and superseded early results are in the
-[historical archive](../archive/README.md). New scratch runs belong under ignored
-`outputs/`, not beside published report receipts. PDFs are review copies under
-ignored `output/pdf/`; editable thesis text and figures are checked in.
+[Historical studies](../studies/historical/README.md) cover legacy46, official39 cloud baselines, SHAP and diagnostics. The [older integrated manuscript](thesis/README.md) combines those phases; it is context, not the canonical primary-only draft.
+
+Older evidence directories remain where checksum contracts or thesis sources depend on them. They are not invitations to restart every experiment. Use [the supported reproduction guide](../docs/reproduction.md) instead of dated next-step instructions. Fresh outputs belong under ignored `outputs/`.

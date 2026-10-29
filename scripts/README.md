@@ -1,19 +1,14 @@
-# Active analysis and writing commands
+# Supported commands
 
-The main study uses `python -m src.experiment`, the research runner described in
-[src/models/RESEARCH.md](../src/models/RESEARCH.md), and the official39 and shared
-optimizer modules under `src/`. These scripts support audited evaluation and
-writing rather than automatically launching a new experiment.
+Use **`python scripts/study.py --help`** for the primary workflow: `setup`, `check`, `audit`, `train`, `evaluate`, `compare`, `report`, `reproduce`. See [reproduction](../docs/reproduction.md) for runtime, inputs and commands.
 
-| Scripts | Purpose |
+| Other entry point | Status |
 | --- | --- |
-| `reproduce_shared_adam.py` | Download/check frozen inputs and retrain the three-seed compressed Shared Adam result; default strict replay or explicit `--mode portable` for cross-platform metric comparisons. See the [reproduction guide](../reports/federated_shared_optimizer/reproduction-guide.md) |
-| `study_thesis.py`, `shared_optimizer_thesis_figures.py`, `render_thesis_pdf.py` | Rebuild the [thesis and figures](../reports/thesis/README.md) from saved evidence |
-| `official39_study_synthesis.py`, `official39_final_report.py`, `official39_closeout.py` | Audit and summarize completed official39 results |
-| `official39_ablation_confirmation.py`, `official39_final_evaluation.py`, `official39_test_panel.py` | Frozen historical evaluation tooling; read the locked protocol before use |
-| `archive_tools.py` | Verify archived bytes, reconstruct historical paths and run retired regression tests |
+| `reproduce_shared_adam.py` | Input bootstrap and separate compressed strict/portable reproduction |
+| `methodology_report.py` | Primary auditor/renderer, called by `study.py` |
+| `mimelite_report.py` | Supplement renderer |
+| `archive_tools.py` | Verify bytes or restore historical paths for regression tests |
+| `study_thesis.py`, `shared_optimizer_thesis_figures.py`, `render_thesis_pdf.py` | Historical integrated writing tools |
+| `official39_*` | Frozen historical tooling; follow its locked protocol |
 
-The 21 classifier/routing search scripts have moved to
-[archive/classifier_search/scripts](../archive/classifier_search/scripts).
-They are not part of the current centralized-versus-federated workflow. Their
-comments and associated tests are preserved; see the [archive guide](../archive/README.md).
+Retired classifier scripts and the superseded single-seed table audit live in `archive/`. Restore them with `archive_tools.py`; do not execute them directly from relocated paths. No script starts cloud infrastructure.

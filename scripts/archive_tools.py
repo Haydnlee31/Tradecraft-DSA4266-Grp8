@@ -38,11 +38,17 @@ def verify(root=ROOT):
         original = relative_path(entry['original'])
         saved = relative_path(entry['archived'])
         group = entry['group']
-        if group not in {'classifier_search', 'early_runs', 'proposals'}:
+        if group not in {'classifier_search', 'early_runs', 'proposals', 'superseded_docs', 'table_audit'}:
             raise ValueError('Unknown archive group')
         if saved != PurePosixPath('archive', group) / original:
             raise ValueError('Archive mapping changed')
-        if original.parts[0] not in {'src', 'scripts', 'tests', 'reports', 'research_notes'}:
+        replacement = entry.get('active_replacement', False)
+        if replacement != (group == 'superseded_docs'):
+            raise ValueError('Only superseded documentation may retain an active replacement')
+        if group == 'superseded_docs' and str(original) not in {
+                'README.md', 'AGENTS.md', 'CLAUDE.md', 'reports/README.md', 'scripts/README.md'}:
+            raise ValueError('Unapproved documentation snapshot')
+        if original.parts[0] not in {'src', 'scripts', 'tests', 'reports', 'research_notes'} and not replacement:
             raise ValueError('Archive source outside approved directories')
         if str(original) in originals or str(saved) in archived:
             raise ValueError('Duplicate archive mapping')
