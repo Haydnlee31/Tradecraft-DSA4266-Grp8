@@ -1,0 +1,15 @@
+{
+  "version": "bounded-extensions-integration-v1",
+  "frozen_before_new_control_runs": "2026-10-29",
+  "seeds": [7,17,27],
+  "xgboost_version": "3.4.1",
+  "selected_primary_method": "block128 compressed Shared Adam",
+  "selection_does_not_imply_best_accuracy": true,
+  "neural_fedlc": "extensions/fedlc/plan.json: paired controls, 12 runs, 21.6M backward examples each; development only",
+  "ple": "9 runs: central PLE, compressed PLE, raw wide compressed control at each seed. Reuse historical PLE16, architecture, rates, samples, 21.6M backward examples. Central PLE seed17/27 fills missing matched representation controls; no tuning.",
+  "trees": "9 runs: central, cyclic, cyclic FedLC. Frozen depth6,200 boosting rounds,10x20 client visits, cosine eta .05 to .015, sqrt weights. Central uses same final tree capacity and schedule, but 100M row-visits versus 5M cyclic. Not compute matched to one another or neural nets.",
+  "payload": "Neural encoded message bytes; tree historical cached-tree estimate AND full-model UBJSON uplink/downlink sum. Neither is measured network traffic. Full-model path more closely describes serial model handoff. No latency ranking from differing barriers.",
+  "evaluation": "Same 500k fit rows, development calibration/audit and per-seed 5% target. Report all targets and class metrics. Existing PLE and FedLC-tree confirmation endpoints replayed with frozen models/thresholds only. No newly trained control or neural FedLC is scored on confirmation.",
+  "limits": "Retrospective within-collection study, one client partition, different historical tuning effort. PLE bins and global class weights use pooled fit information. No privacy or external generalization claim.",
+  "historical_sources": {"fedxgb": "26f5ad6", "ple": "e1a8318", "neural_fedlc": "66fd10a"}
+}

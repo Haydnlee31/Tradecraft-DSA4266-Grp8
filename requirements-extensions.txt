@@ -1,0 +1,3 @@
+# Bounded extensions use the same neural environment plus the frozen tree engine.
+-r requirements-methodology.txt
+xgboost==3.4.1
