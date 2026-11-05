@@ -20,7 +20,7 @@ Networked robot fleets motivate the application: sites may benefit from collabor
 | FedLC, cyclic XGBoost and PLE | [Bounded extensions and reproduction](studies/bounded-extensions/README.md) |
 | Additional MimeLite comparison | [Separate supplement](studies/mimelite-supplement/README.md) |
 | Earlier Kaggle/cloud/SHAP studies | [Historical index](studies/historical/README.md) |
-| Cleanup and verification | [Repository maintenance](docs/repository-maintenance.md) |
+| Source integrity and verification | [Repository maintenance](docs/repository-maintenance.md) |
 
 ## Main findings
 

@@ -7,9 +7,9 @@ Use it with the [results](../reports/methodology_comparison/results.md) and
 to the 27 October methodology PDF and its 33-run matched comparison.
 
 The main study runs on the recorded local macOS ARM CPU environment. Earlier
-Tesla T4 cloud experiments are a separate phase. Report actual hardware, simulated
-client execution, retrospective confirmation and modeled communication honestly.
-Do not describe 0.6325 as recall; it is three-seed confirmation macro-F1.
+Tesla T4 cloud experiments are a separate phase. The comparison uses simulated
+clients, retrospective confirmation and modeled communication. The reported
+0.6325 is three-seed confirmation macro-F1, not recall.
 
 The [older integrated manuscript](../reports/thesis/README.md) retains the wider
 project history. Its frozen text/figure manifests remain intact. Use the focused

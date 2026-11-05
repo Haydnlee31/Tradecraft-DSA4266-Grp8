@@ -1,14 +1,12 @@
-# Cleanup and maintenance
+# Repository integrity and verification
 
-## Preserved starting point
+## Preservation baseline
 
-Committed baseline: `8ccbe87`, branch `snapshot/pre-repository-cleanup-2026-10-29`.
-Cleanup branch: `cleanup/focused-study`. Nineteen locally modified/untracked files
-and the tracked diff were backed up under ignored
-`outputs/repository-cleanup-preservation-2026-10-29-v1/`. Unrelated drafts remain
-in place; they are not automatically staged or published. The root README was
-intentionally replaced with the focused guide; its pre-cleanup working version
-and patch are preserved in that local backup.
+The preservation baseline is commit `8ccbe87`, retained on
+`snapshot/pre-repository-cleanup-2026-10-29`. Frozen implementations, numerical
+results and historical records remain auditable through the source preservation
+record and archive manifest. Local working drafts and private outputs are not
+part of the published evidence.
 
 ## Changes
 
@@ -47,8 +45,8 @@ The [verification receipt](verification.json) records:
   images byte-for-byte. No workspace data/checkpoints/untracked modules supplied
   the clean run. The existing pinned Python environment was reused.
 
-The remaining post-validation edits are documentation links and this receipt;
-the validated numerical implementations and workflow adapter are unchanged.
+The receipt identifies the exact validated snapshot. Subsequent documentation
+edits do not extend its claims to untested code or experiments.
 
 The MimeLite numerical code/evidence is unchanged and remains a separate study;
 cleanup does not require another search. The raw ~46M-record reconstruction is

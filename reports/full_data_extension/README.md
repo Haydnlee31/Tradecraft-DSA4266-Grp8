@@ -3,7 +3,7 @@
 ## Latest research status on 11 October 2026
 
 **The official39 extension is complete through final evaluation and local
-closeout.** Start with the [final results and teammate handoff](final-closeout.md).
+closeout.** Start with the [final results and reproducibility](final-closeout.md).
 All 27 frozen models completed the final test on the common 2,040,729-row
 population and the original 2,060,864-row secondary population. Full39 mean
 macro-F1 is 0.65673 centralized, 0.61169 IID and 0.40494 controlled non-IID.
@@ -13,9 +13,10 @@ The [portable final evidence](final-test-results.json),
 [complete tables](final-test-tables.md) and
 [research decision view](final-test-decision.json) retain all models, seeds,
 classes and error types. They are separate from the original46 decision engine
-and do not authorize automatic allow/block actions. Steps 6, 7 and the
-official39 handoff in step 8 are complete. Keep RONIN stopped; no further cloud
-training or parameter search is planned.
+and do not support automatic allow/block actions. Final evaluation, research
+decision integration and reporting are complete. This directory records the
+historical scaling study; use the [primary study guide](../../studies/primary/README.md)
+for the current comparison.
 
 ```bash
 python scripts/official39_final_report.py audit
@@ -115,7 +116,7 @@ attack categories. These are informative research findings, not deployment readi
 
 The [portable evidence receipt](decision-evidence.json) retains 72 validation
 endpoints in separate comparison groups, including all eight class recalls.
-These are not 72 independent training runs. Teammates can audit the metrics with
+These are not 72 independent training runs. The metrics can be audited with
 `python -m src.eval.official_evidence --audit reports/full_data_extension/decision-evidence.json`
 without the dataset, models or a GPU.
 
@@ -480,22 +481,3 @@ The expanded study needs its own frozen evaluation protocol. Its results cannot 
 directly subtracted from the old mirror scores and called a data-size effect: source
 coverage, splits and composition also change. Make learning-curve comparisons within
 the new protocol. Keep any genuinely new test partition sealed until final selection.
-
-## Spending limits and next handoff
-
-The proposed $170 envelope is $25 for preparation/pilots, $45 for learning curves,
-$40 for targeted controls, $40 for confirmation and $20 contingency. These are caps,
-not measured costs or authorization to exhaust the balance. Confirm actual RONIN
-rates and storage costs before launching. No instances or downloads are automated.
-
-Next checkpoint: review and commit the client diagnostics and bounded-update
-extension, then transfer a fixed snapshot and pass its CUDA recovery gate before
-running the planned same-code bridges and capped comparison.
-Do not run full-scale training yet. The branch
-`experiment/full-data-scaling` remains local until the user chooses to publish it.
-
-The audited source-shard milestone was committed locally as `3773e51`.
-Keep raw data, derived shards, environments and audit databases out of that commit.
-Review the existing synthesis/demo changes separately when staging, because they
-pre-date this extension work. A push remains a separate decision; passing data
-checks does not yet establish that the extension improves the research results.

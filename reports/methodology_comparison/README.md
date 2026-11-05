@@ -5,14 +5,14 @@ This is the **primary thesis study**. Start with the current
 [unified reproduction workflow](../../docs/reproduction.md). The lower-level
 commands below remain supported; numerical protocols and evidence are unchanged.
 
-The six requested method families are implemented in the repository. What was
-missing was one matched comparison spanning all of them. Historical FedProx used
+The comparison implements six federated method families under a common protocol.
+Historical FedProx used
 the older feature/split protocol; historical SCAFFOLD was a continuation of a
 trained model. Those scores must not be merged into the final Shared Adam table.
 
 ## Implementation inventory
 
-| Method | Existing implementation | Role in the new comparison |
+| Method | Existing implementation | Role in the matched comparison |
 | --- | --- | --- |
 | FedAvg | `src/eval/shared_optimizer_performance.py` and Flower simulation entry points | Frozen reset-client-Adam baseline plus a matched SGD control |
 | FedProx | `src/models/train.py` and `src/models/research.py` | Common-protocol adapter using the same quadratic penalty gradient; both historical coefficients retained |
@@ -95,7 +95,7 @@ control arms against their recorded confirmation results.
 - [Interpretation and revised method summaries](findings.md): what the results
   support, what changed from the earlier narrative, and what remains unresolved.
 - [results.json](results.json): aggregate evidence, all 33 endpoints and independent checks.
-- [per-seed-metrics.csv](per-seed-metrics.csv): numerical table for teammates, not private input rows.
+- [per-seed-metrics.csv](per-seed-metrics.csv): per-seed aggregate metrics; contains no private input rows.
 
 All 33 serialized-recovery checks passed. The four original controls across
 three seeds reproduced all 12 model, confirmation-logit and metric endpoints

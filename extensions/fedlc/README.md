@@ -1,7 +1,7 @@
 # FedLC extension
 
-**Status: integrated for validation.** The plan was frozen before local training
-on branch `study/bounded-extensions`. The original teammate implementation and
+**Status: integrated supporting study.** The plan was frozen before local training.
+The original contributed implementation and
 comments are retained. See the [bounded extension guide](../../studies/bounded-extensions/README.md)
 for the current run commands and consolidated results. CI includes these tests
 through `tests/test_neural_fedlc.py`.
@@ -102,9 +102,9 @@ before running.
 
 ## Run
 
-1. **Get the data.** You need the prepared bundle
-   `shared-optimizer-development-data-v1` from whoever ran the shared-Adam
-   reproduction. It must contain `manifest.json`, `fit_x.npy`, `fit_y.npy`,
+1. **Get the data.** Follow the [reproduction guide](../../docs/reproduction.md)
+   to obtain the checksum-verified `shared-optimizer-development-data-v1` bundle.
+   It must contain `manifest.json`, `fit_x.npy`, `fit_y.npy`,
    `development_x.npy`, `development_y.npy`, `fit_row_ids.npy`,
    `development_row_ids.npy`, `clients.npz` and `scaler.json`. The loader
    verifies the published manifest checksum, every file checksum, shapes, class

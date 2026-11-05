@@ -9,8 +9,7 @@ figure/evidence manifests below have not been rewritten by the repository cleanu
 [Read the integrated manuscript](thesis.md). It connects the original heavy/light
 comparison, official39 study, explanation work and confirmed shared-optimizer
 extension. This is an academic content draft, not a university-formatted final
-submission. No template or page limit was found in the repository. Author names,
-institutional front matter and required citation style still need team review.
+submission. Its historical layout is separate from the final course submission.
 
 The draft preserves three distinct evaluation settings. The legacy comparison
 uses validation-selected configurations; official39 uses frozen final-test
@@ -85,18 +84,3 @@ The PDF SHA-256 is
 The ignored `outputs/integrated-thesis-qa-v1/review.json` receipt records the
 PDF, manuscript and renderer identities. Regression tests include small test
 fixtures, not new study experiments; no cloud compute was used.
-
-## Submission review still needed
-
-1. Apply the course template, page limit, author details and required references
-   style once supplied. Confirm any declaration about AI assistance required by
-   the course rather than inventing one.
-2. Have teammates verify descriptions of their original implementations and the
-   scoped empirical claims. The draft is not a claim that experiments or prose
-   were independently authored or verified by every teammate.
-3. Keep operational deployment and physical-edge claims out unless separately
-   measured. The final candidate improves the tested FedAvg control; it does not
-   solve rare-class detection or establish a novel optimization theorem.
-4. Preserve the local extension branch until the user chooses to push it. Review
-   integration into the shared project branch separately; do not overwrite
-   unrelated manuscript or teammate work.

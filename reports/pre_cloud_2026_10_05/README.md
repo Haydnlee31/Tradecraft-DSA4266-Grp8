@@ -1,9 +1,10 @@
 # Pre-cloud checkpoint — 2026-10-05
 
-This is the final local preparation checkpoint before a **small cloud pilot**.
-It is not full-scale training clearance or operational security approval. No cloud
-resources were launched, and this study did not evaluate the held-out test split.
-See [CLOUD_HANDOFF.md](CLOUD_HANDOFF.md) for the remaining cloud-specific checks.
+This historical checkpoint records local preparation before the first cloud
+pilot. At this stage, no cloud resources had been launched and this study had not
+evaluated the held-out test split. Subsequent cloud outcomes are recorded in the
+[cloud study](../cloud_study_2026_10_06/README.md). For the current primary study,
+use the [reproduction guide](../../docs/reproduction.md).
 
 ## Consolidated findings
 

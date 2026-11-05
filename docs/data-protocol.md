@@ -43,7 +43,7 @@ availability does not authorize using them for model selection.
 ## Optional: reconstruct from raw CSVs
 
 The source acquisition and historical reconstruction tools remain supported as
-advanced building blocks, not as the default teammate workflow. Read the
+advanced building blocks; prepared inputs are the default reproduction route. Read the
 [original source/audit/materialization guide](../reports/full_data_extension/README.md)
 and the [detailed methodology](../reports/methodology_comparison/methodology-draft.md).
 Do not use the legacy 46-feature `official_inventory` conversion prototype for
@@ -64,7 +64,7 @@ download or newly drawn partition is not an exact reconstruction. Never bypass
 the checks or rewrite receipts to accept it. A future new source version needs
 its own protocol and outputs.
 
-This cleanup validates reproduction from the published prepared inputs; it does
-not rerun the complete ~46M-record raw reconstruction. All existing raw builders
+The recorded verification covers reproduction from the published prepared inputs;
+it does not include a fresh complete ~46M-record raw reconstruction. All existing raw builders
 and their regression tests are retained. Raw arrays, caches and checkpoints stay
 outside Git. [Reproduction guide](reproduction.md).

@@ -1,7 +1,7 @@
-# Official39 final results and teammate handoff
+# Official39 final results and reproducibility
 
 Updated 11 October 2026. The official39 extension is complete through final
-evaluation, research decision integration and this handoff. All 27 frozen
+evaluation, research decision integration and aggregate reporting. All 27 frozen
 models completed the final test. Centralized light remains the strongest
 predeclared reference, but rare-attack failures and benign false alerts prevent
 these results from supporting operational deployment. No more cloud training
@@ -178,7 +178,7 @@ python scripts/official39_final_report.py decision
 python scripts/official39_final_report.py tables
 ```
 
-For a quieter file-based handoff, choose fresh ignored destinations:
+To save the aggregate audit and tables, choose fresh ignored destinations:
 
 ```bash
 python scripts/official39_final_report.py decision --output outputs/official39-final-review/decision.json
@@ -199,21 +199,17 @@ The final completion receipt SHA-256 is
 The original design and preparation receipts keep their historical flags;
 the final execution receipt records the subsequent approved test evaluation.
 
-## Completion and remaining team work
+## Completed evaluation stages
 
 | Roadmap stage | Status | Deliverable |
 | --- | --- | --- |
 | 6 Final test evaluation | Complete | All 27 frozen models and both populations audited |
 | 7 Results and research decision integration | Complete | Portable evidence, all-class tables, explicit error risks and separate research decision view |
-| 8 Official39 report and teammate handoff | Complete | This report, detailed appendix, links to prior experiments and offline reproduction commands |
+| 8 Official39 report and reproducibility | Complete | This report, detailed appendix, links to prior experiments and offline reproduction commands |
 
-Teammates should use branch `experiment/full-data-scaling`. Their remaining
-work is to incorporate this extension into the overall submission and review
-any merge into the shared branch. The original 46-feature comparison remains a separate
-section. This closeout does not claim that the entire semester manuscript or
-all teammates' work is finished, and does not merge branches automatically.
-
-Keep RONIN stopped. Preserve the private archives and raw data outside Git.
+This is a completed historical study. The current comparison is documented in
+the [primary study guide](../../studies/primary/README.md); the original
+46-feature comparison remains separate. Private archives and raw data remain outside Git.
 The final holdout is now exposed; do not use it to choose another architecture,
 threshold, seed or mask and then report it as an untouched final test. A future
 research extension needs a new protocol and independent evaluation evidence.

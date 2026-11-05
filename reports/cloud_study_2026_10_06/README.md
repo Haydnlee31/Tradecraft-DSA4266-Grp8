@@ -1,12 +1,13 @@
-# Cloud FedAvg study and FedProx handoff — 2026-10-06
+# Cloud FedAvg study and FedProx protocol — 2026-10-06
 
 ## Outcome
 
-The cloud pipeline is operational on the user's RONIN G4dn/T4 environment, but
+The cloud pipeline was verified on a RONIN G4dn/T4 environment, but
 none of the matched light-model configurations is operationally ready. Non-IID
 FedAvg repeatedly misses rare attacks across training seeds and client partitions.
-Preserve these results as the baseline; the next optional extension is FedProx,
-not a larger model or a replacement of the original study.
+These findings motivated a bounded FedProx experiment. This report documents
+that historical stage; the [primary study](../../studies/primary/README.md)
+contains the current matched comparison.
 
 The [auditor](audit.py) verified **19 completed runs in seven supplied archives**:
 four two-step recovery pilots, two 60-step references, two tuning runs, one loss
@@ -114,7 +115,7 @@ confirmation by relabeling it. Current cloud tuning did not evaluate it. Federat
 remains single-machine simulation with pooled preprocessing/global class weights;
 no physical distribution, privacy guarantee or per-device vulnerability follows.
 
-## Next: optional, bounded FedProx extension
+## Historical FedProx preparation
 
 [Local verification](local_verification.json): all 46 unit tests and dependency
 checks passed. The actual-data two-round CPU pilot passed mu=0 equivalence and
@@ -128,6 +129,5 @@ See [FEDPROX.md](../../src/models/FEDPROX.md) and
 [frozen screen plan](../../configs/cloud_fedprox_plan.json). The earlier local
 12-run plan is not extended or overwritten. This is a new explicitly scoped plan:
 one same-code FedAvg bridge plus two FedProx candidates, after correctness pilots.
-No experiment was launched on the cloud by this handoff. Keep the GPU stopped
-while local verification is performed. The original configured-model report and
-all failed screening evidence remain unchanged.
+These preparation checks did not launch a cloud experiment. The original
+configured-model report and all failed screening evidence remain unchanged.

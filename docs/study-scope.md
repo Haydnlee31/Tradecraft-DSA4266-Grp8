@@ -27,7 +27,7 @@ values nor the earlier unverified MimeLite claims belong in the primary table.
 
 ## Bounded extensions
 
-The user-authorized [FedLC, cyclic XGBoost and PLE comparisons](../studies/bounded-extensions/README.md)
+The [FedLC, cyclic XGBoost and PLE comparisons](../studies/bounded-extensions/README.md)
 are retained as supporting studies. Neural FedLC has paired unchanged controls;
 PLE has a centralized representation control and a raw capacity control; cyclic
 XGBoost has a paired uncalibrated control and a central tree-capacity control.

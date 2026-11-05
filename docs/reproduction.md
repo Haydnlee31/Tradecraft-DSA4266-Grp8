@@ -7,10 +7,10 @@ Exact primary replay uses **Python 3.13.9, PyTorch 2.14.0, NumPy 2.5.3, Flower
 existing strict guards remain. No RONIN session is needed. Generic cross-platform
 unit tests do not guarantee bitwise numerical equality of full training.
 
-From a new clone of branch `cleanup/focused-study`, with Python 3.13.9 installed:
+From a new clone of `main`, with Python 3.13.9 installed:
 
 ```bash
-git clone --branch cleanup/focused-study https://github.com/Haydnlee31/Tradecraft-DSA4266-Grp8.git Tradecraft-focused
+git clone --branch main https://github.com/Haydnlee31/Tradecraft-DSA4266-Grp8.git Tradecraft-focused
 cd Tradecraft-focused
 python3.13 -m venv .venv
 source .venv/bin/activate
